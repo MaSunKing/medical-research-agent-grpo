@@ -1,0 +1,10 @@
+# Environment used by the validated Qwen3-8B NF4/BF16 server run.
+# Install PyTorch from the CUDA 12.4 index before applying this constraints file.
+torch==2.6.0+cu124
+transformers==4.52.4
+tokenizers==0.21.1
+peft==0.15.2
+accelerate==1.7.0
+bitsandbytes==0.50.0
+safetensors==0.8.0
+lm-format-enforcer==0.11.3

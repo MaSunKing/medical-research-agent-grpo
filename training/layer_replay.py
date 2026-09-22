@@ -1,4 +1,9 @@
-"""Experimental Qwen3 cached-shape replay. Not a production training switch."""
+"""Qwen3-specific replay path used by the RL trainer.
+
+Validated for the pinned Qwen3/Transformers SDPA configuration.  This module
+is not a general-purpose replay implementation: it intentionally relies on
+the inspected Qwen3 model structure and a Transformers internal mask helper.
+"""
 import torch
 from torch.utils.checkpoint import checkpoint
 from transformers.cache_utils import DynamicCache

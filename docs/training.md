@@ -8,6 +8,8 @@
 
 GPU 训练需要 Linux/WSL、兼容 CUDA PyTorch、自有模型与数据、真实 capture 及可信 authority。安装依赖不会自动生成可训练 batch；公开静态案例的摘录不能代替 token-exact 的训练记录。
 
+已验证的服务器组合固定在 [`constraints-training-cu124.txt`](../constraints-training-cu124.txt)：PyTorch 2.6.0+cu124、Transformers 4.52.4、PEFT 0.15.2、bitsandbytes 0.50.0 和 lm-format-enforcer 0.11.3。基础模型为 `Qwen/Qwen3-8B`，冻结 revision 为 `b968826d9c46dd6066d109eabc6255188de91218`。这是可复现实验身份，不表示其他版本一定不兼容。
+
 ## SFT
 
 sft/train_tc2.py 实现 completion-only、样本加权的单卡 QLoRA。Prompt labels 被 mask，completion Token 参与 loss，样本权重独立施加。参考配置为 NF4 double quantization、bfloat16、attention/MLP LoRA（r32、alpha64、dropout0.05）。
@@ -34,9 +36,9 @@ python -B sft/train_tc2.py --help
 → 留出集配对评测
 ```
 
-training/train.py 需要绑定 batch、模型路径、起始 adapter 和独立可信 authority。先查看 CLI，不手工拼造评分记录。--preflight 不加载模型，真实训练另做 behavior replay parity 检查。
+training/train.py 需要绑定 batch、模型路径、起始 adapter 和独立可信 authority。先查看 CLI，不手工拼造评分记录。--preflight 不加载模型，真实训练另做 behavior replay parity 检查。`training/layer_replay.py` 是 trainer 当前使用的 Qwen3 专用 replay 路径；它依赖已检查的 SDPA 模型结构与 Transformers 内部 `_update_causal_mask`，不是面向任意模型或任意 Transformers 版本的通用实现。
 
-参考默认参数：lr 1e-6、epsilon 0.2、target KL 0.02、parity tolerance 0.05。这里的 `target_kl` 只用于监控并触发 early stop，不是在优化目标中额外加入 reference-policy KL penalty。它们不是已证明最优的超参数。GPU trainer 使用 Linux 锁机制，应采用 Linux/WSL 并安装兼容 CUDA PyTorch；依赖见 pyproject.toml，部署版本需单独冻结验证。
+参考默认参数：lr 1e-6、epsilon 0.2、target KL 0.02、parity tolerance 0.05。这里的 `target_kl` 只用于监控并触发 early stop，不是在优化目标中额外加入 reference-policy KL penalty。`parity tolerance` 是阻止更新的 fail-fast 安全上限，不是期望误差；已完成的一次工程验收实测最大差值约为 7.39×10⁻⁶。由于该数值尚未覆盖多种真实序列长度、硬件和量化运行，当前不从单次观测直接推导更窄的默认阈值；后续应根据多批 replay 的最大差值分布收紧。上述参数均不是已证明最优的超参数。GPU trainer 使用 Linux 锁机制，应采用 Linux/WSL 并安装兼容 CUDA PyTorch；宽松依赖范围见 pyproject.toml，已验证的精确组合见上述 constraints 文件。
 
 ## 批次安排
 

@@ -23,6 +23,7 @@
 | 增量覆盖与不可变回执 | [shared/gain_contract.py](../shared/gain_contract.py) |
 | 奖励编译与组内优势 | [training/core.py](../training/core.py) |
 | 裁剪策略损失 | [training/policy_loss.py](../training/policy_loss.py) |
+| Qwen3 专用行为概率 replay | [training/layer_replay.py](../training/layer_replay.py) |
 | 实际 LoRA 更新 | [training/train.py](../training/train.py) |
 
 ## Judge 的版本目录如何理解
