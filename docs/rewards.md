@@ -13,6 +13,8 @@
 | Tool cost / policy event | 可信执行成本或有 authority 证明的违规 |
 | Stop | 可信且可评价的主动停止；forced termination 是 N/A |
 
+Stop 只有在模型主动生成、存在可信 termination receipt 且能精确绑定对应 Token 时才具备训练资格。`forced / quota_exhausted / error / cancelled` 只保留终止审计，不把 Stop 通道补成 0 分，也不进入 Stop advantage。
+
 不能用读后 evidence gain 反改事前 Browse 评分。Provenance、schema 和 scorer identity 是放行条件，不是正奖励来源。Pending/unobservable 不偷偷补成零；固定四轨迹题组中任一必需核心奖励缺失，整组不得计算 advantage。
 
 ## 增量 Coverage

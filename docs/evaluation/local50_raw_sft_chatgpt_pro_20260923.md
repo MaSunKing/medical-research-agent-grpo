@@ -4,7 +4,7 @@
 
 在同一 Qwen3-8B backbone、同一评测 Runtime 与同一冻结题集下，SFT 在 50 题配对评测中取得 **36 胜、10 负、2 平、2 个双方失败平局**。Raw 严格端到端通过 41/50，SFT 通过 43/50。
 
-在双方端到端均有效的 36 对样本中，公开展示均分为 Raw **64.36**、SFT **81.65**，差值 **+17.28**。这说明当前冻结样本上，SFT 更稳定地完成了工具协议、证据选择、状态更新、停止与引用式回答；该结果不等同于临床正确率，也不是统计显著性结论。
+在双方端到端均有效的 36 对样本中，冻结综合均分为 Raw **64.36**、SFT **81.42**，差值 **+17.06**。这说明当前冻结样本上，SFT 更稳定地完成了工具协议、证据选择、状态更新、停止与引用式回答；该结果不等同于临床正确率，也不是统计显著性结论。
 
 ## 评测方法
 
@@ -14,7 +14,7 @@
 - 维度：Checklist、Search、Browse、Evidence、State、Stop、Final Completeness、Fidelity、Citation、Clarity。
 - 原始维度采用 0–4 的离散评分；null 表示不可观察，不按 0 分处理。
 - 协议有效性优先：没有被冻结审计接受的 Final 时，不生成正式综合分。
-- 为避免把离散 rubric 的满档误读为“绝对完美”，GitHub **公开展示分最高记为 99.50**。本规则只将 4 个原始 100.00 展示为 99.50，不改变任何维度标签、E2E 判定、胜负或冻结原始记录。
+- 逐题分数直接按同一冻结 rubric 加权计算，不另设展示上限；100.00 只表示在本次可观察维度的离散档位中达到最高档，不等同于绝对医学正确。
 
 ## 汇总指标
 
@@ -23,8 +23,9 @@
 | 严格端到端通过 | 41/50 | 43/50 |
 | strict-final success | 49/50 | 44/50 |
 | first-attempt success | 39/50 | 35/50 |
+| 经一次格式纠正后恢复的 Final | 10/50 | 9/50 |
 | 严格胜场 | 10 | 36 |
-| 条件展示均分 | 64.36 | 81.65 |
+| 条件综合均分 | 64.36 | 81.42 |
 
 有效平局 2 题；双方失败平局 2 题。strict-final 与 first-attempt 反映协议行为，不应单独解释为答案质量。
 
@@ -45,12 +46,12 @@
 | q11 | `medgrpo_v1_6163c074ccb78f7a` | — | 66.07 | false/true | SFT |
 | q12 | `medgrpo_v1_888d7b38e86f8a3a` | 60.42 | 58.75 | true/true | 平局 |
 | q13 | `medgrpo_v1_bee00f262b29f211` | — | 92.50 | false/true | SFT |
-| q14 | `medgrpo_v1_5d3365f17cac4ef5` | 32.50 | 99.50 | true/true | SFT |
+| q14 | `medgrpo_v1_5d3365f17cac4ef5` | 32.50 | 95.00 | true/true | SFT |
 | q15 | `medgrpo_v1_90c6ec05d46f5f39` | 81.25 | 96.25 | true/true | SFT |
 | q16 | `medgrpo_v1_de6eddebe535dd31` | — | 81.25 | false/true | SFT |
 | q17 | `medgrpo_v1_30d72a5f177af814` | 67.86 | 95.83 | true/true | SFT |
-| q18 | `medgrpo_v1_7b0af9da4047c976` | 52.50 | 99.50 | true/true | SFT |
-| q19 | `medgrpo_v1_a662cdee1dd2c37e` | 58.75 | 99.50 | true/true | SFT |
+| q18 | `medgrpo_v1_7b0af9da4047c976` | 52.50 | 97.50 | true/true | SFT |
+| q19 | `medgrpo_v1_a662cdee1dd2c37e` | 58.75 | 100.00 | true/true | SFT |
 | q20 | `medgrpo_v1_d2bf2d7b91040431` | — | 85.00 | false/true | SFT |
 | q21 | `medgrpo_v1_dc4a772fdcb8ebbc` | — | — | false/false | 失败平局 |
 | q22 | `medgrpo_v1_0e84758cb6f2c775` | 90.00 | 98.75 | true/true | SFT |
@@ -73,7 +74,7 @@
 | q39 | `medgrpo_v1_6f4acbd99466f7de` | 64.58 | — | true/false | Raw |
 | q40 | `medgrpo_v1_354e24393be206a8` | 78.75 | 91.25 | true/true | SFT |
 | q41 | `medgrpo_v1_f8985d53ae55046f` | 60.00 | 69.64 | true/true | SFT |
-| q42 | `medgrpo_v1_467afd5694005296` | 65.00 | 99.50 | true/true | SFT |
+| q42 | `medgrpo_v1_467afd5694005296` | 65.00 | 97.50 | true/true | SFT |
 | q43 | `medgrpo_v1_d06c873112f79f31` | 55.00 | 53.75 | true/true | 平局 |
 | q44 | `medgrpo_v1_2216033aa966cc4e` | 44.44 | — | true/false | Raw |
 | q45 | `medgrpo_v1_e295d10c281d8707` | 83.75 | — | true/false | Raw |
@@ -82,6 +83,10 @@
 | q48 | `medgrpo_v1_5d02dd6ee49182ae` | 44.44 | 68.75 | true/true | SFT |
 | q49 | `medgrpo_v1_5d607db025cca2d8` | 58.75 | 97.50 | true/true | SFT |
 | q50 | `medgrpo_v1_990fb647220fd306` | 92.50 | 96.25 | true/true | SFT |
+
+## 结果版本与边界
+
+本页、公开 CSV 与 rubric JSON 共同组成 `evaluation_v1_1_frozen`，逐题分数、胜负和汇总均从同一版本读取，不混用其他复核草稿。q36 的正式结果采用审计接受的 SFT `attempt-002`；`attempt-001` 的结局与恢复原因在冻结包中不可观察，因此不据此声称已完全排除样本选择风险。
 
 ## 可复核文件
 

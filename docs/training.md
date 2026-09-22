@@ -36,7 +36,7 @@ python -B sft/train_tc2.py --help
 
 training/train.py 需要绑定 batch、模型路径、起始 adapter 和独立可信 authority。先查看 CLI，不手工拼造评分记录。--preflight 不加载模型，真实训练另做 behavior replay parity 检查。
 
-参考默认参数：lr 1e-6、epsilon 0.2、target KL 0.02、parity tolerance 0.05。它们不是已证明最优的超参数。GPU trainer 使用 Linux 锁机制，应采用 Linux/WSL 并安装兼容 CUDA PyTorch；依赖见 pyproject.toml，部署版本需单独冻结验证。
+参考默认参数：lr 1e-6、epsilon 0.2、target KL 0.02、parity tolerance 0.05。这里的 `target_kl` 只用于监控并触发 early stop，不是在优化目标中额外加入 reference-policy KL penalty。它们不是已证明最优的超参数。GPU trainer 使用 Linux 锁机制，应采用 Linux/WSL 并安装兼容 CUDA PyTorch；依赖见 pyproject.toml，部署版本需单独冻结验证。
 
 ## 批次安排
 
