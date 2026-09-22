@@ -130,6 +130,23 @@ Browse 返回完整 chunk ID 与正文，State 保存 requirement 对应的 evid
 
 公开仓库是当前项目的**脱敏源码导出**，不是服务器目录的逐字节镜像。它同步算法模块、工具后端、训练器、近期证据完整性/预算/重复保护代码、真实轨迹摘录与离线测试；模型权重、私有题集、完整 capture、密钥和集群专用脚本不随代码发布。
 
+## 外部 API 与用途
+
+离线演示和合同测试不需要 API Key；本地 Qwen3-8B / LoRA 推理也不依赖云端生成 API。真实联网流程按启用能力配置：Serper 用于通用网页候选发现，PubMed/PMC 与 Semantic Scholar 用于医学文献检索，MinerU 只在 PDF 正文解析路径启用，OpenAI-compatible Judge endpoint 用于轨迹采集后的分阶段语义评分。MedGap verifier、Jina、Crawl4AI 与 semantic evidence reader 均为可选后端。
+
+公开配置模板只保留变量名，不包含真实值：
+
+```text
+Web Search          SERPER_API_KEY
+PubMed / PMC        NCBI_API_KEY（可选）
+Semantic Scholar    S2_API_KEY（可选）
+PDF / MinerU        MINERU_API_TOKEN 或 MEDGAP_MINERU_BASE_URL（可选）
+Stage Judge         JUDGE_BASE_URL / JUDGE_MODEL / JUDGE_API_KEY
+Semantic Verifier   MEDGAP_VERIFIER_* + DASHSCOPE_API_KEY（可选）
+```
+
+每项服务何时调用、无 Key 时如何降级及对应源码位置见[外部 API 配置说明](docs/apis.md)。不要提交本地 `.env` 或在日志中打印任何密钥。
+
 ## 零 GPU、零 API Key 演示
 
 Python 3.10+ 即可运行：
@@ -174,6 +191,7 @@ docs/           中文架构、算法与训练说明
 | [评测与独立复核](docs/evaluation.md) | 对照实验、Judge 审计与结果使用边界 |
 | [50 题 Raw/SFT 评测](docs/evaluation/local50_raw_sft_chatgpt_pro_20260923.md) | ChatGPT Pro 冻结评测、汇总指标与逐题结果 |
 | [近期工程同步](docs/recent_engineering_updates.md) | 表格完整性、结构字段、预算回执与重复保护 |
+| [外部 API 配置](docs/apis.md) | Serper、PubMed、Semantic Scholar、MinerU、Judge 与可选语义服务 |
 | [代码阅读导航](docs/code_navigation.md) | 当前入口、版本模块依赖与推荐阅读顺序 |
 
 ## 开源与使用边界
