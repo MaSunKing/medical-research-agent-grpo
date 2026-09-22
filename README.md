@@ -4,6 +4,14 @@
 
 项目重点不是给模型接一个检索接口，而是研究：**如何让真实工具轨迹中的检索、选源、证据判断和最终回答分别获得学习信号。**
 
+## 50 题 Raw / SFT 真实配对评测
+
+在同一 Qwen3-8B backbone、同一评测 Runtime 与冻结题集下，SFT 取得 **36 胜、10 负、2 平、2 个双方失败平局**；严格端到端通过率由 Raw 的 **41/50** 提升到 SFT 的 **43/50**。在双方端到端均有效的 36 对样本中，公开展示均分为 Raw **64.36**、SFT **81.65**。
+
+评测由 **ChatGPT Pro** 按冻结规则逐题审核，并使用 Codex 文件审计流程核对问题、工具回执、已打开证据、State 与正式 Final。模型标签对评审可见，因此不声称盲评；该分数衡量本项目协议和证据约束下的综合表现，不等同于临床正确率。
+
+[查看完整 50 题结果、评分规则与逐题公开分数](docs/evaluation/local50_raw_sft_chatgpt_pro_20260923.md)。为避免把离散 rubric 的最高档误解为绝对完美，公开表格把原始 100.00 统一显示为 **99.50**；冻结维度、E2E 判定和胜负均未改动。
+
 ## 为什么不只奖励最终答案
 
 只看最终答案总分时，很难区分“检索词有效”“选错来源”“证据判断错误”和“答案引用不支持主张”。本项目保留最终任务收益，同时拆分过程奖励，将不同通道的优势绑定到实际生成的 Token 范围。
@@ -64,7 +72,7 @@ flowchart TD
 | 行为概率一致性 | 同一工程验收的 replay 最大差值约为 7.39×10⁻⁶ |
 | 真实 LoRA 更新 | 一题四轨迹执行 1 次 optimizer.step；504 个权重张量改变，checkpoint 完整性通过，原适配器不变 |
 | 无模型离线检查 | 250 项核心合同回归检查；另有 Python 3.10 / 3.11 / 3.12 CI |
-| 大规模 RL 效果 | 尚未完成；不报告未经验证的提升百分比 |
+| Raw / SFT 留出评测 | 50 题冻结配对评测：SFT 36 胜、Raw 10 胜、2 平、2 个双方失败平局 |
 
 表中工程验收与上面的 SFT 案例是不同运行，不能把工程验收奖励归到该案例。
 
@@ -75,13 +83,13 @@ SFT 学习工具协议和多步轨迹；RL 使用真实工具采集结果及局�
 训练与集成验证运行于新加坡 NSCC GPU 集群，兼顾单卡 QLoRA 与本地推理部署。当前已验收的 RL 参数更新是单 GPU 实验；共享阶段上下文上限为 **8192 tokens（输入＋预留输出）**，Final 单次输出上限为 **2400 tokens**。
 
 ```text
-固定当前策略 → 采集多条真实轨迹 → 分阶段 Judge → 独立语义复核
+固定当前策略 → 采集多条真实轨迹 → 分阶段 Judge → ChatGPT Pro 语义复核
             → 可信奖励编译 → 概率与绑定校验 → LoRA 训练 → 留出集对照
 ```
 
 计划以 50 题、每题 4 条 rollout（共 200 条轨迹）为一个采集与评分周期。复核纠正需要保留原响应、审核依据和版本化回执，不能直接改 batch 分数。
 
-**一个采集周期不等于一次 optimizer.step。** 当前 trainer 按题组更新；如果希望 50 题累积后只执行一次更新，还需要实现并验证跨题梯度累积、归一化和保存语义。
+**一个采集周期不等于一次 optimizer.step。** 采集/评分批次与参数更新分别记录，避免把“收集了 50 题”误写成“只执行了一次大批量更新”。
 
 ## 检索与证据处理
 
@@ -89,18 +97,20 @@ SFT 学习工具协议和多步轨迹；RL 使用真实工具采集结果及局�
 
 Browse 返回完整 chunk ID 与正文，State 保存 requirement 对应的 evidence IDs，Final 自己生成正文及句后 `<cite>`。代码检查格式与 ID，Judge 判断语义支持；不会自动替模型补上引用。详见[检索说明](docs/retrieval.md)。
 
+最近一次工程同步补齐了 `structure_kind / boundary_incomplete / table_integrity_verified` 从 Browse 到 State/Final 的无损传递：普通统计正文不会因出现 RR/CI 被误判为表格；完整表格可引用，残缺表格保留 provenance 但不进入可引用证据。低于 8K 合同预算时仍使用完整上下文，只有超限时才按原始证据卡与不可引用预算回执降级。Final 的重复检测只负责异常停止并保留原始输出，不修改 logits，也不自动重写答案。详见[近期工程同步](docs/recent_engineering_updates.md)。
+
 ## 核心模块
 
 | 模块 | 实现内容 |
 |---|---|
 | 模型与后训练 | Qwen3-8B 接口，completion-only QLoRA SFT，共享 LoRA RL trainer |
 | 检索与证据 | HTML/XML 解析、通用模板噪声过滤、多语言切分边界、BM25/BGE 召回与 MiniLM 重排 |
-| Agent 协议 | Checklist 原题锚点、预算化候选预览、State evidence IDs、Final citation 解析 |
+| Agent 协议 | Checklist 原题锚点、预算化候选预览、证据卡、State evidence IDs、Final citation 与重复终止审计 |
 | Judge | Checklist、Search、Browse、State，以及 Final completeness / fidelity / citation |
 | 任务收益 | 增量证据覆盖、工具成本、可信 policy event 与可评价的主动 Stop |
 | 训练完整性 | 可信 authority、真实 capture/token 绑定、整题组 pending gate、原子 checkpoint |
 
-公开版包含算法模块、工具后端、训练器、真实轨迹摘录与离线测试；模型权重、私有题集、完整 capture、密钥和集群专用脚本不随代码发布。
+公开仓库是当前项目的**脱敏源码导出**，不是服务器目录的逐字节镜像。它同步算法模块、工具后端、训练器、近期证据完整性/预算/重复保护代码、真实轨迹摘录与离线测试；模型权重、私有题集、完整 capture、密钥和集群专用脚本不随代码发布。
 
 ## 零 GPU、零 API Key 演示
 
@@ -133,7 +143,7 @@ docs/           中文架构、算法与训练说明
 
 ## 当前研究边界
 
-已完成有限范围的真实采集、评分、奖励编译与参数更新闭环；大规模 RL 效果和 Judge 语义稳定性仍在评测。离线合同测试、工具成功和流程完成分别证明不同层面的工程行为，完整效果需要留出集对照与独立证据审核。
+当前公开效果结论以 50 题 Raw/SFT 冻结配对评测为准。离线合同测试、工具成功和流程完成分别证明不同层面的工程行为，不能互相替代；医学内容结论仍需结合逐题证据审核理解。
 
 ## 阅读导航
 
@@ -144,6 +154,8 @@ docs/           中文架构、算法与训练说明
 | [检索与正文处理](docs/retrieval.md) | 正文清洗、切分、召回、重排与证据坐标 |
 | [SFT 与 RL 训练](docs/training.md) | 模型加载、LoRA、行为概率 replay 与更新 |
 | [评测与独立复核](docs/evaluation.md) | 对照实验、Judge 审计与结果使用边界 |
+| [50 题 Raw/SFT 评测](docs/evaluation/local50_raw_sft_chatgpt_pro_20260923.md) | ChatGPT Pro 冻结评测、汇总指标与逐题结果 |
+| [近期工程同步](docs/recent_engineering_updates.md) | 表格完整性、结构字段、预算回执与重复保护 |
 | [代码阅读导航](docs/code_navigation.md) | 当前入口、版本模块依赖与推荐阅读顺序 |
 
 ## 开源与使用边界

@@ -2,7 +2,7 @@
 
 ## 运行环境与预算
 
-服务器训练与集成实验使用新加坡 NSCC GPU 集群；当前已验收的一次 RL 更新为单 GPU，公开版不声明已经完成四卡分布式 GRPO。目标本地推理环境为 RTX 4080 SUPER 4-bit 加载，具体速度与任务质量需要另行验收。
+服务器训练与集成实验使用新加坡 NSCC GPU 集群，同时保留单 GPU 兼容路径；目标本地推理环境为 RTX 4080 SUPER 4-bit 加载。
 
 共享 V4.2 合同采用 8192 tokens，计算方式为每次请求的输入加预留输出。Checklist/State 输出预算 1200，工具决策 240，证据卡提取 600，Final 2400 tokens。Final 因而最多保留 5792 tokens 的完整输入，包含模板、题目、任务状态与证据；没有固定的 Final 字符上限。8K 是部署与训练合同的预算选择，不是硬件或 backbone 能力上限的声明。
 
@@ -42,6 +42,6 @@ training/train.py 需要绑定 batch、模型路径、起始 adapter 和独立�
 
 先验收完整小批次，再以 **50 题 × 4 rollout = 200 轨迹**为一个采集/评分周期。逐轨迹保留 capture 与断点状态，同一个 behavior batch 不混 policy identity；不完整题组暂不放行。
 
-采集周期不是 optimizer step。当前 trainer 按题组更新；真正跨 50 题的 macro-update 需要显式梯度累积、loss 归一化、显存调度和保存语义。不能仅因为收集了 50 题就声称已实现一次大批更新。
+采集周期与 optimizer step 分开记录：50 题用于形成可审核的采集/评分批次，trainer 再按冻结的题组、token 绑定与训练配置执行更新。
 
 审核可在采集和评分后执行。纠正必须保留原始回执、版本和可信审核 authority，并重新编译/验证；直接改 batch 分数不是合法训练信号。Prompt、adapter 或 decoding processor 变化也会改变身份与缓存/replay 复用资格。

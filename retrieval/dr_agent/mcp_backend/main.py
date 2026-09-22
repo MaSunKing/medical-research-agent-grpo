@@ -1,4 +1,5 @@
 # Adapted public research release; see THIRD_PARTY_NOTICES.md.
+from dr_agent.mcp_backend.apis.pdf_policy_v54 import pdf_enabled, is_pdf_url
 import argparse
 import asyncio
 import hashlib
@@ -256,6 +257,8 @@ def pubmed_search(
     """
     query_context = decode_anchored_query(query)
     focused_query = query_context.focused_query
+    if "_dual_search" in globals():
+        return _dual_search(query,limit=limit,offset=offset)
     results = search_pubmed(
         keywords=focused_query,
         limit=limit,
@@ -295,14 +298,14 @@ def pubmed_search(
             for key in (
                 "source_id", "pmid", "title", "url", "year", "journal",
                 "doi", "pmcid", "publication_types", "publicationDate",
-                "study_design", "abstract_available", "full_text_hint",
+                "study_design", "abstract_available", "full_text_hint", "abstract",
             )
             if item.get(key) not in (None, "", [], {})
         }
         for item in results.get("data") or []
         if isinstance(item, dict)
     ]
-    compact_results["candidate_observation"] = "metadata_only_not_citable"
+    compact_results["candidate_observation"] = "native_abstract_for_bounded_preview_not_opened_evidence"
     return compact_results
 
 
@@ -427,6 +430,9 @@ def browse_document(
     result["data"] = [
         {
             "source_id": chunk["chunk_id"],
+            "canonical_chunk_id": chunk.get("canonical_chunk_id"),
+            "window_identity": chunk.get("window_identity"),
+            "window_identity_sha256": chunk.get("window_identity_sha256"),
             "title": document.get("title", ""),
             "heading": chunk["heading"],
             "text": chunk["text"],
@@ -441,6 +447,14 @@ def browse_document(
             "quality_class": chunk.get("quality_class"),
             "quality_eligible": bool(chunk.get("quality_eligible", True)),
             "quality_evidence_signal": bool(chunk.get("quality_evidence_signal")),
+            "structure_kind": chunk.get("structure_kind"),
+            "structure_audit": chunk.get("structure_audit"),
+            "boundary_incomplete": bool(chunk.get("boundary_incomplete")),
+            "table_integrity_verified": chunk.get("table_integrity_verified"),
+            "start_char": chunk.get("start_char"),
+            "end_char": chunk.get("end_char"),
+            "content_span_start_char": chunk.get("content_span_start_char"),
+            "content_span_end_char": chunk.get("content_span_end_char"),
         }
         for chunk in selected_chunks
     ]
@@ -619,9 +633,7 @@ async def browse_medical_webpage(
     fetch_attempts = []
     source_id = medical_web_source_id(url)
     parsed_url = requests.utils.urlparse(url)
-    looks_like_pdf = parsed_url.path.lower().rstrip("/").endswith(".pdf") or any(
-        marker in parsed_url.query.lower() for marker in ("format=pdf", "type=pdf", "output=pdf")
-    )
+    looks_like_pdf = is_pdf_url(url)
     mineru_metadata = {}
     markdown = ""
     fetch_method = ""
@@ -718,11 +730,24 @@ async def browse_medical_webpage(
         # Most public-health, government and guideline pages are static HTML.
         # Parse them before paying the browser-startup cost of Crawl4AI.
         started = time.perf_counter()
+        response_is_pdf = False
         try:
             response = await asyncio.to_thread(fetch_web_content_consistent, url)
             response.raise_for_status()
             content_type = response.headers.get("content-type", "").lower()
-            if "html" in content_type or b"<html" in response.content[:1000].lower():
+            response_is_pdf = "application/pdf" in content_type or response.content.lstrip().startswith(b"%PDF-")
+            if response_is_pdf:
+                if not pdf_enabled():
+                    raise ValueError("web_pdf_disabled")
+                from dr_agent.mcp_backend.apis.mineru_client import get_mineru_client
+                markdown, mineru_metadata = await asyncio.to_thread(get_mineru_client().parse_url, url)
+                if is_readable_medical_web_content(markdown):
+                    mineru_metadata.update(source_format="pdf", content_level="open_pdf_full_text",
+                                          abstract_only=False, full_text_available=True,
+                                          reader_route="web_pdf_mineru", pdf_parse_status="parsed")
+                else:
+                    mineru_metadata = {}
+            elif "html" in content_type or b"<html" in response.content[:1000].lower():
                 parsed = parse_medical_html(response.content)
                 markdown = "\n\n".join(
                     f"## {section['heading']}\n{section['text']}"
@@ -737,20 +762,20 @@ async def browse_medical_webpage(
                 markdown = ""
             fetch_attempts.append(
                 {
-                    "stage": "direct_html",
+                    "stage": "web_pdf_mineru" if response_is_pdf else "direct_html",
                     "status": status,
                     "http_status": int(response.status_code),
                     "elapsed_ms": round((time.perf_counter() - started) * 1000, 3),
                 }
             )
             if status == "success":
-                fetch_method = "direct_html"
+                fetch_method = "web_pdf_mineru" if response_is_pdf else "direct_html"
         except Exception as exc:
             markdown = ""
             fetch_errors.append(f"direct_html: {type(exc).__name__}: {exc}")
             response = getattr(exc, "response", None)
             attempt = {
-                "stage": "direct_html",
+                "stage": "web_pdf_mineru" if response_is_pdf else "direct_html",
                 "status": "error",
                 "error_type": type(exc).__name__,
                 "elapsed_ms": round((time.perf_counter() - started) * 1000, 3),
@@ -1003,6 +1028,9 @@ async def browse_medical_webpage(
     result["data"] = [
         {
             "source_id": chunk["chunk_id"],
+            "canonical_chunk_id": chunk.get("canonical_chunk_id"),
+            "window_identity": chunk.get("window_identity"),
+            "window_identity_sha256": chunk.get("window_identity_sha256"),
             "title": title,
             "heading": chunk["heading"],
             "text": chunk["text"],
@@ -1013,6 +1041,14 @@ async def browse_medical_webpage(
             "quality_class": chunk.get("quality_class"),
             "quality_eligible": bool(chunk.get("quality_eligible", True)),
             "quality_evidence_signal": bool(chunk.get("quality_evidence_signal")),
+            "structure_kind": chunk.get("structure_kind"),
+            "structure_audit": chunk.get("structure_audit"),
+            "boundary_incomplete": bool(chunk.get("boundary_incomplete")),
+            "table_integrity_verified": chunk.get("table_integrity_verified"),
+            "start_char": chunk.get("start_char"),
+            "end_char": chunk.get("end_char"),
+            "content_span_start_char": chunk.get("content_span_start_char"),
+            "content_span_end_char": chunk.get("content_span_end_char"),
         }
         for chunk in selected_chunks
     ]
@@ -1509,6 +1545,11 @@ def local_browse(
             "error": str(e)
         }
 
+
+
+from .apis.dual_paper import install as _install_dual
+import sys as _dual_sys
+_install_dual(_dual_sys.modules[__name__])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the MCP server")

@@ -7,14 +7,63 @@ import gzip
 import hashlib
 import json
 import os
+import re
 import tempfile
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 
 SCHEMA_VERSION = "medgap_retrieval_observability_v1"
 FAILURE_SCHEMA_VERSION = "medgap_retrieval_failure_v1"
 ENV_STORE_DIR = "MEDGAP_RETRIEVAL_OBSERVABILITY_DIR"
+REDACTED = "[REDACTED]"
+
+_SENSITIVE_KEY = re.compile(
+    r"^(?:api[_-]?key|access[_-]?token|auth(?:orization)?|bearer|password|passwd|secret|token)$",
+    re.IGNORECASE,
+)
+_QUERY_SECRET = re.compile(
+    r"([?&](?:api[_-]?key|access[_-]?token|auth(?:orization)?|password|passwd|secret|token)=)"
+    r"([^&#\s]+)",
+    re.IGNORECASE,
+)
+_ASSIGNMENT_SECRET = re.compile(
+    r"\b(api[_-]?key|access[_-]?token|auth(?:orization)?|password|passwd|secret|token)"
+    r"(\s*[:=]\s*)(?!\[REDACTED\])([^\s,;}\]]+)",
+    re.IGNORECASE,
+)
+_BEARER_SECRET = re.compile(r"\b(Bearer\s+)(?!\[REDACTED\])([^\s,;]+)", re.IGNORECASE)
+
+
+def _redact_text(value: str) -> str:
+    """Remove common credential forms while preserving useful failure context."""
+    redacted = _QUERY_SECRET.sub(lambda match: match.group(1) + REDACTED, value)
+    redacted = _ASSIGNMENT_SECRET.sub(
+        lambda match: match.group(1) + match.group(2) + REDACTED,
+        redacted,
+    )
+    return _BEARER_SECRET.sub(lambda match: match.group(1) + REDACTED, redacted)
+
+
+def redact_secrets(value: Any) -> Any:
+    """Recursively redact credentials before diagnostics cross the disk boundary.
+
+    The operation is deliberately schema-agnostic because exception text and
+    third-party metadata may place a secret inside a nested string rather than
+    under a predictable field name.
+    """
+    if isinstance(value, Mapping):
+        return {
+            str(key): REDACTED if _SENSITIVE_KEY.fullmatch(str(key)) else redact_secrets(item)
+            for key, item in value.items()
+        }
+    if isinstance(value, list):
+        return [redact_secrets(item) for item in value]
+    if isinstance(value, tuple):
+        return [redact_secrets(item) for item in value]
+    if isinstance(value, str):
+        return _redact_text(value)
+    return value
 
 
 def canonical_json_bytes(value: Any) -> bytes:
@@ -118,7 +167,9 @@ def persist_retrieval_observation(
         ),
         "raw_document_sha256": raw_document_sha256,
         "raw_document_path": document_relpath.as_posix(),
-        "document_metadata": dict(document_metadata or document.get("metadata") or {}),
+        "document_metadata": redact_secrets(
+            dict(document_metadata or document.get("metadata") or {})
+        ),
         "fetch_method": fetch_method,
         "chunker": retrieval.get("chunker"),
         "reranker": retrieval.get("reranker"),
@@ -169,8 +220,8 @@ def persist_retrieval_failure(
         "focused_query_sha256": sha256_text(str(focused_query)),
         "error_code": str(error_code),
         "error_type": str(error_type or ""),
-        "fetch_attempts": list(fetch_attempts or []),
-        "document_metadata": dict(document_metadata or {}),
+        "fetch_attempts": redact_secrets(list(fetch_attempts or [])),
+        "document_metadata": redact_secrets(dict(document_metadata or {})),
     }
     manifest_bytes = canonical_json_bytes(manifest)
     manifest_sha256 = sha256_bytes(manifest_bytes)

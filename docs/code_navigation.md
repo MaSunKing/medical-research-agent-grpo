@@ -11,8 +11,11 @@
 | 工具动作结束边界 | [agent/action_boundary_v46.py](../agent/action_boundary_v46.py) |
 | Final citation 解析与完整 ID | [agent/citation_ids_v4_1.py](../agent/citation_ids_v4_1.py) |
 | 候选预览与预算选择 | [agent/preview_selection_v23.py](../agent/preview_selection_v23.py)、[preview_tokens_v22.py](../agent/preview_tokens_v22.py) |
-| 共享阶段输入与预算 | [agent/shared_interface.py](../agent/shared_interface.py) |
-| 正文提取与切分、排序 | [medical_document_parser.py](../retrieval/dr_agent/mcp_backend/apis/medical_document_parser.py)、[browse_preprocess.py](../retrieval/dr_agent/mcp_backend/apis/browse_preprocess.py) |
+| 共享阶段输入与预算 | [agent/shared_interface.py](../agent/shared_interface.py)、[shared_budget_v52.py](../agent/shared_budget_v52.py)、[evidence_cards_v32.py](../agent/evidence_cards_v32.py) |
+| Final 重复与多次生成审计 | [final_repetition_guard.py](../agent/final_repetition_guard.py)、[final_attempt_audit.py](../agent/final_attempt_audit.py) |
+| Browse→Runtime 证据合同 | [evidence_contract_v14.py](../agent/evidence_contract_v14.py)、[evidence_exact_v31.py](../agent/evidence_exact_v31.py) |
+| 正文提取与表格完整性 | [medical_document_parser.py](../retrieval/dr_agent/mcp_backend/apis/medical_document_parser.py)、[table_integrity.py](../retrieval/dr_agent/mcp_backend/apis/table_integrity.py) |
+| 返回窗口与 provenance 身份 | [evidence_handoff_v3.py](../retrieval/dr_agent/mcp_backend/apis/evidence_handoff_v3.py)、[returned_window_identity.py](../retrieval/dr_agent/mcp_backend/apis/returned_window_identity.py) |
 | SFT 样本构建与训练 | [sft/build_alignment.py](../sft/build_alignment.py)、[train_tc2.py](../sft/train_tc2.py) |
 | 所有阶段的 Judge 计划与验证 | [judge/tiered_allstages_v1/pipeline.py](../judge/tiered_allstages_v1/pipeline.py) |
 | State 及阶段评分核心 | [judge/tiered_allstages_v1/engine.py](../judge/tiered_allstages_v1/engine.py) |

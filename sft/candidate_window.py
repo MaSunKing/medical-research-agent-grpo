@@ -1,10 +1,12 @@
 """Inference-only history/window separation and source-exact excerpts."""
 import copy
+import hashlib
+import json
 import math
 import re
 from collections import Counter
 
-VERSION='candidate_history_window_v1'
+VERSION='candidate_history_window_v2_audited_projection'
 STOP=set('a an the of in on and or to for with without is are does do how whether people patients study studies trial trials randomized controlled effect effects'.split())
 
 def terms(text):
@@ -62,7 +64,10 @@ def bound_previews(rows):
     return result
 
 class CandidateHistory:
-    def __init__(self):self.rows={};self.queries={}
+    def __init__(self):
+        self.rows={}
+        self.queries={}
+        self.projection_history=[]
 
     def add(self, rows):
         for row in rows:
@@ -84,9 +89,37 @@ class CandidateHistory:
                 f=tf[t]
                 if f:value+=math.log(1+(len(docs)-df[t]+.5)/(df[t]+.5))*f*2.2/(f+1.2*(.25+.75*len(d)/max(1,avg)))
             return value
-        ranked=sorted(zip(rows,docs),key=lambda rd:(-(.8*score(rd[1],query)+.2*score(rd[1],original_question)),rd[0]['source_id']))
+        scored=[]
+        for row,doc in zip(rows,docs):
+            focus_score=score(doc,query)
+            question_score=score(doc,original_question)
+            combined=.8*focus_score+.2*question_score
+            scored.append((row,doc,focus_score,question_score,combined))
+        ranked=sorted(scored,key=lambda rd:(-rd[4],rd[0]['source_id']))
+        visible_ids={row['source_id'] for row,_,_,_,_ in ranked[:max(0,limit)]}
+        projection=[]
+        for rank,(row,_,focus_score,question_score,combined) in enumerate(ranked,1):
+            sid=row['source_id']
+            visible=sid in visible_ids
+            projection.append(dict(
+                source_id=sid, rank=rank, visible=visible,
+                disposition='visible' if visible else 'dropped',
+                reason='within_top_k' if visible else 'outside_top_k',
+                candidate_limit=limit,
+                focus_score=round(focus_score,12),
+                original_question_score=round(question_score,12),
+                combined_score=round(combined,12),
+                previously_browsed=bool(reread_registry.get(sid)),
+            ))
+        receipt=dict(version=VERSION,focus_query=str(query),
+            original_question=str(original_question),candidate_limit=limit,
+            candidates=projection)
+        receipt['projection_receipt_id']=hashlib.sha256(
+            json.dumps(receipt,ensure_ascii=False,sort_keys=True,separators=(',',':')).encode()
+        ).hexdigest()
+        self.projection_history.append(receipt)
         selected=[]
-        for row,d in ranked[:limit]:
+        for row,_,_,_,_ in ranked[:limit]:
             r=copy.deepcopy(row);sid=r['source_id']
             raw=r.get('_native_preview_text','')
             if sid.startswith(('PMID:','S2:')):
@@ -117,11 +150,8 @@ def patch_sources(base,changes,here):
         s=once(s,'                    "query_signature": signature,\n                "environment_failure":',
             '                    "query_signature": signature, "repeated_query": repeated,\n                "environment_failure":')
         s=s.replace('"candidate_pool_size": len(candidate_pool),','"candidate_pool_size": len(candidate_pool),\n                    "historical_candidate_count": len(candidate_history.rows),')
-        s=once(s,'"attempted_source_ids":', '"candidate_history": list(candidate_history.rows.values()),\n                "candidate_history_queries": candidate_history.queries,\n                "attempted_source_ids":')
+        s=once(s,'"attempted_source_ids":', '"candidate_history": list(candidate_history.rows.values()),\n                "candidate_history_queries": candidate_history.queries,\n                "candidate_projection_audit": candidate_history.projection_history,\n                "attempted_source_ids":')
         changes[p]=s
         p=prefix+'priority_v5.py';s=changes.get(p,(base/p).read_text(encoding='utf-8'))
         s=s.replace("('tool','query','environment_failure')", "('tool','query','environment_failure','repeated_query')")
         changes[p]=s
-
-from engineering_v17_fixes import window, bound_previews
-CandidateHistory.window = window

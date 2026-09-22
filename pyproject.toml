@@ -3,16 +3,16 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "local-dense-grpo-agent"
+name = "medical-research-agent-grpo"
 version = "0.1.0"
-description = "Local-first evidence-grounded agents with stage-wise dense rewards and GRPO-style post-training"
+description = "Qwen3-8B 医学研究智能体：真实检索、证据约束 SFT 与分阶段稠密奖励后训练"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 dependencies = []
 
 [project.optional-dependencies]
 training = ["torch>=2.4", "transformers>=4.51,<5", "peft>=0.15", "accelerate>=1", "bitsandbytes>=0.45", "safetensors>=0.4"]
-retrieval = ["beautifulsoup4>=4.12", "lxml>=5", "requests>=2.31", "aiohttp>=3.9", "python-dotenv>=1", "numpy>=1.26", "rank-bm25>=0.2", "sentence-transformers>=3", "fastmcp>=2", "diskcache>=5", "pydantic>=2"]
+retrieval = ["beautifulsoup4>=4.12", "lxml>=5", "requests>=2.31", "aiohttp>=3.9", "python-dotenv>=1", "numpy>=1.26", "rank-bm25>=0.2", "sentence-transformers>=3", "fastmcp>=2", "diskcache>=5", "pydantic>=2", "tqdm>=4.66"]
 
 [tool.setuptools]
 packages = []

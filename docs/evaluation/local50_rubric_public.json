@@ -1,0 +1,57 @@
+{
+  "schema": "local50_public_chatgpt_pro_evaluation_v1",
+  "evaluator": "ChatGPT Pro with Codex file-audit workflow",
+  "arm_labels_visible": true,
+  "external_medical_knowledge_used_to_repair_answers": false,
+  "dimensions": [
+    "Checklist",
+    "Search",
+    "Browse",
+    "Evidence",
+    "State",
+    "Stop",
+    "Final Completeness",
+    "Fidelity",
+    "Citation",
+    "Clarity"
+  ],
+  "weights_percent": {
+    "Checklist": 5,
+    "Search": 10,
+    "Browse": 10,
+    "Evidence": 10,
+    "State": 10,
+    "Stop": 5,
+    "Final Completeness": 15,
+    "Fidelity": 20,
+    "Citation": 10,
+    "Clarity": 5
+  },
+  "source_scale": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "null_handling": "25*sum(weight*score)/sum(weight for observable dimensions); null is not zero",
+  "strict_winner": "valid vs invalid: valid wins; both invalid: failed tie; both valid: delta > 3 wins, otherwise tie",
+  "public_display_cap": 99.5,
+  "display_cap_reason": "Avoid interpreting the top bucket of a discrete rubric as absolute perfection.",
+  "cap_changes_only_display": true,
+  "result_counts": {
+    "sft_wins": 36,
+    "raw_wins": 10,
+    "ties": 2,
+    "failed_ties": 2
+  },
+  "strict_e2e": {
+    "raw": "41/50",
+    "sft": "43/50"
+  },
+  "conditional_pairs": 36,
+  "conditional_display_mean": {
+    "raw": 64.36,
+    "sft": 81.65
+  }
+}

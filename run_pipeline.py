@@ -18,6 +18,7 @@ def main():
         print(json.dumps(run(), indent=2, allow_nan=False))
         return
     suites = {
+        "agent": ["test_recent_runtime_contracts"],
         "training": ["test_joint", "test_authority", "test_v16_regressions",
                      "test_v17_regressions", "test_v18_regressions"],
         "shared": [p.stem for p in sorted((ROOT / "shared").glob("test_*.py"))],

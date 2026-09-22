@@ -3,11 +3,14 @@ import copy, json, re
 from tokenizers import Tokenizer
 
 _tokenizer = None
-VISIBLE_FIELDS=('year','publication_year','source_type','discovery_channels','source_id','title',
- 'search_preview','preview_kind','preview_truncated','preview_fragment','preview_tokens','preview_budget_tokens',
- 'origin_search_tool','origin_query','publication_types','already_opened','previous_browse_queries','requires_new_query')
+RENDERED_FIELDS=('preview_fragment','preview_tokens','preview_budget_tokens','year','publication_year',
+ 'source_type','discovery_channels','source_id','title','search_preview','preview_kind','preview_truncated',
+ 'origin_search_tool','origin_query','origin_query_truncated','publication_types','already_opened',
+ 'previous_browse_queries','requires_new_query')
 def candidate_tokens(rows):
-    visible=[{k:v for k,v in row.items() if k in VISIBLE_FIELDS} | {'browse_source_id':row.get('source_id'),'already_opened':bool(row.get('already_opened'))} for row in rows]
+    # Match priority_v5.compact_decision exactly; audit-only fields are not
+    # part of the model-visible candidate region measured later.
+    visible=[{k:v for k,v in row.items() if k in RENDERED_FIELDS} for row in rows]
     return count(json.dumps(visible,ensure_ascii=False))
 def configure(path):
     global _tokenizer
@@ -17,6 +20,21 @@ def count(text):
     if _tokenizer is None:
         raise RuntimeError('v22 preview tokenizer must be configured before collection')
     return len(_tokenizer.encode(str(text), add_special_tokens=False).ids)
+
+def exact_prefix(raw, ceiling):
+    """Return an unchanged prefix fitting the token budget, never a summary."""
+    raw=str(raw or '')
+    if not raw or ceiling <= 0:return '', bool(raw)
+    if count(raw)<=ceiling:return raw,False
+    lo,hi=0,len(raw)
+    while lo<hi:
+        mid=(lo+hi+1)//2
+        if count(raw[:mid])<=ceiling:lo=mid
+        else:hi=mid-1
+    end=lo
+    boundary=raw.rfind(' ',0,end)
+    if boundary>0:end=boundary
+    return raw[:end],True
 
 def select(raw, query, target, ceiling):
     from candidate_window import terms
@@ -66,6 +84,11 @@ def bound_previews(rows):
             raise RuntimeError('v22 native preview provenance missing')
         raw=re.sub(r'\s+',' ',str(raw)).strip()
         query=row.pop('_preview_query','')
+        origin=re.sub(r'\s+',' ',str(row.get('origin_query') or '')).strip()
+        shown_origin,origin_truncated=exact_prefix(origin,24)
+        row.update(origin_query=shown_origin,
+                   origin_query_truncated=origin_truncated)
+        row['_v22_origin_query']=origin
         shown,spans,fragment=select(raw,query,min(96 if paper else 64,ceiling),ceiling)
         row.update(search_preview=shown,preview_truncated=shown!=raw,
                    preview_selected_spans=spans,preview_fragment=fragment,
@@ -74,6 +97,14 @@ def bound_previews(rows):
         # Kept internally only until the candidate-section budget pass finishes.
         row['_v22_native']=raw;row['_v22_query']=query
     def public():return [{k:v for k,v in x.items() if not k.startswith('_v22')} for x in result]
+    # The full query is already present once in search_history and in the
+    # immutable receipt.  Compact its repeated per-row copy before sacrificing
+    # native evidence previews.
+    for cap in (16,8,0):
+        if candidate_tokens(public())<=2000:break
+        for row in result:
+            shown,truncated=exact_prefix(row['_v22_origin_query'],cap)
+            row.update(origin_query=shown,origin_query_truncated=truncated)
     # Includes titles, document IDs, origins and audit metadata, not just snippets.
     for cap in (96,80,64,48,32,16,0):
         if candidate_tokens(public())<=2000:break

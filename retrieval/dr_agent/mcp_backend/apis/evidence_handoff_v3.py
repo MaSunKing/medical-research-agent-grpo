@@ -4,8 +4,24 @@ import copy
 import hashlib
 import json
 import re
+try:
+    from .table_integrity import incomplete_table_window
+except ImportError:  # Standalone contract tests; package execution uses relative import.
+    from table_integrity import incomplete_table_window
 
-VERSION = 'local_evidence_handoff_body_spans_v5'
+VERSION = 'local_evidence_handoff_table_integrity_v9'
+
+
+def canonical_ranked_chunk(canonical, observation):
+    """Keep ranking signals, but never let cached payloads replace source facts.
+
+    Retrieval caches created by an older classifier can legitimately contain
+    rank/score fields.  Text, offsets and structure receipts must always come
+    from the document re-chunked by the currently frozen release.
+    """
+    result = dict(observation)
+    result.update(canonical)
+    return result
 
 
 def install_parser(parser):
@@ -26,7 +42,11 @@ def install_parser(parser):
             chunk_chars=settings.get('chunk_chars',1800),overlap_chars=settings.get('overlap_chars',200))
         by_id={c['chunk_id']:c for c in originals}
         observations=result['_retrieval_observability']
-        ranked=sorted([dict(by_id[c['chunk_id']],**c) for c in observations['all_chunks'] if c.get('rank')],key=lambda c:c['rank'])
+        ranked=sorted([
+            canonical_ranked_chunk(by_id[c['chunk_id']], c)
+            for c in observations['all_chunks']
+            if c.get('rank') and c.get('chunk_id') in by_id
+        ], key=lambda c:c['rank'])
         chunks,audit=pack_browse(ranked,prepared,tokenizer=settings.get('tokenizer'),
             max_tokens=tokens if tokens is not None else 10**9,max_chars=chars,top_k=top_k)
         result['chunks']=chunks
@@ -82,9 +102,11 @@ def aligned_chunk(chunk, document):
     assert span_start <= start < end <= span_end <= len(section)
     ends = [p for p in sentence_ends(section) if span_start <= p <= span_end]
     incomplete = False
-    if start and start not in ends:
-        # Keep original window: never skip its first useful clause to find a stop.
-        incomplete = True
+    if start > span_start and start not in ends:
+        # Restore the sentence prefix hidden by the retrieval overlap. This is
+        # evidence framing only: source text and stable canonical ID are kept.
+        previous = [p for p in ends if span_start <= p < start]
+        start = previous[-1] if previous else span_start
     if end < len(section) and end not in ends:
         extension = [p for p in ends if end < p <= min(end+600, span_end)]
         if extension:
@@ -95,17 +117,32 @@ def aligned_chunk(chunk, document):
             else: incomplete = True
     if end <= start:
         return None
-    result.update(text=section[start:end].strip(), start_char=start, end_char=end,
+    aligned_text=section[start:end].strip()
+    structure_audit, table_window_incomplete = incomplete_table_window(
+        aligned_text, start=start, end=end, span_start=span_start, span_end=span_end,
+        declared_kind=chunk.get('structure_kind'))
+    structure_kind=structure_audit['structure_kind']
+    # A flattened table window is useful only when its full source span fits.
+    # Otherwise headers and values can become detached and reverse meaning.
+    if table_window_incomplete:
+        incomplete = True
+    result.update(text=aligned_text, start_char=start, end_char=end,
                   original_chunk_text_sha256=chunk.get('text_sha256'),
-                  boundary_policy='unicode_original_body_window_v5', boundary_incomplete=incomplete)
+                  boundary_policy='unicode_original_body_window_v6', boundary_incomplete=incomplete,
+                  structure_kind=structure_kind, structure_audit=structure_audit,
+                  table_integrity_verified=structure_kind != 'table_like' or not incomplete)
     result['text_sha256'] = hashlib.sha256(result['text'].encode()).hexdigest()
     return result
 
 
-def within_budget(text, tokens, chars, tokenizer):
+def within_budget(text, tokens, chars, tokenizer, structure_kind='prose'):
     count = lambda x: len(tokenizer.encode(x, add_special_tokens=False)) if tokenizer else len(x)
     if len(text) <= chars and count(text) <= tokens:
         return text
+    # Never expose a character prefix of a flattened table. It can detach a
+    # value from its header and silently change event-count semantics.
+    if structure_kind == 'table_like':
+        return ''
     allowed = [p for p in sentence_ends(text) if p <= chars and count(text[:p]) <= tokens]
     if allowed: return text[:max(allowed)]
     # Secondary punctuation first, then an exact original-text prefix. Never decode
@@ -121,7 +158,13 @@ def within_budget(text, tokens, chars, tokenizer):
         if count(text[:mid]) <= tokens: lo = mid
         else: hi = mid-1
     while lo and count(text[:lo]) > tokens: lo -= 1
-    return text[:lo]
+    if not lo:
+        return ''
+    boundary=max(text.rfind(' ',0,lo+1),text.rfind('\n',0,lo+1),text.rfind('\t',0,lo+1))
+    if boundary > 0:
+        return text[:boundary].rstrip()
+    cjk=sum('\u4e00' <= char <= '\u9fff' for char in text[:lo])
+    return text[:lo] if cjk >= max(1,lo//3) else ''
 
 
 def pack_browse(ranked, document, *, tokenizer, max_tokens=700, max_chars=4200, top_k=3):
@@ -145,13 +188,30 @@ def pack_browse(ranked, document, *, tokenizer, max_tokens=700, max_chars=4200, 
         left = len(selected)-index
         cap_tokens = max(1,tokens//left) if tokens else 0
         cap_chars = max(1,chars//left) if chars else 0
-        text = within_budget(aligned['text'], cap_tokens, cap_chars, tokenizer) if aligned and cap_tokens and cap_chars else ''
-        incomplete = bool(aligned and aligned.get('boundary_incomplete')) or bool(text and len(text) not in sentence_ends(text) and (len(text)<len(c['text']) or c['end_char']<len(document['sections'][c['section_index']]['text'])))
+        table_incomplete=bool(aligned and aligned.get('structure_kind') == 'table_like'
+                              and aligned.get('boundary_incomplete'))
+        text = within_budget(aligned['text'], cap_tokens, cap_chars, tokenizer,
+                             aligned.get('structure_kind','prose')) if aligned and cap_tokens and cap_chars and not table_incomplete else ''
+        budget_truncated=bool(aligned and text and len(text) < len(aligned['text']))
+        incomplete = bool(aligned and aligned.get('boundary_incomplete')) or bool(
+            budget_truncated and len(text) not in sentence_ends(text))
+        if table_incomplete:
+            reason='incomplete_table_boundary'
+        elif not text and aligned and aligned.get('structure_kind') == 'table_like':
+            reason='whole_table_exceeds_budget'
+        elif not text:
+            reason='budget_exhausted' if not tokens or not chars else 'no_safe_boundary_within_budget'
+        else:
+            reason='kept'
         audit.append({'chunk_id':c['chunk_id'], 'selected':bool(text),
                       'original_chars':len(c['text']), 'returned_chars':len(text),
-                      'reason':'kept' if text else 'budget_exhausted' if not tokens or not chars else 'invalid_boundary_window',
+                      'reason':reason,
                       'original_start_char':c['start_char'], 'original_end_char':c['end_char'],
                       'boundary_incomplete': incomplete,
+                      'structure_kind':aligned.get('structure_kind') if aligned else None,
+                      'structure_audit':aligned.get('structure_audit') if aligned else None,
+                      'table_integrity_verified':aligned.get('table_integrity_verified') if aligned else None,
+                      'budget_truncated':budget_truncated,
                       'token_cap':cap_tokens,'character_cap':cap_chars})
         if not text:
             continue
@@ -162,6 +222,10 @@ def pack_browse(ranked, document, *, tokenizer, max_tokens=700, max_chars=4200, 
         aligned['returned_text_sha256'] = hashlib.sha256(text.encode()).hexdigest()
         tokens -= len(tokenizer.encode(text, add_special_tokens=False)) if tokenizer else len(text)
         chars -= len(text)
+        from .returned_window_identity import bind_returned_window
+        aligned = bind_returned_window(aligned)
+        audit[-1]['returned_chunk_id'] = aligned['chunk_id']
+        audit[-1]['window_identity_sha256'] = aligned['window_identity_sha256']
         out.append(aligned)
     assert tokens >= 0 and chars >= 0
     return out, audit

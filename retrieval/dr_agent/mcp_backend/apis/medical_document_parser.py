@@ -11,11 +11,12 @@ from collections import Counter
 from typing import Any, Dict, List, Optional
 
 from .browse_preprocess import preprocess_document, strip_html_templates, classify_section
+from .table_integrity import table_signature
 from bs4 import BeautifulSoup
 from lxml import etree
 
 
-CHUNKER_VERSION = "medical_chunker_original_body_spans_v2"
+CHUNKER_VERSION = "medical_chunker_atomic_word_boundaries_v3"
 RERANKER_VERSION = "local_bm25_focus80_question20_v71_2f"
 HYBRID_RERANKER_VERSION = "bm25_bge_minilm_v27"
 V28_RERANKER_VERSION = "medcpt_reader_v28"
@@ -267,6 +268,9 @@ def chunk_medical_document(
                 if chunk_text:
                     start_char = start + left_trim
                     end_char = end - right_trim
+                    span_kind = str(span.get("kind") or "body")
+                    structure = table_signature(chunk_text, span_kind)
+                    structure_kind = structure["structure_kind"]
                     chunks.append({
                         "chunk_id": f"{source_id}#s{section_index}-c{chunk_index}",
                         "heading": heading,
@@ -277,13 +281,23 @@ def chunk_medical_document(
                         "end_char": end_char,
                         "content_span_start_char": span['start_char'],
                         "content_span_end_char": limit,
+                        "structure_kind": structure_kind,
+                        "structure_audit": structure,
                         "text_sha256": hashlib.sha256(
                             chunk_text.encode("utf-8", errors="replace")
                         ).hexdigest(),
                     })
                     chunk_index += 1
                 if end >= limit: break
-                start = max(start + 1, end - overlap_chars)
+                next_start = max(start + 1, end - overlap_chars)
+                # Character overlap must never create a Latin word fragment.
+                # CJK text has no equivalent whitespace boundary and is left intact.
+                if (next_start > span['start_char'] and next_start < limit
+                        and text[next_start-1].isalnum() and text[next_start].isalnum()
+                        and (text[next_start-1].isascii() or text[next_start].isascii())):
+                    boundary = text.find(" ", next_start, min(limit, next_start + 128))
+                    next_start = boundary + 1 if boundary >= 0 else end
+                start = next_start
     return chunks
 
 

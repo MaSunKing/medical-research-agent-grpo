@@ -8,4 +8,6 @@
 
 Reviewer 可检查原题、固定 requirements、answer units、实际 attached evidence、完整 Judge input 和原始判断。需区分被支持的改写、部分支持、无根据推论和明确反证；“没有证据”不是 contradicted。
 
-独立审核结果和修正需不可变保存并版本化，通过可信评分 authority 再进入原有 compiler gate。人工或 ChatGPT 复核不能绕过 token identity、provenance、完整题组和 behavior-policy 检查。
+本仓库公开的 50 题结果由 **ChatGPT Pro** 按冻结规则进行证据约束审核，并使用 Codex 文件审计流程读取评测包。模型标签可见，因此不声称盲评。公开展示分最高为 99.50，用来避免把离散 rubric 的满档误读为绝对完美，不改变冻结维度、胜负或协议判定。
+
+完整结果见[50 题 Raw/SFT 配对评测](evaluation/local50_raw_sft_chatgpt_pro_20260923.md)。独立审核结果和修正需不可变保存并版本化，不能覆盖原始响应、证据或评分依据。

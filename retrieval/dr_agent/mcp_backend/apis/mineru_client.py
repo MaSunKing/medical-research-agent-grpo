@@ -90,6 +90,11 @@ _CLIENT: MinerUClient | None = None
 
 
 def get_mineru_client() -> MinerUClient:
+    from .pdf_policy_v54 import require_pdf_enabled
+    require_pdf_enabled()
+    if os.getenv("MINERU_API_TOKEN") and not os.getenv("MEDGAP_MINERU_BASE_URL"):
+        from .mineru_cloud import MinerUCloudClient
+        return MinerUCloudClient()
     global _CLIENT
     if _CLIENT is None:
         _CLIENT = MinerUClient()
