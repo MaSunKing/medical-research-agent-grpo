@@ -63,18 +63,20 @@ Process冻结后，对未进入这700题训练的剩余272题运行真实工具�
 
 ### Loss公式
 
-设样本i的当前target位置集合为T_i，位置t的span权重为w_it，CE为ℓ_it。全部样本数为N，总加权target-token量为M：
+设样本 $i$ 的当前target位置集合为 $T_i$，位置 $t$ 的span权重为 $w_{it}$，CE为 $\ell_{it}$。全部样本数为 $N$，总加权target-token量为 $M$：
 
-$$
-\ell_{it}=-\log\pi_{\theta_P}(y_{it}\mid x_i,y_{i,<t}),\qquad
-M=\sum_{i=1}^{N}\sum_{t\in T_i}w_{it}.
-$$
+```math
+\begin{aligned}
+\ell_{it} &= -\log\pi_{\theta_P}(y_{it}\mid x_i,y_{i,<t}), \\
+M &= \sum_{i=1}^{N}\sum_{t\in T_i}w_{it}.
+\end{aligned}
+```
 
 当前只有step-wise数据流，batch B的loss为：
 
-$$
+```math
 \mathcal L_P(B)=\frac{N}{|B|M}\sum_{i\in B}\sum_{t\in T_i}w_{it}\ell_{it}.
-$$
+```
 
 这是按整个epoch的加权token量固定缩放，不是每条短Decision与长State先取均值后同权；阶段影响由target长度与span权重决定。最后不足8条按实际batch大小结算。Smoke中的单条token-mean loss与正式训练口径分别记录。
 
@@ -120,13 +122,13 @@ Final金标只能由当前可见证据支持，不能要求生成输入没有的
 
 ### Loss公式
 
-对固定Pre-Final输入x_i及审核gold answer y_i，只监督Final target集合T_i：
+对固定Pre-Final输入 $x_i$ 及审核gold answer $y_i$，只监督Final target集合 $T_i$：
 
-$$
+```math
 \mathcal L_F(B)=
 \frac{\sum_{i\in B}\sum_{t\in T_i}-\log\pi_{\theta_F}(y_{it}\mid x_i,y_{i,<t})}
 {\sum_{i\in B}|T_i|}.
-$$
+```
 
 这是effective batch内有效target-token均值，不是各样本先均值再等权。仅Final LoRA可训练，Process、base及输入证据不计loss。引用token属于答案target，同样监督；引用合法性与语义支持另行审核。源码：[train_final.py](final/train_final.py)、[training_core.py](final/training_core.py)。
 

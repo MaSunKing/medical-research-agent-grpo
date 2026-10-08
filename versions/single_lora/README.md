@@ -42,62 +42,63 @@
 
 ### 全链路step-wise SFT
 
-一条样本只监督当前阶段；训练阶段集合为Checklist、Decision、State、Stop、Final。设T_i为样本i的有效target位置，a_i为sample weight，batch为B，则公开训练器的loss为：
+一条样本只监督当前阶段；训练阶段集合为Checklist、Decision、State、Stop、Final。设 $T_i$ 为样本 $i$ 的有效target位置，$a_i$ 为sample weight，batch为 $B$，则公开训练器的loss为：
 
-$$
+```math
 \mathcal L_{\mathrm{single}}(B)=
 \frac{1}{|B|}\sum_{i\in B}a_i
 \frac{1}{|T_i|}\sum_{t\in T_i}
 -\log\pi_\theta(y_{it}\mid x_i,y_{i,<t}).
-$$
+```
 
 先对样本内target取token均值，再按样本权重聚合。不同阶段通过其样本与权重贡献loss，不对输入、历史、工具回执重复监督。所有阶段更新同一套LoRA。
 
 ### 现有分通道相对优势
 
-同一问题采样G条轨迹，通道c的局部分数为u_ic，最终任务分数为F_i。公开compiler使用leave-one-out baseline：
+同一问题采样 $G$ 条轨迹，通道 $c$ 的局部分数为 $u_{ic}$，最终任务分数为 $F_i$。公开compiler使用leave-one-out baseline：
 
-$$
+```math
+\begin{aligned}
 A^{\mathrm{local}}_{ic}
-=u_{ic}-\frac{1}{G-1}\sum_{j\ne i}\bar u_{jc},
-\qquad
+&=u_{ic}-\frac{1}{G-1}\sum_{j\ne i}\bar u_{jc}, \\
 A^{\mathrm{final}}_i
-=F_i-\frac{1}{G-1}\sum_{j\ne i}F_j,
-$$
+&=F_i-\frac{1}{G-1}\sum_{j\ne i}F_j.
+\end{aligned}
+```
 
-$$
+```math
 A_{ic}=\lambda^{\mathrm{local}}_c A^{\mathrm{local}}_{ic}
 +\lambda^{\mathrm{final}}_c A^{\mathrm{final}}_i.
-$$
+```
 
 局部baseline使用其他轨迹同通道的均值；Tool/Stop按决策位置对齐，并使用由该位置向后的task return，而非将所有步混成一个baseline。未观测reward不当作0分，关键评分缺失须先补齐或拒绝编译。上式G表示该项有可比较评分的有效轨迹数。
 
 ### 精确token归因与clipped objective
 
-令S_ic为通道对应的实际输出token索引，κ_ic为通道loss权重（按该轨迹通道记录数分摊），行为snapshot为old：
+令 $S_{ic}$ 为通道对应的实际输出token索引，$\kappa_{ic}$ 为通道loss权重（按该轨迹通道记录数分摊），行为snapshot为old：
 
-$$
+```math
 \rho_{it}=\exp\!\left(
 \log\pi_\theta(a_{it}\mid h_{it})
 -\log\pi_{\mathrm{old}}(a_{it}\mid h_{it})
 \right),
-$$
+```
 
-$$
+```math
 \mathcal L_{\mathrm{RL}}
 =-\frac{1}{\sum_{i,c}\kappa_{ic}}
 \sum_{i,c}\frac{\kappa_{ic}}{|S_{ic}|}
 \sum_{t\in S_{ic}}
 \min\!\left(\rho_{it}A_{ic},
 \operatorname{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_{ic}\right).
-$$
+```
 
 这是现有GRPO风格分通道策略更新，不把它称作标准group-std-normalized GRPO。行为概率必须按同一采样分布重放；索引来自capture，不包含输入或Observation。代码另外监测：
 
-$$
+```math
 \widehat D_{\mathrm{old,current}}
 =\operatorname{mean}_t\!\left(\rho_{it}-1-\log\rho_{it}\right).
-$$
+```
 
 该量用于漂移监测和target-KL早停，不能冒称已有训练器同时实现了reference-KL惩罚。源码见[compiler](../../training/core.py)、[clipped loss](../../training/policy_loss.py)、[训练器](../../training/train.py)。完整工程验收与真实训练效果分别登记。
 

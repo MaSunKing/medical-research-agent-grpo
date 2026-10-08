@@ -133,16 +133,16 @@ Pre-Final 不是另写一份自由摘要，而是按实际 Final 输入合同导
 
 共同的LoRA参数化为：
 
-$$
+```math
 W_{\mathrm{eff}}=W_0+\frac{\alpha}{r}BA,\qquad
 W_0\ \text{frozen},\quad A,B\ \text{trainable}.
-$$
+```
 
-其中r为adapter rank，A、B为低秩矩阵。当前completion的监督mask为m_it：target为1，其余为0。共同CE项为：
+其中 $r$ 为adapter rank，$A$、$B$ 为低秩矩阵。当前completion的监督mask为 $m_{it}$：target为1，其余为0。共同CE项为：
 
-$$
+```math
 \ell_{it}=-m_{it}\log\pi_\theta(y_{it}\mid x_i,y_{i,<t}).
-$$
+```
 
 如何聚合这些CE项，以及阶段权重、GRPO优势与策略目标，分别见[单LoRA公式](versions/single_lora/README.md#sft与grpo公式)、[双LoRA计划公式](versions/dual_lora/README.md#计划算法与公式)、[Process与Final公式](versions/process_final_sft/README.md)、[Process-GRPO公式](versions/process_final_sft/grpo.md#计划目标函数与算法)。
 

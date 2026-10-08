@@ -46,19 +46,19 @@ SFT的QLoRA adapter可作初始化；GRPO优先使用匹配的BF16 frozen base +
 
 ### 固定生成器下的奖励
 
-对问题q，从同一冻结old Process snapshot采样G=4条轨迹τ_i。实际输入导出器g与冻结Final生成器f_φ形成：
+对问题 $q$，从同一冻结old Process snapshot采样 $G=4$ 条轨迹 $\tau_i$。实际输入导出器 $g$ 与冻结Final生成器 $f_\phi$ 形成：
 
-$$
+```math
 z_i=g(q,\tau_i),\qquad y_i=f_\phi(z_i).
-$$
+```
 
 计划reward为：
 
-$$
+```math
 R_i=\lambda_F R_F(q,y_i)
 +\sum_{c\in\mathcal C_P}\lambda_c R_c(q,\tau_i)
 -\eta C(\tau_i),
-$$
+```
 
 其中过程通道集合为Checklist、Search、Browse、Evidence Gain、State、Stop；C是按回执核实的成本，λ与η在开训前冻结。先做仅终局效用的基线：λ_F=1、各过程λ_c=0；增加过程reward是单独消融，不预报正收益。Final本身不获得梯度。
 
@@ -66,36 +66,35 @@ $$
 
 初版计划沿用可解释的leave-one-out baseline，不默认按组内标准差缩放：
 
-$$
+```math
 b_i=\frac{1}{G-1}\sum_{j\ne i}R_j,\qquad
 A_i=R_i-b_i.
-$$
+```
 
 有效组内reward完全相同时A_i=0，按约定记录零信号并跳过更新。缺失judge/不可复算reward不是0分；环境失败的有效性与失败reward先明确规则，保留失败记录，不按分数删轨迹。若后续采用group-std-normalized优势，另作算法变量冻结与对照。
 
 ### 策略目标与mask
 
-令T_i^P为Process真实生成的策略token集合，h_it包含此前真实历史及工具Observation，但只有T_i^P进入loss。比率：
+令 $T_i^P$ 为Process真实生成的策略token集合，$h_{it}$ 包含此前真实历史及工具Observation，但只有 $T_i^P$ 进入loss。比率：
 
-$$
+```math
 \rho_{it}(\theta)=
 \frac{\pi_\theta(a_{it}\mid h_{it})}
 {\pi_{\mathrm{old}}(a_{it}\mid h_{it})}.
-$$
+```
 
-计划最大化：
+为避免长公式挤在一行，先定义clipped项 $s_{it}$ 与reference-KL项 $K_{it}$，再写同一个目标：
 
-$$
-J(\theta)=\frac1G\sum_{i=1}^{G}\frac1{|T_i^P|}
-\sum_{t\in T_i^P}
-\left[
-\min\!\left(\rho_{it}A_i,
-\operatorname{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_i\right)
--\beta D_{\mathrm{KL}}\!\left(
-\pi_\theta(\cdot\mid h_{it})\Vert\pi_{\mathrm{ref}}(\cdot\mid h_{it})
-\right)
-\right].
-$$
+```math
+\begin{aligned}
+s_{it} &= \min\!\left(\rho_{it}A_i,
+\operatorname{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_i\right), \\
+K_{it} &= D_{\mathrm{KL}}\!\left(
+\pi_\theta(\cdot\mid h_{it})\Vert\pi_{\mathrm{ref}}(\cdot\mid h_{it})\right), \\
+J(\theta) &= \frac{1}{G}\sum_{i=1}^{G}\frac{1}{|T_i^P|}
+\sum_{t\in T_i^P}\left[s_{it}-\beta K_{it}\right].
+\end{aligned}
+```
 
 训练最小化−J。θ只包含Process LoRA；base、Final、输入历史与证据均无训练梯度。old为本批行为snapshot，ref为冻结参考策略，不能混为同一个角色。β≥0是计划的可选reference-KL项；β=0时只保留clipping与漂移监测。reference-KL尚未在此版本验收，不能借历史target-KL早停声称已经实现。
 
