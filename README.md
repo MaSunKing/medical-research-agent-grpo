@@ -4,6 +4,21 @@
 
 项目关注的不只是“搜到一个相关标题”，而是 **读到了什么、解决了哪个需求、还有什么没有证实**。用于研究，不替代临床判断。
 
+## Base 模型与角色
+
+本仓库的 **Base** 指没有加载本项目训练 adapter 的 **`Qwen/Qwen3-8B`**。该公开 checkpoint 已包含预训练和后训练，不是一个名为 `Qwen3-8B-Base` 的纯预训练模型。它是8.2B参数的 dense causal LM，36层，支持 thinking / non-thinking；原生上下文32,768，但本项目固定使用10,240 tokens。型号与原生能力见 [官方模型卡](https://huggingface.co/Qwen/Qwen3-8B)。
+
+| 实验角色 | 模型与参数状态 |
+|---|---|
+| Base Process | Qwen3-8B，无项目 LoRA；执行 Checklist / Decision / State / Stop |
+| Base Final | 同一 Qwen3-8B，无项目 LoRA；冻结后综合 Pre-Final，不是更大的替代模型 |
+| 单 LoRA SFT | Qwen3-8B + 一套全链路 LoRA |
+| Process-SFT | Qwen3-8B + 独立 Process LoRA；不训练 Final target |
+| Final-SFT | Qwen3-8B + 独立 Final LoRA；只训练证据到答案的 completion |
+| Teacher / Grader | Codex CLI teacher 与 Qwen3.7-Max grader 是外部角色，不属于上述 Base 对照 |
+
+SFT 使用 NF4 QLoRA、BF16 compute、FP32 LoRA；在线 Process 与 Final 的实际加载精度、thinking及采样配置分别登记，不能只凭模型名称认定数值路径相同。文档统一称 Base；历史配置中的 `raw` profile、JSON键与文件名保留，确保旧结果可复现。
+
 ## 整体流程
 
 ```mermaid
@@ -107,5 +122,15 @@ Pre-Final 不是另写一份自由摘要，而是按实际 Final 输入合同导
 | Process-SFT + Final-SFT | [Process / Final 解耦：采集、训练与消融](versions/process_final_sft/README.md) | 当前检索 |
 
 版本目录明确区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置和方法说明，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
+
+## SFT 的共同输入合同与版本差异
+
+一条完整工具轨迹拆成多个阶段样本：**阶段开始时真实可见的输入 → 当前阶段 teacher completion**。输入包含原题、预算内因果历史、最新有效 State、候选及可见证据；历史并非另一条需要生成的 target。只对当前 completion 计算 next-token CE，问题、Prompt、历史、工具 Observation 和证据不计 loss。被 Runtime 拒绝的错误输出保留溯源，但不自动作为正监督。
+
+共同的是 completion-only 和真实输入合同，**loss 归一化不是三个版本完全相同**：单 LoRA 采用样本内 target-token mean 后按样本权重聚合；Process700采用加权 target-token 总量口径；独立 Final采用 effective batch 内有效 target-token mean。各版本分别说明阶段保留、权重及计算方式，不跨口径比较 loss 高低。
+
+“没有固定最终答案金标”不等于“没有监督”：Process 使用 teacher 的 Checklist、工具动作和 State 等阶段目标；独立 Final 使用按实际 Pre-Final 审核的 gold answer。HealthBench 又有官方 rubric，不能称为无评测标准的题集。
+
+当前 Process 训练和开发对照已执行；正式四组实验与后续 GRPO 分开登记。阅读 [Process 开发结果](versions/process_final_sft/README.md#已执行的开发实验)、[20题四组与双轨评测](versions/process_final_sft/evaluation.md)、[Process-only GRPO 计划](versions/process_final_sft/grpo.md)。
 
 Apache-2.0；必要署名见 [第三方声明](THIRD_PARTY_NOTICES.md)。模型与外部服务另受各自条款约束。

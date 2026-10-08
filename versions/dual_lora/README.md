@@ -42,8 +42,10 @@ flowchart LR
 
 未确认的信息留空，不从单 LoRA 借用参数或结果。本版本训练入口的接线与验收记录也待补齐。验收应包括阶段 mask、无未来历史、State→下一输入一致、证据 ID 可见、最长样本前反向、参数确有更新、checkpoint 完整性以及新进程续跑。
 
+拆分以阶段capture为边界：Process仅保留Checklist、具体工具Decision、State与Stop target；Final仅保留其当时可见证据输入及Final target。两套adapter均采用completion-only，不监督输入历史与Observation。各自loss的样本/token归一化、阶段权重及batch口径待实现冻结，不从单LoRA或后续Process700训练器推断已经采用同一算法。
+
 ## 同 50 题验证
 
-比较 Raw、旧单 LoRA SFT、新双 LoRA，固定题目、工具后端、预算、seed、温度和评分协议；同时记录流程失败和有效配对。历史结果留在单 LoRA 页面，不替代本轮结果。
+比较 Base、旧单 LoRA SFT、新双 LoRA，固定题目、工具后端、预算、seed、温度和评分协议；同时记录流程失败和有效配对。历史结果留在单 LoRA 页面，不替代本轮结果。
 
 既看完整答案，也分开核查 query、真实获取的证据、State 覆盖和 Final 证据绑定。若完整答案与检索指标不一致，报告差异，不据此单独宣称“模型更好”。50 题若已用于调参，应称开发验证集，不再视为未触碰的最终测试集。

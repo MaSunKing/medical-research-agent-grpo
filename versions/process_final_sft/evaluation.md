@@ -2,10 +2,12 @@
 
 ## 两类对照不要混淆
 
-1. **Process 对照**：Raw Process 与 SFT Process 各真实跑同题，再交给同一个冻结 Base Final。比较找到的证据和最终效用。
+1. **Process 对照**：Base Process 与 SFT Process 各真实跑同题，再交给同一个冻结 Base Final。比较找到的证据和最终效用。
 2. **Final 对照**：冻结同一 Pre-Final，分别交给 Base Final、Final-SFT。隔离综合与引用能力，不重新检索。
 
 Process 50 题开发验证保持题目、seed、温度1、检索版本、工具预算和最终生成器一致。Final checkpoint 先由38 dev选择，不利用最终多组比较结果反复挑 checkpoint。
+
+前面的Process配对开发测试和固定输入Final38测试是两次不同定位实验；50题是开发协议规模，不代表已全部完成。已完成的配对数量与失败项见[开发记录](README.md#已执行的开发实验)。后续20题才执行下面完整四组，并同时采用HealthBench与项目维度；应在训练和checkpoint选择之外冻结，若曾用于调参就明确降级为开发对照。
 
 ## 计划：HealthBench 20 题四组主消融
 
@@ -13,12 +15,14 @@ Process 50 题开发验证保持题目、seed、温度1、检索版本、工具�
 
 | 组 | Process | 冻结 Final | 主要比较 |
 |---|---|---|---|
-| A | Raw | Base | 基线 |
-| B | SFT | 同一个 Base | B−A：Process 的增益 |
-| C | Raw | 选定 Final-SFT | C−A：同类 Process 下 Final 的增益 |
-| D | SFT | 同一个 Final-SFT | D−B：同类 Process 下 Final 的增益；D−C：Process 增益 |
+| 1 | Base | Base | 基线 |
+| 2 | SFT | 同一个 Base | 2−1：Process 的增益 |
+| 3 | Base | 选定 Final-SFT | 3−1：同类 Process 下 Final 的增益 |
+| 4 | SFT | 同一个 Final-SFT | 4−2：Final 增益；4−3：Process 增益 |
 
-每题先生成 Raw/SFT 两份 Pre-Final，再让两种 Final 都读取各自同一份输入，避免四组重复检索引入额外网络差异。引用映射、Final prompt、reserve、采样参数按组一致。Process T=1；Final 对照固定同一温度、seed、top-p/top-k与thinking设置并记录。GRPO 中低随机性 Frozen Final 是后续另一协议，不能混入本实验。
+每题先生成 Base/SFT 两份 Pre-Final，再让两种 Final 都读取各自同一份输入，避免四组重复检索引入额外网络差异。引用映射、Final prompt、reserve、采样参数按组一致。Process T=1；Final 对照固定同一温度、seed、top-p/top-k与thinking设置并记录。GRPO 中低随机性 Frozen Final 是后续另一协议，不能混入本实验。
+
+即 **1/2是一组、3/4是一组**，分别在冻结Base Final和冻结Final-SFT下比较Process；另用1/3及2/4隔离Final提升。20题产生40份Process轨迹、80份Final答案。工程测试先验证阶段输入、引用合同、模型身份和续跑，再运行正式比较，不将工程通过记成任务质量通过。
 
 可追加的诊断消融按优先级执行，不与主四组一起同时改所有变量：
 
@@ -46,6 +50,8 @@ Process 50 题开发验证保持题目、seed、温度1、检索版本、工具�
 | 工程 | 协议、来源ID、因果历史、State传递、token预算、captures与输入身份 |
 
 工程硬 gate 与医学语义分开报告；不得用工具成功率代替答案质量。主结果提供每题配对分数、胜/负/平、均值差与不确定性；20题是小样本开发实验，不保证泛化。失败题与重试分别列出，保留 all-attempt 口径及完整配对口径，不悄悄删除失败。
+
+项目维度在看答案前冻结规则：每项报告“满足 / 部分满足 / 不满足 / 不适用”，并标出支持判断的capture、chunk或答案位置；同时给出证据覆盖、Query漂移、State高估、重复无收益、过早Stop和引用支持错误的逐题记录。若使用综合分，先冻结权重和不适用项归一化，不能阅卷后调权重。评审尽可能隐藏模型标签，标注人工/模型评审及分歧；该项目分数与HealthBench官方rubric分数并列，不合并成冒充官方分数的总分。
 
 ## 输出与复核
 
