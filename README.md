@@ -94,6 +94,7 @@ Pre-Final 不是另写一份自由摘要，而是按实际 Final 输入合同导
 | [检索设计](docs/retrieval.md) | Search / Browse 与候选池细节 |
 | [代码导航](docs/code_navigation.md) | 按功能定位实际源码 |
 | [API 配置](docs/apis.md) | 服务用途与变量名；不含真实密钥 |
+| [Codex CLI 轨迹采集](docs/codex_cli_collection.md) | Teacher 如何通过项目真实工具生成阶段轨迹与历史 |
 
 ## 项目迭代
 
@@ -101,9 +102,9 @@ Pre-Final 不是另写一份自由摘要，而是按实际 Final 输入合同导
 
 | 版本 | 独立说明 | 检索代码 |
 |---|---|---|
-| 单 LoRA | [保留原项目说明与历史实验](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
-| 双 LoRA | [972 题复用、角色拆分与 50 题验证框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
-| Process-SFT + Final-SFT | [700 题 Process、Pre-Final、独立 Final 与消融框架](versions/process_final_sft/README.md) | 当前检索 |
+| 单 LoRA | [全链路单 LoRA：设计、训练与评测](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
+| 双 LoRA | [双 LoRA：迭代动机与实验框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
+| Process-SFT + Final-SFT | [Process / Final 解耦：采集、训练与消融](versions/process_final_sft/README.md) | 当前检索 |
 
 版本目录明确区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置和方法说明，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
 

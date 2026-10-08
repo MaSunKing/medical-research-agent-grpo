@@ -4,11 +4,17 @@
 
 目标是拆开 **证据获取/状态构建** 与 **证据到答案的综合**，让后续优化可以区分问题来自 Process 还是 Final。使用当前检索工程，不继承旧全链路 adapter 来初始化 fresh Process 或 fresh Final。
 
-## 路线与实际执行范围
+## 迭代原因
+
+独立 adapter 还不足以解决输入分布差异：teacher 的理想证据包与实际 Process 能找到的信息可能不同。这个版本让 Process 先真实执行工具，再自动导出实际 Pre-Final，Final 的金标和训练以这些可见证据为依据；随后冻结 Final，单独研究 Process 的改进。检索工程同时更新，因此新轨迹须按同一工程合同采集。
+
+## 本版本采集与训练路线
 
 ```mermaid
 flowchart TB
-    T[已审核 teacher Process 轨迹：500 + 新采 200] --> PS[700 题 history-aware Process-only SFT]
+    Q[原训练集选取700道原题] --> CLI[Codex CLI + 新工程真实工具重新采集]
+    CLI --> T[阶段轨迹 + 因果历史：审核与打包]
+    T --> PS[history-aware Process-only SFT]
     PS --> PV[Process 验证：配对开发题与 50 题协议]
     PS --> Collect[剩余 272 题：真实 Process 与工具运行]
     Collect --> Package[自动导出实际 Pre-Final 输入与引用映射]
@@ -18,16 +24,15 @@ flowchart TB
     FS --> Frozen[选择并冻结 Final]
     Frozen --> Ablation[计划：HealthBench 20 题多组消融]
     Frozen --> RL[计划：Process-only GRPO]
-    New[后续 Codex CLI + 真实本地工具重采 700 题] --> Next[新数据候选与独立版本验证]
 ```
 
-已执行的训练：Process 700 题 / 6,741 条阶段样本 / 843 updates；Final 226 题 / 3 epochs / 87 updates。272 题是采集任务规模，不等于全部通过训练审核；226 train + 38 dev 是进入本轮 Final 数据合同的集合，其他记录不自动补进训练。
+本版本的700题均取自原训练题，不是重新编写题目；按更新后的工程，使用 **Codex CLI teacher 和项目真实本地工具重新采集700题的Process轨迹与历史**，随后审核、构建Process-only SFT。采集方法见 [Codex CLI 说明](../../docs/codex_cli_collection.md)。这条完整重采路线的完成情况以独立采集清单为准，不用此前训练的更新数代替采集验收。
 
-700 题由先前筛选的 500 与新采 200 组成，集合互不重叠。之后用 Codex CLI 和真实本地工具重新生成 700 道 teacher Process 轨迹是 **后续计划**，保留失败与修复过程，不把未执行动作包装成有效监督。
+已有训练运行参考：此前700题包采用500条保留轨迹与200条新采轨迹，得到6,741条阶段样本和843 updates；已有Final运行是226题、3 epochs、87 updates。下面保留这些实际训练代码和配置作为重采后重训的参考，新轨迹的样本数与步数须重新计算。272题是实际Process采集任务规模；226 train + 38 dev 是进入已有Final数据合同的集合，其他记录不自动补进训练。
 
-## Process 训练
+## 已有 Process 训练代码与参数参考
 
-| 参数 | 实际配置 |
+| 参数 | 已有运行配置；新重采数据待重新冻结 |
 |---|---|
 | Backbone / 初始化 | Qwen3-8B，fresh Process LoRA |
 | 数据 / target | 700 题 / 6,741 rows；Checklist、Decision（含具体 tool call）、State、Stop；Final targets=0 |
