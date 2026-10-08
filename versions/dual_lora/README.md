@@ -60,8 +60,8 @@ w_{it}^{(k)}[-\log\pi_{\theta_k}(y_{it}\mid x_i,y_{i,\lt t})]}
 
 ```math
 \begin{aligned}
-\theta_P &\leftarrow\operatorname{AdamW}(\theta_P,\nabla_{\theta_P}\mathcal L_P), \\
-\theta_F &\leftarrow\operatorname{AdamW}(\theta_F,\nabla_{\theta_F}\mathcal L_F).
+\theta_P &\leftarrow\mathrm{AdamW}(\theta_P,\nabla_{\theta_P}\mathcal L_P), \\
+\theta_F &\leftarrow\mathrm{AdamW}(\theta_F,\nabla_{\theta_F}\mathcal L_F).
 \end{aligned}
 ```
 
@@ -72,7 +72,7 @@ w_{it}^{(k)}[-\log\pi_{\theta_k}(y_{it}\mid x_i,y_{i,\lt t})]}
 先冻结选定Final，把Process轨迹τ_i交给固定生成器f_φ，得到：
 
 ```math
-z_i=\operatorname{PreFinal}(\tau_i),\qquad
+z_i=\mathrm{PreFinal}(\tau_i),\qquad
 y_i=f_\phi(z_i),\qquad
 R_i=R_{\mathrm{answer}}(q,y_i)+R_{\mathrm{process}}(\tau_i)-\eta C(\tau_i).
 ```

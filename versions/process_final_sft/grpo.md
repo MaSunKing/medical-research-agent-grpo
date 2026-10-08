@@ -88,7 +88,7 @@ A_i=R_i-b_i.
 ```math
 \begin{aligned}
 s_{it} &= \min\!\left(\rho_{it}A_i,
-\operatorname{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_i\right), \\
+\mathrm{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_i\right), \\
 K_{it} &= D_{\mathrm{KL}}\!\left(
 \pi_\theta(\cdot\mid h_{it})\Vert\pi_{\mathrm{ref}}(\cdot\mid h_{it})\right), \\
 J(\theta) &= \frac{1}{G}\sum_{i=1}^{G}\frac{1}{|T_i^P|}

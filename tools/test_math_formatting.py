@@ -26,6 +26,8 @@ class MathFormattingTests(unittest.TestCase):
                 for block in blocks:
                     # GitHub can confuse a raw <letter with markup; use \lt.
                     self.assertNotRegex(block, r'<[A-Za-z]')
+                    # GitHub's renderer rejects operatorname in these pages.
+                    self.assertNotIn(r'\operatorname', block)
                     depth = 0
                     # Escaped braces are literal delimiters, not TeX groups.
                     groups = re.sub(r'\\[{}]', '', block)

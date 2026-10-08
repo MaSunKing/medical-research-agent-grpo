@@ -90,14 +90,14 @@ A_{ic}=\lambda^{\mathrm{local}}_c A^{\mathrm{local}}_{ic}
 \sum_{i,c}\frac{\kappa_{ic}}{|S_{ic}|}
 \sum_{t\in S_{ic}}
 \min\!\left(\rho_{it}A_{ic},
-\operatorname{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_{ic}\right).
+\mathrm{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_{ic}\right).
 ```
 
 这是现有GRPO风格分通道策略更新，不把它称作标准group-std-normalized GRPO。行为概率必须按同一采样分布重放；索引来自capture，不包含输入或Observation。代码另外监测：
 
 ```math
 \widehat D_{\mathrm{old,current}}
-=\operatorname{mean}_t\!\left(\rho_{it}-1-\log\rho_{it}\right).
+=\mathrm{mean}_t\!\left(\rho_{it}-1-\log\rho_{it}\right).
 ```
 
 该量用于漂移监测和target-KL早停，不能冒称已有训练器同时实现了reference-KL惩罚。源码见[compiler](../../training/core.py)、[clipped loss](../../training/policy_loss.py)、[训练器](../../training/train.py)。完整工程验收与真实训练效果分别登记。
