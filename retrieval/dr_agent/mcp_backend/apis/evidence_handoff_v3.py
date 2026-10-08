@@ -180,18 +180,61 @@ def pack_browse(ranked, document, *, tokenizer, max_tokens=700, max_chars=4200, 
     if len(candidates) < top_k:
         ids = {c['chunk_id'] for c in candidates}
         candidates.extend(c for c in ranked if c['chunk_id'] not in ids)
-    out, audit = [], []
-    tokens, chars = max_tokens, max_chars
     selected = candidates[:top_k]
-    for index, c in enumerate(selected):
-        aligned = aligned_chunk(c, document)
+    aligned_selected = [aligned_chunk(c, document) for c in selected]
+    count = lambda text: len(tokenizer.encode(text, add_special_tokens=False)) if tokenizer else len(text)
+    # The fair-share pass is only needed when the selected windows do not fit.
+    # Otherwise it can discard an important sentence while leaving most of the
+    # overall budget unused (even though every returned fragment ends cleanly).
+    eligible = [a for a in aligned_selected if a and not (
+        a.get('structure_kind') == 'table_like' and a.get('boundary_incomplete'))]
+    all_fit = (sum(count(a['text']) for a in eligible) <= max_tokens and
+               sum(len(a['text']) for a in eligible) <= max_chars)
+    plans = []
+    tokens, chars = max_tokens, max_chars
+    for index, (c, aligned) in enumerate(zip(selected, aligned_selected)):
         left = len(selected)-index
         cap_tokens = max(1,tokens//left) if tokens else 0
         cap_chars = max(1,chars//left) if chars else 0
         table_incomplete=bool(aligned and aligned.get('structure_kind') == 'table_like'
                               and aligned.get('boundary_incomplete'))
-        text = within_budget(aligned['text'], cap_tokens, cap_chars, tokenizer,
-                             aligned.get('structure_kind','prose')) if aligned and cap_tokens and cap_chars and not table_incomplete else ''
+        if all_fit and aligned and not table_incomplete:
+            text = aligned['text']
+        else:
+            text = within_budget(aligned['text'], cap_tokens, cap_chars, tokenizer,
+                                 aligned.get('structure_kind','prose')) if aligned and cap_tokens and cap_chars and not table_incomplete else ''
+        plans.append(dict(chunk=c, aligned=aligned, text=text,
+                          table_incomplete=table_incomplete,
+                          initial_token_cap=cap_tokens, initial_character_cap=cap_chars,
+                          first_pass_tokens=count(text), first_pass_chars=len(text)))
+        tokens -= count(text)
+        chars -= len(text)
+    # A short later passage cannot use its whole share. Give the remainder back
+    # to earlier clipped passages, in rank order, without changing source text,
+    # sentence-boundary rules, or the whole-table requirement.
+    if not all_fit:
+        for plan in plans:
+            aligned, old = plan['aligned'], plan['text']
+            if not aligned or plan['table_incomplete'] or not tokens or not chars:
+                continue
+            if len(old) >= len(aligned['text']):
+                continue
+            proposal = within_budget(aligned['text'], count(old)+tokens,
+                                     len(old)+chars, tokenizer,
+                                     aligned.get('structure_kind','prose'))
+            if len(proposal) <= len(old) or not proposal.startswith(old):
+                continue
+            added_tokens = count(proposal)-count(old)
+            added_chars = len(proposal)-len(old)
+            if added_tokens < 0 or added_tokens > tokens or added_chars > chars:
+                continue
+            plan['text'] = proposal
+            tokens -= added_tokens
+            chars -= added_chars
+    out, audit = [], []
+    for plan in plans:
+        c, aligned, text = plan['chunk'], plan['aligned'], plan['text']
+        table_incomplete = plan['table_incomplete']
         budget_truncated=bool(aligned and text and len(text) < len(aligned['text']))
         incomplete = bool(aligned and aligned.get('boundary_incomplete')) or bool(
             budget_truncated and len(text) not in sentence_ends(text))
@@ -212,7 +255,13 @@ def pack_browse(ranked, document, *, tokenizer, max_tokens=700, max_chars=4200, 
                       'structure_audit':aligned.get('structure_audit') if aligned else None,
                       'table_integrity_verified':aligned.get('table_integrity_verified') if aligned else None,
                       'budget_truncated':budget_truncated,
-                      'token_cap':cap_tokens,'character_cap':cap_chars})
+                      'token_cap':max(plan['initial_token_cap'],count(text)),
+                      'character_cap':max(plan['initial_character_cap'],len(text)),
+                      'initial_token_cap':plan['initial_token_cap'],
+                      'initial_character_cap':plan['initial_character_cap'],
+                      'reallocated_tokens':count(text)-plan['first_pass_tokens'],
+                      'reallocated_chars':len(text)-plan['first_pass_chars'],
+                      'all_selected_windows_fit':all_fit})
         if not text:
             continue
         aligned['text'] = text
@@ -220,8 +269,6 @@ def pack_browse(ranked, document, *, tokenizer, max_tokens=700, max_chars=4200, 
         aligned['boundary_incomplete'] = incomplete
         aligned['text_sha256'] = hashlib.sha256(text.encode()).hexdigest()
         aligned['returned_text_sha256'] = hashlib.sha256(text.encode()).hexdigest()
-        tokens -= len(tokenizer.encode(text, add_special_tokens=False)) if tokenizer else len(text)
-        chars -= len(text)
         from .returned_window_identity import bind_returned_window
         aligned = bind_returned_window(aligned)
         audit[-1]['returned_chunk_id'] = aligned['chunk_id']

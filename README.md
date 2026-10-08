@@ -1,201 +1,110 @@
-# 医学研究智能体｜Qwen3-8B SFT 与分阶段稠密奖励 GRPO
+# 医学研究智能体 · Medical Research Agent
 
-面向本地部署的医学 Research Agent：基于 Qwen3-8B，自主调用 Search/Browse 工具，检索医学证据、更新任务状态，并生成带来源引用的回答；通过 QLoRA SFT 和分阶段稠密奖励进行 GRPO 风格后训练。
+面向医学文献与网页资料的证据检索智能体。系统把问题拆成可独立核验的需求，围绕当前证据缺口动态搜索、读取来源、更新状态，再把可追溯的证据交给答案生成环节。
 
-项目重点不是给模型接一个检索接口，而是研究：**如何让真实工具轨迹中的检索、选源、证据判断和最终回答分别获得学习信号。**
+项目关注的不只是“搜到一个相关标题”，而是 **读到了什么、解决了哪个需求、还有什么没有证实**。用于研究，不替代临床判断。
 
-| 当前冻结数据切分 | 规模 |
-|---|---:|
-| SFT Train | 974 |
-| SFT Dev | 79 |
-| GRPO 医学问题池 | 500 |
-| GRPO Train | 450 |
-| Raw / SFT 配对留出评测 | 50 |
-
-50 题留出集不参与参数更新，并固定用于 Raw → SFT → GRPO 的配对比较。
-
-## 50 题 Raw / SFT 真实配对评测
-
-在同一 Qwen3-8B backbone、同一评测 Runtime 与冻结题集下，SFT 取得 **36 胜、10 负、2 平、2 个双方失败平局**；严格端到端通过率由 Raw 的 **41/50** 提升到 SFT 的 **43/50**。在双方端到端均有效的 36 对样本中，冻结综合均分为 Raw **64.36**、SFT **81.42**。
-
-评测由 **ChatGPT Pro** 按冻结规则逐题审核，并使用 Codex 文件审计流程核对问题、工具回执、已打开证据、State 与正式 Final。模型标签对评审可见，因此不声称盲评；该分数衡量本项目协议和证据约束下的综合表现，不等同于临床正确率。
-
-[查看完整 50 题结果、评分规则与逐题分数](docs/evaluation/local50_raw_sft_chatgpt_pro_20260923.md)。公开表格直接给出冻结 rubric 的加权综合分，不再另设展示上限；最高档表示在本次离散规则下达到该档位，不等同于绝对医学正确。
-
-## 为什么从 SFT 转入 GRPO
-
-本项目把 SFT 定位为 Agent 的 cold-start 阶段：先让 Qwen3-8B 学会任务拆解、Search/Browse 工具协议、Evidence State 更新、停止决策和引用式回答。50 题留出评测显示，SFT 已经显著改善完整 Agent 轨迹生成与严格端到端通过能力，能够稳定产生可用于在线策略优化的真实工具 rollout。
-
-剩余错误更多是**同一状态下的动作质量与长轨迹信用分配**问题，例如选择相关但低价值的来源、重复 Browse 却没有新增 Evidence Gain、把 partial evidence 误判为 direct、停止时机不理想，以及 Final 对证据的过度推断或偶发重复。这些问题不只是缺少更多正确示范，还需要比较同题多条轨迹中不同动作的相对价值。
-
-因此项目冻结当前 SFT checkpoint 作为初始化策略，转入基于真实工具 rollout 的 GRPO：用 Checklist、Search、Browse、Evidence Gain、State、Stop 与 Final 的分阶段反馈继续优化共享 LoRA。这不表示 SFT 已达到理论最优，而是表示它已经完成当前阶段作为 RL 初始化策略的主要职责。
-
-## 为什么不只奖励最终答案
-
-只看最终答案总分时，很难区分“检索词有效”“选错来源”“证据判断错误”和“答案引用不支持主张”。本项目保留最终任务收益，同时拆分过程奖励，将不同通道的优势绑定到实际生成的 Token 范围。
-
-| 算法设计 | 解决的问题 |
-|---|---|
-| 分阶段信用分配 | Checklist、Search、Browse、State、Final 分别评价，而非所有动作只接收同一个总分 |
-| 选源与证据收益分离 | Browse 评价打开前的选源质量；代码根据打开后的 coverage 回执计算 evidence gain |
-| 增量证据继承 | 保留上一步可信证据状态，评价新证据增量，避免无关新材料抹掉已确认支持 |
-| 精确 Token 归因 | 评分绑定真实 record/capture，再编译到对应生成跨度，不按“附近 Token”猜测归属 |
-| 组内相对优势 | 同题多条 rollout 按冻结配置计算 advantage，使用 clipped objective 更新共享 LoRA |
-
-以上是已实现的设计，不代表已通过消融实验证明优于 final-only 奖励。
-
-## 系统架构
+## 整体流程
 
 ```mermaid
-flowchart TD
-    Q[原题与冻结任务要求] --> C[Checklist：拆解任务]
-    C --> S[Search：生成检索 query]
-    S --> B[Browse：事前选源]
-    B --> R[正文清洗、切分、召回与重排]
-    R --> ST[State：更新证据状态]
-    ST --> S
-    ST --> F[Final：生成答案与引用]
-    C & S & B & ST & F --> J[分阶段语义 Judge]
-    R --> G[增量证据覆盖回执]
-    G --> M[代码继承与合并 evidence gain]
-    J & M --> V[验证证据来源与精确 Token 绑定]
-    V --> A[同题组内相对优势]
-    A --> L[裁剪策略目标：更新共享 LoRA]
+flowchart LR
+    Q[原始问题] --> C[Checklist：独立需求与原问题约束]
+    C --> D[Decision：结合 State 与历史选择动作]
+    D --> S[Search：动态生成针对缺口的 query]
+    S --> P[累计候选池与可见窗口]
+    P --> B[Browse：选择来源与阅读重点]
+    D --> B
+    B --> E[清洗正文、选择片段、保留证据坐标]
+    E --> U[State：评估证据覆盖与未解决缺口]
+    U --> D
+    D --> T[Stop：收益、缺口与预算]
+    T --> F[Pre-Final：当前状态、证据与历史]
+    F --> A[Final：基于可见证据回答并引用]
 ```
 
-## 真实轨迹案例
+## 两条检索链路
 
-急性冠脉综合征后的秋水仙素研究问题，来自服务器实际 SFT 推理记录：
+论文和网页共用工具协议、候选池与证据交接，但使用适合各自内容的检索和正文处理路径。
 
-```text
-英文医学原题
-→ Checklist：拆成疗效与治疗限制性不良反应两个要求
-→ Search：检索相关论文
-→ Browse：打开 S2 论文来源，读取带完整 ID 的正文片段
-→ State：模型将两个要求均标记为 direct
-→ FINAL_READY
-→ Final：四段英文答案，生成四个句后 citation
+| 环节 | 论文 | 网页 |
+|---|---|---|
+| 来源发现 | PubMed 与 Semantic Scholar | Serper 网页搜索 |
+| Search 返回内容 | 标题、摘要及来源元数据；摘要不等于全文 | 标题、snippet 与 URL；预览不等于已读正文 |
+| Search 语义排序 | MedCPT Cross-Encoder | MiniLM Cross-Encoder |
+| 排序关注点 | 原问题 0.7 + 当前 query 0.3 | 原问题 0.7 + 当前 query 0.3；权威性不覆盖相关性 |
+| Browse | 按可用来源读取摘要、正文或 PDF；访问失败有明确回执 | 访问探针、网页正文提取与结构清洗 |
+| 片段选择 | 医学片段检索、语义重排、表格结构保留 | 正文清洗后混合召回与语义重排 |
+
+语义模型不可用时，Search 模块保留原有可用排序并记录降级，不把模型加载失败伪装成“没有相关证据”。PDF 解析属于可选正文路径，不承诺每篇论文都能取得全文。
+
+```mermaid
+flowchart TB
+    Query[原问题 + 当前缺口 query] --> Paper[PubMed / Semantic Scholar]
+    Query --> Web[Serper]
+    Paper --> PR[标题与摘要：MedCPT 重排]
+    Web --> WR[标题与 snippet：MiniLM 重排]
+    PR --> Pool[累计候选池]
+    WR --> Pool
+    Pool --> Window[最新候选优先 + 历史候选补充]
+    Window --> Read[Browse 已列出的来源 ID]
+    Read --> Clean[正文清洗 / 结构解析 / PDF 可选]
+    Clean --> Chunk[片段召回与重排]
+    Chunk --> Evidence[精确文本、chunk ID、来源与坐标]
 ```
 
-本例实际执行 **1 次 Search、1 次 Browse**，没有补造第二轮检索。[查看真实原始输出、工具动作与引用](examples/trajectory_demo/README.md)。这是过程案例，不是标准答案：State 是模型自报状态，治疗限制性不良反应是否充分回答仍需原文审核。本例未调用 Judge，奖励字段保留为 null。
+## 候选池：保留历史，不覆盖最新结果
 
-## 已验证的范围
+当前可见窗口最多 **8 个候选**。首次搜索沿 Search 后端的返回顺序填充；之后最多先放 4 个最新候选，剩余位置从历史池按原问题的 MiniLM 相关性选择。历史不足时，用更多最新候选补齐。
 
-| 内容 | 当前证据与边界 |
+**最新候选在前，历史候选在后，不再进行合并后的全局重排。** 因此 Search 已完成的语义排序不会被第二次混合排序打乱。候选池保存累计来源，可见窗口只是当前给模型看的投影；记录包含分组、显示顺序和来源 ID。
+
+## Checklist、State 与动态 Query
+
+- Checklist 从原问题提取可独立回答的需求，保留人群、疾病、干预、时间等共享约束；不会机械地把所有关键词拆成任务。
+- Decision 看原问题、当前 State、历史和候选，针对具体缺口生成 query。论文允许医学关键词或 Boolean 检索式，网页允许聚焦短语；不强制英文完整句子。
+- Prompt 要求不引入无关疾病、药物、年份或研究类型；这些是模型指导，不是后端已经证明的语义硬约束。
+- Browse 只允许使用当前列出的来源 ID。标题相关不等于证据支持；导航、登录、广告和访问错误不能用于提升覆盖状态。
+- State 依据已读证据更新 `unknown / partial / direct` 与证据 ID。`direct` 是模型评估，仍可因证据不足或冲突而修订。
+
+工具接口保持不变：没有为了 query 聚焦新增必填的 requirement-ID 字段。英文 Prompt 源码见 [Decision](retrieval/runtime/sft_interface_v20.py)、[Checklist](retrieval/runtime/checklist_feedback_v55.py) 和 [State](retrieval/runtime/state_compact_v38.py)。
+
+## 历史、预算和失败处理
+
+历史是固定预算下的工作记忆，保存已发生的动作、工具结果摘要和状态变化；证据正文单独交接。历史不能引用未来阶段，也不能把失败尝试标成成功。最终状态以最新有效 State 为准。
+
+当前阶段合同：总上下文 **10,240 tokens**；Checklist、State 各预留 1,200，Decision/Stop 各 240，Final 2,400。不会为了塞入历史单独放宽某一阶段。
+
+工具预算按执行回执结算：**6 次计费动作 + 最多 3 次环境失败豁免，最多 9 次真实工具执行**。空搜索、无相关内容和非法参数不是环境失败豁免。3 次豁免用尽不直接强制 Stop，后续动作继续按正常预算结算。Browse 同时遵守来源黑名单、冷却与失败重试限制。
+
+## 证据交接与引用
+
+Pre-Final 不是另写一份自由摘要，而是按实际 Final 输入合同导出：问题、最新 State、Checklist freshness、已打开证据、来源头信息，以及共享输入构建器实际保留的历史。原始轨迹与输入包分别保存，便于复查。
+
+证据 freshness 用 **精确 chunk ID 与文本** 计算，避免仅因展示元数据变化误判状态过期。Evidence Card 是长证据的预算内交接机制，不替代原始出处。
+
+当前独立 Final 接口使用短引用别名，并保留到原始 chunk ID 的确定性映射；输出为单个 `<answer>...</answer>`。引用存在、格式正确与“该句确被证据支持”分别检查，不能互相替代。见 [引用与 Final 合同](docs/final_contract.md)。
+
+## 源码与阅读入口
+
+| 目录 / 文档 | 内容 |
 |---|---|
-| 真实工具轨迹 | 独立服务器实验执行真实 Search/Browse，并保存生成 capture 与工具执行记录 |
-| 分阶段 Judge | 一题四轨迹的阶段评分完成；合法 schema 不等于语义判断一定正确 |
-| 增量 evidence gain | 四轨迹、8 个 Browse 的收益评分通过，实际 6 次 API 请求、6 次缓存命中 |
-| 奖励编译与绑定 | 可信 authority 与 batch preflight 通过，共编译 42 条通道记录 |
-| 行为概率一致性 | 同一工程验收的 replay 最大差值约为 7.39×10⁻⁶ |
-| 真实 LoRA 更新 | 一题四轨迹执行 1 次 optimizer.step；504 个权重张量改变，checkpoint 完整性通过，原适配器不变 |
-| 无模型离线检查 | 250 项核心合同回归检查；另有 Python 3.10 / 3.11 / 3.12 CI |
-| Raw / SFT 留出评测 | 50 题冻结配对评测：SFT 36 胜、Raw 10 胜、2 平、2 个双方失败平局 |
+| [retrieval/](retrieval/README.md) | 当前论文、网页、PDF、清洗与语义排序源码 |
+| [retrieval/runtime/](retrieval/runtime/README.md) | 当前候选窗口、英文 Prompt、失败预算与证据交接组件 |
+| [系统架构](docs/architecture.md) | 模块边界与证据生命周期 |
+| [检索设计](docs/retrieval.md) | Search / Browse 与候选池细节 |
+| [代码导航](docs/code_navigation.md) | 按功能定位实际源码 |
+| [API 配置](docs/apis.md) | 服务用途与变量名；不含真实密钥 |
 
-表中工程验收与上面的 SFT 案例是不同运行，不能把工程验收奖励归到该案例。
+## 项目迭代
 
-## 训练路线
+首页描述当前检索与工程机制；实验方法、参数和结果按版本分开维护，不混用旧检索与新检索的实验结论。
 
-SFT 学习工具协议和多步轨迹；RL 使用真实工具采集结果及局部奖励继续更新同一共享 LoRA。模型权重不合并为新的完整模型后再重复叠加适配器；具体加载与概率校验见[训练说明](docs/training.md)。
+| 版本 | 独立说明 | 检索代码 |
+|---|---|---|
+| 单 LoRA | [保留原项目说明与历史实验](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
+| 双 LoRA | [972 题复用、角色拆分与 50 题验证框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
+| Process-SFT + Final-SFT | [700 题 Process、Pre-Final、独立 Final 与消融框架](versions/process_final_sft/README.md) | 当前检索 |
 
-训练与集成验证运行于新加坡 NSCC GPU 集群，兼顾单卡 QLoRA 与本地推理部署。当前已验收的 RL 参数更新是单 GPU 实验；共享阶段上下文上限为 **8192 tokens（输入＋预留输出）**，Final 单次输出上限为 **2400 tokens**。
+版本目录明确区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置和方法说明，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
 
-```text
-固定当前策略 → 采集多条真实轨迹 → 分阶段 Judge → ChatGPT Pro 语义复核
-            → 可信奖励编译 → 概率与绑定校验 → LoRA 训练 → 留出集对照
-```
-
-计划以 50 题、每题 4 条 rollout（共 200 条轨迹）为一个采集与评分周期。复核纠正需要保留原响应、审核依据和版本化回执，不能直接改 batch 分数。
-
-**一个采集周期不等于一次 optimizer.step。** 采集/评分批次与参数更新分别记录，避免把“收集了 50 题”误写成“只执行了一次大批量更新”。
-
-## 检索与证据处理
-
-工具后端接入 PubMed/PMC、Semantic Scholar 与网页检索；正文经过 HTML/XML 解析、通用模板噪声过滤和多语言边界切分，再进行 BM25/BGE 召回与 MiniLM 重排。
-
-Browse 返回完整 chunk ID 与正文，State 保存 requirement 对应的 evidence IDs，Final 自己生成正文及句后 `<cite>`。代码检查格式与 ID，Judge 判断语义支持；不会自动替模型补上引用。详见[检索说明](docs/retrieval.md)。
-
-最近一次工程同步补齐了 `structure_kind / boundary_incomplete / table_integrity_verified` 从 Browse 到 State/Final 的无损传递：普通统计正文不会因出现 RR/CI 被误判为表格；完整表格可引用，残缺表格保留 provenance 但不进入可引用证据。低于 8K 合同预算时仍使用完整上下文，只有超限时才按原始证据卡与不可引用预算回执降级。Final 的重复检测只负责异常停止并保留原始输出，不修改 logits，也不自动重写答案。详见[近期工程同步](docs/recent_engineering_updates.md)。
-
-## 核心模块
-
-| 模块 | 实现内容 |
-|---|---|
-| 模型与后训练 | Qwen3-8B 接口，completion-only QLoRA SFT，共享 LoRA RL trainer |
-| 检索与证据 | HTML/XML 解析、通用模板噪声过滤、多语言切分边界、BM25/BGE 召回与 MiniLM 重排 |
-| Agent 协议 | Checklist 原题锚点、预算化候选预览、证据卡、State evidence IDs、Final citation 与重复终止审计 |
-| Judge | Checklist、Search、Browse、State，以及 Final completeness / fidelity / citation |
-| 任务收益 | 增量证据覆盖、工具成本、可信 policy event 与可评价的主动 Stop |
-| 训练完整性 | 可信 authority、真实 capture/token 绑定、整题组 pending gate、原子 checkpoint |
-
-公开仓库是当前项目的**脱敏源码导出**，不是服务器目录的逐字节镜像。它同步算法模块、工具后端、训练器、近期证据完整性/预算/重复保护代码、真实轨迹摘录与离线测试；模型权重、私有题集、完整 capture、密钥和集群专用脚本不随代码发布。
-
-## 外部 API 与用途
-
-离线演示和合同测试不需要 API Key；本地 Qwen3-8B / LoRA 推理也不依赖云端生成 API。真实联网流程按启用能力配置：Serper 用于通用网页候选发现，PubMed/PMC 与 Semantic Scholar 用于医学文献检索，MinerU 只在 PDF 正文解析路径启用，OpenAI-compatible Judge endpoint 用于轨迹采集后的分阶段语义评分。MedGap verifier、Jina、Crawl4AI 与 semantic evidence reader 均为可选后端。
-
-公开配置模板只保留变量名，不包含真实值：
-
-```text
-Web Search          SERPER_API_KEY
-PubMed / PMC        NCBI_API_KEY（可选）
-Semantic Scholar    S2_API_KEY（可选）
-PDF / MinerU        MINERU_API_TOKEN 或 MEDGAP_MINERU_BASE_URL（可选）
-Stage Judge         JUDGE_BASE_URL / JUDGE_MODEL / JUDGE_API_KEY
-Semantic Verifier   MEDGAP_VERIFIER_* + DASHSCOPE_API_KEY（可选）
-```
-
-每项服务何时调用、无 Key 时如何降级及对应源码位置见[外部 API 配置说明](docs/apis.md)。不要提交本地 `.env` 或在日志中打印任何密钥。
-
-## 零 GPU、零 API Key 演示
-
-Python 3.10+ 即可运行：
-
-```bash
-python -B run_pipeline.py demo
-python -B run_pipeline.py check
-```
-
-演示用明确标记的合成四轨迹 fixture 调用**实际 reward compiler**，验证正负 advantage 和增量证据继承。不会加载模型、请求 Judge 或更新参数；fixture token IDs 不代表真实模型 capture。
-
-离线检查覆盖奖励、authority、证据回执、Judge schema 与整组放行规则。
-
-## 代码结构
-
-```text
-agent/          模型可见协议、citation 与 token 工具
-retrieval/      工具后端、正文解析与片段选择
-sft/            completion-only QLoRA 数据准备与训练
-judge/          评分计划、schema 验证与维度聚合
-shared/         不可变回执、evidence gain 与严格缓存
-training/       reward compiler、advantage、clipped loss 与 replay
-orchestrator/   可移植身份、token scope 与执行工具
-examples/       真实静态轨迹案例与无密钥离线验证
-docs/           中文架构、算法与训练说明
-```
-
-按功能定位当前源码，请看[代码阅读导航](docs/code_navigation.md)。GPU 训练依赖与输入准备见[训练说明](docs/training.md)。
-
-## 当前研究边界
-
-当前公开效果结论以 50 题 Raw/SFT 冻结配对评测为准。离线合同测试、工具成功和流程完成分别证明不同层面的工程行为，不能互相替代；医学内容结论仍需结合逐题证据审核理解。
-
-## 阅读导航
-
-| 文档 | 内容 |
-|---|---|
-| [系统架构](docs/architecture.md) | 工具轨迹、证据流与可信训练边界 |
-| [奖励算法](docs/rewards.md) | 局部奖励、evidence gain、优势与归因 |
-| [检索与正文处理](docs/retrieval.md) | 正文清洗、切分、召回、重排与证据坐标 |
-| [SFT 与 RL 训练](docs/training.md) | 模型加载、LoRA、行为概率 replay 与更新 |
-| [评测与独立复核](docs/evaluation.md) | 对照实验、Judge 审计与结果使用边界 |
-| [50 题 Raw/SFT 评测](docs/evaluation/local50_raw_sft_chatgpt_pro_20260923.md) | ChatGPT Pro 冻结评测、汇总指标与逐题结果 |
-| [近期工程同步](docs/recent_engineering_updates.md) | 表格完整性、结构字段、预算回执与重复保护 |
-| [外部 API 配置](docs/apis.md) | Serper、PubMed、Semantic Scholar、MinerU、Judge 与可选语义服务 |
-| [代码阅读导航](docs/code_navigation.md) | 当前入口、版本模块依赖与推荐阅读顺序 |
-
-## 开源与使用边界
-
-Apache-2.0；复用代码的必要署名见[第三方声明](THIRD_PARTY_NOTICES.md)。模型和外部服务另受各自条款约束。许可证原文与必要版权声明保留。
-
-本项目用于研究，不作为医疗决策系统。
+Apache-2.0；必要署名见 [第三方声明](THIRD_PARTY_NOTICES.md)。模型与外部服务另受各自条款约束。

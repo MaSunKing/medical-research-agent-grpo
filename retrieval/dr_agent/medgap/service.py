@@ -26,12 +26,24 @@ from dr_agent.medical_source_metadata import (
 from .reward import (
     DecisionCredit,
     HiddenEvidenceLedger,
-    local_return_to_go,
     source_satisfies_requirements,
 )
 from .failure_taxonomy import classify_failed_output
 from .schemas import EvidenceChunk, EvidenceRubric, SourceMetadata
-from .verifier import QwenMaxVerifier, VerifierError, VerifierOutputError
+from .verifier import (
+    QwenMaxVerifier,
+    TERMINAL_BEHAVIOR_FALLBACK_PROMPT_VERSION,
+    VerifierError,
+    VerifierOutputError,
+    citation_independent_evidence_order,
+    citation_independent_semantic_answer,
+)
+from .terminal_reward import (
+    linked_search_browse_credit,
+    positive_reward_assessments_complete,
+    terminal_behavior_reward,
+    terminal_positive_reward,
+)
 
 
 _CALL_RE = re.compile(
@@ -220,8 +232,13 @@ def _trusted_receipt_for_call(
 @dataclass(frozen=True)
 class RolloutRewardResult:
     trajectory_reward: float
+    trajectory_reward_observed: bool
     final_answer_reward: float
     final_answer_reward_observed: bool
+    terminal_behavior_penalty: float
+    terminal_behavior_penalty_observed: bool
+    terminal_behavior_bonus: float
+    terminal_behavior_bonus_observed: bool
     local_returns: list[float]
     private_audit: dict[str, Any]
 
@@ -253,7 +270,9 @@ def _parse_output(raw: str) -> dict[str, Any]:
     return value if isinstance(value, dict) else {"data": value}
 
 
-def _paired_calls(transcript: str) -> list[tuple[str, dict[str, Any] | None]]:
+def _paired_calls(
+    transcript: str,
+) -> list[tuple[str, str, dict[str, Any] | None]]:
     outputs = list(_OUTPUT_RE.finditer(transcript))
     calls = [
         match
@@ -268,13 +287,358 @@ def _paired_calls(transcript: str) -> list[tuple[str, dict[str, Any] | None]]:
             None,
         )
         name = _NAME_RE.search(call.group("attrs"))
-        result.append((name.group("name") if name else "", _parse_output(output.group("body")) if output else None))
+        result.append(
+            (
+                name.group("name") if name else "",
+                call.group("body").strip(),
+                _parse_output(output.group("body")) if output else None,
+            )
+        )
     return result
+
+
+def _candidate_source_ids(output: dict[str, Any] | None) -> list[str]:
+    """Return normalized candidate IDs emitted by a Search observation."""
+
+    if not isinstance(output, dict):
+        return []
+    values: set[str] = set()
+    for field in ("data", "recommended_unopened_candidates"):
+        items = output.get(field) or []
+        if not isinstance(items, list):
+            continue
+        for item in items:
+            if not isinstance(item, dict):
+                continue
+            source_id = _base_source_id(str(item.get("source_id") or "").strip())
+            if _BASE_SOURCE_ID_RE.fullmatch(source_id):
+                values.add(source_id)
+    return sorted(values)
+
+
+def _browse_call_source_id(call_body: str) -> str | None:
+    """Extract the exact PMID/WEB candidate selected by a Browse call."""
+
+    match = re.search(r"(?:PMID:\d+|WEB:[0-9A-Fa-f]+)", call_body or "")
+    return _base_source_id(match.group(0)) if match else None
 
 
 def _failure_type(output: dict[str, Any]) -> str | None:
     """Return a controlled failure class, with backward-compatible inference."""
     return classify_failed_output(output)
+
+
+_ENVIRONMENT_NEUTRAL_REASONS = {
+    "environment_failure_neutral",
+    "search_no_results_neutral",
+    "final_answer_reserve_neutral",
+}
+_POLICY_FAILURE_PENALTIES = {
+    "policy_invalid_action": -0.25,
+    "unknown_research_tool": -0.25,
+    "browse_without_verifiable_evidence": -0.10,
+    "duplicate_action": -0.10,
+    "budget_violation": -0.10,
+    "post_reserve_tool_attempt": -0.10,
+    "tool_call_after_coverage_complete": -0.10,
+    "unnecessary_tool_for_no_tool_question": -0.10,
+}
+
+# These failures are fully established by policy-authored syntax plus trusted
+# controller/rubric state.  They do not need a backend tool observation.  All
+# other negative reasons remain fail-closed and require an exact atomic Runtime
+# observation before they may create a policy gradient.
+_DETERMINISTIC_POLICY_FAILURE_REASONS = {
+    "unknown_research_tool",
+    "post_reserve_tool_attempt",
+    "tool_call_after_coverage_complete",
+    "unnecessary_tool_for_no_tool_question",
+}
+
+
+def _parse_atomic_runtime_output(raw: Any) -> tuple[dict[str, Any] | None, str]:
+    """Parse one Runtime-owned atomic observation without blaming the policy.
+
+    Invalid or missing Runtime diagnostics are an observability failure, not a
+    policy action failure.  They therefore return ``None`` and are neutralized
+    by the caller instead of being converted to ``policy_invalid``.
+    """
+
+    if not isinstance(raw, str) or not raw.strip():
+        return None, "unobserved_missing_atomic_output"
+    try:
+        value = json.loads(raw.strip())
+    except json.JSONDecodeError:
+        return None, "unobserved_invalid_atomic_json"
+    if not isinstance(value, dict):
+        return None, "unobserved_nonobject_atomic_json"
+    return value, "atomic_observed"
+
+
+def _runtime_tool_outputs(
+    runtime_diagnostics: list[dict[str, Any]],
+    *,
+    policy_tools: list[str],
+) -> tuple[
+    list[dict[str, Any] | None],
+    list[dict[str, Any]],
+    dict[str, Any],
+]:
+    """Bind Runtime-authenticated atomic observations to exact policy calls.
+
+    V65 incorrectly parsed the cumulative ``tool_output_snapshot`` as though
+    it were one JSON document.  V67 consumes only the new per-call
+    ``atomic_tool_output`` field and requires an exact one-based ``call_index``
+    and ``tool_name`` match.  Missing, malformed, duplicate, or mismatched
+    diagnostics remain unobserved and can never create a policy penalty.
+    """
+
+    outputs: list[dict[str, Any] | None] = [None] * len(policy_tools)
+    bindings: list[dict[str, Any]] = [
+        {
+            "decision_index": index,
+            "tool_name": tool,
+            "call_index": index + 1,
+            "call_id": None,
+            "status": "unobserved_no_checkpoint",
+        }
+        for index, tool in enumerate(policy_tools)
+    ]
+    bound_indexes: set[int] = set()
+    invalidated_indexes: set[int] = set()
+    ignored_status_counts: dict[str, int] = {}
+
+    def ignore(status: str) -> None:
+        ignored_status_counts[status] = ignored_status_counts.get(status, 0) + 1
+
+    for item in runtime_diagnostics:
+        if not isinstance(item, dict):
+            ignore("ignored_nonobject_diagnostic")
+            continue
+        if item.get("diagnostic_type") != "runtime_final_checkpoint":
+            continue
+        if item.get("checkpoint_kind") != "atomic_tool_observation":
+            ignore("ignored_nonatomic_checkpoint")
+            continue
+        call_index = item.get("call_index")
+        if isinstance(call_index, bool) or not isinstance(call_index, int):
+            ignore("ignored_missing_call_index")
+            continue
+        decision_index = call_index - 1
+        if not 0 <= decision_index < len(policy_tools):
+            ignore("ignored_out_of_range_call_index")
+            continue
+        if decision_index in bound_indexes or decision_index in invalidated_indexes:
+            outputs[decision_index] = None
+            invalidated_indexes.add(decision_index)
+            bindings[decision_index] = {
+                **bindings[decision_index],
+                "call_id": item.get("call_id"),
+                "status": "unobserved_duplicate_call_index",
+            }
+            ignore("duplicate_call_index")
+            continue
+
+        tool_name = str(item.get("tool_name") or "")
+        if tool_name != policy_tools[decision_index]:
+            invalidated_indexes.add(decision_index)
+            bindings[decision_index] = {
+                **bindings[decision_index],
+                "call_id": item.get("call_id"),
+                "runtime_tool_name": tool_name,
+                "status": "unobserved_tool_name_mismatch",
+            }
+            ignore("tool_name_mismatch")
+            continue
+
+        output, status = _parse_atomic_runtime_output(
+            item.get("atomic_tool_output")
+        )
+        bindings[decision_index] = {
+            **bindings[decision_index],
+            "call_id": item.get("call_id"),
+            "runtime_tool_name": tool_name,
+            "status": status,
+        }
+        if output is None:
+            invalidated_indexes.add(decision_index)
+            ignore(status)
+            continue
+        outputs[decision_index] = output
+        bound_indexes.add(decision_index)
+
+    status_counts: dict[str, int] = {}
+    for binding in bindings:
+        status = str(binding["status"])
+        status_counts[status] = status_counts.get(status, 0) + 1
+    summary = {
+        "mode": "atomic_call_index_tool_name_v67",
+        "total_policy_tool_decisions": len(policy_tools),
+        "atomic_observed_decisions": status_counts.get("atomic_observed", 0),
+        "unobserved_decisions": len(policy_tools)
+        - status_counts.get("atomic_observed", 0),
+        "status_counts": status_counts,
+        "ignored_checkpoint_status_counts": ignored_status_counts,
+        "cumulative_snapshot_parsing_disabled": True,
+    }
+    return outputs, bindings, summary
+
+
+def _policy_failure_subtype(error: str, reasons: set[str]) -> str | None:
+    """Return an auditable subtype without changing the controlled taxonomy."""
+
+    value = str(error or "").casefold()
+    if "requires a web source id" in value or "requires a pmid source id" in value:
+        return "wrong_source_id_type"
+    if "unsupported" in value and ("argument" in value or "parameter" in value):
+        return "unsupported_arguments"
+    if "exact_action_already_attempted" in value or "duplicate_action" in reasons:
+        return "duplicate_exact_action"
+    if "tool_use_budget_reserved_for_final_answer" in value:
+        return "tool_after_finalization_reserve"
+    if "malformed" in value or "policy_invalid_action" in reasons:
+        return "malformed_or_invalid_tool_call"
+    if "budget_violation" in reasons:
+        return "tool_budget_violation"
+    if "browse_without_verifiable_evidence" in reasons:
+        return "browse_without_verifiable_evidence"
+    if "tool_call_after_coverage_complete" in reasons:
+        return "tool_after_coverage_complete"
+    if "unnecessary_tool_for_no_tool_question" in reasons:
+        return "unnecessary_tool_call"
+    if "unknown_research_tool" in reasons:
+        return "unknown_research_tool"
+    return None
+
+
+def _apply_failure_aware_local_credit(
+    decisions: list[dict[str, Any]],
+    positive_returns: list[float],
+) -> tuple[list[float], dict[str, int]]:
+    """Overlay small action-local negatives while keeping environment failures neutral."""
+
+    if len(decisions) != len(positive_returns):
+        raise ValueError("failure-aware credit must align with policy decisions")
+    returns = list(float(value) for value in positive_returns)
+    counts = {
+        "positive": 0,
+        "policy_negative": 0,
+        "atomic_runtime_negative": 0,
+        "deterministic_policy_negative": 0,
+        "unobserved_negative_neutralized": 0,
+        "environment_masked": 0,
+        "neutral_no_gain": 0,
+    }
+    for index, decision in enumerate(decisions):
+        reasons = {str(value) for value in decision.get("reasons") or []}
+        environment_masked = bool(reasons & _ENVIRONMENT_NEUTRAL_REASONS)
+        penalty = min(
+            (_POLICY_FAILURE_PENALTIES[reason] for reason in reasons if reason in _POLICY_FAILURE_PENALTIES),
+            default=0.0,
+        )
+        if environment_masked:
+            # Runtime/network failures are not evidence about policy quality.
+            returns[index] = 0.0
+            outcome = "environment_masked"
+            counts["environment_masked"] += 1
+        elif penalty < 0.0:
+            runtime_status = str(
+                decision.get("runtime_observation_status") or "unobserved"
+            )
+            atomic_runtime_proof = runtime_status == "atomic_observed"
+            deterministic_policy_proof = bool(reasons) and reasons.issubset(
+                _DETERMINISTIC_POLICY_FAILURE_REASONS
+            )
+            if atomic_runtime_proof:
+                # Backend-derived failures are safe only when the Runtime
+                # observation is bound to this exact call index and tool name.
+                returns[index] = penalty
+                outcome = "policy_controllable_negative"
+                negative_proof_source = "atomic_runtime_observation"
+                negative_requires_atomic_binding = True
+                counts["policy_negative"] += 1
+                counts["atomic_runtime_negative"] += 1
+            elif deterministic_policy_proof:
+                # These failures are provable from the policy action plus
+                # trusted controller/rubric state; no backend observation is
+                # logically required.
+                returns[index] = penalty
+                outcome = "policy_controllable_negative"
+                negative_proof_source = "deterministic_policy_state"
+                negative_requires_atomic_binding = False
+                counts["policy_negative"] += 1
+                counts["deterministic_policy_negative"] += 1
+            else:
+                # An unbound or ambiguous backend failure is observability
+                # missingness, not evidence of a bad policy action.
+                returns[index] = 0.0
+                outcome = "unobserved_negative_neutralized"
+                negative_proof_source = "unobserved"
+                negative_requires_atomic_binding = True
+                counts["unobserved_negative_neutralized"] += 1
+        elif returns[index] > 0.0:
+            outcome = "marginal_evidence_positive"
+            negative_proof_source = "not_applicable"
+            negative_requires_atomic_binding = False
+            counts["positive"] += 1
+        else:
+            returns[index] = 0.0
+            outcome = "neutral_no_gain"
+            negative_proof_source = "not_applicable"
+            negative_requires_atomic_binding = False
+            counts["neutral_no_gain"] += 1
+        if environment_masked:
+            negative_proof_source = "environment_failure_neutral"
+            negative_requires_atomic_binding = False
+        decision["environment_masked"] = environment_masked
+        decision["failure_aware_outcome"] = outcome
+        decision["failure_aware_penalty"] = float(min(0.0, penalty))
+        decision["negative_proof_source"] = negative_proof_source
+        decision["negative_requires_atomic_binding"] = bool(
+            negative_requires_atomic_binding
+        )
+        decision["negative_proof_verified"] = bool(
+            outcome == "policy_controllable_negative"
+        )
+        decision["failure_subtype"] = _policy_failure_subtype(
+            str(decision.get("failure_error") or ""), reasons
+        )
+    return returns, counts
+
+
+def _annotate_all_browse_provenance(decisions: list[dict[str, Any]]) -> None:
+    """Attach source-exact provenance even when a Browse earned zero gain."""
+
+    matching_search = {
+        "browse_document": "pubmed_search",
+        "browse_webpage": "medical_web_search",
+    }
+    for browse_index, decision in enumerate(decisions):
+        expected = matching_search.get(str(decision.get("tool") or ""))
+        if expected is None:
+            continue
+        source_id = str(decision.get("source_candidate_id") or "")
+        matches = [
+            index
+            for index in range(browse_index)
+            if str(decisions[index].get("tool") or "") == expected
+            and source_id
+            in {
+                str(value)
+                for value in decisions[index].get("discovered_candidate_ids") or []
+            }
+        ]
+        if len(matches) == 1:
+            status = "exact"
+            search_index: int | None = matches[0]
+        elif matches:
+            status = "ambiguous"
+            search_index = None
+        else:
+            status = "unavailable"
+            search_index = None
+        decision["candidate_provenance_status"] = status
+        decision["source_exact_search_decision_index"] = search_index
 
 
 def _language_matches(question: str, answer: str) -> bool:
@@ -430,6 +794,7 @@ def _browse_final_verifier_consistency(
     if final_verification is None:
         return {
             "status": "not_available",
+            "credit_source": credit_source,
             "final_supported_evidence_pairs": 0,
             "browse_supported_pairs": 0,
             "disagreement_count": 0,
@@ -528,6 +893,7 @@ def _terminal_trajectory_attribution(
     final_verification: Any | None,
     evidence_origins: dict[str, int],
     limitation_weight: float = 0.5,
+    credit_source: str = "final_utilization",
 ) -> dict[str, Any]:
     """Attribute terminally verified slots to the Browse actions that delivered them.
 
@@ -535,12 +901,18 @@ def _terminal_trajectory_attribution(
     helper adds a second deterministic boundary: an ID receives action credit
     only when a trusted Browse receipt maps it to a concrete decision index.
     One slot contributes at most one unit of direct credit (or the configured
-    fractional limitation credit), divided across the Browse actions whose
-    chunks jointly support that slot.
+    fractional limitation credit).  Evidence-availability credit is marginal:
+    the earliest trusted Browse action that makes a slot available receives the
+    whole slot credit, while later supporting Browse actions receive zero.  The
+    legacy final-utilization mode retains its historical equal-share behavior.
     """
 
     if not 0.0 <= limitation_weight <= 1.0:
         raise ValueError("limitation_weight must be in [0, 1]")
+    if credit_source not in {"final_utilization", "evidence_availability"}:
+        raise ValueError(
+            "credit_source must be final_utilization or evidence_availability"
+        )
     if final_verification is None:
         return {
             "status": "not_available",
@@ -549,22 +921,33 @@ def _terminal_trajectory_attribution(
             "direct_supported_slots": [],
             "limitation_supported_slots": [],
             "supported_slots": [],
+            "retrieval_available_slots": [],
+            "final_utilized_slots": [],
             "unattributed_slots": [],
+            "marginal_slot_origins": {},
+            "duplicate_or_late_supports": [],
+            "slot_credit_lineage": [],
             "weighted_slot_credit": 0.0,
         }
-    if (
+    if credit_source == "final_utilization" and (
         not final_verification.answer_present
         or not final_verification.medical_safety_ok
         or final_verification.unsupported_strong_claim
     ):
         return {
             "status": "final_content_gate_failed",
+            "credit_source": credit_source,
             "decision_rewards": {},
             "decision_slots": {},
             "direct_supported_slots": [],
             "limitation_supported_slots": [],
             "supported_slots": [],
+            "retrieval_available_slots": [],
+            "final_utilized_slots": [],
             "unattributed_slots": [],
+            "marginal_slot_origins": {},
+            "duplicate_or_late_supports": [],
+            "slot_credit_lineage": [],
             "weighted_slot_credit": 0.0,
         }
 
@@ -573,16 +956,33 @@ def _terminal_trajectory_attribution(
     direct_slots: set[str] = set()
     limitation_slots: set[str] = set()
     unattributed_slots: list[dict[str, Any]] = []
+    marginal_slot_origins: dict[str, int] = {}
+    duplicate_or_late_supports: list[dict[str, Any]] = []
+    slot_credit_lineage: list[dict[str, Any]] = []
     weighted_slot_credit = 0.0
+    final_utilized_slots: set[str] = set()
     for assessment in final_verification.slot_assessments:
-        if not (assessment.addressed and assessment.supported_by_opened_evidence):
-            continue
-        support_type = _slot_support_type(assessment)
+        final_utilized = bool(
+            assessment.addressed and assessment.supported_by_opened_evidence
+        )
+        if final_utilized:
+            final_utilized_slots.add(assessment.slot_id)
+
+        if credit_source == "evidence_availability":
+            support_type = str(assessment.evidence_available)
+            evidence_ids = list(assessment.available_evidence_ids)
+            if support_type == "none":
+                continue
+        else:
+            if not final_utilized:
+                continue
+            support_type = _slot_support_type(assessment)
+            evidence_ids = list(assessment.citation_ids)
         if support_type == "direct_evidence":
             slot_weight = 1.0
             direct_slots.add(assessment.slot_id)
         elif support_type == "opened_evidence_limitation":
-            if not assessment.citation_ids or not assessment.supporting_evidence:
+            if not evidence_ids:
                 continue
             slot_weight = limitation_weight
             limitation_slots.add(assessment.slot_id)
@@ -591,27 +991,65 @@ def _terminal_trajectory_attribution(
 
         origin_indexes = sorted({
             evidence_origins[evidence_id]
-            for evidence_id in assessment.citation_ids
+            for evidence_id in evidence_ids
             if evidence_id in evidence_origins
         })
         if not origin_indexes:
             unattributed_slots.append({
                 "slot_id": assessment.slot_id,
                 "support_type": support_type,
-                "citation_ids": sorted(set(assessment.citation_ids)),
+                "evidence_ids": sorted(set(evidence_ids)),
                 "reason": "no_opened_evidence_receipt_origin",
             })
             continue
         weighted_slot_credit += slot_weight
-        share = slot_weight / len(origin_indexes)
-        for decision_index in origin_indexes:
-            decision_rewards[decision_index] = (
-                decision_rewards.get(decision_index, 0.0) + share
+        if credit_source == "evidence_availability":
+            # A required slot becomes available at the first trusted Browse
+            # origin selected by the terminal verifier.  Later origins may add
+            # redundant support, but they do not create another marginal gain.
+            marginal_origin = origin_indexes[0]
+            marginal_slot_origins[assessment.slot_id] = marginal_origin
+            credited_evidence_ids = sorted(
+                evidence_id
+                for evidence_id in set(evidence_ids)
+                if evidence_origins.get(evidence_id) == marginal_origin
             )
-            decision_slots.setdefault(decision_index, set()).add(assessment.slot_id)
+            decision_rewards[marginal_origin] = (
+                decision_rewards.get(marginal_origin, 0.0) + slot_weight
+            )
+            decision_slots.setdefault(marginal_origin, set()).add(
+                assessment.slot_id
+            )
+            if len(origin_indexes) > 1:
+                duplicate_or_late_supports.append({
+                    "slot_id": assessment.slot_id,
+                    "credited_decision_index": marginal_origin,
+                    "zero_credit_decision_indexes": origin_indexes[1:],
+                    "reason": "slot_already_available",
+                })
+            slot_credit_lineage.append({
+                "slot_id": assessment.slot_id,
+                "support_type": support_type,
+                "available": True,
+                "utilized": final_utilized,
+                "evidence_ids": sorted(set(evidence_ids)),
+                "credited_evidence_ids": credited_evidence_ids,
+                "browse_decision_index": marginal_origin,
+                "raw_gain": slot_weight,
+            })
+        else:
+            share = slot_weight / len(origin_indexes)
+            for decision_index in origin_indexes:
+                decision_rewards[decision_index] = (
+                    decision_rewards.get(decision_index, 0.0) + share
+                )
+                decision_slots.setdefault(decision_index, set()).add(
+                    assessment.slot_id
+                )
 
     return {
         "status": "checked",
+        "credit_source": credit_source,
         "decision_rewards": {
             str(index): value for index, value in sorted(decision_rewards.items())
         },
@@ -621,7 +1059,15 @@ def _terminal_trajectory_attribution(
         "direct_supported_slots": sorted(direct_slots),
         "limitation_supported_slots": sorted(limitation_slots),
         "supported_slots": sorted(direct_slots | limitation_slots),
+        "retrieval_available_slots": sorted(direct_slots | limitation_slots),
+        "final_utilized_slots": sorted(final_utilized_slots),
         "unattributed_slots": unattributed_slots,
+        "marginal_slot_origins": {
+            slot_id: index
+            for slot_id, index in sorted(marginal_slot_origins.items())
+        },
+        "duplicate_or_late_supports": duplicate_or_late_supports,
+        "slot_credit_lineage": slot_credit_lineage,
         "weighted_slot_credit": weighted_slot_credit,
     }
 
@@ -638,6 +1084,16 @@ class MedGapRewardService:
         relevance_threshold: float = 0.5,
         verifier_scope: str | None = None,
         limitation_action_credit: float = 0.5,
+        missed_supported_slot_weight: float = 0.0,
+        unjustified_abstention_weight: float = 0.0,
+        supported_slot_utilization_bonus_weight: float = 0.10,
+        natural_final_bonus_weight: float = 0.03,
+        separate_credit_channels: bool = False,
+        conserve_chain_credit: bool = False,
+        search_credit_share: float = 0.30,
+        browse_credit_share: float = 0.70,
+        exact_candidate_provenance: bool = False,
+        failure_aware_step_local: bool = False,
         private_trace_path: Path | None = None,
         max_total_tool_calls: int = 6,
     ) -> None:
@@ -656,6 +1112,38 @@ class MedGapRewardService:
         if not 0.0 <= limitation_action_credit <= 1.0:
             raise ValueError("limitation_action_credit must be in [0, 1]")
         self.limitation_action_credit = limitation_action_credit
+        if not 0.0 <= missed_supported_slot_weight <= 1.0:
+            raise ValueError("missed_supported_slot_weight must be in [0, 1]")
+        if not 0.0 <= unjustified_abstention_weight <= 1.0:
+            raise ValueError("unjustified_abstention_weight must be in [0, 1]")
+        self.missed_supported_slot_weight = missed_supported_slot_weight
+        self.unjustified_abstention_weight = unjustified_abstention_weight
+        if not 0.0 <= supported_slot_utilization_bonus_weight <= 1.0:
+            raise ValueError("supported_slot_utilization_bonus_weight must be in [0, 1]")
+        if not 0.0 <= natural_final_bonus_weight <= 1.0:
+            raise ValueError("natural_final_bonus_weight must be in [0, 1]")
+        self.supported_slot_utilization_bonus_weight = (
+            supported_slot_utilization_bonus_weight
+        )
+        self.natural_final_bonus_weight = natural_final_bonus_weight
+        self.separate_credit_channels = bool(separate_credit_channels)
+        self.conserve_chain_credit = bool(conserve_chain_credit)
+        for name, value in (
+            ("search_credit_share", search_credit_share),
+            ("browse_credit_share", browse_credit_share),
+        ):
+            if not 0.0 <= value <= 1.0:
+                raise ValueError(f"{name} must be in [0, 1]")
+        if self.conserve_chain_credit and abs(
+            (search_credit_share + browse_credit_share) - 1.0
+        ) > 1e-8:
+            raise ValueError(
+                "search_credit_share + browse_credit_share must equal 1"
+            )
+        self.search_credit_share = float(search_credit_share)
+        self.browse_credit_share = float(browse_credit_share)
+        self.exact_candidate_provenance = bool(exact_candidate_provenance)
+        self.failure_aware_step_local = bool(failure_aware_step_local)
         self.private_trace_path = private_trace_path
         self.max_total_tool_calls = max_total_tool_calls
         self._trace_lock = threading.Lock()
@@ -694,6 +1182,7 @@ class MedGapRewardService:
         transcript: str,
         rubric: EvidenceRubric,
         trusted_evidence_receipts: list[dict[str, Any]] | None = None,
+        runtime_diagnostics: list[dict[str, Any]] | None = None,
     ) -> RolloutRewardResult:
         ledger = HiddenEvidenceLedger(
             rubric,
@@ -706,11 +1195,47 @@ class MedGapRewardService:
         evidence_origins: dict[str, int] = {}
         browse_verifications: dict[str, tuple[Any, SourceMetadata]] = {}
         trusted_receipts = list(trusted_evidence_receipts or [])
+        runtime_diagnostics = list(runtime_diagnostics or [])
+        paired_policy_calls = _paired_calls(transcript)
+        if self.failure_aware_step_local:
+            (
+                runtime_outputs,
+                runtime_bindings,
+                runtime_binding_summary,
+            ) = _runtime_tool_outputs(
+                runtime_diagnostics,
+                policy_tools=[tool for tool, _body, _output in paired_policy_calls],
+            )
+        else:
+            runtime_outputs = [None] * len(paired_policy_calls)
+            runtime_bindings = [
+                {
+                    "decision_index": index,
+                    "tool_name": tool,
+                    "call_index": index + 1,
+                    "call_id": None,
+                    "status": "disabled",
+                }
+                for index, (tool, _body, _output) in enumerate(paired_policy_calls)
+            ]
+            runtime_binding_summary = {
+                "mode": "disabled",
+                "total_policy_tool_decisions": len(paired_policy_calls),
+                "atomic_observed_decisions": 0,
+                "unobserved_decisions": 0,
+                "status_counts": {"disabled": len(paired_policy_calls)},
+                "ignored_checkpoint_status_counts": {},
+                "cumulative_snapshot_parsing_disabled": True,
+            }
         require_trusted_browse_delivery = trusted_evidence_receipts is not None
         trusted_receipts_used: list[dict[str, Any]] = []
         finalization_locked = False
-        for decision_index, (tool, output) in enumerate(_paired_calls(transcript)):
+        for decision_index, (tool, call_body, output) in enumerate(
+            paired_policy_calls
+        ):
             verification_audit = []
+            runtime_output = runtime_outputs[decision_index]
+            runtime_binding = runtime_bindings[decision_index]
             if tool in {"browse_document", "browse_webpage"} and require_trusted_browse_delivery:
                 receipt = _trusted_receipt_for_call(
                     trusted_receipts,
@@ -718,10 +1243,17 @@ class MedGapRewardService:
                     tool_name=tool,
                 )
                 if receipt is None:
-                    # A model-authored or truncated <tool_output> is not proof
-                    # of evidence delivery. Keep the action, but score it as an
-                    # environment failure rather than registering its chunks.
-                    output = None
+                    # A model-authored or truncated <tool_output> is never
+                    # proof of evidence delivery.  A Runtime-authenticated
+                    # failed observation may still classify the policy action
+                    # (wrong source type, unsupported args, duplicate, etc.),
+                    # but it can never register chunks or earn positive credit.
+                    output = (
+                        runtime_output
+                        if isinstance(runtime_output, dict)
+                        and runtime_output.get("failed")
+                        else None
+                    )
                 else:
                     output = dict(receipt["trusted_output"])
                     trusted_receipts_used.append({
@@ -733,6 +1265,12 @@ class MedGapRewardService:
                             receipt.get("citation_eligible_ids") or []
                         ),
                     })
+            elif self.failure_aware_step_local:
+                # Search results and failed observations are safe to classify
+                # only from an exact atomic Runtime binding.  An unobserved
+                # binding is neutral; never fall back to transcript text that
+                # could contain a policy-simulated tool output.
+                output = runtime_output
             if finalization_locked:
                 credit = ledger.score_tool_decision(
                     tool=tool,
@@ -853,7 +1391,31 @@ class MedGapRewardService:
                     "local_reward": credit.reward,
                     "newly_covered_slots": list(credit.newly_covered_slots),
                     "reasons": list(credit.reasons),
+                    "failure_type": (
+                        _failure_type(output)
+                        if isinstance(output, dict)
+                        else "environment_failure"
+                    ),
+                    "failure_error": (
+                        str(output.get("error") or "")
+                        if isinstance(output, dict)
+                        else str(runtime_binding.get("status") or "unobserved")
+                    ),
+                    "runtime_observation_status": str(
+                        runtime_binding.get("status") or "unobserved"
+                    ),
+                    "runtime_observation_call_id": runtime_binding.get("call_id"),
                     "hidden_verification": verification_audit,
+                    "source_candidate_id": (
+                        _browse_call_source_id(call_body)
+                        if tool in {"browse_document", "browse_webpage"}
+                        else None
+                    ),
+                    "discovered_candidate_ids": (
+                        _candidate_source_ids(output)
+                        if tool in {"pubmed_search", "medical_web_search"}
+                        else []
+                    ),
                 }
             )
 
@@ -876,6 +1438,20 @@ class MedGapRewardService:
         )
         final_verification = None
         final_answer_reward_observed = True
+        terminal_behavior_penalty = 0.0
+        terminal_behavior_penalty_observed = True
+        terminal_behavior = None
+        terminal_behavior_bonus = 0.0
+        terminal_behavior_bonus_observed = True
+        terminal_positive = None
+        natural_final_detected = False
+        hard_final_recovery = False
+        terminal_behavior_verification = None
+        terminal_behavior_fallback_allowed = False
+        terminal_behavior_verification_audit = {
+            "status": "not_required",
+            "source": None,
+        }
         language_ok = _language_matches(rubric.question, answer_text) if answer_text else False
         if answer_parse.malformed:
             final_answer_reward = 0.0
@@ -964,11 +1540,11 @@ class MedGapRewardService:
                         "citation_id": citation_id,
                         "error_type": error_type,
                     })
-                ordered_chunks = sorted(
-                    opened_chunks,
-                    key=lambda chunk: (chunk.evidence_id not in actual_citations, chunk.evidence_id),
+                semantic_answer = citation_independent_semantic_answer(answer_text)
+                semantic_chunks = citation_independent_evidence_order(opened_chunks)
+                final_verification = self.verifier.verify_final_answer(
+                    rubric, semantic_answer, semantic_chunks
                 )
-                final_verification = self.verifier.verify_final_answer(rubric, answer_text, ordered_chunks)
                 self._record_verification(failed=False)
                 direct_supported = [
                     item
@@ -990,7 +1566,6 @@ class MedGapRewardService:
                     if item.addressed
                     and item.supported_by_opened_evidence
                     and bool(item.citation_ids)
-                    and bool(item.supporting_evidence)
                 ]
                 credited_assessments = direct_supported + limitation_supported
                 direct_weight = float(os.getenv("MEDGAP_DIRECT_EVIDENCE_WEIGHT", "1.0"))
@@ -1049,6 +1624,14 @@ class MedGapRewardService:
                         for evidence_id in verifier_supported_ids
                     )
                     for citation_id in actual_citations
+                )
+                # Citation correctness remains a deterministic property of the
+                # model-authored IDs.  The semantic Judge only selected immutable
+                # OPENED_EVIDENCE array positions; it never minted an ID or quote.
+                final_verification.citations_grounded = bool(
+                    citation_gate_passed
+                    and verifier_citations_valid
+                    and citation_coverage_valid
                 )
                 base = weighted_supported / max(1, len(rubric.slots))
                 content_semantic_score = (
@@ -1243,10 +1826,190 @@ class MedGapRewardService:
                     "environment_neutral": True,
                 }
 
+        if final_verification is not None:
+            terminal_behavior_verification = final_verification
+            terminal_behavior_verification_audit = {
+                "status": "observed",
+                "source": "final_answer_verification",
+            }
+        elif not final_answer_reward_observed:
+            terminal_behavior_penalty_observed = False
+            terminal_behavior_fallback_allowed = bool(
+                final_answer_audit.get("status") == "verifier_output_invalid"
+            )
+            terminal_behavior_verification_audit = {
+                "status": "unobserved",
+                "source": "final_answer_verification",
+                "verifier_status": final_answer_audit.get("status"),
+                "error": final_answer_audit.get("error"),
+                "environment_neutral": True,
+            }
+
+        # Missing or malformed Finals still need the same single terminal
+        # judgment when real opened evidence exists. This exposes evidence the
+        # policy found but failed to use, without adding a second judge call to
+        # ordinary successful trajectories.
+        if (
+            not rubric.no_tool_expected
+            and opened_chunks
+            and final_verification is None
+            and final_answer_reward_observed
+        ):
+            try:
+                final_verification = self.verifier.verify_final_answer(
+                    rubric,
+                    citation_independent_semantic_answer(answer_text),
+                    citation_independent_evidence_order(opened_chunks),
+                )
+                self._record_verification(failed=False)
+                terminal_behavior_verification = final_verification
+                terminal_behavior_verification_audit = {
+                    "status": "observed",
+                    "source": "missing_or_malformed_final_fallback",
+                }
+            except VerifierOutputError as exc:
+                self._record_verification(failed=False)
+                terminal_behavior_penalty_observed = False
+                terminal_behavior_fallback_allowed = True
+                terminal_behavior_verification_audit = {
+                    "status": "verifier_output_invalid",
+                    "source": "missing_or_malformed_final_fallback",
+                    "error": str(exc),
+                    "environment_neutral": True,
+                }
+            except VerifierError as exc:
+                self._record_verification(failed=True)
+                terminal_behavior_penalty_observed = False
+                terminal_behavior_verification_audit = {
+                    "status": "verifier_failed",
+                    "source": "missing_or_malformed_final_fallback",
+                    "error": str(exc),
+                    "environment_neutral": True,
+                }
+
+        # The full Final verifier has a broad output contract.  If its response
+        # is structurally invalid (but the provider is healthy), recover only
+        # the two semantic primitives required by the terminal penalty.  The
+        # full Final reward remains unobserved/environment-neutral, and this
+        # fallback never supplies citation, safety, content, or local-credit
+        # judgments.
+        if (
+            not rubric.no_tool_expected
+            and opened_chunks
+            and terminal_behavior_verification is None
+            and terminal_behavior_fallback_allowed
+        ):
+            primary_verification_audit = dict(
+                terminal_behavior_verification_audit
+            )
+            try:
+                terminal_behavior_verification = (
+                    self.verifier.verify_terminal_behavior_fallback(
+                        rubric,
+                        citation_independent_semantic_answer(answer_text),
+                        citation_independent_evidence_order(opened_chunks),
+                    )
+                )
+                self._record_verification(failed=False)
+                terminal_behavior_penalty_observed = True
+                terminal_behavior_verification_audit = {
+                    "status": "observed",
+                    "source": "terminal_semantic_fallback_after_output_invalid",
+                    "primary_verification": primary_verification_audit,
+                    "fallback_prompt_version": (
+                        TERMINAL_BEHAVIOR_FALLBACK_PROMPT_VERSION
+                    ),
+                }
+            except VerifierOutputError as exc:
+                self._record_verification(failed=False)
+                terminal_behavior_penalty_observed = False
+                terminal_behavior_verification_audit = {
+                    "status": "verifier_output_invalid",
+                    "source": "terminal_semantic_fallback_after_output_invalid",
+                    "primary_verification": primary_verification_audit,
+                    "error": str(exc),
+                    "environment_neutral": True,
+                }
+            except VerifierError as exc:
+                self._record_verification(failed=True)
+                terminal_behavior_penalty_observed = False
+                terminal_behavior_verification_audit = {
+                    "status": "verifier_failed",
+                    "source": "terminal_semantic_fallback_after_output_invalid",
+                    "primary_verification": primary_verification_audit,
+                    "error": str(exc),
+                    "environment_neutral": True,
+                }
+
+        if terminal_behavior_verification is not None:
+            terminal_behavior = terminal_behavior_reward(
+                terminal_behavior_verification.slot_assessments,
+                missed_supported_slot_weight=self.missed_supported_slot_weight,
+                unjustified_abstention_weight=self.unjustified_abstention_weight,
+            )
+            terminal_behavior_penalty = terminal_behavior.total_penalty
+
+        # Positive utilization/natural-Final credit requires the complete Final
+        # semantic verification contract. The narrow terminal fallback lacks
+        # addressed/support fields by design and is therefore unobserved for
+        # positive shaping, even when it successfully supplies legacy labels.
+        positive_assessments_complete = bool(
+            final_verification is not None
+            and positive_reward_assessments_complete(
+                final_verification.slot_assessments
+            )
+        )
+        positive_bonus_applicable = bool(
+            not rubric.no_tool_expected and opened_chunks
+        )
+        terminal_behavior_bonus_observed = bool(
+            not positive_bonus_applicable or positive_assessments_complete
+        )
+        if positive_assessments_complete:
+            hard_final_recovery = any(
+                bool(item.get("hard_finalization_triggered"))
+                or item.get("phase") == "hard_finalization_recovery"
+                or item.get("diagnostic_type") == "hard_finalization_recovery"
+                for item in runtime_diagnostics
+                if isinstance(item, dict)
+            )
+            natural_final_detected = bool(
+                raw_answer_parse.answer is not None
+                and not raw_answer_parse.malformed
+                and not answer_repair.repaired
+                and not hard_final_recovery
+            )
+            answer_safe = bool(
+                getattr(final_verification, "answer_present", False)
+                and getattr(final_verification, "medical_safety_ok", False)
+                and not getattr(
+                    final_verification,
+                    "unsupported_strong_claim",
+                    True,
+                )
+            )
+            terminal_positive = terminal_positive_reward(
+                final_verification.slot_assessments,
+                supported_slot_utilization_weight=(
+                    self.supported_slot_utilization_bonus_weight
+                ),
+                natural_final_weight=self.natural_final_bonus_weight,
+                natural_final_detected=natural_final_detected,
+                answer_safe=answer_safe,
+            )
+            terminal_behavior_bonus = terminal_positive.total_bonus
+        if terminal_behavior_verification is None and not final_answer_reward_observed:
+            terminal_behavior_penalty_observed = False
+
         terminal_attribution = _terminal_trajectory_attribution(
             final_verification=final_verification,
             evidence_origins=evidence_origins,
             limitation_weight=self.limitation_action_credit,
+            credit_source=(
+                "evidence_availability"
+                if self.separate_credit_channels
+                else "final_utilization"
+            ),
         )
         if self.verifier_scope == "terminal_trajectory":
             attributed_rewards = {
@@ -1294,26 +2057,76 @@ class MedGapRewardService:
             coverage = ledger.coverage
             weighted_coverage = ledger.coverage
 
-        raw_returns = local_return_to_go(
+        if self.failure_aware_step_local:
+            _annotate_all_browse_provenance(decisions)
+        linked_credit = linked_search_browse_credit(
+            [str(decision["tool"]) for decision in decisions],
+            [list(decision["reasons"]) for decision in decisions],
             rewards,
             gamma=self.gamma,
             slot_count=max(1, len(rubric.slots)),
+            conserve_chain_credit=self.conserve_chain_credit,
+            search_share=self.search_credit_share,
+            browse_share=self.browse_credit_share,
+            discovered_candidate_ids=[
+                list(decision["discovered_candidate_ids"])
+                for decision in decisions
+            ],
+            browse_source_ids=[
+                decision["source_candidate_id"] for decision in decisions
+            ],
+            require_exact_provenance=self.exact_candidate_provenance,
         )
-        slot_count = max(1, len(rubric.slots))
-        returns = []
-        for index, decision in enumerate(decisions):
-            reasons = set(decision["reasons"])
-            if "candidate_discovery_only" in reasons:
-                # A normal Search may receive delayed credit from a later
-                # successful Browse. All other actions retain their immediate
-                # sign so duplicate/invalid/no-gain actions cannot be flipped
-                # positive by unrelated future evidence.
-                value = raw_returns[index]
-            else:
-                value = max(-1.0, min(1.0, rewards[index] / slot_count))
-            returns.append(value)
+        if self.failure_aware_step_local:
+            returns, failure_aware_counts = _apply_failure_aware_local_credit(
+                decisions,
+                list(linked_credit.local_returns),
+            )
+        else:
+            returns = list(linked_credit.local_returns)
+            failure_aware_counts = {}
         for decision, value in zip(decisions, returns):
             decision["local_return"] = value
+        provenance_by_browse = {
+            int(browse): {
+                "search_decision_index": search,
+                "source_candidate_id": source_id,
+                "provenance_status": status,
+            }
+            for (
+                (search, browse, _gain, _search_credit, _browse_credit),
+                (_, source_id, status),
+            ) in zip(linked_credit.chain_credits, linked_credit.provenance)
+        }
+        credit_lineage = []
+        required_slot_count = max(1, len(rubric.slots))
+        for item in terminal_attribution.get("slot_credit_lineage", []):
+            browse_index = int(item["browse_decision_index"])
+            provenance = provenance_by_browse.get(
+                browse_index,
+                {
+                    "search_decision_index": None,
+                    "source_candidate_id": decisions[browse_index].get(
+                        "source_candidate_id"
+                    ),
+                    "provenance_status": "unavailable",
+                },
+            )
+            weighted_credit = float(item["raw_gain"]) / required_slot_count
+            exact = provenance["provenance_status"] == "exact"
+            credit_lineage.append({
+                **item,
+                **provenance,
+                "search_credit": (
+                    self.search_credit_share * weighted_credit if exact else 0.0
+                ),
+                "browse_credit": (
+                    self.browse_credit_share * weighted_credit
+                    if exact
+                    else weighted_credit
+                ),
+                "weighted_credit": weighted_credit,
+            })
         tool_call_limit_reached = calls_used >= self.max_total_tool_calls
         final_answer_present = answer_parse.answer is not None and bool(answer_text)
         budget_terminated_without_final = bool(
@@ -1326,10 +2139,66 @@ class MedGapRewardService:
             if rubric.no_tool_expected
             else weighted_coverage + budget_penalty
         )
+        trajectory_reward_observed = not (
+            self.verifier_scope == "terminal_trajectory"
+            and bool(opened_chunks)
+            and final_verification is None
+        )
         audit = {
             "question_id": rubric.question_id,
             "rubric_version": rubric.rubric_version,
             "steps": decisions,
+            "local_credit_version": (
+                "failure_aware_atomic_source_exact_step_local_v67"
+                if self.failure_aware_step_local
+                else "source_exact_conserved_availability_search_browse_v59"
+                if self.exact_candidate_provenance
+                else "conserved_availability_search_browse_v57"
+                if self.separate_credit_channels and self.conserve_chain_credit
+                else "nearest_matching_search_browse_v55"
+            ),
+            "local_credit_source": (
+                "new_required_evidence_availability"
+                if self.separate_credit_channels
+                else "final_utilization"
+            ),
+            "search_browse_credit_links": [
+                {"search_decision_index": search, "browse_decision_index": browse}
+                for search, browse in linked_credit.links
+            ],
+            "search_browse_chain_credits": [
+                {
+                    "search_decision_index": search,
+                    "browse_decision_index": browse,
+                    "total_evidence_gain": gain,
+                    "search_credit": search_credit,
+                    "browse_credit": browse_credit,
+                    "source_candidate_id": source_id,
+                    "provenance_status": provenance_status,
+                }
+                for (
+                    (search, browse, gain, search_credit, browse_credit),
+                    (_, source_id, provenance_status),
+                ) in zip(linked_credit.chain_credits, linked_credit.provenance)
+            ],
+            "search_browse_credit_conserved": bool(
+                not self.conserve_chain_credit
+                or abs(
+                    sum(linked_credit.local_returns)
+                    - sum(item[2] for item in linked_credit.chain_credits)
+                ) <= 1e-7
+            ),
+            "failure_aware_credit_counts": failure_aware_counts,
+            "runtime_observation_binding": runtime_binding_summary,
+            "failure_aware_negative_scope": (
+                "offending_decision_span_only"
+                if self.failure_aware_step_local
+                else "disabled"
+            ),
+            "environment_failure_policy": (
+                "neutral_masked" if self.failure_aware_step_local else "legacy"
+            ),
+            "credit_lineage": credit_lineage,
             "coverage": coverage,
             "weighted_coverage": weighted_coverage,
             "covered_slots": sorted(covered_slots),
@@ -1366,8 +2235,51 @@ class MedGapRewardService:
             },
             "unopened_citations": sorted(unopened_citations),
             "hidden_reward_only": True,
+            "trajectory_reward_observed": trajectory_reward_observed,
             "final_answer_reward": final_answer_reward,
             "final_answer_reward_observed": final_answer_reward_observed,
+            "terminal_reward_version": "medgap_terminal_positive_v55",
+            "missed_supported_slot_weight": self.missed_supported_slot_weight,
+            "unjustified_abstention_weight": self.unjustified_abstention_weight,
+            "missed_supported_slots": (
+                terminal_behavior.missed_supported_slots if terminal_behavior else 0
+            ),
+            "unjustified_abstention": bool(
+                terminal_behavior.unjustified_abstention if terminal_behavior else False
+            ),
+            "terminal_behavior_penalty": terminal_behavior_penalty,
+            "terminal_behavior_penalty_observed": terminal_behavior_penalty_observed,
+            "supported_slot_utilization_bonus_weight": (
+                self.supported_slot_utilization_bonus_weight
+            ),
+            "natural_final_bonus_weight": self.natural_final_bonus_weight,
+            "available_supported_slots": (
+                terminal_positive.available_supported_slots if terminal_positive else 0
+            ),
+            "utilized_supported_slots": (
+                terminal_positive.utilized_supported_slots if terminal_positive else 0
+            ),
+            "supported_slot_utilization_ratio": (
+                terminal_positive.supported_slot_utilization_ratio
+                if terminal_positive
+                else 0.0
+            ),
+            "supported_slot_utilization_bonus": (
+                terminal_positive.supported_slot_utilization_bonus
+                if terminal_positive
+                else 0.0
+            ),
+            "natural_final_eligible": bool(
+                terminal_positive.natural_final_eligible if terminal_positive else False
+            ),
+            "natural_final_detected": bool(natural_final_detected),
+            "hard_final_recovery": bool(hard_final_recovery),
+            "natural_final_bonus": (
+                terminal_positive.natural_final_bonus if terminal_positive else 0.0
+            ),
+            "terminal_behavior_bonus": terminal_behavior_bonus,
+            "terminal_behavior_bonus_observed": terminal_behavior_bonus_observed,
+            "terminal_behavior_verification": terminal_behavior_verification_audit,
             "final_answer_verification": final_answer_audit,
             "content_grounded_pass": bool(
                 final_answer_audit.get("content_grounded_gate_passed", False)
@@ -1402,8 +2314,13 @@ class MedGapRewardService:
         self._write_private_trace(audit)
         return RolloutRewardResult(
             trajectory_reward=trajectory_reward,
+            trajectory_reward_observed=trajectory_reward_observed,
             final_answer_reward=final_answer_reward,
             final_answer_reward_observed=final_answer_reward_observed,
+            terminal_behavior_penalty=terminal_behavior_penalty,
+            terminal_behavior_penalty_observed=terminal_behavior_penalty_observed,
+            terminal_behavior_bonus=terminal_behavior_bonus,
+            terminal_behavior_bonus_observed=terminal_behavior_bonus_observed,
             local_returns=returns,
             private_audit=audit,
         )

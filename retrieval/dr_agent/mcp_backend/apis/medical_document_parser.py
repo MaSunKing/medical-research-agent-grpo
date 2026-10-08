@@ -34,7 +34,7 @@ def _make_result(
     *, title: str, sections: List[Dict[str, str]], source_format: str
 ) -> Dict[str, Any]:
     sections = [
-        {"heading": _clean(section.get("heading")), "text": _clean(section.get("text"))}
+        {**section, "heading": _clean(section.get("heading")), "text": _clean(section.get("text"))}
         for section in sections
         if _clean(section.get("text"))
     ]
@@ -84,17 +84,22 @@ def parse_medical_html(content: bytes | str) -> Dict[str, Any]:
             sections.append({"heading": heading, "text": text})
         paragraphs = []
 
-    for node in root.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "tr"], recursive=True):
+    for node in root.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "table"], recursive=True):
+        if node.find_parent('table'):
+            continue
         text = _clean(node.get_text(" ", strip=True))
         if not text:
             continue
         if node.name.startswith("h"):
             flush()
             heading = text
-        elif node.name == "tr":
-            cells = node.find_all(["th", "td"], recursive=False)
-            if cells:
-                paragraphs.append(" | ".join(_clean(c.get_text(" ", strip=True)) for c in cells))
+        elif node.name == "table":
+            flush()
+            rows = [' | '.join(_clean(c.get_text(' ',strip=True)) for c in row.find_all(['th','td'],recursive=False))
+                    for row in node.find_all('tr')]
+            sections.append({'heading':heading,'text':'\n'.join(rows),
+                             'structure_kind':'table','structure_origin':'html_table',
+                             'table_structure_complete':bool(node.find('th') and node.find('td'))})
         elif not node.find_parent(["p", "li", "tr"]):
             paragraphs.append(text)
     flush()
@@ -179,17 +184,40 @@ def _parse_jats_xml(root) -> Dict[str, Any]:
 
     body = root.find(".//body")
     if body is not None:
-        for sec in body.findall(".//sec"):
-            # Nested sections are emitted independently; take only paragraphs owned by this section.
-            paragraphs = [_join_text(p) for p in sec.findall("./p")]
-            text = _clean(" ".join(paragraphs))
-            if text:
-                sections.append(
-                    {
-                        "heading": _join_text(sec.find("./title")) or "Section",
-                        "text": text,
-                    }
-                )
+        # Preserve source order and table ownership rather than flattening
+        # table-wrap descendants into their containing paragraph.
+        for node in body.iter():
+            ancestors=list(node.iterancestors())
+            if node.tag not in {'p','table-wrap'} or any(a.tag=='table-wrap' for a in ancestors):
+                continue
+            sec=next((a for a in ancestors if a.tag=='sec'),None)
+            heading=_join_text(sec.find('./title')) if sec is not None else 'Body'
+            if node.tag=='table-wrap':
+                label=_join_text(node.find('./label'))
+                caption=_join_text(node.find('./caption'))
+                rows=[' | '.join(_join_text(c) for c in row if c.tag in {'th','td'})
+                      for row in node.findall('.//tr')]
+                footer=_join_text(node.find('./table-wrap-foot'))
+                text=_clean(' '.join(filter(None,[label,caption]+rows+[footer])))
+                if text:
+                    sections.append({'heading':_clean(' '.join(filter(None,[heading,label,caption]))),
+                                     'text':text,'structure_kind':'table',
+                                     'structure_origin':'jats_table_wrap',
+                                     'table_structure_complete':bool(node.find('.//th') is not None and node.find('.//td') is not None)})
+            else:
+                import copy
+                paragraph=copy.deepcopy(node)
+                for table in paragraph.findall('.//table-wrap'):
+                    # Keep the original prose tail following an embedded table.
+                    tail=table.tail or ''
+                    previous=table.getprevious()
+                    parent=table.getparent()
+                    if previous is not None: previous.tail=(previous.tail or '')+tail
+                    else: parent.text=(parent.text or '')+tail
+                    parent.remove(table)
+                text=_join_text(paragraph)
+                if text:
+                    sections.append({'heading':heading or 'Section','text':text})
         if not any(section["heading"] != "Abstract" for section in sections):
             body_text = _join_text(body)
             if body_text:
@@ -257,7 +285,9 @@ def chunk_medical_document(
             start = span['start_char']; limit = span['end_char']
             assert 0 <= start <= limit <= len(text)
             while start < limit:
-                end = min(limit, start + chunk_chars)
+                # Explicit source tables are atomic; budget handoff either
+                # admits the complete structure or retains an exclusion receipt.
+                end = limit if span.get('kind') == 'table' else min(limit, start + chunk_chars)
                 if end < limit:
                     boundary = text.rfind(" ", start + chunk_chars // 2, end)
                     if boundary > start: end = boundary
@@ -283,6 +313,7 @@ def chunk_medical_document(
                         "content_span_end_char": limit,
                         "structure_kind": structure_kind,
                         "structure_audit": structure,
+                        "structure_origin": section.get('structure_origin'),
                         "text_sha256": hashlib.sha256(
                             chunk_text.encode("utf-8", errors="replace")
                         ).hexdigest(),

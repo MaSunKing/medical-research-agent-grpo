@@ -16,6 +16,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - run: python -B run_pipeline.py check
+      - run: python -B tools/check_public_architecture.py
+      - run: python -B -m unittest discover -s retrieval/runtime -p 'test_public_runtime.py'
       - run: python -B examples/test_trajectory_excerpt.py
   training-core:
     runs-on: ubuntu-latest

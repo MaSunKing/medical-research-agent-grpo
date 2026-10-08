@@ -640,6 +640,7 @@ async def browse_medical_webpage(
     alternate_preflight_attempted = False
     preflight_terminal = False
     direct_fetch_terminal = False
+    response_is_pdf = False
     cached_failure = recent_web_failure(url) if not looks_like_pdf else None
     if cached_failure is not None:
         fetch_attempts.append(
@@ -726,7 +727,12 @@ async def browse_medical_webpage(
                     "elapsed_ms": round((time.perf_counter() - started) * 1000, 3),
                 }
             )
-    if not markdown and not preflight_terminal:
+    if looks_like_pdf and not markdown:
+        # A failed PDF parser must not fall through to an HTML/PDF viewer,
+        # whose navigation can masquerade as evidence. A provenance-labelled
+        # PubMed alternate below is still allowed; HTML/crawl/scrape are not.
+        direct_fetch_terminal = True
+    if not markdown and not preflight_terminal and not direct_fetch_terminal:
         # Most public-health, government and guideline pages are static HTML.
         # Parse them before paying the browser-startup cost of Crawl4AI.
         started = time.perf_counter()
@@ -772,6 +778,8 @@ async def browse_medical_webpage(
                 fetch_method = "web_pdf_mineru" if response_is_pdf else "direct_html"
         except Exception as exc:
             markdown = ""
+            if response_is_pdf:
+                direct_fetch_terminal = True
             fetch_errors.append(f"direct_html: {type(exc).__name__}: {exc}")
             response = getattr(exc, "response", None)
             attempt = {
@@ -888,6 +896,8 @@ async def browse_medical_webpage(
         retryable = web_fetch_failure_retryable(fetch_attempts)
         if preflight_terminal:
             failure_error_type = "preflight_blocked"
+        elif looks_like_pdf or response_is_pdf:
+            failure_error_type = "pdf_parse_unavailable"
         elif direct_fetch_terminal:
             failure_error_type = "direct_http_blocked"
         else:

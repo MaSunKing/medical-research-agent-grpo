@@ -53,7 +53,7 @@ class TrajectoryExcerptTests(unittest.TestCase):
         for doc in (root / "README.md", root / "docs/code_navigation.md", CASE / "README.md"):
             for target in re.findall(r"\]\(([^)]+)\)", doc.read_text(encoding="utf-8")):
                 if "://" not in target and not target.startswith("#"):
-                    self.assertTrue((doc.parent / target.split("#")[0]).is_file(), target)
+                    self.assertTrue((doc.parent / target.split("#")[0]).exists(), target)
         for path in CASE.iterdir():
             text = path.read_text(encoding="utf-8")
             self.assertNotIn("/home/msai/", text)

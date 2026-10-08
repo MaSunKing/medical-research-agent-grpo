@@ -12,6 +12,7 @@ import time
 from urllib.parse import urlsplit, urljoin
 import zipfile
 import requests
+import urllib3
 try:
     from .s2_transport import locked
 except ImportError:
@@ -19,15 +20,19 @@ except ImportError:
 
 API='https://mineru.net/api/v4/extract/task'
 VERSION='mineru_cloud_v1'
-# Explicit public origins used by this integration. Local TUN proxies may
-# resolve them to RFC2544 fake IPs; TLS certificate validation remains enabled.
+# Compatibility export only; these names no longer bypass DNS validation.
 PROXY_PUBLIC_HOSTS={'www.researchsquare.com','researchsquare.com','cdn-mineru.openxlab.org.cn'}
 PROXY_PUBLIC_HOSTS |= {'www.nice.org.uk', 'nice.org.uk'}  # V53 explicit public origin
 
 class MinerUCloudError(RuntimeError):
     pass
 
-def public_url(url):
+def public_addresses(url):
+    """Validate origins; fake-IP DNS needs independent public DNS confirmation.
+
+    Downloads pin a validated address, preserving Host/SNI and TLS verification.
+    No arbitrary resolver, private-IP exception, or global socket monkeypatch.
+    """
     p=urlsplit(url)
     if p.scheme!='https' or not p.hostname or p.username or p.password or p.port not in (None,443):
         raise MinerUCloudError('invalid_public_https_url')
@@ -36,10 +41,47 @@ def public_url(url):
     except OSError:
         raise MinerUCloudError('public_url_dns_failed') from None
     ips=[ipaddress.ip_address(a[4][0]) for a in addresses]
-    proxy_public=p.hostname in PROXY_PUBLIC_HOSTS and all(
-        ip.version==4 and ip in ipaddress.ip_network('198.18.0.0/15') for ip in ips)
-    if not ips or (not proxy_public and any(not ip.is_global for ip in ips)):
+    fake = bool(ips) and all(ip.version==4 and ip in ipaddress.ip_network('198.18.0.0/15') for ip in ips)
+    if fake:
+        # Only hostnames, never IP literals or local search-domain names.
+        try:
+            ipaddress.ip_address(p.hostname)
+        except ValueError:
+            pass
+        else:
+            raise MinerUCloudError('non_public_url')
+        if '.' not in p.hostname or p.hostname.endswith(('.localhost','.local','.internal')):
+            raise MinerUCloudError('non_public_url')
+        # One bounded alternate resolver on transport failure only. A private
+        # answer is rejected immediately, not retried until it looks public.
+        for endpoint in ('https://cloudflare-dns.com/dns-query','https://dns.google/resolve'):
+            ips=[]
+            try:
+                for kind, number in (('A',1),('AAAA',28)):
+                    response=requests.get(endpoint,
+                        params={'name':p.hostname,'type':kind},
+                        headers={'Accept':'application/dns-json'},timeout=10,allow_redirects=False)
+                    if response.status_code!=200:raise ValueError('resolver_http')
+                    body=response.json()
+                    if body.get('Status')!=0 or body.get('TC'):raise ValueError('resolver_schema')
+                    for answer in body.get('Answer',[]):
+                        if answer.get('type')==number:
+                            ip=ipaddress.ip_address(answer['data'])
+                            if not ip.is_global or ip.is_multicast or ip.is_reserved:
+                                raise MinerUCloudError('non_public_url')
+                            ips.append(ip)
+                break
+            except (requests.RequestException,ValueError,KeyError,TypeError,AttributeError):
+                ips=[]
+                continue
+        if not ips:
+            raise MinerUCloudError('public_dns_verification_failed') from None
+    if not ips or any(not ip.is_global or ip.is_multicast or ip.is_reserved for ip in ips):
         raise MinerUCloudError('non_public_url')
+    return [str(ip) for ip in ips]
+
+def public_url(url):
+    public_addresses(url)
     return url
 
 def markdown_from_zip(blob):
@@ -95,21 +137,44 @@ class MinerUCloudClient:
             raise MinerUCloudError('api_transport_or_json_error') from None
 
     def download(self,url):
-        # CDN never receives the API token, including on redirects.
+        # CDN never receives the API token. Connect to the validated address,
+        # not a second DNS lookup (rebind/fake-IP); retain original TLS hostname.
         for _ in range(4):
-            public_url(url)
+            addresses=public_addresses(url)
+            parsed=urlsplit(url)
+            pool=None
+            response=None
             try:
-                with requests.get(url,timeout=45,stream=True,allow_redirects=False) as r:
-                    if r.status_code in (301,302,303,307,308):
-                        url=urljoin(url,r.headers.get('Location',''));continue
-                    if r.status_code!=200:raise MinerUCloudError('archive_http_'+str(r.status_code))
-                    out=bytearray()
-                    for chunk in r.iter_content(1024*1024):
-                        out.extend(chunk)
-                        if len(out)>100*1024*1024:raise MinerUCloudError('archive_size_limit')
-                    return bytes(out)
-            except requests.RequestException:
+                target=parsed.path or '/'
+                if parsed.query:target+='?'+parsed.query
+                # Public origins/CDNs often return several addresses. Try at
+                # most three already-validated IPs on connection/TLS failure;
+                # never retry API submission or bypass hostname verification.
+                for address in addresses[:3]:
+                    pool=urllib3.HTTPSConnectionPool(address,443,
+                        server_hostname=parsed.hostname,assert_hostname=parsed.hostname,
+                        cert_reqs='CERT_REQUIRED',ca_certs=requests.certs.where(),
+                        timeout=urllib3.Timeout(connect=10,read=45),retries=False)
+                    try:
+                        response=pool.request('GET',target,headers={'Host':parsed.hostname},
+                            redirect=False,preload_content=False)
+                        break
+                    except (urllib3.exceptions.HTTPError,OSError):
+                        pool.close()
+                if response is None:raise MinerUCloudError('archive_transport_failed')
+                if response.status in (301,302,303,307,308):
+                    url=urljoin(url,response.headers.get('Location',''));continue
+                if response.status!=200:raise MinerUCloudError('archive_http_'+str(response.status))
+                out=bytearray()
+                for chunk in response.stream(1024*1024):
+                    out.extend(chunk)
+                    if len(out)>100*1024*1024:raise MinerUCloudError('archive_size_limit')
+                return bytes(out)
+            except (urllib3.exceptions.HTTPError,OSError):
                 raise MinerUCloudError('archive_transport_failed') from None
+            finally:
+                if response is not None:response.close()
+                if pool is not None:pool.close()
         raise MinerUCloudError('archive_redirect_limit')
 
     def parse_url(self,url):

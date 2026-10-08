@@ -1,36 +1,43 @@
-# 架构与可信边界
+# 当前工程架构
 
-共享策略生成 Checklist、工具决策、State 和 Final。SFT 学习接口，RL 对指定生成 Token 分配独立奖励通道。Search/Browse 是策略动作；工具返回是 observation，不是可直接优化的模型生成 Token。
+[首页](../README.md) · [检索机制](retrieval.md) · [版本入口](../README.md#项目迭代)
 
-1. 冻结原题、requirements、constraints、policy、tokenizer、scorer 和 reward config。
-2. 捕获精确 prompt、生成 token IDs、采样配置和 behavior log probabilities。
-3. 执行工具，保存证据正文、source IDs、坐标、哈希和 execution receipts。
-4. 构造分阶段 Judge view；Judge 判断语义，代码验证 schema、绑定与允许使用的 ID。
-5. 继承上一份已验证 coverage receipt，评价新增证据并确定性合并。
-6. 先把可信评分/工具事件绑定到 record/capture/token，再编译相对 advantage。
-7. 对共享 LoRA 进行 clipped policy optimization，原子保存新 checkpoint。
+## 模块边界
 
-哈希用于可信 authority 边界内的完整性检查，本身不提供独立认证。不能让 rollout 自己制造可信评分或执行 registry。离线演示使用明确标记的测试 authority；真实训练必须由独立可信服务提供查找接口。
-
-## Citation 协议
-
-保留完整 chunk ID 和已有的句后 citation 格式：
-
-```xml
-<answer>
-证据支持的主张。
-<cite id="WEB:example#s0-c0">来源说明</cite>
-</answer>
+```mermaid
+flowchart TB
+    Question[原始问题] --> Checklist[Exact-anchor Checklist]
+    Checklist --> Context[共享输入：State + History + 当前候选 + 预算反馈]
+    Context --> Policy[Decision]
+    Policy --> Search[论文 / 网页 Search]
+    Search --> Candidates[累计候选池 → 最新与历史窗口]
+    Candidates --> Context
+    Policy --> Browse[Browse 指定来源与阅读重点]
+    Browse --> Evidence[精确证据片段与 provenance]
+    Evidence --> State[State 更新]
+    State --> Context
+    Policy --> Stop[Stop 与未解决缺口]
+    Stop --> Export[实际 Pre-Final 输入导出]
+    Context --> Export
+    Evidence --> Export
+    State --> Export
+    Export --> Final[独立 Final 接口与 citation 映射]
 ```
 
-State 引用 evidence IDs；Final 自己生成实际 attachment。代码验证标签、ID 成员资格与 attachment 位置，不能仅凭字符串证明改写后的主张被支持。
+工具层发现、获取与整理内容，不替模型修改问题范围。策略层选择当前缺口和动作；State 是已读证据的覆盖评估，不是搜索候选的质量标签。Final 基于实际可引用文本综合，不能从 State 的 direct 标签推出未见事实。
 
-Citation 看实际附着的证据；Fidelity 看允许的证据是否支持已经写出的主张；Completeness 看是否覆盖用户要求。三者独立，不用一个总体印象替代。
+## 三类 ID
 
-无需自动补 citation、迁移短 ID、合并两套 LoRA，或另引入一个答案撰写模型。
+来源 ID 用于选择 Browse；chunk ID 标识实际证据；Final 的 E 别名只为输出压缩，确定性映射到 chunk。不要把三类 ID 混作同一类。来源候选出现过，不代表其正文已读或允许引用。
 
-修改 judge/effective_config.json 的 provider/model 后，执行 python -B tools/refreeze.py，再跑离线检查。新 scorer identity 不代表语义验收通过，也不能让旧回执自动变成新 scorer 的评分。
+## 状态与证据交接
 
-## 可移植与部署专用代码
+证据正文和历史过程摘要分别保存。重新读取返回相同 chunk 不计为新增证据。State 更新后的状态被下一步实际输入继承；历史选择不得留下未经标记的过时状态来覆盖新状态。
 
-公开版提供核心算法、契约与工具后端，不包含私有 fixture 绑定的集群采集服务。根 CLI 用于离线演示/检查，不是生产 rollout 服务。部署时应接入自己的 capture/execution 服务，同时保持导出的接口与放行规则。
+`evidence_freshness_v57.snapshot` 根据精确 chunk ID/text 判断对应关系；旧展示摘要 hash 不可替代。Pre-Final 应导出共享 builder 实际准备的消息与 token 预算，而不是从轨迹手写近似输入。
+
+## 防护边界
+
+后端校验动作格式、候选 ID、预算和执行记录；Prompt 指导 query 与需求对齐，但不保证语义正确。工具正文视为不可信输入，不执行其中指令。医学支持、范围和引用绑定需独立语义检查。
+
+本页描述当前工程组件；旧共享策略架构完整保留在 [历史架构](../versions/single_lora/architecture.md)，训练策略见各版本，不在工程层绑定某个训练方法。

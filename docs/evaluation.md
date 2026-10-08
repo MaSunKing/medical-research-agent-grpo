@@ -1,3 +1,5 @@
+> 本页是历史单 LoRA 的评测记录与说明。当前 Process / Final 的多组对照方法见 [评测与消融方案](../versions/process_final_sft/evaluation.md)，不沿用历史分数作为新版结果。
+
 # 评测与独立复核
 
 区分结构验证、真实执行和语义正确。Unit tests 或 HTTP 成功都不能证明引用被支持或策略效果更好。

@@ -1,3 +1,5 @@
+> 本页保留历史 shared-LoRA reward 与归因方法。独立 Process / Frozen Final 的后续 GRPO 需要另行冻结 reward 与 replay 合同，见 [版本三](../versions/process_final_sft/README.md)。
+
 # 稠密奖励与归因
 
 语义通道包括 Checklist、Search query、Browse source focus、State、Final 与可评价的 Stop。Tool 是单独的任务收益通道。冻结配置示例见 training/config.json。

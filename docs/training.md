@@ -1,3 +1,5 @@
+> 本页保留历史单 LoRA 的训练说明。当前独立 Process / Final 训练见 [版本三](../versions/process_final_sft/README.md)；历史检索见 [冻结快照](../versions/legacy_retrieval/README.md)。
+
 # SFT 与 RL 训练安排
 
 ## 运行环境与预算

@@ -203,19 +203,25 @@ def web_candidate_score_details(
     original_question: str | None = None,
 ) -> dict[str, float]:
     """Score a public Web candidate for evidence utility and likely readability."""
-    query_tokens = _tokens(query)
+    # Query framing is not evidence of topical relevance. Apply the same
+    # query-independent vocabulary to every topic; preserve negation, ages,
+    # interventions and outcome terms. Do not change global state tokenization.
+    framing = {'what', 'which', 'how', 'when', 'where', 'who', 'is', 'are', 'the',
+               'a', 'an', 'of', 'in', 'for', 'to', 'and', 'does', 'do', 'current',
+               'latest', 'guideline', 'guidelines', 'evaluation', 'approach'}
+    query_tokens = _tokens(query) - framing
     url = str(item.get("url") or item.get("link") or "")
     domain = str(item.get("domain") or _host(url)).casefold()
     normalized_domain = domain.removeprefix("www.")
     text = " ".join(str(item.get(key) or "") for key in ("title", "snippet", "text"))
     item_tokens = _tokens(text)
     focused_relevance = len(query_tokens & item_tokens) / max(1, len(query_tokens))
-    original_tokens = _tokens(original_question or "")
+    original_tokens = _tokens(original_question or "") - framing
     original_relevance = (
         len(original_tokens & item_tokens) / max(1, len(original_tokens))
         if original_tokens else focused_relevance
     )
-    relevance = 0.6 * focused_relevance + 0.4 * original_relevance
+    relevance = 0.3 * focused_relevance + 0.7 * original_relevance
     compact_domain = normalized_domain.split(".", 1)[0]
     direct_domain = 25.0 if compact_domain and compact_domain in query.casefold() else 0.0
     lowered_url = url.casefold()
@@ -244,13 +250,22 @@ def web_candidate_score_details(
     accessibility_penalty = max(
         0.0, min(float(item.get("accessibility_penalty") or 0.0), 180.0)
     )
+    # Pilot ranking: relevance dominates; authority is a bounded tie-breaker.
+    # Never drop an opposing result or filter candidates on conclusion direction.
+    relevance_gate = min(1.0, relevance / 0.15)
+    directory = bool(re.fullmatch(r'\s*(?:clinical guidelines|guidelines(?: index| directory)?|'
+                                  r'clinical guidance index)\s*', str(item.get('title') or ''), re.I))
+    directory_penalty = 30.0 if directory else 0.0
     score = (
-        authority_score(domain)
-        + 70.0 * relevance
-        + direct_domain
-        + evidence_bonus
-        + source_type_bonus
-        + official_readability
+        200.0 * relevance
+        + relevance_gate * (
+            0.1 * authority_score(domain)
+            + direct_domain
+            + evidence_bonus
+            + source_type_bonus
+            + official_readability
+        )
+        - directory_penalty
         - publisher_penalty
         - low_value_penalty
         - social_penalty

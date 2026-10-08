@@ -64,7 +64,7 @@ class Registry:
         return sorted(ranked,key=lambda r:(-r['rrf_score'],r['source_id']))[:limit]
 
 
-def parallel_search(calls,registry,query,limit=10):
+def parallel_search(calls,registry,query,limit=10,*,original_question=None,rerank_backend=None):
     def run(fn):
         start=time.monotonic()
         try:
@@ -79,7 +79,12 @@ def parallel_search(calls,registry,query,limit=10):
         futures={name:pool.submit(run,fn) for name,fn in calls.items()}
         resolved={name:f.result() for name,f in futures.items()}
     good=sum(meta['status']=='success' for _,meta in resolved.values())
-    return dict(query=query,data=registry.fuse({k:v[0] for k,v in resolved.items()},limit),
+    from .paper_semantic_ranking import rank_paper_search_candidates
+    # Rank after identity fusion, before the public limit. Both channels enter
+    # the same pool; a second RRF must not overwrite the semantic ordering.
+    pool=registry.fuse({k:v[0] for k,v in resolved.items()},sum(len(v[0]) for v in resolved.values()))
+    ranked=rank_paper_search_candidates(query,pool,original_question=original_question,backend=rerank_backend)
+    return dict(query=query,data=ranked[:limit],
                 failed=good==0,error='all_paper_search_routes_failed' if good==0 else '',
                 partial_success=good==1,backend_status={k:v[1] for k,v in resolved.items()},
                 search_contract='pubmed_s2_parallel_v1',model_tool_calls=1)
@@ -102,7 +107,7 @@ def install(backend):
             'semantic_scholar':lambda:search_semantic_scholar_keywords(
                 SemanticScholarSearchQueryParams(query=context.focused_query),limit=limit,timeout=12,
                 fields='paperId,title,abstract,year,url,externalIds,openAccessPdf,publicationTypes'),
-        },registry,context.focused_query,limit)
+        },registry,context.focused_query,limit,original_question=context.original_question or None)
         # Do not freeze partial outages into a success cache.
         if not result['failed'] and not result['partial_success']:cache[key]=copy.deepcopy(result)
         return result

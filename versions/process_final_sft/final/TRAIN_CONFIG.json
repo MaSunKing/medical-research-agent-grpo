@@ -1,0 +1,21 @@
+{
+  "rows": 226,
+  "epochs": 3,
+  "accum": 8,
+  "steps": 87,
+  "lr": 5e-05,
+  "warmup_steps": 5,
+  "lora_r": 32,
+  "lora_alpha": 64,
+  "lora_dropout": 0.05,
+  "weight_decay": 0.01,
+  "max_grad_norm": 1.0,
+  "context_tokens": 10240,
+  "output_reserve": 2400,
+  "seed": 42,
+  "targets": "Final_only",
+  "loss": "valid_target_token_mean_per_effective_batch",
+  "scheduler": "cosine_after_warmup",
+  "precision": "NF4_double_quant_BF16_base_FP32_LoRA_no_prepare",
+  "attention": "flash_deterministic"
+}

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import ipaddress
 import math
 import os
@@ -15,6 +16,7 @@ from .serper_apis import search_serper
 from .web_preflight import web_accessibility_penalty
 from ...medical_tool_schema import normalize_source_types
 from ...runtime_policy import rank_web_candidates, web_candidate_score_details
+from .web_semantic_ranking import rank_web_search_candidates
 
 
 SOURCE_TYPE_DOMAINS: Dict[str, tuple[str, ...]] = {
@@ -88,6 +90,8 @@ WEB_BLOCK_PAGE_CUES = (
     "please verify you are a human",
     "robot check",
     "temporarily blocked",
+    "client challenge",
+    "a required part of this site couldn",
 )
 
 # Search candidates are identified to the model by opaque WEB:<hash> IDs.  Keep
@@ -211,9 +215,8 @@ def is_supported_medical_web_url(url: str) -> bool:
     """
 
     parsed = urlparse(url)
-    pdf_enabled = bool(os.getenv("MEDGAP_MINERU_BASE_URL")) and (
-        os.getenv("MEDGAP_PASSAGE_RETRIEVAL_MODE", "bm25").strip().lower() == "v28"
-    )
+    from .pdf_policy_v54 import pdf_enabled as configured_pdf_enabled
+    pdf_enabled = configured_pdf_enabled()
     if parsed.path.lower().rstrip("/").endswith(".pdf"):
         return pdf_enabled
     query = {
@@ -234,7 +237,16 @@ def is_readable_medical_web_content(value: str, *, min_chars: int = 120) -> bool
     if len(compact) < max(1, int(min_chars)):
         return False
     prefix = compact[:4000].casefold()
-    return not any(cue in prefix for cue in WEB_BLOCK_PAGE_CUES)
+    if any(cue in prefix for cue in WEB_BLOCK_PAGE_CUES):
+        return False
+    # A PDF viewer's links are navigation, not clinical evidence. Remove only
+    # page-navigation tokens; real prose/tables remain eligible for retrieval.
+    navigation = re.findall(r'\b(?:link\s+to\s+)?page\s*[-:]?\s*\d+\b', compact, re.I)
+    remainder = re.sub(r'\b(?:link\s+to\s+)?page\s*[-:]?\s*\d+\b', '', compact, flags=re.I)
+    remainder = re.sub(r'[\s\W_]+', '', remainder)
+    if len(navigation) >= 3 and len(remainder) < 80:
+        return False
+    return True
 
 
 def web_fetch_failure_retryable(fetch_attempts: Iterable[dict]) -> bool:
@@ -390,6 +402,9 @@ def search_medical_web(
     else:
         attempted_domains = _prioritize_domains(query, domains)[:MAX_DOMAIN_ATTEMPTS]
         routed_queries = [f"{query.strip()} {domain}" for domain in attempted_domains]
+    # User-authorized Serper compatibility: keep original intent in receipts.
+    original_routed_queries = list(routed_queries)
+    routed_queries = [q.translate(str.maketrans("", "", '"“”')) for q in routed_queries]
     per_domain_limit = (
         limit if discovery_mode == "broad"
         else max(1, math.ceil(limit / max(1, len(attempted_domains))))
@@ -452,7 +467,7 @@ def search_medical_web(
             if domain_results >= per_domain_limit:
                 break
 
-    returned_results = rank_web_candidates(
+    returned_results = rank_web_search_candidates(
         query, results, original_question=original_question
     )[:limit]
     for rank, item in enumerate(returned_results, start=1):
@@ -498,6 +513,8 @@ def search_medical_web(
         "query": query,
         "routed_query": routed_queries[0],
         "routed_queries": routed_queries,
+        "original_routed_queries": original_routed_queries,
+        "query_normalization": "remove_double_quotes_v1",
         "attempted_query_count": attempted_query_count,
         "anchored_query_bundle": bool(original_question),
         "route_errors": route_errors,

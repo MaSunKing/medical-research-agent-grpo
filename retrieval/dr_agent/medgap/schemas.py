@@ -111,14 +111,133 @@ class FinalEvidenceReference(StrictModel):
     quote_normalization_repaired: bool = False
 
 
+class FinalAnswerSemanticSlotAssessment(StrictModel):
+    """Judge-owned semantics with provenance expressed only as input indexes.
+
+    The Judge never copies an opaque evidence ID or source quote.  Runtime code
+    binds these indexes back to the immutable OPENED_EVIDENCE array.
+    """
+
+    slot_id: str = Field(min_length=1, max_length=80)
+    evidence_available: Literal[
+        "direct_evidence", "opened_evidence_limitation", "none"
+    ]
+    final_disposition: Literal[
+        "substantive_answer", "qualified_answer", "abstained", "omitted"
+    ]
+    support_type: Literal[
+        "direct_evidence", "opened_evidence_limitation", "unsupported"
+    ]
+    available_evidence_indices: list[int] = Field(default_factory=list, max_length=20)
+    answer_support_evidence_indices: list[int] = Field(
+        default_factory=list, max_length=20
+    )
+    rationale: str = Field(min_length=1, max_length=800)
+
+    @model_validator(mode="after")
+    def validate_semantic_consistency(self) -> "FinalAnswerSemanticSlotAssessment":
+        available = self.available_evidence_indices
+        support = self.answer_support_evidence_indices
+        if any(index < 0 for index in available + support):
+            raise ValueError("evidence indexes must be non-negative")
+        if len(available) != len(set(available)) or len(support) != len(set(support)):
+            raise ValueError("evidence indexes must be unique")
+        if self.evidence_available == "none" and available:
+            raise ValueError("evidence_available=none requires no available indexes")
+        if self.evidence_available != "none" and not available:
+            raise ValueError("available evidence requires at least one evidence index")
+        if self.support_type == "unsupported" and support:
+            raise ValueError("unsupported answer requires no support indexes")
+        if self.support_type != "unsupported" and not support:
+            raise ValueError("supported answer requires at least one support index")
+        if not set(support).issubset(available):
+            raise ValueError("answer support indexes must be a subset of available indexes")
+        expected_availability = {
+            "direct_evidence": "direct_evidence",
+            "opened_evidence_limitation": "opened_evidence_limitation",
+        }.get(self.support_type)
+        if expected_availability and self.evidence_available != expected_availability:
+            raise ValueError("support_type contradicts evidence_available")
+        if self.final_disposition in {"abstained", "omitted"}:
+            if self.support_type != "unsupported" or support:
+                raise ValueError("abstained or omitted Final cannot receive answer support")
+        return self
+
+
+class FinalAnswerSemanticVerification(StrictModel):
+    """Minimal full-answer contract returned by the terminal Judge."""
+
+    answer_present: bool
+    medical_safety_ok: bool
+    unsupported_strong_claim: bool
+    slot_assessments: list[FinalAnswerSemanticSlotAssessment] = Field(max_length=8)
+
+
+# V54.4 Judge-owned state.  Every older compatibility field is derived from
+# this single enum in deterministic runtime code.
+MinimalSemanticState = Literal[
+    "direct_supported_substantive",
+    "direct_supported_qualified",
+    "direct_unsupported_substantive",
+    "direct_unsupported_qualified",
+    "direct_abstained",
+    "direct_omitted",
+    "limitation_supported_substantive",
+    "limitation_supported_qualified",
+    "limitation_unsupported_substantive",
+    "limitation_unsupported_qualified",
+    "limitation_abstained",
+    "limitation_omitted",
+    "none_unsupported_substantive",
+    "none_unsupported_qualified",
+    "none_abstained",
+    "none_omitted",
+]
+
+
+class MinimalSemanticSlotAssessment(StrictModel):
+    semantic_state: MinimalSemanticState
+    # Required on purpose.  An empty list is legal only for a none_* state.
+    evidence_indices: list[int] = Field(max_length=20)
+
+    @model_validator(mode="after")
+    def validate_minimal_state(self) -> "MinimalSemanticSlotAssessment":
+        indexes = self.evidence_indices
+        if any(index < 0 for index in indexes):
+            raise ValueError("evidence indexes must be non-negative")
+        if len(indexes) != len(set(indexes)):
+            raise ValueError("evidence indexes must be unique")
+        no_evidence = self.semantic_state.startswith("none_")
+        if no_evidence and indexes:
+            raise ValueError("none_* state requires an empty evidence index list")
+        if not no_evidence and not indexes:
+            raise ValueError("non-none state requires at least one evidence index")
+        return self
+
+
+class MinimalSemanticVerification(StrictModel):
+    answer_present: bool
+    medical_safety_ok: bool
+    unsupported_strong_claim: bool
+    # Dynamic required slot keys are supplied in the request JSON Schema.
+    slot_assessments: dict[str, MinimalSemanticSlotAssessment]
+
+
 class FinalAnswerSlotAssessment(StrictModel):
     slot_id: str = Field(min_length=1, max_length=80)
+    evidence_available: Literal[
+        "direct_evidence", "opened_evidence_limitation", "none"
+    ]
+    final_disposition: Literal[
+        "substantive_answer", "qualified_answer", "abstained", "omitted"
+    ]
     addressed: bool
     supported_by_opened_evidence: bool
     support_type: Literal[
         "direct_evidence", "opened_evidence_limitation", "unsupported"
     ]
     citation_ids: list[str] = Field(default_factory=list, max_length=20)
+    available_evidence_ids: list[str] = Field(default_factory=list, max_length=20)
     supporting_evidence: list[FinalEvidenceReference] = Field(
         default_factory=list, max_length=20
     )
@@ -131,6 +250,62 @@ class FinalAnswerVerification(StrictModel):
     medical_safety_ok: bool
     unsupported_strong_claim: bool
     slot_assessments: list[FinalAnswerSlotAssessment] = Field(max_length=8)
+
+
+class TerminalBehaviorSlotAssessment(StrictModel):
+    """Minimal semantic primitives used only when the full Final judge is invalid."""
+
+    slot_id: str = Field(min_length=1, max_length=80)
+    evidence_available: Literal[
+        "direct_evidence", "opened_evidence_limitation", "none"
+    ]
+    final_disposition: Literal[
+        "substantive_answer", "qualified_answer", "abstained", "omitted"
+    ]
+    available_evidence_ids: list[str] = Field(default_factory=list, max_length=20)
+    supporting_evidence: list[FinalEvidenceReference] = Field(
+        default_factory=list, max_length=20
+    )
+    rationale: str = Field(min_length=1, max_length=800)
+
+
+class TerminalBehaviorVerification(StrictModel):
+    """Quote-backed fallback judgment; reward labels remain deterministic code."""
+
+    slot_assessments: list[TerminalBehaviorSlotAssessment] = Field(max_length=8)
+
+
+class TerminalBehaviorSemanticSlotAssessment(StrictModel):
+    """Quote-free terminal fallback result, bound by evidence array index."""
+
+    slot_id: str = Field(min_length=1, max_length=80)
+    evidence_available: Literal[
+        "direct_evidence", "opened_evidence_limitation", "none"
+    ]
+    final_disposition: Literal[
+        "substantive_answer", "qualified_answer", "abstained", "omitted"
+    ]
+    available_evidence_indices: list[int] = Field(default_factory=list, max_length=20)
+    rationale: str = Field(min_length=1, max_length=800)
+
+    @model_validator(mode="after")
+    def validate_semantic_consistency(
+        self,
+    ) -> "TerminalBehaviorSemanticSlotAssessment":
+        indexes = self.available_evidence_indices
+        if any(index < 0 for index in indexes):
+            raise ValueError("evidence indexes must be non-negative")
+        if len(indexes) != len(set(indexes)):
+            raise ValueError("evidence indexes must be unique")
+        if self.evidence_available == "none" and indexes:
+            raise ValueError("evidence_available=none requires no available indexes")
+        if self.evidence_available != "none" and not indexes:
+            raise ValueError("available evidence requires at least one evidence index")
+        return self
+
+
+class TerminalBehaviorSemanticVerification(StrictModel):
+    slot_assessments: list[TerminalBehaviorSemanticSlotAssessment] = Field(max_length=8)
 
 
 class NoToolAnswerVerification(StrictModel):

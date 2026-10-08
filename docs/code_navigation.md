@@ -1,35 +1,16 @@
-# 当前实现：从哪里开始读代码
+# 源码阅读导航
 
-公开仓库保留了一部分带版本号的模块，目的是维持实际导入关系、scorer 身份与合同回归。它们不是让使用者从多个版本中任选其一。下面按功能列出当前入口。
-
-## 推荐阅读顺序
-
-| 你想看什么 | 当前入口 |
+| 功能 | 当前源码 |
 |---|---|
-| 无模型可运行验证 | [run_pipeline.py](../run_pipeline.py)、[离线例子](../examples/offline_demo.py) |
-| 一道真实问题怎么走完整流程 | [静态轨迹案例](../examples/trajectory_demo/README.md) |
-| 工具动作结束边界 | [agent/action_boundary_v46.py](../agent/action_boundary_v46.py) |
-| Final citation 解析与完整 ID | [agent/citation_ids_v4_1.py](../agent/citation_ids_v4_1.py) |
-| 候选预览与预算选择 | [agent/preview_selection_v23.py](../agent/preview_selection_v23.py)、[preview_tokens_v22.py](../agent/preview_tokens_v22.py) |
-| 共享阶段输入与预算 | [agent/shared_interface.py](../agent/shared_interface.py)、[shared_budget_v52.py](../agent/shared_budget_v52.py)、[evidence_cards_v32.py](../agent/evidence_cards_v32.py) |
-| Final 重复与多次生成审计 | [final_repetition_guard.py](../agent/final_repetition_guard.py)、[final_attempt_audit.py](../agent/final_attempt_audit.py) |
-| Browse→Runtime 证据合同 | [evidence_contract_v14.py](../agent/evidence_contract_v14.py)、[evidence_exact_v31.py](../agent/evidence_exact_v31.py) |
-| 正文提取与表格完整性 | [medical_document_parser.py](../retrieval/dr_agent/mcp_backend/apis/medical_document_parser.py)、[table_integrity.py](../retrieval/dr_agent/mcp_backend/apis/table_integrity.py) |
-| 返回窗口与 provenance 身份 | [evidence_handoff_v3.py](../retrieval/dr_agent/mcp_backend/apis/evidence_handoff_v3.py)、[returned_window_identity.py](../retrieval/dr_agent/mcp_backend/apis/returned_window_identity.py) |
-| SFT 样本构建与训练 | [sft/build_alignment.py](../sft/build_alignment.py)、[train_tc2.py](../sft/train_tc2.py) |
-| 所有阶段的 Judge 计划与验证 | [judge/tiered_allstages_v1/pipeline.py](../judge/tiered_allstages_v1/pipeline.py) |
-| State 及阶段评分核心 | [judge/tiered_allstages_v1/engine.py](../judge/tiered_allstages_v1/engine.py) |
-| Final 分维度评判 | [judge/tiered_judge_v2/isolated.py](../judge/tiered_judge_v2/isolated.py) |
-| 增量覆盖与不可变回执 | [shared/gain_contract.py](../shared/gain_contract.py) |
-| 奖励编译与组内优势 | [training/core.py](../training/core.py) |
-| 裁剪策略损失 | [training/policy_loss.py](../training/policy_loss.py) |
-| Qwen3 专用行为概率 replay | [training/layer_replay.py](../training/layer_replay.py) |
-| 实际 LoRA 更新 | [training/train.py](../training/train.py) |
+| 论文 Search | [pubmed_apis.py](../retrieval/dr_agent/mcp_backend/apis/pubmed_apis.py)、[dual_paper.py](../retrieval/dr_agent/mcp_backend/apis/dual_paper.py) |
+| 论文语义重排 | [paper_semantic_ranking.py](../retrieval/dr_agent/mcp_backend/apis/paper_semantic_ranking.py) |
+| 网页 Search / 重排 | [medical_web_apis.py](../retrieval/dr_agent/mcp_backend/apis/medical_web_apis.py)、[web_semantic_ranking.py](../retrieval/dr_agent/mcp_backend/apis/web_semantic_ranking.py) |
+| 候选窗口 | [candidate_window.py](../retrieval/runtime/candidate_window.py)、[candidate_latest_window_v13.py](../retrieval/runtime/candidate_latest_window_v13.py) |
+| Checklist / State / Decision | [checklist_feedback_v55.py](../retrieval/runtime/checklist_feedback_v55.py)、[state_compact_v38.py](../retrieval/runtime/state_compact_v38.py)、[sft_interface_v20.py](../retrieval/runtime/sft_interface_v20.py) |
+| 失败预算 | [environment_failure_budget_v1.py](../retrieval/runtime/environment_failure_budget_v1.py) |
+| 证据 freshness | [evidence_freshness_v57.py](../retrieval/runtime/evidence_freshness_v57.py) |
+| Process / Final 实际训练代码 | [版本三](../versions/process_final_sft/README.md) |
+| Final citation / 固定输入对照 | [final_citation_alias_v1.py](../versions/process_final_sft/final/final_citation_alias_v1.py)、[evaluate.py](../versions/process_final_sft/final/evaluate.py) |
+| 历史共享 LoRA / dense reward / replay | [历史单 LoRA](../versions/single_lora/README.md)、[training/](../training/)、[judge/](../judge/) |
 
-## Judge 的版本目录如何理解
-
-`tiered_allstages_v1/pipeline.py` 是统一计划入口；`tiered_judge_v2/isolated.py` 提供 Final 的维度隔离；`tiered_judge_v1` 与 `general_final_v6` 中仍有被当前入口使用的策略、聚合与合同模块。它们是依赖关系，不是三套同时推荐的替代服务。
-
-`pipeline.profile()` 明确绑定活动 prompt、effective config 和依赖源码 hash。当前导入从 `active_policy_v11.py` 开始，后者会继承前序策略。删除或重命名这些文件需要同步修改导入、冻结清单与回归测试；不能只为外观将其移入 `docs/history/`。
-
-后续如整理稳定 API，应先提供经过测试的功能入口，再迁移内部文件。本轮只增加阅读导航，不改变算法、评分合同或导入结构。
+带版本号的文件常是依赖关系，不是多个可随意选择的算法。v13 依赖 v11 的 local_scores，不启用 v11 全池重排。公开代码不带私有训练数据、captures和服务器环境；版本框架不等于所有未来步骤已经实现。

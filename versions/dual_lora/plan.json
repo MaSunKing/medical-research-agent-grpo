@@ -1,0 +1,22 @@
+{
+  "status": "planned_not_new_training_completed",
+  "base": "Qwen3-8B",
+  "teacher_questions": 972,
+  "recollect_teacher": false,
+  "adapters": ["process", "final"],
+  "shared_trainable_adapter": false,
+  "retrieval_profile": "legacy_retrieval",
+  "validation_questions": 50,
+  "validation_arms": ["raw", "previous_single_lora", "new_dual_lora"],
+  "matched_controls": ["questions", "seeds", "prompts", "retrieval", "budgets", "grading"],
+  "training_parameters": {
+    "micro_batch": 1,
+    "accum": 8,
+    "lora_r": 32,
+    "lora_alpha": 64,
+    "lora_dropout": 0.05,
+    "loss": "completion_only",
+    "learning_rate": null,
+    "epochs": null
+  }
+}

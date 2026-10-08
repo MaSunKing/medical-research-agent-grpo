@@ -206,15 +206,49 @@ def _ncbi_common_params() -> Dict[str, str]:
     return params
 
 
+class PubMedResponseError(requests.exceptions.HTTPError):
+    """An unusable API response, including an HTTP-200 error document."""
+
+
+def _validate_pubmed_xml(root, search):
+    if root.tag.upper() == "ERROR" or root.find(".//ERROR") is not None:
+        raise PubMedResponseError("api_error_document")
+    if search:
+        if root.tag != "eSearchResult":
+            raise PubMedResponseError("unexpected_search_root")
+        values = {}
+        for name in ("Count", "RetStart", "RetMax"):
+            node = root.find("./" + name)
+            text = (node.text or "").strip() if node is not None else ""
+            if not text.isascii() or not text.isdecimal():
+                raise PubMedResponseError("missing_or_invalid_" + name)
+            values[name] = int(text)
+        ids = root.find("./IdList")
+        if ids is None:
+            raise PubMedResponseError("missing_IdList")
+        for node in ids.findall("./Id"):
+            value = (node.text or "").strip()
+            if not value.isascii() or not value.isdecimal():
+                raise PubMedResponseError("invalid_PubMed_ID")
+        if values["Count"] > values["RetStart"] and values["RetMax"] > 0 and not ids.findall("./Id"):
+            raise PubMedResponseError("unexpected_empty_IdList")
+    return root
+
+
 def _get_xml(url: str, params: Dict) -> ElementTree.Element:
     def request_once() -> ElementTree.Element:
         response = requests.get(url, params=params, timeout=PUBMED_REQUEST_TIMEOUT)
         response.raise_for_status()
-        return ElementTree.fromstring(response.content)
-
-    # NCBI may return 429 during bursty Teacher collection. Retrying here keeps
-    # transport throttling out of the model-visible tool policy; batch callers
-    # should still serialize PubMed work when no NCBI API key is configured.
+        try:
+            try:
+                root = ElementTree.fromstring(response.content)
+            except ElementTree.ParseError:
+                raise PubMedResponseError("non_xml_response") from None
+            return _validate_pubmed_xml(root, url.endswith("/esearch.fcgi"))
+        except PubMedResponseError as exc:
+            # Controlled reason only: no URL, API key, email, or response body.
+            print("V71_PUBMED_RESPONSE_INVALID=" + str(exc), flush=True)
+            raise
     return call_api_with_retry(request_once)
 
 
@@ -978,7 +1012,7 @@ def load_medical_document(
             logger.warning("Europe PMC full-text load failed for %s: %s", europe_pmcid, exc)
 
     if (
-        os.getenv("MEDGAP_PASSAGE_RETRIEVAL_MODE", "bm25").strip().lower() == "v28"
+        False  # PDF is handled once by the independent dual-paper loader
         and os.getenv("MEDGAP_MINERU_BASE_URL")
     ):
         try:

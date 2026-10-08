@@ -49,7 +49,7 @@
     {
       "path": "training/layer_replay.py",
       "source_sha256": "d7d97e93cd3320020cf16b93e600c9e1b1ac70d8008ba612d78fa217463d23fe",
-      "published_sha256": "d7d97e93cd3320020cf16b93e600c9e1b1ac70d8008ba612d78fa217463d23fe"
+      "published_sha256": "05f270f37fca74a041c1f4b938c344a31b691624bbc1157781b970bbd57dd75b"
     },
     {
       "path": "training/policy_loss.py",
@@ -494,7 +494,7 @@
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/medical_document_parser.py",
       "source_sha256": "dd5e3a8550e246b9f74a00aec109484658e2cb6ce01f34191798d538fb399017",
-      "published_sha256": "8dc106a930826d94eb1187ebc6617bab0bd6c07b1636a7ee5004b39a85716536",
+      "published_sha256": "9dd44380657c70715131984d5b0f8cbdb9fe8a51527a351bf1d6a1f3512797c3",
       "synced_from": "candidate_v17_shared_stage_receipts"
     },
     {
@@ -505,7 +505,7 @@
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/medical_web_apis.py",
       "source_sha256": "54d016f030067cb9c39ee997dad32b32f2ce9fdf5433f2e14d874597dcc8e886",
-      "published_sha256": "8ad13e4e55099ded474d4ca32561dbe024832ff70423753e77c15109199bc1a2"
+      "published_sha256": "e8aeebf6cd584a8f1a484426ad0111fae75d9250e8724b0ba30a6f6740432f29"
     },
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/mineru_client.py",
@@ -522,7 +522,7 @@
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/dual_paper.py",
       "source_sha256": "95c30ca05ac73ed489d8571e4e9302b2fcf2a4214962081a72cace4cb247a243",
-      "published_sha256": "6de319e2e761178be7e678e9a0c9bd158e5b554a408da4405fbcb55f4521c41b",
+      "published_sha256": "adaed9e5ca1f5832accd1b82de78aabc02ff30b0e3547fea8cf4cb2921718a57",
       "synced_from": "candidate_v17_shared_stage_receipts"
     },
     {
@@ -534,7 +534,7 @@
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/mineru_cloud_legacy_v54.py",
       "source_sha256": "660841b81ded6c35aaed3dc690a51300a0c6894312d23f748273fcbff6bdef71",
-      "published_sha256": "33ad042b97c57dff1e1175b762631e6742ce46c2b01bce7511fb9f0a0145494e",
+      "published_sha256": "c12e3e42d0e5a2d01681dfb103591107d28f54804ad35601eaec94a0a57b1f13",
       "synced_from": "candidate_v17_shared_stage_receipts"
     },
     {
@@ -546,7 +546,7 @@
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/pubmed_apis.py",
       "source_sha256": "75d312b306e54ac6a5e9c9612bf35b1379af4bec45e46d34cbee79ed7a33632b",
-      "published_sha256": "70044fb69d0db3c72db2b506a0ec391291b6cf3d277cd8d61388e402bea81ee4"
+      "published_sha256": "5fc13a845404800dfca6f85b3b2349f388374c70dd5708713324922cf2888b7c"
     },
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/reranker_apis.py",
@@ -562,12 +562,12 @@
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/semantic_scholar_apis.py",
       "source_sha256": "42fc5b603bbf453fe7b99ad3073b1f0bc6552b61930dcc669ca2110a11330ca4",
-      "published_sha256": "f977a6376f8512f458917a4bf9759e119ac7b3ad82663d9aa781bc7dcea1324d"
+      "published_sha256": "db8589f2d5f172e227b35a3fa4ce59a9d74e461c4aeec06d8d93375c8dfb6258"
     },
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/serper_apis.py",
       "source_sha256": "f4f4c2134bfa69bb55d982eeaf2e1ce8763022436d7d4582a092c032434ef949",
-      "published_sha256": "4b74419b5a19e1dfc886be6913c469bcdf92a94904849393b11205515afc355c"
+      "published_sha256": "38623e8deac78884a3c22a7cf504816e65f3445b49b848a425c8b91429d39826"
     },
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/utils.py",
@@ -622,7 +622,7 @@
     {
       "path": "retrieval/dr_agent/mcp_backend/main.py",
       "source_sha256": "bfaf39c63ebaeaa150c6a686fa498fe9d06383bfc91275aa678572e575e2cde0",
-      "published_sha256": "84c52d44b185172a9a24a1957f6e8095cbe1f1996690a8462968de17cbe8a77d",
+      "published_sha256": "30afd8c0495ef3ce639d09e86345f8dff10f3e05f6d7be10027bddaf2b47a060",
       "synced_from": "candidate_v17_shared_stage_receipts"
     },
     {
@@ -643,17 +643,17 @@
     {
       "path": "retrieval/dr_agent/medgap/schemas.py",
       "source_sha256": "6b8bab5e8a256b7350a8e984a14a068357a735d79a31620b4b17758fb906025c",
-      "published_sha256": "dd99a1d44df398d35e3cee4e41e8efe8b63ab84d55a87c3084352251f707e4de"
+      "published_sha256": "dbfc038ed77ed9644cadb15700c6745d2f846f55e98dc7d4f1e0b0a44f91724f"
     },
     {
       "path": "retrieval/dr_agent/medgap/service.py",
       "source_sha256": "cf1c2a1c22296bc7025e0c1740a3801591355dec7766f19d6cfebe6f77ca2d64",
-      "published_sha256": "f9bbb6385226d06acb54b4c097e44babb793c333b082c9901de01c41d7f56fdc"
+      "published_sha256": "b1f9bf1aa7964a93b97a154f13ee3bbaad75048048be26676bdecf5e17786ca6"
     },
     {
       "path": "retrieval/dr_agent/medgap/verifier.py",
       "source_sha256": "25e8df262ec1c759ba5e291f0be46735b1f91cbdf1e75710a2fe417e2632d0d1",
-      "published_sha256": "def7f8c60debaf551feb519b3d5bd9b9c4babe81c77d6229258e2ee7f4fe8391"
+      "published_sha256": "8712ebe228ee4a887d4a37a7ed73188737991a0b3cc177b6f96a24be210b7969"
     },
     {
       "path": "retrieval/dr_agent/medical_runtime.py",
@@ -673,7 +673,7 @@
     {
       "path": "retrieval/dr_agent/runtime_policy.py",
       "source_sha256": "4faaa890ba35c99a8643cb7b4f0436093d382a39135a9262f89cf121fb2ded9c",
-      "published_sha256": "3f961a20b4515ec7e917f8ac38c6adf8e37e0dedaf42769b1ac111d2acf4cebf"
+      "published_sha256": "37c2f2975513977430fbf95036426010baecf5353cc25588a3ad8db101226e79"
     },
     {
       "path": "retrieval/dr_agent/shared_prompts/__init__.py",
@@ -798,13 +798,13 @@
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/browse_preprocess.py",
       "source_sha256": "b513a876c3cdbef3f617da938dfa7fed81ddd142f2c22b876453311e4f18f14b",
-      "published_sha256": "e8a3577ef8e3bb28dae364157c36e28440a92cc586176f4ca2a28ab47c6864c0",
+      "published_sha256": "691ab5b0da84d9a3f51c8cf7185eee30f12f8c40a186f2c44c31818e305975fd",
       "synced_from": "candidate_v17_shared_stage_receipts"
     },
     {
       "path": "retrieval/dr_agent/mcp_backend/apis/evidence_handoff_v3.py",
       "source_sha256": "c64308782bcfce936ff89f87e0a35b0462616d664466749a7e2fd0148e8ac2c9",
-      "published_sha256": "e6efe9eac7b33c0058358caf8a448476a98bea11a8e1902a585b0d5b509baec2",
+      "published_sha256": "a06980fde46bbc6ccd7391ef3d40b00fcb53cec72f8015ac1afe87abf9634b2a",
       "synced_from": "candidate_v17_shared_stage_receipts"
     },
     {

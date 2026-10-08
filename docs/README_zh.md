@@ -1,3 +1,5 @@
+> 历史单 LoRA 说明。新版项目介绍见 [首页](../README.md)，当前检索见 [检索设计](retrieval.md)，独立 Process / Final 见 [版本三](../versions/process_final_sft/README.md)。
+
 # 本地友好的稠密奖励 GRPO Agent
 
 这个项目把检索 Agent 的学习信号从“最终答案总分”拆成 Checklist、Search、Browse、State、Final 等局部通道。可信代码根据证据回执计算 evidence gain，绑定真实生成 token，再进行同题组内相对优势和共享 LoRA 更新。

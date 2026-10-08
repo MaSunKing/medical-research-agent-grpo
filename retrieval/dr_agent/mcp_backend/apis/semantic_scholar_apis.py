@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Generic, List, Optional, TypeVar, Union
 
 import requests
+from . import s2_transport
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, HttpUrl
 from requests.exceptions import RequestException
@@ -107,7 +108,7 @@ def search_semantic_scholar_keywords(
     timeout: int = TIMEOUT,
 ) -> ApiResponse[SemanticScholarPaperData]:
 
-    res = requests.get(
+    res = s2_transport.get(
         f"{S2_GRAPH_API_URL}/paper/search",
         params={
             "offset": offset,
@@ -188,7 +189,7 @@ def search_semantic_scholar_snippets(
     ):
         params["paperIds"] = ",".join(query_params.paperIds)
 
-    res = requests.get(
+    res = s2_transport.get(
         f"{S2_GRAPH_API_URL}/snippet/search",
         params={
             # "offset": offset,
@@ -209,7 +210,7 @@ def search_semantic_scholar_bulk_api(
     timeout: int = TIMEOUT,
 ) -> ApiResponse[SemanticScholarPaperData]:
 
-    res = requests.get(
+    res = s2_transport.get(
         f"{S2_GRAPH_API_URL}/paper/search/bulk",
         params={
             "fields": fields,
@@ -249,7 +250,7 @@ def download_paper_details(
     fields: str = S2_PAPER_SEARCH_FIELDS,
     timeout: int = TIMEOUT,
 ):
-    res = requests.get(
+    res = s2_transport.get(
         f"{S2_GRAPH_API_URL}/paper/{paper_id}",
         params={
             "fields": fields,
@@ -271,7 +272,7 @@ def download_paper_references(
     fields: str = S2_PAPER_REFERENCE_FIELDS,
     timeout: int = TIMEOUT,
 ):
-    res = requests.get(
+    res = s2_transport.get(
         f"{S2_GRAPH_API_URL}/paper/{paper_id}/references",
         params={
             "offset": offset,
@@ -293,7 +294,7 @@ def download_paper_citations(
     fields: str = S2_PAPER_CITATION_FIELDS,
     timeout: int = TIMEOUT,
 ):
-    res = requests.get(
+    res = s2_transport.get(
         f"{S2_GRAPH_API_URL}/paper/{paper_id}/citations",
         params={
             "offset": offset,
@@ -313,7 +314,7 @@ def download_paper_details_batch(
     fields: str = S2_PAPER_SEARCH_FIELDS,
     timeout: int = TIMEOUT,
 ):
-    res = requests.post(
+    res = s2_transport.post(
         f"{S2_GRAPH_API_URL}/paper/batch",
         params={"fields": fields},
         json={"ids": paper_ids},

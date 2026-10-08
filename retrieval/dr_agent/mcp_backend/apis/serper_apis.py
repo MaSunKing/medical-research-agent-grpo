@@ -1,7 +1,6 @@
 # Adapted public research release; see THIRD_PARTY_NOTICES.md.
 import json
 import os
-from pathlib import Path
 from threading import Lock
 from typing import Dict, List, Optional, Union
 
@@ -11,10 +10,8 @@ from typing_extensions import TypedDict
 
 from ..cache import cached
 
-# Load the repository-local development secrets deterministically. Explicit
-# process variables (for example the server secret launcher) retain priority
-# because python-dotenv defaults to override=False.
-dotenv.load_dotenv(dotenv_path=Path(__file__).resolve().parents[3] / ".env")
+# Load environment variables
+dotenv.load_dotenv()
 
 SERPER_API_KEY = os.getenv("SERPER_API_KEY")
 SERPER_API_KEY_FALLBACK = os.getenv("SERPER_API_KEY_FALLBACK")
