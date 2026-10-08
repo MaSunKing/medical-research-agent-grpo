@@ -5,9 +5,9 @@
 1. **Process 对照**：Base Process 与 SFT Process 各真实跑同题，再交给同一个冻结 Base Final。比较找到的证据和最终效用。
 2. **Final 对照**：冻结同一 Pre-Final，分别交给 Base Final、Final-SFT。隔离综合与引用能力，不重新检索。
 
-Process 50 题开发验证保持题目、seed、温度1、检索版本、工具预算和最终生成器一致。Final checkpoint 先由38 dev选择，不利用最终多组比较结果反复挑 checkpoint。
+Process38题对照保持题目、seed、温度1、检索版本与工具预算一致。Final在同一38题Pre-Final上比较Base与六个checkpoint，选择生成器后再冻结正式四组协议。
 
-前面的Process配对开发测试和固定输入Final38测试是两次不同定位实验；50题是开发协议规模，不代表已全部完成。已完成的配对数量与失败项见[开发记录](README.md#已执行的开发实验)。后续20题才执行下面完整四组，并同时采用HealthBench与项目维度；应在训练和checkpoint选择之外冻结，若曾用于调参就明确降级为开发对照。
+前面的Process38与Final38是两类开发定位，不填入旧批次记录；Final六个checkpoint的38题对照目前待测。后续20题执行完整四组，同时采用HealthBench与项目维度；应在训练和checkpoint选择之外冻结，若曾用于调参就明确降级为开发对照。
 
 ## 计划：HealthBench 20 题四组主消融
 
@@ -29,7 +29,7 @@ Process 50 题开发验证保持题目、seed、温度1、检索版本、工具�
 - 历史：相同模型与预算，有/无 compact history，观察重复搜索与未解决需求；注明这是推理输入消融，不是无历史模型的训练结论。
 - 输入：相同已读证据下，保留/移除 State，观察 Final 是否过度信任标签。
 - 排序：固定 Query 和候选原始结果，比较当前/旧窗口投影；这是检索组件离线消融，不替代 live Agent 比较。
-- teacher 数据：已有500＋200混合轨迹与本版本Codex CLI按新工程重采700轨迹的独立训练对照，保持超参数一致；重采数据可用前不执行或预报结果。
+- 阶段监督：保持同一700题新采集数据，分别移除State或Stop监督，检查两类能力对检索策略的影响；需独立训练对照，不将推理移除输入等同于训练消融。
 
 ## HealthBench 与项目评测同时保留
 

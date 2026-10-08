@@ -38,7 +38,70 @@
 
 [查看完整 50 题结果、评分规则与逐题分数](../../docs/evaluation/local50_raw_sft_chatgpt_pro_20260923.md)。公开表格直接给出冻结 rubric 的加权综合分，不再另设展示上限；最高档表示在本次离散规则下达到该档位，不等同于绝对医学正确。
 
-## 为什么从 SFT 转入 GRPO
+## SFT与GRPO公式
+
+### 全链路step-wise SFT
+
+一条样本只监督当前阶段；训练阶段集合为Checklist、Decision、State、Stop、Final。设T_i为样本i的有效target位置，a_i为sample weight，batch为B，则公开训练器的loss为：
+
+$$
+\mathcal L_{\mathrm{single}}(B)=
+\frac{1}{|B|}\sum_{i\in B}a_i
+\frac{1}{|T_i|}\sum_{t\in T_i}
+-\log\pi_\theta(y_{it}\mid x_i,y_{i,<t}).
+$$
+
+先对样本内target取token均值，再按样本权重聚合。不同阶段通过其样本与权重贡献loss，不对输入、历史、工具回执重复监督。所有阶段更新同一套LoRA。
+
+### 现有分通道相对优势
+
+同一问题采样G条轨迹，通道c的局部分数为u_ic，最终任务分数为F_i。公开compiler使用leave-one-out baseline：
+
+$$
+A^{\mathrm{local}}_{ic}
+=u_{ic}-\frac{1}{G-1}\sum_{j\ne i}\bar u_{jc},
+\qquad
+A^{\mathrm{final}}_i
+=F_i-\frac{1}{G-1}\sum_{j\ne i}F_j,
+$$
+
+$$
+A_{ic}=\lambda^{\mathrm{local}}_c A^{\mathrm{local}}_{ic}
++\lambda^{\mathrm{final}}_c A^{\mathrm{final}}_i.
+$$
+
+局部baseline使用其他轨迹同通道的均值；Tool/Stop按决策位置对齐，并使用由该位置向后的task return，而非将所有步混成一个baseline。未观测reward不当作0分，关键评分缺失须先补齐或拒绝编译。上式G表示该项有可比较评分的有效轨迹数。
+
+### 精确token归因与clipped objective
+
+令S_ic为通道对应的实际输出token索引，κ_ic为通道loss权重（按该轨迹通道记录数分摊），行为snapshot为old：
+
+$$
+\rho_{it}=\exp\!\left(
+\log\pi_\theta(a_{it}\mid h_{it})
+-\log\pi_{\mathrm{old}}(a_{it}\mid h_{it})
+\right),
+$$
+
+$$
+\mathcal L_{\mathrm{RL}}
+=-\frac{1}{\sum_{i,c}\kappa_{ic}}
+\sum_{i,c}\frac{\kappa_{ic}}{|S_{ic}|}
+\sum_{t\in S_{ic}}
+\min\!\left(\rho_{it}A_{ic},
+\operatorname{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_{ic}\right).
+$$
+
+这是现有GRPO风格分通道策略更新，不把它称作标准group-std-normalized GRPO。行为概率必须按同一采样分布重放；索引来自capture，不包含输入或Observation。代码另外监测：
+
+$$
+\widehat D_{\mathrm{old,current}}
+=\operatorname{mean}_t\!\left(\rho_{it}-1-\log\rho_{it}\right).
+$$
+
+该量用于漂移监测和target-KL早停，不能冒称已有训练器同时实现了reference-KL惩罚。源码见[compiler](../../training/core.py)、[clipped loss](../../training/policy_loss.py)、[训练器](../../training/train.py)。完整工程验收与真实训练效果分别登记。
+
+## 为什么从 SFT 转入策略优化
 
 本项目把 SFT 定位为 Agent 的 cold-start 阶段：先让 Qwen3-8B 学会任务拆解、Search/Browse 工具协议、Evidence State 更新、停止决策和引用式回答。50 题留出评测显示，SFT 已经显著改善完整 Agent 轨迹生成与严格端到端通过能力，能够稳定产生可用于在线策略优化的真实工具 rollout。
 

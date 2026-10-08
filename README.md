@@ -131,6 +131,21 @@ Pre-Final 不是另写一份自由摘要，而是按实际 Final 输入合同导
 
 “没有固定最终答案金标”不等于“没有监督”：Process 使用 teacher 的 Checklist、工具动作和 State 等阶段目标；独立 Final 使用按实际 Pre-Final 审核的 gold answer。HealthBench 又有官方 rubric，不能称为无评测标准的题集。
 
-当前 Process 训练和开发对照已执行；正式四组实验与后续 GRPO 分开登记。阅读 [Process 开发结果](versions/process_final_sft/README.md#已执行的开发实验)、[20题四组与双轨评测](versions/process_final_sft/evaluation.md)、[Process-only GRPO 计划](versions/process_final_sft/grpo.md)。
+共同的LoRA参数化为：
+
+$$
+W_{\mathrm{eff}}=W_0+\frac{\alpha}{r}BA,\qquad
+W_0\ \text{frozen},\quad A,B\ \text{trainable}.
+$$
+
+其中r为adapter rank，A、B为低秩矩阵。当前completion的监督mask为m_it：target为1，其余为0。共同CE项为：
+
+$$
+\ell_{it}=-m_{it}\log\pi_\theta(y_{it}\mid x_i,y_{i,<t}).
+$$
+
+如何聚合这些CE项，以及阶段权重、GRPO优势与策略目标，分别见[单LoRA公式](versions/single_lora/README.md#sft与grpo公式)、[双LoRA计划公式](versions/dual_lora/README.md#计划算法与公式)、[Process与Final公式](versions/process_final_sft/README.md)、[Process-GRPO公式](versions/process_final_sft/grpo.md#计划目标函数与算法)。
+
+当前版本采用700题最新工程重新采集的Process轨迹与历史；Process采用38题开发对照，Final训练6轮并保留六个checkpoint，38题六checkpoint对照待测。阅读[Process与Final训练公式](versions/process_final_sft/README.md)、[20题四组与双轨评测](versions/process_final_sft/evaluation.md)、[Process-only GRPO计划与公式](versions/process_final_sft/grpo.md)。各版本单独定义loss归一化与策略更新，不混入旧开发测试记录。
 
 Apache-2.0；必要署名见 [第三方声明](THIRD_PARTY_NOTICES.md)。模型与外部服务另受各自条款约束。

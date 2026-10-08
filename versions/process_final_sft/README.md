@@ -1,106 +1,139 @@
 # 版本三：Process-SFT + Final-SFT
 
-[返回首页](../../README.md) · [双 LoRA 框架](../dual_lora/README.md) · [评测与消融](evaluation.md)
+[返回首页](../../README.md) · [评测与四组消融](evaluation.md) · [GRPO算法计划](grpo.md)
 
-目标是拆开 **证据获取/状态构建** 与 **证据到答案的综合**，让后续优化可以区分问题来自 Process 还是 Final。使用当前检索工程，不继承旧全链路 adapter 来初始化 fresh Process 或 fresh Final。
+本版本将证据获取与答案综合解耦：Process负责Checklist、动态Search/Browse、State与Stop；Final只负责根据实际Pre-Final生成有证据支持的答案。两者共享Qwen3-8B backbone，但使用独立LoRA，不从旧全链路adapter初始化。
 
 ## 迭代原因
 
-独立 adapter 还不足以解决输入分布差异：teacher 的理想证据包与实际 Process 能找到的信息可能不同。这个版本让 Process 先真实执行工具，再自动导出实际 Pre-Final，Final 的金标和训练以这些可见证据为依据；随后冻结 Final，单独研究 Process 的改进。检索工程同时更新，因此新轨迹须按同一工程合同采集。
+统一学习工具决策与长答案，难以区分错误来自证据获取还是答案综合。本版本分别训练、分别开发验证，再在同一正式benchmark上组合比较；GRPO阶段冻结Final，只优化Process。
 
-## 本版本采集与训练路线
+## 数据与训练路线
 
 ```mermaid
 flowchart TB
-    Q[原训练集选取700道原题] --> CLI[Codex CLI + 新工程真实工具重新采集]
-    CLI --> T[阶段轨迹 + 因果历史：审核与打包]
-    T --> PS[history-aware Process-only SFT]
-    PS --> PV[Process 验证：配对开发题与 50 题协议]
-    PS --> Collect[剩余 272 题：真实 Process 与工具运行]
-    Collect --> Package[自动导出实际 Pre-Final 输入与引用映射]
-    Package --> Gate[证据与 gold Final 对齐审核]
-    Gate --> FS[226 train：fresh Final-SFT]
-    Gate --> Dev[38 dev：前三轮已生成；追加轮次待评测]
-    FS --> Frozen[选择并冻结 Final]
-    Frozen --> Ablation[计划：HealthBench 20 题多组消融]
-    Frozen --> RL[计划：Process-only GRPO]
+    Q[原训练题中选取700题] --> CLI[Codex CLI + 最新检索工程：重新采集700题]
+    CLI --> T[真实阶段轨迹 + 因果历史]
+    T --> PS[Fresh Process LoRA：Process-only SFT]
+    PS --> PD[38题Process开发对照：Base vs SFT]
+    PS --> Collect[剩余272题：真实Process运行]
+    Collect --> Package[自动导出实际Pre-Final]
+    Package --> Gold[依据可见证据制作gold Final]
+    Gold --> FS[226题Final-SFT：6轮训练]
+    Gold --> FD[计划38题：Base + 六个checkpoint]
+    FS --> FD
+    FD --> Freeze[选择并冻结Final]
+    Freeze --> Test[正式HealthBench20题：四组双轨评测]
+    Test --> RL[Process-only GRPO]
 ```
 
-本版本的700题均取自原训练题，不是重新编写题目；按更新后的工程，使用 **Codex CLI teacher 和项目真实本地工具重新采集700题的Process轨迹与历史**，随后审核、构建Process-only SFT。采集方法见 [Codex CLI 说明](../../docs/codex_cli_collection.md)。这条完整重采路线的完成情况以独立采集清单为准，不用此前训练的更新数代替采集验收。
+700道题均来自原训练题，按最新工程使用Codex CLI和项目真实工具重新采集Process轨迹与历史。本页只描述这一版700题新采集路线，不混入旧数据组合和旧测试批次。见[采集方法](../../docs/codex_cli_collection.md)。
 
-已有训练运行参考：此前700题包采用500条保留轨迹与200条新采轨迹，得到6,741条阶段样本和843 updates；已有Final运行是226题、3 epochs、87 updates。下面保留这些实际训练代码和配置作为重采后重训的参考，新轨迹的样本数与步数须重新计算。272题是实际Process采集任务规模；226 train + 38 dev 是进入已有Final数据合同的集合，其他记录不自动补进训练。
+Process冻结后，对未进入这700题训练的剩余272题运行真实工具并自动导出Pre-Final。通过输入与证据审核后，Final使用226题训练、38题开发；38题与226题互不重叠。272是采集范围，不意味着所有记录都自动进入Final训练。
 
-## 已有 Process 训练代码与参数参考
+## Process-SFT
 
-| 参数 | 已有运行配置；新重采数据待重新冻结 |
+### 轨迹拆分
+
+一条轨迹按当前阶段拆分为：原题 + Compact History + 当前Checklist/State + 候选或已读证据 → 当前阶段completion。
+
+- Checklist：监督独立需求与共享范围。
+- Decision：监督具体Search query、Browse来源ID及阅读重点，不只监督动作类别。
+- State：监督有证据来源的状态更新与未解决缺口。
+- Stop：监督继续收益、剩余缺口与预算下的结束决定。
+- Final：不作为Process target，不进入更早阶段历史。
+
+输入、历史和工具Observation全部mask，仅当前合法completion计算CE。拒绝尝试保留反馈与因果记录，不自动作为合格正监督。离线与在线Runtime共用历史、证据packing和阶段预算。
+
+### 参数
+
+| 项目 | 配置 |
 |---|---|
-| Backbone / 初始化 | Qwen3-8B，fresh Process LoRA |
-| 数据 / target | 700 题 / 6,741 rows；Checklist、Decision（含具体 tool call）、State、Stop；Final targets=0 |
-| History | runtime 一致、固定阶段预算；历史与证据仅作输入 |
-| Epoch / updates | 1 / 843；末尾不足 8 条单独结算 |
-| QLoRA | NF4 double quant；BF16 compute；FP32 LoRA；不调用 k-bit prepare |
+| Base / adapter | Qwen3-8B + fresh Process LoRA |
+| 题目 | 700题，最新工程重新采集 |
+| Epoch / batch | 1轮；microbatch1；accum8 |
 | LoRA | r32、alpha64、dropout0.05 |
-| LR / batch | 1e-4；microbatch1；accum8 |
-| Optimizer / attention | AdamW；deterministic Flash |
-| 上下文 | 10,240；Checklist/State reserve1,200；Decision/Stop240 |
-| Loss | completion-only、阶段加权 target-token 口径；不与 Final loss 数值直接比较 |
+| LR / optimizer | 1e-4；AdamW；5% warmup与cosine因子 |
+| 精度 / attention | NF4 double quant、BF16 compute、FP32 LoRA；deterministic Flash |
+| 预算 | context10,240；Checklist/State reserve1,200；Decision/Stop240 |
+| Loss | completion-only，加权target-token口径 |
+| 更新步数 | 按最终阶段样本数N计算ceil(N/8)，不以题目数代替样本数 |
 
-实际训练源码：[process/train.py](process/train.py)、[core.py](process/core.py)、[process_checks.py](process/process_checks.py)。保留原训练算法和可断点 checkpoint 验证；私有数据与审核回执不公开，所以源码不是免数据一键开跑包。实际 scheduler 是5% warmup乘以cosine因子，以代码为准，不冒称与 Final 的分段 scheduler 完全相同。
+训练实现：[train.py](process/train.py)、[core.py](process/core.py)、[process_checks.py](process/process_checks.py)。训练入口的数据身份与固定规模gate必须与最终新采包一致，不直接沿用其他批次的样本数。
 
-### Process 的阶段拆分与 loss
+### Loss公式
 
-保留Checklist初始化/有效修正、具体Search/Browse决策、State更新与Stop；Final不进入监督目标，也不得混入更早阶段的历史。每条样本只保留该阶段已经可见的内容，拒绝尝试的反馈可以进入后续输入，但拒绝输出不自动进入合格target。
+设样本i的当前target位置集合为T_i，位置t的span权重为w_it，CE为ℓ_it。全部样本数为N，总加权target-token量为M：
 
-实现对每个 `target_span` 求CE总和并乘该span权重。设某数据流总加权target-token量为M、全部样本数为N、数据流份额为p，则缩放系数为 `N*p/M`；batch中各样本的加权CE总和乘此系数后按实际batch样本数归一化。仅step-wise训练时p=1；阶段影响取决于target长度和span权重，不是每个阶段天然各占相同loss份额。最后不足8条的batch按实际大小结算。
+$$
+\ell_{it}=-\log\pi_{\theta_P}(y_{it}\mid x_i,y_{i,<t}),\qquad
+M=\sum_{i=1}^{N}\sum_{t\in T_i}w_{it}.
+$$
 
-## 已执行的开发实验
+当前只有step-wise数据流，batch B的loss为：
 
-这两类开发测试用于定位能力与选择checkpoint，不能当作后续正式四组测试的结果。
+$$
+\mathcal L_P(B)=\frac{N}{|B|M}\sum_{i\in B}\sum_{t\in T_i}w_{it}\ell_{it}.
+$$
 
-| 开发实验 | 已执行内容 | 作用 |
+这是按整个epoch的加权token量固定缩放，不是每条短Decision与长State先取均值后同权；阶段影响由target长度与span权重决定。最后不足8条按实际batch大小结算。Smoke中的单条token-mean loss与正式训练口径分别记录。
+
+### 38题Process开发对照
+
+38题用于比较Base Process与Process-SFT真实工具轨迹。共用最新检索、英文Prompt、预算、题目和matched seed，Process温度1；审核Checklist、Query、Evidence、State、Stop与工程格式，不用Final写作差异替代Process质量。
+
+过程观察的能力特点：
+
+| 方面 | Base常见薄弱点 | Process-SFT的优势方向 |
 |---|---|---|
-| Process | Process700完成1轮、843更新；10题Base/SFT配对真实工具轨迹 | 对比Checklist、Query、已读证据、State和工程行为 |
-| Final | 固定38题Pre-Final；Base与checkpoint29/58/87，共152答案 | 隔离答案综合与引用能力；不重跑检索 |
+| Search规划 | 单次搜索后补证不足；Query与缺口衔接弱 | 更多轮次围绕State缺口补充搜索 |
+| 知识来源 | 来源集中，遗漏指南、研究或补充材料 | 获取更丰富的来源与内容 |
+| 工具协议 | 无效动作、重复读取与格式拒绝 | 更遵守来源ID、动作格式和工程约束 |
+| 状态与后续动作 | 未解决需求不充分推动下一步 | 利用State变化指导补证和停止 |
 
-早期10题过程审核中，已读证据信息偏好为 **SFT胜5、平3、Base胜2**。该结论来自原题和真实已读文本的开发审核，不是医学专家认证或HealthBench分数。SFT更常根据缺口继续Search，出现更广的知识来源和补充内容，也更遵守工具协议：10题累计Search为24次，Base为10次；Runtime拒绝事件SFT为3、Base为26。SFT的终止记录为7次工具预算耗尽、3次policy ready；Base为6次无效下一动作、4次decision-turn guard。
+这些是过程层面的观察与待验证重点，不代表每题SFT胜出，也不推出Final必然更好。仍须检查Query漂移、证据无关、State高估和停止时机；本页不展示旧测试记录或将其作为38题的分数。
 
-因此，已观察到的SFT优势是 **多轮缺口补证与工程格式**，不只是重复teacher答案。Base在该批次每题只有一次Search，后续较多重复/无效动作，容易没有及时补充缺口；但部分题Base读到了更对题的核心研究，不能把“更多来源”直接当成“更高质量”。SFT也有访问失败、Query范围漂移、State高估及证据终点错绑，不能由过程优势推出Final必然更好。
+## Pre-Final与Final-SFT
 
-后续同配置Query-focus开发实验仍保留完整结论：v1只有8对完成，Base/SFT最终rubric均分为30.19%/20.55%；v2只有9对完成，为22.76%/18.76%，SFT4胜、Base4胜、1平。它们使用同一个冻结Base Final和Qwen3.7-Max替代grader；样本与完成对数不同，不把均值变化单独归因于Prompt，也不声称SFT整体超过Base。**过程改善与最终任务得分分别报告。**
+### 输入与金标
 
-## Pre-Final 与 Final 训练
+共享Runtime自动导出实际Final输入：问题、最新State、Checklist freshness、因果历史、已读证据与来源信息。历史按预算保留，不是只交Browse正文。见[导出器](process/export_prefinal.py)和[历史构建器](../../retrieval/runtime/process_history_v1.py)。
 
-Process 冻结后真实跑题，自动保存完整轨迹、captures 和实际 Final 输入。导出实现见 [export_prefinal.py](process/export_prefinal.py)，因果历史见 [process_history_v1.py](../../retrieval/runtime/process_history_v1.py)。导出器的 `--live` 应指向部署时完整的共享 Runtime（含 alignment/budget/packing 依赖），不是本仓库的组件摘录；默认不调用模型，未缓存卡片需要另行明确授权。Final target 只能由该输入中的证据支持，不能照搬包含缺失证据的 teacher 答案；State 标签与文字若有错误，Final 应检查实际证据而不是机械信任 `direct`。
+Final金标只能由当前可见证据支持，不能要求生成输入没有的teacher结论。Final应核对实际文本，可修正State误判，但不能凭空补足检索缺失。引用使用短别名与确定性chunk映射，输出单个answer envelope。
 
-| 参数 | 实际配置 |
+### 参数与训练状态
+
+| 项目 | 当前版本 |
 |---|---|
-| Backbone / 初始化 | 同一 Qwen3-8B base，fresh Final LoRA |
-| 数据 | 226 train；38 dev，与 train 不重叠 |
-| Epoch / updates | 3 / 87；每 epoch29；checkpoint29、58、87 |
-| LR / warmup | 5e-5 / 5 updates |
-| Optimizer / scheduler | AdamW，weight decay0.01，cosine_after_warmup，clip1.0 |
-| LoRA / precision | r32 / alpha64 / dropout0.05；NF4 double quant + BF16 compute + FP32 LoRA |
+| Base / adapter | Qwen3-8B + 独立fresh Final LoRA |
+| 训练 / 开发题 | 226 / 38 |
+| 训练轮次 | 6轮；保留每轮结束的六个checkpoint |
+| Epoch-end逻辑步数 | 每轮29更新；累计29、58、87、116、145、174 |
+| LoRA | r32、alpha64、dropout0.05 |
+| 基础训练参数 | LR5e-5；AdamW；weight decay0.01；clip1.0 |
 | Batch / seed | microbatch1、accum8、seed42 |
-| Loss | valid target-token mean per effective batch；只监督当前 Final completion |
-| 输入 / 输出 | 实际冻结 Pre-Final；短 citation 别名；单个 answer envelope |
-| 预算 | context10,240；Final reserve2,400 |
+| 精度 | NF4 double quant + BF16 compute + FP32 LoRA |
+| 输入 / 预算 | 冻结实际Pre-Final；context10,240；Final reserve2,400 |
+| 开发测试 | 本版38题×六个checkpoint对照待测；另加Base38题 |
 
-源码：[final/train_final.py](final/train_final.py)、[training_core.py](final/training_core.py)、[TRAIN_CONFIG.json](final/TRAIN_CONFIG.json)。保存 weights、optimizer、scheduler、RNG、数据位置与身份；CPU/GPU mask/update/resume 验收不等于医学质量通过。
+六轮为当前实验状态说明。公开[TRAIN_CONFIG.json](final/TRAIN_CONFIG.json)是前三轮入口配置快照，不静默改写成六轮运行凭证；追加阶段optimizer恢复、scheduler与学习率以实际续训配置为准。累计逻辑步数不强制等于分段续训目录文件名。
 
-38 dev 使用相同 Pre-Final 分别生成 Base 与三个 checkpoint 的答案，共152个；这是 **固定输入 Final 对照**，不是重新跑 Process 的端到端对照。生成温度与采样参数是推理设置，SFT 的 teacher-forced CE 本身没有“温度1训练”。模型选择依据 dev 证据支持与答案质量，不只看训练 loss。
+### Loss公式
 
-### 追加三轮方案与当前状态
+对固定Pre-Final输入x_i及审核gold answer y_i，只监督Final target集合T_i：
 
-已确认完成的是3 epochs / 87 updates。追加3轮后总计6 epochs / 174 updates；新增epoch-end checkpoint预计为116、145、174，**追加训练与这些checkpoint的38题评测尚未验收**。不能把现有152答案当成六轮的结果。每轮29步基于226题、accum8，数据量变更时重新计算。
+$$
+\mathcal L_F(B)=
+\frac{\sum_{i\in B}\sum_{t\in T_i}-\log\pi_{\theta_F}(y_{it}\mid x_i,y_{i,<t})}
+{\sum_{i\in B}|T_i|}.
+$$
 
-续训应从checkpoint87的Final adapter继承，不继承Process adapter。是否恢复optimizer、如何续接或重设scheduler及追加学习率须在新配置中明确冻结；把 `epochs` 改成6并不自动等于原87步scheduler无缝延长。当前公开 `TRAIN_CONFIG.json` 保持已跑3轮的真实配置，不覆盖历史身份。
+这是effective batch内有效target-token均值，不是各样本先均值再等权。仅Final LoRA可训练，Process、base及输入证据不计loss。引用token属于答案target，同样监督；引用合法性与语义支持另行审核。源码：[train_final.py](final/train_final.py)、[training_core.py](final/training_core.py)。
 
-Final loss 对effective batch内所有有效target token求CE总和，除以该batch的有效target-token总数；输入和证据不监督。训练金标逐句以实际Pre-Final为边界，短citation别名由确定性映射还原；引用合法和句子得到证据支持分别审核。追加轮次不自动改善质量，先比较38 dev后选择冻结checkpoint。
+### 38题六checkpoint开发计划
 
-## 后续验证与 GRPO
+冻结同一38题Pre-Final，每题生成Base及六个Final-SFT checkpoint答案：38×7=266个答案。共用Prompt、citation合同、matched seed和采样配置。该实验不重新检索，比较综合、覆盖、概念/数字绑定与引用支持，据此选择Frozen Final；不提前填入效果结果。
 
-先完成 [20 题消融与双轨评测](evaluation.md)，再决定是否进入 GRPO。50 题仍用于 Process 开发验证，20 题专门冻结多组对照；曾参与调参的题不能重新宣称独立测试。
+## 正式评测与GRPO
 
-GRPO 期间 Process adapter 可训练，Final adapter 固定；Final 提供固定下游生成，不参与策略 token replay。rollout 与 replay 的 base 精度、adapter snapshot、模板与行为概率口径必须一致。SFT 的 QLoRA 权重可以作为初始化，但不能自动沿用 NF4 replay 与 BF16 rollout 的不匹配组合。完整准备、奖励与验收见 [Process-only GRPO 计划](grpo.md)。
-
-上线前需短/长样本 logprob parity、组内 reward、失败预算、重新 prefill 和 checkpoint 续跑验收。GRPO 属于计划，不把已有离线工程测试表述成完整 RL 训练效果。
+Process38与Final38是开发定位；之后冻结独立HealthBench20题，执行[1/2/3/4四组双轨评测](evaluation.md)。最后按[GRPO公式与算法](grpo.md)只更新Process、固定Final。开发题若用于选择Prompt或checkpoint，不再声称是独立最终测试。

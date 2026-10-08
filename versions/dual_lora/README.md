@@ -42,7 +42,41 @@ flowchart LR
 
 未确认的信息留空，不从单 LoRA 借用参数或结果。本版本训练入口的接线与验收记录也待补齐。验收应包括阶段 mask、无未来历史、State→下一输入一致、证据 ID 可见、最长样本前反向、参数确有更新、checkpoint 完整性以及新进程续跑。
 
-拆分以阶段capture为边界：Process仅保留Checklist、具体工具Decision、State与Stop target；Final仅保留其当时可见证据输入及Final target。两套adapter均采用completion-only，不监督输入历史与Observation。各自loss的样本/token归一化、阶段权重及batch口径待实现冻结，不从单LoRA或后续Process700训练器推断已经采用同一算法。
+拆分以阶段capture为边界：Process仅保留Checklist、具体工具Decision、State与Stop target；Final仅保留其当时可见证据输入及Final target。两套adapter均采用completion-only，不监督输入历史与Observation。下面给出计划算法；训练入口接线与具体权重须在开跑前验收。
+
+## 计划算法与公式
+
+### 两套独立SFT目标
+
+用D_P、D_F分别表示已有teacher轨迹中的Process和Final阶段数据，T_i为当前completion token集合。计划采用各自effective batch内的加权token均值：
+
+$$
+\mathcal L_k(B_k)=
+\frac{\sum_{i\in B_k}\sum_{t\in T_i}
+w_{it}^{(k)}[-\log\pi_{\theta_k}(y_{it}\mid x_i,y_{i,<t})]}
+{\sum_{i\in B_k}\sum_{t\in T_i}w_{it}^{(k)}},
+\qquad k\in\{P,F\}.
+$$
+
+$$
+\theta_P\leftarrow\operatorname{AdamW}(\theta_P,\nabla_{\theta_P}\mathcal L_P),
+\qquad
+\theta_F\leftarrow\operatorname{AdamW}(\theta_F,\nabla_{\theta_F}\mathcal L_F).
+$$
+
+默认阶段权重设1；若调整，先冻结并记录，不将权重改动与角色拆分同时归因为同一个实验。两套优化器分别保存；训练其中一套adapter时，另一套adapter与base冻结。这里是计划token归一化，不能倒推旧单LoRA已采用此loss。
+
+### 后续GRPO计划
+
+先冻结选定Final，把Process轨迹τ_i交给固定生成器f_φ，得到：
+
+$$
+z_i=\operatorname{PreFinal}(\tau_i),\qquad
+y_i=f_\phi(z_i),\qquad
+R_i=R_{\mathrm{answer}}(q,y_i)+R_{\mathrm{process}}(\tau_i)-\eta C(\tau_i).
+$$
+
+组内相对优势与clipped policy更新采用[Process-only GRPO计划公式](../process_final_sft/grpo.md#计划目标函数与算法)，但沿用本版本冻结旧检索与teacher输入基线，不混用新版700题数据。仅θ_P接受策略梯度，φ与θ_F冻结；reference-KL是否启用及其系数在实际RL配置中单独冻结。这是待执行算法，不是双LoRA已有实验结果。
 
 ## 同 50 题验证
 
