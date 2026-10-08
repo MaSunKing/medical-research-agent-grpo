@@ -48,7 +48,7 @@
 \mathcal L_{\mathrm{single}}(B)=
 \frac{1}{|B|}\sum_{i\in B}a_i
 \frac{1}{|T_i|}\sum_{t\in T_i}
--\log\pi_\theta(y_{it}\mid x_i,y_{i,<t}).
+-\log\pi_\theta(y_{it}\mid x_i,y_{i,\lt t}).
 ```
 
 先对样本内target取token均值，再按样本权重聚合。不同阶段通过其样本与权重贡献loss，不对输入、历史、工具回执重复监督。所有阶段更新同一套LoRA。

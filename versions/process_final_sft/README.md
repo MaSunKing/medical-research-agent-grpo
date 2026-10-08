@@ -67,7 +67,7 @@ Process冻结后，对未进入这700题训练的剩余272题运行真实工具�
 
 ```math
 \begin{aligned}
-\ell_{it} &= -\log\pi_{\theta_P}(y_{it}\mid x_i,y_{i,<t}), \\
+\ell_{it} &= -\log\pi_{\theta_P}(y_{it}\mid x_i,y_{i,\lt t}), \\
 M &= \sum_{i=1}^{N}\sum_{t\in T_i}w_{it}.
 \end{aligned}
 ```
@@ -126,7 +126,7 @@ Final金标只能由当前可见证据支持，不能要求生成输入没有的
 
 ```math
 \mathcal L_F(B)=
-\frac{\sum_{i\in B}\sum_{t\in T_i}-\log\pi_{\theta_F}(y_{it}\mid x_i,y_{i,<t})}
+\frac{\sum_{i\in B}\sum_{t\in T_i}-\log\pi_{\theta_F}(y_{it}\mid x_i,y_{i,\lt t})}
 {\sum_{i\in B}|T_i|}.
 ```
 

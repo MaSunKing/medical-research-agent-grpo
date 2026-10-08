@@ -24,6 +24,8 @@ class MathFormattingTests(unittest.TestCase):
                 self.assertEqual(len(blocks), text.count('```math'))
                 self.assertTrue(blocks)
                 for block in blocks:
+                    # GitHub can confuse a raw <letter with markup; use \lt.
+                    self.assertNotRegex(block, r'<[A-Za-z]')
                     depth = 0
                     # Escaped braces are literal delimiters, not TeX groups.
                     groups = re.sub(r'\\[{}]', '', block)

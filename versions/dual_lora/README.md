@@ -53,7 +53,7 @@ flowchart LR
 ```math
 \mathcal L_k(B_k)=
 \frac{\sum_{i\in B_k}\sum_{t\in T_i}
-w_{it}^{(k)}[-\log\pi_{\theta_k}(y_{it}\mid x_i,y_{i,<t})]}
+w_{it}^{(k)}[-\log\pi_{\theta_k}(y_{it}\mid x_i,y_{i,\lt t})]}
 {\sum_{i\in B_k}\sum_{t\in T_i}w_{it}^{(k)}},
 \qquad k\in\{P,F\}.
 ```
