@@ -4,6 +4,18 @@
 
 项目关注的不只是“搜到一个相关标题”，而是 **读到了什么、解决了哪个需求、还有什么没有证实**。用于研究，不替代临床判断。
 
+## 三个版本 · 从这里开始
+
+实验方法、参数和结果按版本分开维护，不混用不同检索与训练批次的结论。
+
+| 版本 | 独立说明 | 检索代码 |
+|---|---|---|
+| **版本一：单 LoRA** | [全链路单 LoRA：设计、训练与评测](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
+| **版本二：双 LoRA** | [双 LoRA：迭代动机与实验框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
+| **版本三：Process-SFT + Final-SFT** | [Process / Final 解耦：采集、训练与消融](versions/process_final_sft/README.md) · **[最新50题评测](versions/process_final_sft/latest50_evaluation.md)** | 当前检索 |
+
+版本目录区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置、方法说明与脱敏评分汇总，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
+
 ## Base 模型与角色
 
 本仓库的 **Base** 指没有加载本项目训练 adapter 的 **`Qwen/Qwen3-8B`**。该公开 checkpoint 已包含预训练和后训练，不是一个名为 `Qwen3-8B-Base` 的纯预训练模型。它是8.2B参数的 dense causal LM，36层，支持 thinking / non-thinking；原生上下文32,768，但本项目固定使用10,240 tokens。型号与原生能力见 [官方模型卡](https://huggingface.co/Qwen/Qwen3-8B)。
@@ -110,18 +122,6 @@ Pre-Final 不是另写一份自由摘要，而是按实际 Final 输入合同导
 | [代码导航](docs/code_navigation.md) | 按功能定位实际源码 |
 | [API 配置](docs/apis.md) | 服务用途与变量名；不含真实密钥 |
 | [Codex CLI 轨迹采集](docs/codex_cli_collection.md) | Teacher 如何通过项目真实工具生成阶段轨迹与历史 |
-
-## 项目迭代
-
-首页描述当前检索与工程机制；实验方法、参数和结果按版本分开维护，不混用旧检索与新检索的实验结论。
-
-| 版本 | 独立说明 | 检索代码 |
-|---|---|---|
-| 单 LoRA | [全链路单 LoRA：设计、训练与评测](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
-| 双 LoRA | [双 LoRA：迭代动机与实验框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
-| Process-SFT + Final-SFT | [Process / Final 解耦：采集、训练与消融](versions/process_final_sft/README.md) | 当前检索 |
-
-版本目录明确区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置和方法说明，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
 
 ## SFT 的共同输入合同与版本差异
 

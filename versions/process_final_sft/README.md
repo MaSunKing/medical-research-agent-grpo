@@ -1,6 +1,22 @@
 # 版本三：Process-SFT + Final-SFT
 
-[返回首页](../../README.md) · [评测与四组消融](evaluation.md) · [GRPO算法计划](grpo.md)
+[返回首页](../../README.md) · **[最新50题评测结果](latest50_evaluation.md)** · [评测与四组消融计划](evaluation.md) · [GRPO算法计划](grpo.md)
+
+## 已完成评测：原始972 Process-SFT · Latest50
+
+本次比较 **Base全流程** 与 **原始972 Process-SFT + 同一个Base Final**，共50题、100条轨迹。SFT使用原始972训练的checkpoint1322，不是recovery157/recovery100加强版，也未使用Final-SFT。此处是独立已完成批次，不是下文700题、38题开发或20题四组计划的结果；运行身份以本次归档为准，不套用下文旧批次参数。
+
+| 评测层次 | 指标与分母 | Base | Process-SFT + Base Final |
+|---|---|---:|---:|
+| Process | 有效证据覆盖均分，各50题，含失败 | 43.75% | **53.83%** |
+| Process | State忠实度，共同可观察39题 | **81.20%** | 69.66% |
+| 工程 | Process硬失败，各50条 | 6 | **2** |
+| HealthBench-style答案 | 共同有评分40题的均分 | **7.23%** | 5.96% |
+| 答案评分覆盖 | 全部50题 | 43/50 | 46/50 |
+
+Process不因链路更长直接扣分，而是看新增证据是否真正覆盖问题、State是否忠实。SFT取得更多有效证据、硬失败更少，但State忠实度与本次答案均分未同步改善；不合并成一个总分，也不据此断言泛化优劣。Process为非盲离线暂定审核；答案采用Qwen3.7-max替代裁判，非医学准确率或官方HealthBench榜单。完整口径、失败记录与50题答案分见 **[本次评测明细](latest50_evaluation.md)**。
+
+## 原有训练说明与后续计划
 
 本版本将证据获取与答案综合解耦：Process负责Checklist、动态Search/Browse、State与Stop；Final只负责根据实际Pre-Final生成有证据支持的答案。两者共享Qwen3-8B backbone，但使用独立LoRA，不从旧全链路adapter初始化。
 
