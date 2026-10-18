@@ -10,20 +10,11 @@
 
 **当前主要探索版本三：将Process证据获取与Final答案综合分开训练、分开评测，再研究固定Final下的Process优化。** 版本一、二是此前的探索路线，保留用于说明演进与复现，不作为当前默认实现。
 
-### 当前方向 · 版本三
-
-**Process-SFT + Final-SFT**
-
-[设计与训练路线](versions/process_final_sft/README.md) · [当前源码与检索](versions/process_final_sft/current/README.md)
-
-<details>
-<summary>历史探索：版本一、版本二</summary>
-
-- [版本一：单LoRA](versions/single_lora/README.md)
-- [版本二：双LoRA](versions/dual_lora/README.md)
-- [两版共用的冻结旧检索](versions/legacy_retrieval/README.md)
-
-</details>
+| 路线与定位 | 检索代码 |
+|---|---|
+| **[版本三：Process-SFT + Final-SFT](versions/process_final_sft/README.md)** · 当前主线 | [当前源码与检索](versions/process_final_sft/current/README.md) |
+| [版本一：单LoRA](versions/single_lora/README.md) · 历史探索 | [冻结旧检索](versions/legacy_retrieval/README.md) |
+| [版本二：双LoRA](versions/dual_lora/README.md) · 历史探索 | [冻结旧检索](versions/legacy_retrieval/README.md) |
 
 版本目录区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置、方法说明与脱敏评分汇总，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
 
