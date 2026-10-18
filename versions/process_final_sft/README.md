@@ -117,16 +117,21 @@ Process不因链路更长直接扣分，而是看新增证据是否真正覆盖�
 
 输入、历史和工具Observation全部mask，仅当前合法completion计算CE。拒绝尝试保留反馈与因果记录，不自动作为合格正监督。原始训练使用当时真实可见输入；当前推理与导出共用阶段构建器，但不能宣称已与旧Teacher完整源码、预算和候选处理逐字一致。
 
-### 参数
+### 原始972已完成训练参数
+
+本表描述生成checkpoint1322的那次Process训练，不是当前在线上下文配置，也不是后续Final训练参数。训练时从新初始化LoRA开始；当前运行加载已经训练完成的adapter，不重新初始化。
 
 | 项目 | 配置 |
 |---|---|
-| Base / adapter | Qwen3-8B + fresh Process LoRA |
+| Base / adapter初始化 | `Qwen/Qwen3-8B`；训练开始时新初始化Process LoRA，`initial_adapter=null` |
 | 题目与阶段数 | 972题；Checklist972、Decision6143、State3460，共10575条 |
 | Epoch / batch | 1轮；microbatch1；accum8 |
 | LoRA | r32、alpha64、dropout0.05 |
+| LoRA注入层 | q_proj、k_proj、v_proj、o_proj、gate_proj、up_proj、down_proj |
 | LR / optimizer | 1e-4；AdamW；warmup67更新后cosine；weight decay0.01，grad clip1.0 |
-| 精度 / attention | NF4 double quant、BF16 compute、FP32 LoRA；deterministic Flash |
+| 优化器细项 / 随机种子 | AdamW betas=(0.9, 0.999)、eps=1e-8；seed=42 |
+| 量化 / 计算精度 | bitsandbytes 4-bit NF4，double quant=True，BF16 compute；基座冻结，FP32 LoRA更新 |
+| 训练attention / 显存策略 | Transformers SDPA，强制PyTorch Flash SDP后端并启用确定性算法；梯度检查点，训练use_cache=False；不是另行配置FlashAttention-2 |
 | 原训练预算 | 10,240；最长编码样本9,762 tokens，不用当前推理预算追改训练身份 |
 | Loss | effective batch内target-token mean；Checklist/Decision/State权重均1 |
 | 更新步数 | ceil(10575/8)=1322；最后一批7条 |
@@ -134,6 +139,29 @@ Process不因链路更长直接扣分，而是看新增证据是否真正覆盖�
 | Final / Pre-Final目标 | Final目标0；Pre-Final是程序输出，不计算loss |
 
 原始972训练按冻结训练包的数据、模型和源码哈希核验。[实际原始972训练器](current/original972_training/train.py)、[token loss](current/original972_training/training_core.py)及[配置](current/original972_training/TRAIN_CONFIG.json)已公开；不附原题、编码数据或权重。本目录[既有Process脚本](process/train.py)保持原身份，不再作为972训练入口。当前推理改动与训练样本保持独立身份。
+
+### 当前推理与Pre-Final采集参数
+
+以下按当前公开的[模型服务](current/serve_policy.py)、[采集配置](current/collect.py)及[上下文构建器](current/runtime/src/trainable_agent/context_processing/pipeline.py)核对。采集只做前向生成，不更新任何权重。
+
+| 项目 | 当前配置 |
+|---|---|
+| 基座及量化 | `Qwen/Qwen3-8B`；bitsandbytes 4-bit NF4、double quant=True、BF16 compute |
+| Process策略 | 加载原始972 LoRA `checkpoint-00001322`；r32、alpha64；model.eval()且所有参数冻结，LoRA dropout训练值0.05在推理时不生效 |
+| Base对照 / 压缩策略 | 同一量化基座，禁用项目adapter；不使用另一个更大的模型 |
+| 当前服务attention | `attn_implementation="sdpa"`；生成use_cache=True，不沿用训练时强制Flash后端的声明 |
+| Process采样 | temperature=1.0，top_p=1.0，top_k=0，repetition_penalty=1.0，num_beams=1；非thinking |
+| 随机种子 | 每题使用冻结question seed；压缩seed=question seed+10000；Base/SFT对照按题匹配种子，不把训练seed=42写成所有评测题的seed |
+| 当前完整请求上下文 | soft=12,288，hard=15,000；按真实chat模板计量，输入、输出预留、repair与安全余量共同受限 |
+| 阶段输出上限 | Checklist=1,200；Decision（含Stop）=400；State=1,200；Final=2,400 tokens |
+| 修正 / 安全预留 | repair=384，safety margin=128 tokens；不是额外放宽15,000硬线 |
+| 压缩兜底 | temperature=0.1；独立请求context=10,240；每次阶段准备最多12次压缩模型调用，含纠正；确定性去冗余优先 |
+| 工具预算 | 正常动作6次，最多5次已识别环境失败豁免，actual上限11；重复Search缓存仍计正常动作，不产生外部搜索请求 |
+| 可恢复决策拒绝预算 | 每轨迹最多6次，独立于工具预算；不将剩余额度数字显示给模型 |
+| 候选与读取 | 可见候选最多8个；Browse一次最多3片段；每次Search/Browse绑定1–2个现有需求 |
+| Final的使用边界 | 已完成50题对照使用同一个Base Final，temperature=1.0；当前600题配置final=None，只冻结Final输入，不执行Final、Judge或训练 |
+
+模型服务的生成能力不等于当前队列启用了所有阶段。后续独立Final-SFT的训练学习率、轮次和checkpoint选择本次未新定；不把旧Final参考配置直接当作当前600题训练配置。
 
 ### Loss公式
 
