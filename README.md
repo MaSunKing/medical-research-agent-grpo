@@ -64,20 +64,7 @@ flowchart TB
 
 完整问答模式已支持Base Final；**当前训练数据采集模式只运行到冻结Pre-Final，不调用Final**。后续训练的Final LoRA替换答案模块，不要求重新定义Process动作或证据协议。引用/语法核验不能代替医学质量审核。
 
-## 为什么选择Process-SFT作为后续训练起点
-
-选择依据是**证据获取更充分、Process执行更稳定**，不是“所有指标都超过Base”。在同题、同版工具与预算、同一个Base Final的50题开发对照中：
-
-| 选择依据 | Base Process | 原始972 Process-SFT | 能说明什么 |
-|---|---:|---:|---|
-| 有效证据覆盖，各50题，含失败 | 43.75% | **53.83%** | 获得的信息更能覆盖原问题需求，不按片段条数加分 |
-| 同题覆盖胜出 | 11题 | **25题** | 另14题相当；不是只比较成功配对 |
-| Process硬失败 | 6/50 | **2/50** | 当前运行中合同失败更少，不等于医学答案正确 |
-| 固定Base Final的共同40题答案均分 | **7.23%** | 5.96% | 证据增益尚未转化为更好的最终答案 |
-
-因此当前选用**原始972 Process-SFT**继续采集Pre-Final，并把后续训练重点放在“如何忠实、完整地使用这些证据生成Final”。这不是已证明Final-SFT一定能弥补差距，也不把State误读和重复搜索忽略掉；Base继续保留为同条件对照。训练为需求拆分、具体Search/Browse动作和State更新提供监督，可能支持上述行为，但单次非盲开发评测不能证明训练因果或普遍优越。
-
-评测集由HealthBench原题定向筛选：论文型25题、网页/指南型25题，保留原始rubric，对已知题库排重；分组不强制工具渠道。这是经历工程试跑的开发对照集，不冒充独立最终测试。[构造方法与答案评分](versions/process_final_sft/latest50_evaluation.md) · [全部100条Process评分与问题记录](versions/process_final_sft/process_review_v2/README.md)。
+评测结果与模型选择理由单独见[Base/SFT评测报告](versions/process_final_sft/latest50_evaluation.md#选择process-sft作为后续训练起点的依据)；主页聚焦当前完整设计与训练路线。
 
 ## 从当前模型继续训练的完整路线
 
