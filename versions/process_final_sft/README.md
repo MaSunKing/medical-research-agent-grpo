@@ -1,6 +1,16 @@
 # 版本三：Process-SFT + Final-SFT
 
-[返回首页](../../README.md) · **[全部100条Process评测](process_review_v2/README.md)** · [HealthBench答案评分](latest50_evaluation.md#3-healthbench-style答案评分) · [评测与四组消融计划](evaluation.md) · [GRPO算法计划](grpo.md)
+[返回首页](../../README.md) · [评测报告](latest50_evaluation.md) · [当前代码](current/README.md)
+
+<details>
+<summary>详细记录与后续计划</summary>
+
+- [全部100条Process评分与问题记录](process_review_v2/README.md)
+- [HealthBench答案评分与50题明细](latest50_evaluation.md#3-healthbench-style答案评分)
+- [后续评测与四组消融计划](evaluation.md)
+- [GRPO算法计划](grpo.md)
+
+</details>
 
 ## 已完成评测：原始972 Process-SFT · Latest50
 
@@ -18,6 +28,20 @@
 Process不因链路更长直接扣分，而是看新增证据是否真正覆盖问题。SFT更常带来有效信息、硬失败更少，但本次答案均分未同步提升。State更新次数和信息负荷不同，不能以累计重复/错误数判断优劣；最终State量表仅作诊断，逐断言及更新机会归一的比较尚未完成。不合并成一个总分，也不据此断言泛化优劣。Process为非盲离线暂定审核；答案采用Qwen3.7-max替代裁判，非医学准确率或官方HealthBench榜单。
 
 **完整Process评测：[全部100条Process评测](process_review_v2/README.md)**，包含评分规则、全50题配对表、全部100条逐项评分和具体问题记录。**答案评测：[HealthBench 50题明细](latest50_evaluation.md#3-healthbench-style答案评分)**，与Process分开报告。
+
+### SFT的改进体现在哪里
+
+本次支持的结论是：**Process-SFT取得了更多切题的有效信息，且Process硬失败更少；尚不能说最终答案更好。** 有效证据覆盖提高10.08个百分点，50题中25题SFT更高、11题Base更高、14题相当；Process未硬失败为48/50，对照为44/50。这不是“48题医学回答正确”，也不是仅按E片段数量统计。
+
+例如[Q01逐条记录](process_review_v2/DETAILS.zh.md#q01)：SFT取得了与目标人群相符的原始病例系列及具体给药方案，补充了Base未取得的细节；但仍未取得正式共识，State还存在数值对象误读。因此证据增益、State问题和Final质量分别记录，不能以某项增益抵消其他错误。
+
+训练上，原始972保留当步可见历史、候选与证据，监督Checklist、具体Search/Browse决策和State更新，为上述行为提供了学习目标；**这是训练设计与观察结果的一致性解释，不是已验证的因果归因**。本次未做阶段消融，不能断言提升由某个节点或单项监督独立造成。
+
+### 这50题如何构造
+
+从HealthBench原始5000题中，筛选可独立回答的单轮英文医学检索问题，保留原始问题和rubric；按主要证据需求人工复核为**论文型25题、网页/指南型25题**。这只是选题分层，两组Agent仍可自由使用两条检索渠道。构建时对原972训练题、已有题池与已知使用记录做ID、规范化文本和词面近似排重，再冻结50题与配对种子；详见[选题步骤、排重阈值与身份哈希](latest50_evaluation.md#评测集如何构造)。
+
+这是定向选取、经历工程试跑的开发对照集，不是HealthBench随机代表样本，也不是从未接触的最终测试集；排重不证明全球语义不重合。
 
 ## 当前设计与完成状态
 
