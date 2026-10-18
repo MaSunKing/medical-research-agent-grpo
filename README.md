@@ -6,29 +6,41 @@
 
 **当前主线：Process-SFT获取证据 → 冻结Pre-Final → 构建并训练独立Final → 双模块评测 → 固定Final优化Process。** 前半段已有实现与运行记录；Final金标、独立Final训练及后续GRPO按阶段推进，不将计划写成已完成能力。
 
-## 三个版本 · 从这里开始
+## 当前主线与历史探索
 
-实验方法、参数和结果按版本分开维护，不混用不同检索与训练批次的结论。
+**当前主要探索版本三：将Process证据获取与Final答案综合分开训练、分开评测，再研究固定Final下的Process优化。** 版本一、二是此前的探索路线，保留用于说明演进与复现，不作为当前默认实现。
 
-| 版本 | 独立说明 | 检索代码 |
+| 路线与定位 | 独立说明 | 检索代码 |
 |---|---|---|
-| **版本一：单 LoRA** | [全链路单 LoRA：设计、训练与评测](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
-| **版本二：双 LoRA** | [双 LoRA：迭代动机与实验框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
-| **版本三：Process-SFT + Final-SFT（当前）** | [完整设计与训练路线](versions/process_final_sft/README.md) | [当前节点与最新检索源码](versions/process_final_sft/current/README.md) |
+| **版本三 · 当前主要探索**：Process-SFT + Final-SFT | **[完整设计与训练路线](versions/process_final_sft/README.md)** | [当前节点与最新检索源码](versions/process_final_sft/current/README.md) |
+| 版本一 · 历史探索：单 LoRA | [全链路单 LoRA：设计、训练与评测](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
+| 版本二 · 历史探索：双 LoRA | [双 LoRA：迭代动机与实验框架](versions/dual_lora/README.md) | 与版本一共用冻结旧检索 |
 
 版本目录区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置、方法说明与脱敏评分汇总，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
 
 ## Base 模型与角色
 
-本仓库的 **Base** 指没有加载本项目训练 adapter 的 **`Qwen/Qwen3-8B`**，不是另一个名为 `Qwen3-8B-Base` 的模型。当前运行采用非thinking阶段请求；上下文以项目部署合同为准：软线12,288、硬线15,000 tokens，包含输出及修正预留，而非单算输入。原始972训练仍保留其10,240-token历史合同，不用新预算追溯修改训练记录。
+**当前选用：`Qwen/Qwen3-8B`，以bitsandbytes 4-bit NF4双重量化加载，BF16计算；Process-SFT的LoRA参数保留FP32。** 这里的模型名是Qwen3-8B，量化是本项目加载配置，不另造一个官方量化模型仓库名称。
+
+| 模型/量化项 | 当前具体配置 |
+|---|---|
+| 基座模型 | `Qwen/Qwen3-8B` |
+| 量化实现 | Transformers `BitsAndBytesConfig` / bitsandbytes |
+| 基座权重 | `load_in_4bit=True`，`bnb_4bit_quant_type="nf4"` |
+| 双重量化 | `bnb_4bit_use_double_quant=True` |
+| 量化计算类型 | `bnb_4bit_compute_dtype=torch.bfloat16` |
+| Process训练 | NF4 QLoRA；量化基座冻结，FP32 LoRA参与更新 |
+
+本仓库的 **Base** 指上述同一量化基座**不加载本项目adapter**的对照状态，不是另一个名为`Qwen3-8B-Base`的模型，也不表示FP16/BF16未量化对照。当前加载代码见[模型服务](versions/process_final_sft/current/serve_policy.py)，原972训练加载见[训练器](versions/process_final_sft/current/original972_training/train.py)。
+
+当前运行采用非thinking阶段请求；上下文以项目部署合同为准：软线12,288、硬线15,000 tokens，包含输出及修正预留，而非单算输入。原始972训练仍保留其10,240-token历史合同，不用新预算追溯修改训练记录。
 
 | 实验角色 | 模型与参数状态 |
 |---|---|
-| Base Process | Qwen3-8B，无项目 LoRA；执行 Checklist / Decision / State / Stop |
-| Base Final | 同一 Qwen3-8B，无项目 LoRA；冻结后综合 Pre-Final，不是更大的替代模型 |
-| 单 LoRA SFT | Qwen3-8B + 一套全链路 LoRA |
-| Process-SFT | Qwen3-8B + 独立 Process LoRA；不训练 Final target |
-| Final-SFT | Qwen3-8B + 独立 Final LoRA；只训练证据到答案的 completion |
+| Base Process | Qwen3-8B / 4-bit NF4，无项目 LoRA；执行 Checklist / Decision / State / Stop |
+| Base Final | 同一4-bit NF4基座，无项目 LoRA；冻结后综合Pre-Final，不是更大的替代模型 |
+| Process-SFT | 同一4-bit NF4基座 + 原始972 Process LoRA checkpoint1322；不训练Final target |
+| Final-SFT（后续） | 同基座 + 独立Final LoRA；只训练证据到答案的completion，不表示当前已训练 |
 | 压缩兜底 | 同基座禁用Process LoRA，独立无状态请求；不另设自主检索Agent |
 | Teacher / Grader | Process teacher、后续Final金标审核者与Qwen替代裁判分别登记；不混入Base对照 |
 
