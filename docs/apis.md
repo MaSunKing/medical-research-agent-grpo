@@ -2,6 +2,8 @@
 
 公开仓库不包含任何凭证。先复制 `.env.example` 为本地 `.env`，只填写实际启用的服务；`.env`、`*.env`、`secrets*` 和本地凭证目录均被 `.gitignore` 排除。代码和日志只应检查“是否配置”，不得输出密钥值。
 
+当前600题Process-only采集只依赖本地Qwen模型与实际启用的检索服务，不调用Final、Teacher生成或Judge。Final输入冻结在超限时可使用禁用LoRA的同基座压缩兜底；这不是额外的网页Teacher或裁判API。下方Judge/Verifier属于按模式启用的独立组件，不因列在本页就默认运行。
+
 ## 按运行模式区分
 
 | 运行模式 | 是否需要外部 API |
@@ -20,6 +22,7 @@
 ### 1. Serper：通用网页候选发现
 
 - 环境变量：`SERPER_API_KEY`；可选轮换键 `SERPER_API_KEY_FALLBACK`、`SERPER_API_KEY_FALLBACK_2` … `SERPER_API_KEY_FALLBACK_20`。
+- 主键及已配置fallback按顺序去重使用，不把未配置编号当可用凭据；额度/故障以实际HTTP回执判断，不公布旧余额作为当前值。同题正常重复query命中缓存时不发新Serper搜索请求，但仍按Runtime普通动作结算。
 - 用途：`medical_web_search` 的通用网页候选发现；返回候选 URL、标题和摘要，后续仍需 Browse 抓正文并建立 evidence provenance。
 - 使用位置：`retrieval/dr_agent/mcp_backend/apis/serper_apis.py`。
 - 必需性：只有启用 Serper-backed web search 时必需；PubMed-only 或离线回放不需要。
@@ -76,10 +79,10 @@
 
 ## 不属于外部 API 的组件
 
-- Qwen3-8B 与 LoRA：本地加载，不调用云端生成 API。
+- Qwen3-8B与LoRA：服务器本地NF4双重量化、BF16计算。Process加载原始972 adapter；压缩禁用该adapter，Process温度1，压缩0.1。配置与实际服务身份均需核对，不能将压缩当另一个更强模型。
 - BGE embedding、MiniLM / MedCPT reranker：本地模型权重；下载方式与授权由部署者自行处理。
 - BM25、正文清洗、chunk 切分、表格完整性和 citation ID 校验：本地确定性代码。
-- ChatGPT Pro 50 题复核：作为独立语义审计结果公开，不是训练 Runtime 内的 API 调用。
+- 网页ChatGPT/Codex后续金标审核：读取同一冻结输入，是独立审核角色，不是当前Process采集Runtime内自动调用的API。
 
 ## 安全规则
 

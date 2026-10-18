@@ -1,6 +1,29 @@
-# 源码阅读导航
+# 当前设计与公开源码导航
 
-| 功能 | 当前源码 |
+当前运行是节点式`trainable_agent`和冻结检索快照，以下公开文件含此前组件/训练入口，**不是当前服务器包逐字源码**。本次只更新工程与版本文档，不擅自替换旧训练器、修改其规模gate或声称源码已全量迁移。私有数据、环境、权重和凭据不发布。
+
+## 当前运行的模块边界
+
+这些是冻结包内相对模块名，用于核对实际实现，不是本仓库中尚不存在文件的下载链接。
+
+| 冻结包模块 | 职责 |
+|---|---|
+| src/trainable_agent/engine.py | LangGraph节点、工具执行、State传递、停止与Pre-Final |
+| contracts.py / prompts.py | 动作schema、R/E/来源校验与英文阶段Prompt |
+| search_cache.py | 本题重复Search重显、阅读状态分组和作用域可用性 |
+| model_json.py | 保守JSON语法修复；不修医学内容或错误ID |
+| context_processing/pipeline.py | 完整请求计量、阶段输入、软硬线及最后兜底 |
+| context_processing/ | 候选/正文隔离、重复工程包装投影、表格和引用保护 |
+| tools.py / retrieval_deadlines.py | MCP工具桥接、worker和超时/未知结果回执 |
+| storage.py / recovery.py / training.py | SQLite回执、显式恢复、真实当步输入与合法target导出 |
+| retrieval_snapshot_v2/backend/agent/dr_agent/ | PubMed/S2/Serper、正文解析、排序、清洗与片段证据 |
+| packaging/prefinal600/ | 600题500/100划分校验、Process-only队列、真实Final输入冻结、一致性导出 |
+
+原始972训练的train.py/training_core.py是另一冻结训练包，按10,575行、1,322更新和effective-batch target-token mean核对；不能以本页下方的既有训练文件身份替代。
+
+## 已公开组件与参考入口
+
+| 功能 | 已公开快照/参考源码 |
 |---|---|
 | 论文 Search | [pubmed_apis.py](../retrieval/dr_agent/mcp_backend/apis/pubmed_apis.py)、[dual_paper.py](../retrieval/dr_agent/mcp_backend/apis/dual_paper.py) |
 | 论文语义重排 | [paper_semantic_ranking.py](../retrieval/dr_agent/mcp_backend/apis/paper_semantic_ranking.py) |
@@ -9,8 +32,8 @@
 | Checklist / State / Decision | [checklist_feedback_v55.py](../retrieval/runtime/checklist_feedback_v55.py)、[state_compact_v38.py](../retrieval/runtime/state_compact_v38.py)、[sft_interface_v20.py](../retrieval/runtime/sft_interface_v20.py) |
 | 失败预算 | [environment_failure_budget_v1.py](../retrieval/runtime/environment_failure_budget_v1.py) |
 | 证据 freshness | [evidence_freshness_v57.py](../retrieval/runtime/evidence_freshness_v57.py) |
-| Process / Final 实际训练代码 | [版本三](../versions/process_final_sft/README.md) |
+| Process / Final 训练边界与已完成状态 | [版本三](../versions/process_final_sft/README.md)；其中现有脚本保持原快照身份 |
 | Final citation / 固定输入对照 | [final_citation_alias_v1.py](../versions/process_final_sft/final/final_citation_alias_v1.py)、[evaluate.py](../versions/process_final_sft/final/evaluate.py) |
 | 历史共享 LoRA / dense reward / replay | [历史单 LoRA](../versions/single_lora/README.md)、[training/](../training/)、[judge/](../judge/) |
 
-带版本号的文件常是依赖关系，不是多个可随意选择的算法。v13 依赖 v11 的 local_scores，不启用 v11 全池重排。公开代码不带私有训练数据、captures和服务器环境；版本框架不等于所有未来步骤已经实现。
+带版本号的文件常是依赖关系，不是多个可随意选择的算法。v13依赖v11的local_scores，不启用v11全池重排。公开清单SOURCE_EXPORT_CURRENT.json核验的是已发布快照，不证明当前冻结包与其相同。运行必须以各自源码/配置/模型哈希、messages和回执为准。版本一、二及后续计划原样保留。

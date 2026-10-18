@@ -1,6 +1,6 @@
-# 当前 Runtime 组件
+# 已公开Runtime组件快照
 
-本目录是最新检索工程的组件源码，不是携带私有运行环境的一键服务器包。集成时按下列依赖顺序安装，不能只复制一个补丁文件：
+本目录保留此前组件式Runtime，不是当前LangGraph节点包或一键服务器包。当前入口为trainable_agent的Engine/ContextBuilder与MCP工具，使用60:40 Search排序、重复Search缓存重显、软12,288/硬15,000及6+5动作预算；详见[当前架构](../../docs/architecture.md)。以下依赖和测试仅针对本目录快照，不作为当前包验收：
 
 1. 工具结果与候选结构 → `candidate_window.CandidateHistory` → `candidate_latest_window_v13.install`。
 2. Checklist exact anchors → `checklist_feedback_v55` / `checklist_examples_v56` → `sft_interface_v20` 展示。

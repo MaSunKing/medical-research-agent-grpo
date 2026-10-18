@@ -1,6 +1,6 @@
-# 当前检索源码
+# 已公开检索源码与当前部署边界
 
-`dr_agent/` 是当前工具后端，`common.py` 是共享工具加载组件；`runtime/` 放置当前工程合同与模型可见展示组件。历史后端单独冻结在 [legacy_retrieval](../versions/legacy_retrieval/README.md)，不随本目录更新。
+本目录保留已公开工具后端与组件快照；当前节点式运行将工具代码冻结在retrieval_snapshot_v2，并由trainable_agent的Execute/MCP调用。不能仅凭本目录存在就声称它与当前服务器600题包逐字相同。本次更新文档，不覆盖旧源码/配置。当前60:40排序、缓存重显、可用性及软硬预算见[检索设计](../docs/retrieval.md)和[架构](../docs/architecture.md)。历史版本目录保持不动。
 
 主要入口位于 `dr_agent/mcp_backend/apis/`：
 
@@ -13,6 +13,6 @@
 - [medical_passage_retriever_v28.py](dr_agent/mcp_backend/apis/medical_passage_retriever_v28.py)、[hybrid_passage_retriever.py](dr_agent/mcp_backend/apis/hybrid_passage_retriever.py)：正文片段检索。
 - [pdf_policy_v54.py](dr_agent/mcp_backend/apis/pdf_policy_v54.py)、[table_integrity.py](dr_agent/mcp_backend/apis/table_integrity.py)：PDF 路径与表格结构。
 
-以调用点实际传入的 limit 为准。后端可返回多于 8 条结果，8 是 Runtime 可见窗口，不是累计池容量。
+以各冻结调用点实际传入的limit为准。8是模型可见窗口，不是累计池容量；当前重复Search只重显原回执前8候选，不联网凑数。当前候选按未读优先/部分已读后置稳定分组，明确耗尽/失败按作用域过滤。
 
-公开仓库提供源代码，不附语义模型权重或服务器环境。真实运行须配置本地 BGE、网页 MiniLM、论文 MedCPT 模型与相应 API；源码身份见 [当前导出清单](../SOURCE_EXPORT_CURRENT.json)。
+公开仓库不附语义模型权重或服务器环境，实际embedding/reranker路径与API按部署配置登记。现有[导出清单](../SOURCE_EXPORT_CURRENT.json)只代表已公开快照，不替代新运行包的逐文件哈希；详见[代码导航](../docs/code_navigation.md)。

@@ -1,58 +1,53 @@
-# Codex CLI 如何采集 Teacher 轨迹
+# Teacher轨迹与当前Pre-Final采集
 
-[返回首页](../README.md) · [Process / Final 版本](../versions/process_final_sft/README.md)
+[首页](../README.md) · [版本三](../versions/process_final_sft/README.md) · [Final输入合同](final_contract.md)
 
-## Teacher 与工具的分工
+## 两类采集，不混为同一任务
 
-Codex CLI 负责提出阶段输出和下一步动作；项目Runtime负责执行真实检索工具、校验动作、打包输入和记录结果。不是让Teacher在网页外自行搜索，再把答案拼成轨迹。
+| 任务 | 谁生成阶段输出 | 当前用途 |
+|---|---|---|
+| 原始972 Teacher轨迹 | Teacher提出Checklist、Decision/Stop、State，项目Runtime执行真实工具 | 拆成10,575条带真实可见历史的Process SFT目标 |
+| 当前600题Pre-Final | 已训练原始972 Process模型，运行当前冻结节点/检索工程 | 提前500 train/100 dev，全部只到Pre-Final并冻结实际Final输入 |
+
+Teacher不能在项目之外搜索后编写假Observation。真实工具调用、失败、证据、阶段输入和原始输出均保留。原始972训练使用当时实际messages；参考Runtime代码不冒充Teacher完整冻结源码，当前缓存/预算/JSON修复也不追溯改写旧训练记录。
+
+## 原始Process训练的历史合同
 
 ```mermaid
-flowchart TB
-    Q[冻结原题与采集清单] --> R[隔离 Runtime：当前检索与输入合同]
-    R --> Teacher[Codex CLI Teacher]
-    Teacher --> C[Checklist / Decision / State / Stop]
-    C --> Check[协议与预算校验]
-    Check --> Tools[项目真实 Search / Browse]
-    Tools --> Receipt[实际工具回执与证据]
-    Receipt --> History[因果历史 + 当前State + 候选窗口]
-    History --> Teacher
-    C --> Records[完整阶段记录与 captures]
-    Records --> Gate[结构、溯源、证据与语义审核]
-    Gate --> SFT[history-aware Process 阶段样本]
+flowchart LR
+    Q[原始问题与真实前缀] --> Input[当前阶段可见输入]
+    Input --> Teacher[Teacher当前completion]
+    Teacher --> Check[格式与ID校验]
+    Check --> Tools[真实工具与回执]
+    Tools --> History[历史与证据传入后续阶段]
+    History --> Input
+    Check --> Samples[合法当步目标与输入绑定]
+    Samples --> SFT[completion-only Process SFT]
 ```
 
-## 两批 CLI 采集与数据归属
+972题共Checklist972、Decision6143、State3460；Decision包含Search2052、Browse3989、Stop102。其余结束由实际预算/程序状态判定，不给每条轨迹捏造一个Stop。8631条样本具有非空先前动作历史，不要求第一步凭空有历史。Final目标为0，Pre-Final由程序生成不训练；原导出排除50条被拒目标。当前程序语法修复和语义待审机制不追溯改成旧样本已有字段，也不把被修复文本当模型天然正确输出。
 
-早期已有百余题的Codex CLI真实工具采集；当前Process版本为700题按最新工程重新采集。两组都遵守“CLI提出动作、项目工具执行、保存原始回执”的边界，各自登记题目清单与工程身份。
+逐步SFT输入是“原问题、当前状态、真实因果历史和可见来源/证据→当步合法输出”，不是没有历史的孤立动作，也不是监督整条历史中的工具文本。输入及工具mask，错误动作不作为正target；后续输入不能看未来State、Final或评分。
 
-| 批次 | 规模与定位 | 工程归属 |
-|---|---|---|
-| 早期CLI采集 | 百余题；早期teacher阶段记录 | 使用当时冻结的检索、Prompt与阶段合同 |
-| 最新Process采集 | 700题；原训练题重新采集轨迹与历史 | 使用最新检索工程、Prompt与阶段合同 |
+## 当前600题的执行流程
 
-当前Process版本统一采用700题新采集轨迹；不在该版本说明中混入旧数据组合。每批采集与训练由各自清单关联，不用历史训练步数代替新批次验收。
+1. 冻结600题文本、500/100划分、近似/同源分组、源码/配置和模型身份。来源与类别仅审计，模型只看question，不给DOI、答案或split提示。
+2. 在计算节点使用原始972 checkpoint1322、NF4加载同基座；Process温度1，原文抽取兜底禁用LoRA、温度0.1。不会调用Teacher、Final或Judge生成。
+3. LangGraph依次执行Checklist、Decision、Execute、必要时State，再回Decision。Search命中本题正常缓存可重显；Browse只有新E才调用State。
+4. 合法Stop或正常预算耗尽后由Pre-Final节点归档。原始完整包与真实Final构建器冻结的MESSAGES分开保存，绑定来源/证据、历史、token和文件哈希。
+5. 先三题pilot，人工允许后全量。同WORK跳过已记录完成attempt，包括失败；未知请求或pending/lease留待对账，不盲目重放、清lease或改run-id绕过。
+6. 一致性导出完整轨迹、失败、SQLite在线备份、冻结输入和split；逐文件哈希并扫描凭据泄漏，不打包模型或密钥。
 
-两批采集都使用各自冻结时的检索源码与英文阶段合同。后续变更检索、Prompt或失败预算，须记录新源码身份；不能把旧批次回执改写成在最新版工程上执行过。
+原始证据、State和历史不因冻结输入的预算投影改变。压缩兜底可能有真实辅助模型调用，但不生成Final；不能把纯程序fixture、已有记录重放或输入冻结当新的完整模型轨迹。
 
-## 逐题执行
+## 当前验收与质量边界
 
-1. 冻结原题集合、源码身份、模型配置、阶段预算和工具依赖。700题从已有训练题中选择，不新造问题；训练/验证集合分别登记。
-2. 每题建立独立运行记录与缓存身份，使用最新英文Process Prompt、论文/网页后端、候选窗口和失败预算。
-3. Teacher每次只产生当前阶段输出。工具动作经Runtime校验后执行；回执进入下一阶段输入，Teacher不能写入未发生的Observation。
-4. 保存输入、原始输出、执行参数、拒绝/失败反馈、证据及State修订。格式错误的拒绝尝试保留在记录中，但不作为合格正监督；修复动作必须真实执行。
-5. 当前Process-only采集截止于Final前，不生成Final训练目标；早期全链路记录按其原合同保存，不混入当前Process目标。历史只包含此前已发生事件，不能泄漏未来State、Final或评分标签。
-6. 审核后将各阶段拆成step-wise样本，只监督当前completion。完整轨迹保留用于溯源，不因训练按步拆分而丢失上下文。
+服务端三题正常Process完成，三份Final输入完整，分别总占用9256/7633/7400，均在15000硬线内；600题全量尚未收到完成验收。三题已有乱码、范围扩展和State语义待审问题，工程完成不等于可以直接训练。
 
-## 历史与 Pre-Final 的区别
+正常、降级、Process失败、无证据、Final packing失败及语义可疑分开记录。程序JSON修复只改可确定语法，不替模型修医学含义；原坏输出和修复事件不抹去。Final金标仅由同一冻结可见证据支持，两位老师不能偷偷补充外部内容；不合格就留置，不按预定数量强行补齐。
 
-Teacher轨迹的历史支持Process SFT。后续训练好的Process模型真实跑题，由共享输入构建器自动导出其实际Pre-Final，再用于Final金标与Final-SFT。两者不是把同一个teacher Final直接搬过去。
+## 源码与运行身份
 
-导出实现见 [export_prefinal.py](../versions/process_final_sft/process/export_prefinal.py)，历史实现见 [process_history_v1.py](../retrieval/runtime/process_history_v1.py)。长证据卡片沿用实际Runtime机制；未缓存卡片若需要模型调用，必须显式授权并记录。
+当前模块入口为src/trainable_agent和packaging/prefinal600；[代码导航](code_navigation.md)区分实际冻结包与公开的既有组件。公开仓库不附私有题集、完整captures、运行日志、模型权重、CLI认证或集群环境。具体依赖、源码字节哈希与模型/请求身份由各运行包记录，不以目录名或某次本地成功替代服务器实测。
 
-## 验收与复现
-
-工程验收检查：原题身份、source ID、工具参数与回执、因果顺序、State传递、固定阶段预算、历史与capture溯源。语义审核另看query范围、证据是否有用、State覆盖是否得到实际文本支持。结构通过不代替语义正确。
-
-重试保留原失败与新attempt，不覆盖记录；完整trajectory重启与单工具内部transport重试分别登记。并行worker使用独立运行目录，并遵守服务限流。CLI若未暴露seed/temperature控制，就记录为不可用，不声称已固定。
-
-公开仓库提供检索和合同组件、训练与导出源码，不附私有题集、CLI登录凭据或集群专用采集启动器。具体运行清单与验收记录由私有实验包保存；本说明不替代完成清单。
+本页只更新已实现采集/导出合同；版本一、二及后续训练、评测、GRPO计划不改。
