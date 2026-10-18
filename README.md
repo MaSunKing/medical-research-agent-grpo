@@ -46,6 +46,22 @@
 
 SFT 使用 NF4 QLoRA、BF16 compute、FP32 LoRA；在线 Process 与 Final 的实际加载精度、thinking及采样配置分别登记，不能只凭模型名称认定数值路径相同。文档统一称 Base；历史配置中的 `raw` profile、JSON键与文件名保留，确保旧结果可复现。
 
+## 工程架构：LangGraph + ReAct + MCP
+
+系统采用**单一Process策略模型 + 显式状态图 + 真实检索工具**。LangGraph负责阶段编排，ReAct描述“决策—执行—观察反馈—再决策”的交互方式，MCP提供工具调用边界；三者不是三个独立Agent。
+
+| 工程层 | 当前实现与作用 |
+|---|---|
+| LangGraph节点编排 | `Checklist → Decision → Execute → State`循环，按状态路由至`Pre-Final`及可选`Final`；Search/Browse由Execute执行，Stop是Decision动作，不另设Stop模型节点 |
+| ReAct式策略循环 | 模型围绕证据缺口选择Search、Browse或Stop；工具回执、候选、已读证据与State进入后续决策，不是固定“搜索一次就回答” |
+| MCP工具封装 | FastMCP暴露`paper_search`、`web_search`、`browse`；桥接冻结检索后端，返回结构化Observation；历史排序属于Runtime辅助工具，不是模型自主动作 |
+| 显式上下文与合同 | ContextBuilder为每次请求构建当步可见输入、计量token并处理预算；程序核验JSON、需求绑定、可见来源和证据ID，模型负责需求、选源及支持判断 |
+| 持久化与审计 | 自有SQLite Store保存状态checkpoint、调用回执、事件及运行锁；结合原始文件与哈希导出，支持明确状态下的续跑，不把未知调用自动重试为成功 |
+
+每次模型调用都由程序显式传入工作状态，不依赖服务端隐式聊天记忆。**节点化用于拆清输入、输出与错误边界，不表示增加了多个自主推理Agent，也不自动保证证据或医学结论正确。** Process与Final是可分别训练、切换adapter的角色，不要求部署为两套独立基座。
+
+实现入口：[节点与路由](versions/process_final_sft/current/runtime/src/trainable_agent/engine.py) · [MCP工具](versions/process_final_sft/current/runtime/src/trainable_agent/tools.py) · [持久化](versions/process_final_sft/current/runtime/src/trainable_agent/storage.py) · [详细架构](docs/architecture.md)。
+
 ## 当前完整问答流程
 
 Process负责“下一步需要什么证据”，Final负责“已有证据能支持怎样的回答”。两个模块共用基座、分开训练和核验；下面展示完整系统，而不是某一批采集任务的结束位置。
