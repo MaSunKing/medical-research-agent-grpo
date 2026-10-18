@@ -12,7 +12,62 @@
 
 </details>
 
-## 已完成评测：原始972 Process-SFT · Latest50
+## 当前设计与完成状态
+
+本版本将证据获取与答案综合解耦：Process负责Checklist、动态Search/Browse、State与Stop；Final只根据实际可见Pre-Final综合答案。当前已用于对照与采集的是原始972 Process LoRA checkpoint1322；Final对照仍使用无项目adapter的同基座。后续独立Final LoRA尚不能作为本次已训练能力报告。
+
+| 内容 | 当前状态与边界 |
+|---|---|
+| Process训练 | 972题、10,575条合法阶段目标、1轮、1,322次更新；原始checkpoint1322 |
+| 同题对照 | 50题×Base/SFT，共100条；Process与答案分别评，失败不隐藏 |
+| 新Pre-Final采集 | 采集范围600题，提前分500 train / 100 dev；三题试采正常完成并冻结输入 |
+| 数据质量 | 工程完整不等于合格金标；乱码、State误读、缺证据与失败保留待审 |
+| Final | 本批只冻结输入，不生成Final/Judge，不启动训练；不宣称全600已完成 |
+
+本页当前设计与下方保留的后续计划分开。[当前完整生产源码](current/README.md)已公开节点、最新检索快照、原始972训练器及采集导出入口；不附私有数据/权重/环境。此目录原有process/final脚本继续保持既有快照身份，不与current目录混用；版本边界见[代码导航](../../docs/code_navigation.md)。
+
+## 迭代原因
+
+统一学习工具决策与长答案，难以区分错误来自证据获取还是答案综合。当前将Process信息收益、State质量、工程失败和固定Base Final的答案分分别报告，不把链路更长直接扣成低质量，也不把更多E片段直接当作收益。
+
+## 完整运行与训练路线
+
+完整问答先完成Process证据获取，再由Final综合；训练分阶段进行，不把某一批Pre-Final采集当作整个系统终点。
+
+```mermaid
+flowchart TB
+    Q[原问题] --> C[Checklist：可核验需求]
+    C --> D[Decision：围绕缺口选择动作]
+    D --> Search[Search：论文或网页候选]
+    Search --> D
+    D --> Browse[Browse：实际正文与证据片段]
+    Browse --> State[有新证据：State更新支持与缺口]
+    State --> D
+    Browse --> Feedback[空读或失败：保留状态并反馈]
+    Feedback --> D
+    D --> Stop[合法Stop或预算结束]
+    Stop --> Pack[Pre-Final：证据、State、历史及冻结实际输入]
+    Pack --> F[Final：按可见证据生成有引用的答案]
+    F --> Audit[独立评测与审核：引用支持、覆盖、安全边界]
+    Teacher[Teacher真实阶段轨迹] --> PSFT[已完成：原始972 Process-SFT]
+    PSFT -. 当前Process策略 .-> C
+    Pack -. 当前采集模式到此结束 .-> Data[600题：预先固定500 train / 100 dev]
+    Data --> Gold[后续：双老师候选与证据审核]
+    Gold --> FSFT[后续：独立Final-SFT]
+    FSFT -. 训练后替换答案模块 .-> F
+    Audit -. 后续对照验证后 .-> RL[固定Final，以GRPO优化Process]
+```
+
+当前完整问答用Base Final；600题采集只冻结Pre-Final，不调用Final。后续Final-SFT和GRPO仍是待执行路线，不表示训练或验证已完成。为什么选择SFT继续采集，见下方开发对照依据。
+
+
+原始Teacher数据保留真实messages、合法输出、工具回执和因果历史；并非将一整条长轨迹作为一个completion，也不是把历史丢掉只学孤立动作。训练输入以原采集记录为准；参考源码不能冒充Teacher当时完整冻结源码。见[采集与导出方法](../../docs/codex_cli_collection.md)。
+
+600题按来源/主题分层，同源及词面近似组不跨500/100划分。来源、类别、DOI和split仅供审计，Agent只接收question原文。近似排重是已知题池范围的筛查，不声称全球语义不重复。100题dev用于开发与选择，不宣称是从未接触的正式测试；最终可用训练数以质量审核为准，不因预定500就强行填满。
+
+采集使用同一WORK断点续队列，已完成attempt（包括已记录失败）不自动重抽；未知pending/lease须人工对账。导出包含失败、SQLite一致性备份和逐文件哈希，不包含权重或凭据。三题输入完整性通过不等于医学审核通过，不悄悄修写其State。
+
+## 选择Process-SFT的依据：开发对照结果
 
 本次比较 **Base全流程** 与 **原始972 Process-SFT + 同一个Base Final**，共50题、100条轨迹。SFT使用原始972训练的checkpoint1322。本节仅报告本次运行，身份与参数以冻结归档为准。
 
@@ -42,45 +97,6 @@ Process不因链路更长直接扣分，而是看新增证据是否真正覆盖�
 从HealthBench原始5000题中，筛选可独立回答的单轮英文医学检索问题，保留原始问题和rubric；按主要证据需求人工复核为**论文型25题、网页/指南型25题**。这只是选题分层，两组Agent仍可自由使用两条检索渠道。构建时对原972训练题、已有题池与已知使用记录做ID、规范化文本和词面近似排重，再冻结50题与配对种子；详见[选题步骤、排重阈值与身份哈希](latest50_evaluation.md#评测集如何构造)。
 
 这是定向选取、经历工程试跑的开发对照集，不是HealthBench随机代表样本，也不是从未接触的最终测试集；排重不证明全球语义不重合。
-
-## 当前设计与完成状态
-
-本版本将证据获取与答案综合解耦：Process负责Checklist、动态Search/Browse、State与Stop；Final只根据实际可见Pre-Final综合答案。当前已用于对照与采集的是原始972 Process LoRA checkpoint1322；Final对照仍使用无项目adapter的同基座。后续独立Final LoRA尚不能作为本次已训练能力报告。
-
-| 内容 | 当前状态与边界 |
-|---|---|
-| Process训练 | 972题、10,575条合法阶段目标、1轮、1,322次更新；原始checkpoint1322 |
-| 同题对照 | 50题×Base/SFT，共100条；Process与答案分别评，失败不隐藏 |
-| 新Pre-Final采集 | 采集范围600题，提前分500 train / 100 dev；三题试采正常完成并冻结输入 |
-| 数据质量 | 工程完整不等于合格金标；乱码、State误读、缺证据与失败保留待审 |
-| Final | 本批只冻结输入，不生成Final/Judge，不启动训练；不宣称全600已完成 |
-
-本页当前设计与下方保留的后续计划分开。[当前完整生产源码](current/README.md)已公开节点、最新检索快照、原始972训练器及采集导出入口；不附私有数据/权重/环境。此目录原有process/final脚本继续保持既有快照身份，不与current目录混用；版本边界见[代码导航](../../docs/code_navigation.md)。
-
-## 迭代原因
-
-统一学习工具决策与长答案，难以区分错误来自证据获取还是答案综合。当前将Process信息收益、State质量、工程失败和固定Base Final的答案分分别报告，不把链路更长直接扣成低质量，也不把更多E片段直接当作收益。
-
-## 数据与训练路线
-
-```mermaid
-flowchart TB
-    T[972题Teacher真实阶段记录与历史] --> Steps[10575条带当步可见输入的样本]
-    Steps --> PS[原始Process LoRA：checkpoint1322]
-    PS --> Eval[已完成：50题Base/SFT对照]
-    Q[600题：预先固定500 train / 100 dev] --> Run[原始972 Process + 当前节点Runtime]
-    PS --> Run
-    Run --> Raw[完整Process与原始Pre-Final]
-    Raw --> Freeze[同版Final构建器冻结实际MESSAGES]
-    Freeze --> End[当前采集终点：不调用Final]
-    Freeze -. 后续金标制作，不属于本次采集 .-> Gold[两位老师基于同一可见输入的候选与证据审核]
-```
-
-原始Teacher数据保留真实messages、合法输出、工具回执和因果历史；并非将一整条长轨迹作为一个completion，也不是把历史丢掉只学孤立动作。训练输入以原采集记录为准；参考源码不能冒充Teacher当时完整冻结源码。见[采集与导出方法](../../docs/codex_cli_collection.md)。
-
-600题按来源/主题分层，同源及词面近似组不跨500/100划分。来源、类别、DOI和split仅供审计，Agent只接收question原文。近似排重是已知题池范围的筛查，不声称全球语义不重复。100题dev用于开发与选择，不宣称是从未接触的正式测试；最终可用训练数以质量审核为准，不因预定500就强行填满。
-
-采集使用同一WORK断点续队列，已完成attempt（包括已记录失败）不自动重抽；未知pending/lease须人工对账。导出包含失败、SQLite一致性备份和逐文件哈希，不包含权重或凭据。三题输入完整性通过不等于医学审核通过，不悄悄修写其State。
 
 ## Process-SFT
 

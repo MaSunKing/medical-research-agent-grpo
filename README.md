@@ -4,6 +4,8 @@
 
 项目关注的不只是“搜到一个相关标题”，而是 **读到了什么、解决了哪个需求、还有什么没有证实**。用于研究，不替代临床判断。
 
+**当前主线：Process-SFT获取证据 → 冻结Pre-Final → 构建并训练独立Final → 双模块评测 → 固定Final优化Process。** 前半段已有实现与运行记录；Final金标、独立Final训练及后续GRPO按阶段推进，不将计划写成已完成能力。
+
 ## 三个版本 · 从这里开始
 
 实验方法、参数和结果按版本分开维护，不混用不同检索与训练批次的结论。
@@ -12,7 +14,7 @@
 |---|---|---|
 | **版本一：单 LoRA** | [全链路单 LoRA：设计、训练与评测](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
 | **版本二：双 LoRA** | [双 LoRA：迭代动机与实验框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
-| **版本三：Process-SFT + Final-SFT** | [当前实现、972训练与600题Pre-Final采集](versions/process_final_sft/README.md) · **[全部100条Process评测](versions/process_final_sft/process_review_v2/README.md)** · [HealthBench答案评分](versions/process_final_sft/latest50_evaluation.md#3-healthbench-style答案评分) | [当前节点与最新检索源码](versions/process_final_sft/current/README.md) |
+| **版本三：Process-SFT + Final-SFT（当前）** | [完整设计与训练路线](versions/process_final_sft/README.md) | [当前节点与最新检索源码](versions/process_final_sft/current/README.md) |
 
 版本目录区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置、方法说明与脱敏评分汇总，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
 
@@ -32,7 +34,9 @@
 
 SFT 使用 NF4 QLoRA、BF16 compute、FP32 LoRA；在线 Process 与 Final 的实际加载精度、thinking及采样配置分别登记，不能只凭模型名称认定数值路径相同。文档统一称 Base；历史配置中的 `raw` profile、JSON键与文件名保留，确保旧结果可复现。
 
-## 整体流程
+## 当前完整问答流程
+
+Process负责“下一步需要什么证据”，Final负责“已有证据能支持怎样的回答”。两个模块共用基座、分开训练和核验；下面展示完整系统，而不是某一批采集任务的结束位置。
 
 ```mermaid
 flowchart TB
@@ -51,11 +55,53 @@ flowchart TB
     D --> T[合法Stop或运行预算结束]
     T --> F[Pre-Final节点：完整状态、证据与历史]
     F --> Pack[同版Final构建器：冻结实际MESSAGES与预算]
-    Pack --> Collect[当前600题采集到此结束，不生成Final]
-    Pack -. 完整问答运行 .-> A[独立Final：按可见证据回答并引用]
+    Pack --> A[独立Final：按可见证据综合回答]
+    A --> V[引用合同校验；证据支持与覆盖另行审核]
+    V --> Answer[带来源引用和未解决边界的最终答案]
 ```
 
 当前是一个模型策略循环，由LangGraph节点编排、MCP工具执行，属于ReAct式“决策—工具反馈—再决策”，不是多个模型轮流自主检索。程序不代替模型判断医学支持程度，也不要求预算内必须把每项都判成direct。
+
+完整问答模式已支持Base Final；**当前训练数据采集模式只运行到冻结Pre-Final，不调用Final**。后续训练的Final LoRA替换答案模块，不要求重新定义Process动作或证据协议。引用/语法核验不能代替医学质量审核。
+
+## 为什么选择Process-SFT作为后续训练起点
+
+选择依据是**证据获取更充分、Process执行更稳定**，不是“所有指标都超过Base”。在同题、同版工具与预算、同一个Base Final的50题开发对照中：
+
+| 选择依据 | Base Process | 原始972 Process-SFT | 能说明什么 |
+|---|---:|---:|---|
+| 有效证据覆盖，各50题，含失败 | 43.75% | **53.83%** | 获得的信息更能覆盖原问题需求，不按片段条数加分 |
+| 同题覆盖胜出 | 11题 | **25题** | 另14题相当；不是只比较成功配对 |
+| Process硬失败 | 6/50 | **2/50** | 当前运行中合同失败更少，不等于医学答案正确 |
+| 固定Base Final的共同40题答案均分 | **7.23%** | 5.96% | 证据增益尚未转化为更好的最终答案 |
+
+因此当前选用**原始972 Process-SFT**继续采集Pre-Final，并把后续训练重点放在“如何忠实、完整地使用这些证据生成Final”。这不是已证明Final-SFT一定能弥补差距，也不把State误读和重复搜索忽略掉；Base继续保留为同条件对照。训练为需求拆分、具体Search/Browse动作和State更新提供监督，可能支持上述行为，但单次非盲开发评测不能证明训练因果或普遍优越。
+
+评测集由HealthBench原题定向筛选：论文型25题、网页/指南型25题，保留原始rubric，对已知题库排重；分组不强制工具渠道。这是经历工程试跑的开发对照集，不冒充独立最终测试。[构造方法与答案评分](versions/process_final_sft/latest50_evaluation.md) · [全部100条Process评分与问题记录](versions/process_final_sft/process_review_v2/README.md)。
+
+## 从当前模型继续训练的完整路线
+
+```mermaid
+flowchart TB
+    Teacher[Teacher真实工具轨迹与阶段输出] --> PSFT[Process-SFT：已完成原始972训练]
+    PSFT --> Gather[固定Process采集完整轨迹与Pre-Final]
+    Gather --> Freeze[固定实际Final输入、证据映射与train/dev划分]
+    Freeze --> Candidates[后续：两位老师基于同一输入生成Final候选]
+    Candidates --> Review[按证据支持、覆盖、引用与安全边界审核]
+    Review --> Hold[不合格留置，不强行进入训练]
+    Review --> Gold[合格Final金标及可追溯输入]
+    Gold --> FSFT[后续：独立Final-SFT，仅监督答案completion]
+    FSFT --> Compare[同题消融：分离Process和Final收益]
+    Compare --> RL[后续：固定Final，以GRPO优化Process]
+    RL --> Independent[独立保留题上的整体评测]
+```
+
+1. **当前采集**：600题预先划分500 train / 100 dev，使用原始972 Process，保留全部成功、失败与质量留置记录；不在采集中生成Final或启动训练。
+2. **接下来制作Final金标**：每题两位老师读取同一冻结输入，生成候选并按证据审核；不是只挑更流畅的答案。修复输入后必须重新绑定候选，不能沿用不匹配的金标。
+3. **再训练与选择Final**：只用通过审核的train数据训练，用dev定位问题和选择checkpoint；不把预定500题自动视为500份合格样本。
+4. **再做整体优化**：先用同题消融确认Process/Final各自收益，再固定Final开展Process-GRPO；独立测试不参与金标制作、调参或checkpoint选择。
+
+这里只说明训练依赖与先后顺序，不新增学习率、轮次、开发题数或GRPO参数。具体计划仍见[版本三](versions/process_final_sft/README.md)、[评测计划](versions/process_final_sft/evaluation.md)和[GRPO计划](versions/process_final_sft/grpo.md)。
 
 ## 两条检索链路
 
