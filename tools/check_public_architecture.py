@@ -18,6 +18,16 @@ def main():
     current=json.loads((ROOT/'SOURCE_EXPORT_CURRENT.json').read_text())
     for row in current['files']:
         assert sha(ROOT/row['path'])==row['published_sha256'],row['path']
+    latest=ROOT/'versions/process_final_sft/current'
+    if latest.exists():
+        manifest=json.loads((latest/'SOURCE_MANIFEST.json').read_text(encoding='utf8'))
+        for name,row in manifest['files'].items():
+            p=latest/name
+            assert p.resolve().is_relative_to(latest) and not p.is_symlink(),name
+            assert sha(p)==row['published_sha256'],name
+            text=p.read_text(encoding='utf8')
+            assert not re.search(r'/home/msai/|C:[/\\]Users[/\\]|172\.21\.26\.100',text),name
+            assert not re.search(r'\bsk-[A-Za-z0-9_-]{20,}',text),name
     docs=[ROOT/'README.md',*(ROOT/'versions').rglob('*.md'),
           ROOT/'retrieval/README.md',ROOT/'retrieval/runtime/README.md',
           *(ROOT/'docs').glob('*.md')]

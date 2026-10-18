@@ -6,7 +6,7 @@
 
 600题预分500 train/100 dev，全部只采Process→Pre-Final，保存完整原包和真实Final构建器冻结的MESSAGES。三题服务端试采和输入完整性通过，但有乱码/State待审问题，不能自动认定金标合格或全量采集完成。程序修复和完整导出不等于医学语义正确。
 
-本次只同步当前文档，不声称下面的公开组件已被替换为新运行包。[架构](architecture.md)、[检索](retrieval.md)、[Final输入](final_contract.md)和[代码导航](code_navigation.md)为当前说明；后续计划不调整。
+当前源码现已独立同步到[版本三current目录](../versions/process_final_sft/current/README.md)，包括节点、最新98文件检索快照、共享上下文、原972训练器及采集冻结导出。旧组件不被覆盖；不包含私有题目、权重或凭据，发布身份和路径适配另列。[架构](architecture.md)、[检索](retrieval.md)、[Final输入](final_contract.md)和[代码导航](code_navigation.md)为当前说明；后续计划不调整。
 
 ## 归档：2026-09公开源码同步记录（不是当前配置）
 

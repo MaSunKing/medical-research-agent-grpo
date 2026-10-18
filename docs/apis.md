@@ -4,6 +4,8 @@
 
 当前600题Process-only采集只依赖本地Qwen模型与实际启用的检索服务，不调用Final、Teacher生成或Judge。Final输入冻结在超限时可使用禁用LoRA的同基座压缩兜底；这不是额外的网页Teacher或裁判API。下方Judge/Verifier属于按模式启用的独立组件，不因列在本页就默认运行。
 
+当前工具实现已公开于[版本三最新检索快照](../versions/process_final_sft/current/runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis)。下文retrieval/...为既有兼容入口；当前部署应使用同一current/runtime源码及其manifest，不将新旧工具模块拼接。
+
 ## 按运行模式区分
 
 | 运行模式 | 是否需要外部 API |

@@ -12,7 +12,7 @@
 |---|---|---|
 | **版本一：单 LoRA** | [全链路单 LoRA：设计、训练与评测](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
 | **版本二：双 LoRA** | [双 LoRA：迭代动机与实验框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
-| **版本三：Process-SFT + Final-SFT** | [当前实现、972训练与600题Pre-Final采集](versions/process_final_sft/README.md) · **[全部100条Process评测](versions/process_final_sft/process_review_v2/README.md)** · [HealthBench答案评分](versions/process_final_sft/latest50_evaluation.md#3-healthbench-style答案评分) | 当前节点式检索设计 |
+| **版本三：Process-SFT + Final-SFT** | [当前实现、972训练与600题Pre-Final采集](versions/process_final_sft/README.md) · **[全部100条Process评测](versions/process_final_sft/process_review_v2/README.md)** · [HealthBench答案评分](versions/process_final_sft/latest50_evaluation.md#3-healthbench-style答案评分) | [当前节点与最新检索源码](versions/process_final_sft/current/README.md) |
 
 版本目录区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置、方法说明与脱敏评分汇总，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
 
@@ -130,7 +130,8 @@ Final使用已打开的 `[E1]` 等证据ID，保留到source_id/chunk_id的映�
 
 | 目录 / 文档 | 内容 |
 |---|---|
-| [retrieval/](retrieval/README.md) | 已公开工具后端快照；与当前部署源码的关系另行说明 |
+| [版本三当前源码](versions/process_final_sft/current/README.md) | 节点、上下文、MCP、最新完整检索快照、原972训练器与采集导出 |
+| [retrieval/](retrieval/README.md) | 既有工具后端快照，保留兼容入口；当前运行使用上方最新快照 |
 | [retrieval/runtime/](retrieval/runtime/README.md) | 已公开的组件式Runtime快照，不冒充当前节点包 |
 | [系统架构](docs/architecture.md) | 模块边界与证据生命周期 |
 | [检索设计](docs/retrieval.md) | Search / Browse 与候选池细节 |

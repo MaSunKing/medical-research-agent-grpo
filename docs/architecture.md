@@ -58,4 +58,4 @@ Checklist/Decision/State的确定性JSON修复只处理明确语法，不猜ID�
 
 完整原包供审计，实际MESSAGES才是后续两位老师共用、Final训练绑定的冻结输入。金标只能由这些可见证据支持，不能额外联网补事实或换packing沿用旧金标。无证据、乱码、State错误及其他可疑记录留置，结构通过不自动放行训练。
 
-当前模块为src/trainable_agent下的engine、contracts、context、search_cache、model_json、storage、tools、training及context_processing；批量冻结入口为packaging/prefinal600。公开组件快照不等于此运行包逐字源码，见[代码导航](code_navigation.md)。版本一、二及后续计划不由本页改写。
+当前模块为[公开trainable_agent](../versions/process_final_sft/current/runtime/src/trainable_agent)下的engine、contracts、context、search_cache、model_json、storage、tools、training及context_processing；[批量采集/冻结入口](../versions/process_final_sft/current/README.md)位于current目录。源码带原始/发布身份，不包含私有部署数据，见[代码导航](code_navigation.md)。版本一、二及后续计划不由本页改写。

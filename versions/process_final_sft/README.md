@@ -31,7 +31,7 @@ Process不因链路更长直接扣分，而是看新增证据是否真正覆盖�
 | 数据质量 | 工程完整不等于合格金标；乱码、State误读、缺证据与失败保留待审 |
 | Final | 本批只冻结输入，不生成Final/Judge，不启动训练；不宣称全600已完成 |
 
-本页当前设计与下方保留的后续计划分开。公开训练脚本与组件含既有快照，不能凭旧目录名推断为checkpoint1322或当前600题包的逐字源码；版本边界见[代码导航](../../docs/code_navigation.md)。
+本页当前设计与下方保留的后续计划分开。[当前完整生产源码](current/README.md)已公开节点、最新检索快照、原始972训练器及采集导出入口；不附私有数据/权重/环境。此目录原有process/final脚本继续保持既有快照身份，不与current目录混用；版本边界见[代码导航](../../docs/code_navigation.md)。
 
 ## 迭代原因
 
@@ -88,7 +88,7 @@ flowchart TB
 | 验证集合 | 原训练包972题全部用于训练，没有包内dev；不声称已有独立验证损失 |
 | Final / Pre-Final目标 | Final目标0；Pre-Final是程序输出，不计算loss |
 
-原始972训练按冻结训练包的数据、模型和源码哈希核验。当前目录的[公开Process脚本](process/train.py)保留其原配置身份，仅作代码参考，不能直接当作972训练器运行凭证或更改其规模gate来复现。当前推理改动与训练样本保持独立身份。
+原始972训练按冻结训练包的数据、模型和源码哈希核验。[实际原始972训练器](current/original972_training/train.py)、[token loss](current/original972_training/training_core.py)及[配置](current/original972_training/TRAIN_CONFIG.json)已公开；不附原题、编码数据或权重。本目录[既有Process脚本](process/train.py)保持原身份，不再作为972训练入口。当前推理改动与训练样本保持独立身份。
 
 ### Loss公式
 
@@ -114,7 +114,7 @@ flowchart TB
 
 ### 输入与金标
 
-当前600题用同版ContextBuilder准备实际Final请求，不调用Final。完整 `run/PRE_FINAL_PACKAGE.json` 用于审计；`teacher_input/FINAL_REQUEST.json`、`MESSAGES.json` 和同内容的 `TEACHER_INPUT.txt` 是冻结老师输入。三题服务端核验了原始证据一致性、messages哈希、精确token与预算；总占用分别9256、7633、7400，均低于15000。它们仍有乱码或State语义等待审问题，不能据此认定金标合格。
+当前600题用同版ContextBuilder准备实际Final请求，不调用Final，见[冻结实现](current/freeze_final_input.py)。完整 `run/PRE_FINAL_PACKAGE.json` 用于审计；`teacher_input/FINAL_REQUEST.json`、`MESSAGES.json` 和同内容的 `TEACHER_INPUT.txt` 是冻结老师输入。三题服务端核验了原始证据一致性、messages哈希、精确token与预算；总占用分别9256、7633、7400，均低于15000。它们仍有乱码或State语义等待审问题，不能据此认定金标合格。
 
 两位老师只读取同一冻结MESSAGES，不能额外联网补出输入没有的事实。候选按证据支持、范围、完整性与引用审核，而非只选文笔；两份都不合格就留置。Final可纠正State误判，但不能编造缺失证据；后续训练必须绑定同一MESSAGES与split，不能换packing沿用旧答案。引用用E ID并映射到原始chunk，输出单个answer envelope。
 

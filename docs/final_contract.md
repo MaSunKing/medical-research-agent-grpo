@@ -30,4 +30,4 @@
 
 后续网页ChatGPT与Codex读取同一冻结输入各出候选，按证据支持、问题覆盖和引用审核，不只选文风。不能额外联网、引用隐藏全文或从题目来源补结论。两份不合格则留置或有审计地修改；不属于本次服务器采集，不表示Final已训练。
 
-实际模块为ContextBuilder.prepare('final')、Engine.prefinal/final_node及packaging/prefinal600/freeze_final_input.py。已公开[Final引用组件](../versions/process_final_sft/final/final_citation_alias_v1.py)保留原Prompt/数据合同，不冒充当前冻结构建器源码。见[代码导航](code_navigation.md)。后续超参数和评测计划本次不调整。
+实际模块为ContextBuilder.prepare('final')、Engine.prefinal/final_node及[当前freeze_final_input.py](../versions/process_final_sft/current/freeze_final_input.py)。既有[Final引用组件](../versions/process_final_sft/final/final_citation_alias_v1.py)保留原Prompt/数据合同，不冒充当前冻结构建器源码。见[代码导航](code_navigation.md)。后续超参数和评测计划本次不调整。

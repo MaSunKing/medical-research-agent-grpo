@@ -1,6 +1,6 @@
 # 已公开检索源码与当前部署边界
 
-本目录保留已公开工具后端与组件快照；当前节点式运行将工具代码冻结在retrieval_snapshot_v2，并由trainable_agent的Execute/MCP调用。不能仅凭本目录存在就声称它与当前服务器600题包逐字相同。本次更新文档，不覆盖旧源码/配置。当前60:40排序、缓存重显、可用性及软硬预算见[检索设计](../docs/retrieval.md)和[架构](../docs/architecture.md)。历史版本目录保持不动。
+本目录保留既有工具后端与组件快照。**[最新完整检索源码在版本三runtime/retrieval_snapshot_v2](../versions/process_final_sft/current/runtime/retrieval_snapshot_v2)**，由当前trainable_agent的Execute/MCP调用，并附共享上下文哈希。旧入口不覆盖、不与当前包混用。当前60:40排序、缓存重显、可用性及软硬预算见[检索设计](../docs/retrieval.md)和[架构](../docs/architecture.md)。历史版本目录保持不动。
 
 主要入口位于 `dr_agent/mcp_backend/apis/`：
 

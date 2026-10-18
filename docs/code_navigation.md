@@ -1,10 +1,10 @@
 # 当前设计与公开源码导航
 
-当前运行是节点式`trainable_agent`和冻结检索快照，以下公开文件含此前组件/训练入口，**不是当前服务器包逐字源码**。本次只更新工程与版本文档，不擅自替换旧训练器、修改其规模gate或声称源码已全量迁移。私有数据、环境、权重和凭据不发布。
+当前节点式实现及最新检索已在[版本三current目录](../versions/process_final_sft/current/README.md)独立公开，附原始/发布文件SHA。保留此前组件和训练入口，不替换版本一、二、不修改旧规模gate。当前目录为源码公开包，不是附带题目/权重/凭据的服务器部署包；UTF-8/LF规范化、共享manifest重绑和prepare显式路径适配均有记录。
 
 ## 当前运行的模块边界
 
-这些是冻结包内相对模块名，用于核对实际实现，不是本仓库中尚不存在文件的下载链接。
+下表中src、tests、scripts及retrieval_snapshot_v2位于[公开runtime](../versions/process_final_sft/current/runtime)；批量采集/导出入口位于其上层current目录。
 
 | 冻结包模块 | 职责 |
 |---|---|
@@ -19,7 +19,7 @@
 | retrieval_snapshot_v2/backend/agent/dr_agent/ | PubMed/S2/Serper、正文解析、排序、清洗与片段证据 |
 | packaging/prefinal600/ | 600题500/100划分校验、Process-only队列、真实Final输入冻结、一致性导出 |
 
-原始972训练的train.py/training_core.py是另一冻结训练包，按10,575行、1,322更新和effective-batch target-token mean核对；不能以本页下方的既有训练文件身份替代。
+原始972训练代码单独公开于[original972_training](../versions/process_final_sft/current/original972_training)，按10,575行、1,322更新和effective-batch target-token mean核对；不能以本页下方的既有训练文件身份替代。
 
 ## 已公开组件与参考入口
 

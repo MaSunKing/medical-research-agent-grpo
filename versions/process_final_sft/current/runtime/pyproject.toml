@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medical-trainable-agent"
+version = "0.1.1"
+requires-python = ">=3.11"
+dependencies = ["pydantic>=2.7,<3", "langgraph>=1,<2", "fastmcp>=2.11,<3", "httpx>=0.28,<1"]
+
+[project.optional-dependencies]
+retrieval_html = ["beautifulsoup4==4.14.3", "trafilatura==2.0.0", "htmldate==1.9.4", "courlan==1.3.2", "lxml==5.4.0", "lxml_html_clean==0.4.4"]
+tokenizer = ["transformers>=4.51,<5", "jinja2>=3.1,<4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -20,6 +20,17 @@ jobs:
       - run: python -B tools/test_math_formatting.py
       - run: python -B -m unittest discover -s retrieval/runtime -p 'test_public_runtime.py'
       - run: python -B examples/test_trajectory_excerpt.py
+  current-version-three:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install isolated current-runtime test dependencies
+        run: python -m pip install -e './versions/process_final_sft/current/runtime[retrieval_html]'
+      - name: Verify current source and synthetic runtime contracts
+        run: python -B versions/process_final_sft/current/check_public_source.py --tests
   training-core:
     runs-on: ubuntu-latest
     steps:
@@ -41,3 +52,6 @@ jobs:
       - name: Test SFT alignment contracts
         working-directory: sft
         run: python -B -m unittest test_exported_training_contracts test_pdf_visibility
+      - name: Test original972 trainer on CPU toy data
+        working-directory: versions/process_final_sft/current/original972_training
+        run: python -B test_training.py
