@@ -12,7 +12,7 @@
 |---|---|---|
 | **版本一：单 LoRA** | [全链路单 LoRA：设计、训练与评测](versions/single_lora/README.md) | [冻结的旧检索](versions/legacy_retrieval/README.md) |
 | **版本二：双 LoRA** | [双 LoRA：迭代动机与实验框架](versions/dual_lora/README.md) | 与单 LoRA 共用冻结旧检索 |
-| **版本三：Process-SFT + Final-SFT** | [Process / Final 解耦：采集、训练与消融](versions/process_final_sft/README.md) · **[全部100条Process重评 v2](versions/process_final_sft/process_review_v2/README.md)** · [HealthBench答案评分](versions/process_final_sft/latest50_evaluation.md#3-healthbench-style答案评分) | 当前检索 |
+| **版本三：Process-SFT + Final-SFT** | [Process / Final 解耦：采集、训练与消融](versions/process_final_sft/README.md) · **[全部100条Process评测](versions/process_final_sft/process_review_v2/README.md)** · [HealthBench答案评分](versions/process_final_sft/latest50_evaluation.md#3-healthbench-style答案评分) | 当前检索 |
 
 版本目录区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置、方法说明与脱敏评分汇总，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
 

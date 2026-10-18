@@ -2,11 +2,11 @@
 
 [返回汇总](README.md) · [评分规则](PROTOCOL.zh.md)
 
-仅移除原题全文和私有文件链接，保留原v2评分、逐项理由、证据ID、问题及局限。E ID只在各自轨迹内有效；本页不是原始证据或医学认证。State分为最终状态暂定诊断，非逐次正确率或重复率；两组调用次数、信息负荷不同，不据此直接排名，见[解释修订](PROTOCOL.zh.md#state比较的解释修订)。
+仅移除原题全文和私有文件链接，保留现有评分、逐项理由、证据ID、问题及局限。E ID只在各自轨迹内有效；本页不是原始证据或医学认证。State分为最终状态暂定诊断，非逐次正确率或重复率；两组调用次数、信息负荷不同，不据此直接排名，见[解释修订](PROTOCOL.zh.md#state比较的解释修订)。
 
 ## Q01
 
-### Q01_base — Process v2
+### Q01_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -58,7 +58,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q01_sft — Process v2
+### Q01_sft — Process评测
 
 有效证据覆盖：66.67%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -106,7 +106,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q02
 
-### Q02_base — Process v2
+### Q02_base — Process评测
 
 有效证据覆盖：25.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -151,7 +151,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q02_sft — Process v2
+### Q02_sft — Process评测
 
 有效证据覆盖：75.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -200,7 +200,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q03
 
-### Q03_base — Process v2
+### Q03_base — Process评测
 
 有效证据覆盖：100.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -247,7 +247,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q03_sft — Process v2
+### Q03_sft — Process评测
 
 有效证据覆盖：100.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -296,7 +296,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q04
 
-### Q04_base — Process v2
+### Q04_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:no_readable_sources；Final：failed。
@@ -346,7 +346,7 @@ Process硬失败：False；Process终止：policy_stop:no_readable_sources；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q04_sft — Process v2
+### Q04_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：failed。
@@ -397,7 +397,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 ## Q05
 
-### Q05_base — Process v2
+### Q05_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -443,7 +443,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q05_sft — Process v2
+### Q05_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：33.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -497,7 +497,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q06
 
-### Q06_base — Process v2
+### Q06_base — Process评测
 
 有效证据覆盖：75.00%；State忠实度：50.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -543,7 +543,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q06_sft — Process v2
+### Q06_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -594,7 +594,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q07
 
-### Q07_base — Process v2
+### Q07_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:no_readable_sources；Final：complete。
@@ -643,7 +643,7 @@ Process硬失败：False；Process终止：policy_stop:no_readable_sources；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q07_sft — Process v2
+### Q07_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -691,7 +691,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q08
 
-### Q08_base — Process v2
+### Q08_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -741,7 +741,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q08_sft — Process v2
+### Q08_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -792,7 +792,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q09
 
-### Q09_base — Process v2
+### Q09_base — Process评测
 
 有效证据覆盖：25.00%；State忠实度：33.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -844,7 +844,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q09_sft — Process v2
+### Q09_sft — Process评测
 
 有效证据覆盖：87.50%；State忠实度：50.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -899,7 +899,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q10
 
-### Q10_base — Process v2
+### Q10_base — Process评测
 
 有效证据覆盖：33.33%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -945,7 +945,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q10_sft — Process v2
+### Q10_sft — Process评测
 
 有效证据覆盖：66.67%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -994,7 +994,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q11
 
-### Q11_base — Process v2
+### Q11_base — Process评测
 
 有效证据覆盖：25.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:no_readable_sources；Final：complete。
@@ -1044,7 +1044,7 @@ Process硬失败：False；Process终止：policy_stop:no_readable_sources；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q11_sft — Process v2
+### Q11_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:no_readable_sources；Final：complete。
@@ -1092,7 +1092,7 @@ Process硬失败：False；Process终止：policy_stop:no_readable_sources；Fin
 
 ## Q12
 
-### Q12_base — Process v2
+### Q12_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -1144,7 +1144,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q12_sft — Process v2
+### Q12_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1193,7 +1193,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q13
 
-### Q13_base — Process v2
+### Q13_base — Process评测
 
 有效证据覆盖：25.00%；State忠实度：50.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -1239,7 +1239,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q13_sft — Process v2
+### Q13_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：33.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1288,7 +1288,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q14
 
-### Q14_base — Process v2
+### Q14_base — Process评测
 
 有效证据覆盖：25.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -1338,7 +1338,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q14_sft — Process v2
+### Q14_sft — Process评测
 
 有效证据覆盖：100.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1387,7 +1387,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q15
 
-### Q15_base — Process v2
+### Q15_base — Process评测
 
 有效证据覆盖：25.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -1434,7 +1434,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q15_sft — Process v2
+### Q15_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1483,7 +1483,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q16
 
-### Q16_base — Process v2
+### Q16_base — Process评测
 
 有效证据覆盖：75.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -1530,7 +1530,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q16_sft — Process v2
+### Q16_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1580,7 +1580,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q17
 
-### Q17_base — Process v2
+### Q17_base — Process评测
 
 有效证据覆盖：75.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1627,7 +1627,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q17_sft — Process v2
+### Q17_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1680,7 +1680,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q18
 
-### Q18_base — Process v2
+### Q18_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：True；Process终止：model_contract_failure；Final：not_started。
@@ -1731,7 +1731,7 @@ Process硬失败：True；Process终止：model_contract_failure；Final：not_s
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q18_sft — Process v2
+### Q18_sft — Process评测
 
 有效证据覆盖：83.33%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1783,7 +1783,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q19
 
-### Q19_base — Process v2
+### Q19_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:no_readable_sources；Final：complete。
@@ -1835,7 +1835,7 @@ Process硬失败：False；Process终止：policy_stop:no_readable_sources；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q19_sft — Process v2
+### Q19_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1884,7 +1884,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q20
 
-### Q20_base — Process v2
+### Q20_base — Process评测
 
 有效证据覆盖：75.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -1931,7 +1931,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q20_sft — Process v2
+### Q20_sft — Process评测
 
 有效证据覆盖：75.00%；State忠实度：33.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -1981,7 +1981,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q21
 
-### Q21_base — Process v2
+### Q21_base — Process评测
 
 有效证据覆盖：75.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -2027,7 +2027,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q21_sft — Process v2
+### Q21_sft — Process评测
 
 有效证据覆盖：100.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2077,7 +2077,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q22
 
-### Q22_base — Process v2
+### Q22_base — Process评测
 
 有效证据覆盖：66.67%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2128,7 +2128,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q22_sft — Process v2
+### Q22_sft — Process评测
 
 有效证据覆盖：83.33%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2178,7 +2178,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q23
 
-### Q23_base — Process v2
+### Q23_base — Process评测
 
 有效证据覆盖：66.67%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -2226,7 +2226,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q23_sft — Process v2
+### Q23_sft — Process评测
 
 有效证据覆盖：66.67%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2277,7 +2277,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q24
 
-### Q24_base — Process v2
+### Q24_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：True；Process终止：model_contract_failure；Final：not_started。
@@ -2327,7 +2327,7 @@ Process硬失败：True；Process终止：model_contract_failure；Final：not_s
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q24_sft — Process v2
+### Q24_sft — Process评测
 
 有效证据覆盖：75.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2380,7 +2380,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q25
 
-### Q25_base — Process v2
+### Q25_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：True；Process终止：model_contract_failure；Final：not_started。
@@ -2432,7 +2432,7 @@ Process硬失败：True；Process终止：model_contract_failure；Final：not_s
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q25_sft — Process v2
+### Q25_sft — Process评测
 
 有效证据覆盖：75.00%；State忠实度：50.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2483,7 +2483,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q26
 
-### Q26_base — Process v2
+### Q26_base — Process评测
 
 有效证据覆盖：33.33%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2530,7 +2530,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q26_sft — Process v2
+### Q26_sft — Process评测
 
 有效证据覆盖：33.33%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2581,7 +2581,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q27
 
-### Q27_base — Process v2
+### Q27_base — Process评测
 
 有效证据覆盖：75.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -2626,7 +2626,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q27_sft — Process v2
+### Q27_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：True；Process终止：model_contract_failure；Final：not_started。
@@ -2678,7 +2678,7 @@ Process硬失败：True；Process终止：model_contract_failure；Final：not_s
 
 ## Q28
 
-### Q28_base — Process v2
+### Q28_base — Process评测
 
 有效证据覆盖：75.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -2724,7 +2724,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q28_sft — Process v2
+### Q28_sft — Process评测
 
 有效证据覆盖：100.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2775,7 +2775,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q29
 
-### Q29_base — Process v2
+### Q29_base — Process评测
 
 有效证据覆盖：33.33%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -2826,7 +2826,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q29_sft — Process v2
+### Q29_sft — Process评测
 
 有效证据覆盖：100.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2876,7 +2876,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q30
 
-### Q30_base — Process v2
+### Q30_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -2925,7 +2925,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q30_sft — Process v2
+### Q30_sft — Process评测
 
 有效证据覆盖：75.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -2978,7 +2978,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q31
 
-### Q31_base — Process v2
+### Q31_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：50.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -3031,7 +3031,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q31_sft — Process v2
+### Q31_sft — Process评测
 
 有效证据覆盖：87.50%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3086,7 +3086,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q32
 
-### Q32_base — Process v2
+### Q32_base — Process评测
 
 有效证据覆盖：66.67%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3133,7 +3133,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q32_sft — Process v2
+### Q32_sft — Process评测
 
 有效证据覆盖：83.33%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3184,7 +3184,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q33
 
-### Q33_base — Process v2
+### Q33_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -3230,7 +3230,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q33_sft — Process v2
+### Q33_sft — Process评测
 
 有效证据覆盖：33.33%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3281,7 +3281,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q34
 
-### Q34_base — Process v2
+### Q34_base — Process评测
 
 有效证据覆盖：33.33%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:no_readable_sources；Final：complete。
@@ -3328,7 +3328,7 @@ Process硬失败：False；Process终止：policy_stop:no_readable_sources；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q34_sft — Process v2
+### Q34_sft — Process评测
 
 有效证据覆盖：33.33%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3384,7 +3384,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q35
 
-### Q35_base — Process v2
+### Q35_base — Process评测
 
 有效证据覆盖：25.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -3438,7 +3438,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q35_sft — Process v2
+### Q35_sft — Process评测
 
 有效证据覆盖：8.33%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3496,7 +3496,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q36
 
-### Q36_base — Process v2
+### Q36_base — Process评测
 
 有效证据覆盖：100.00%；State忠实度：50.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -3547,7 +3547,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q36_sft — Process v2
+### Q36_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3598,7 +3598,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q37
 
-### Q37_base — Process v2
+### Q37_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:no_readable_sources；Final：complete。
@@ -3643,7 +3643,7 @@ Process硬失败：False；Process终止：policy_stop:no_readable_sources；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q37_sft — Process v2
+### Q37_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3695,7 +3695,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q38
 
-### Q38_base — Process v2
+### Q38_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3747,7 +3747,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q38_sft — Process v2
+### Q38_sft — Process评测
 
 有效证据覆盖：12.50%；State忠实度：50.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3805,7 +3805,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q39
 
-### Q39_base — Process v2
+### Q39_base — Process评测
 
 有效证据覆盖：83.33%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -3858,7 +3858,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q39_sft — Process v2
+### Q39_sft — Process评测
 
 有效证据覆盖：100.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -3912,7 +3912,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q40
 
-### Q40_base — Process v2
+### Q40_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：True；Process终止：model_contract_failure；Final：not_started。
@@ -3963,7 +3963,7 @@ Process硬失败：True；Process终止：model_contract_failure；Final：not_s
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q40_sft — Process v2
+### Q40_sft — Process评测
 
 有效证据覆盖：0.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4014,7 +4014,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q41
 
-### Q41_base — Process v2
+### Q41_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:no_readable_sources；Final：complete。
@@ -4059,7 +4059,7 @@ Process硬失败：False；Process终止：policy_stop:no_readable_sources；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q41_sft — Process v2
+### Q41_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4113,7 +4113,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q42
 
-### Q42_base — Process v2
+### Q42_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：True；Process终止：model_contract_failure；Final：not_started。
@@ -4164,7 +4164,7 @@ Process硬失败：True；Process终止：model_contract_failure；Final：not_s
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q42_sft — Process v2
+### Q42_sft — Process评测
 
 有效证据覆盖：66.67%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4216,7 +4216,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q43
 
-### Q43_base — Process v2
+### Q43_base — Process评测
 
 有效证据覆盖：100.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -4263,7 +4263,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q43_sft — Process v2
+### Q43_sft — Process评测
 
 有效证据覆盖：100.00%；State忠实度：66.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4311,7 +4311,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q44
 
-### Q44_base — Process v2
+### Q44_base — Process评测
 
 有效证据覆盖：66.67%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4358,7 +4358,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q44_sft — Process v2
+### Q44_sft — Process评测
 
 有效证据覆盖：66.67%；State忠实度：50.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4409,7 +4409,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q45
 
-### Q45_base — Process v2
+### Q45_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -4461,7 +4461,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q45_sft — Process v2
+### Q45_sft — Process评测
 
 有效证据覆盖：75.00%；State忠实度：16.67%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4510,7 +4510,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q46
 
-### Q46_base — Process v2
+### Q46_base — Process评测
 
 有效证据覆盖：50.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4556,7 +4556,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q46_sft — Process v2
+### Q46_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4605,7 +4605,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q47
 
-### Q47_base — Process v2
+### Q47_base — Process评测
 
 有效证据覆盖：75.00%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -4652,7 +4652,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q47_sft — Process v2
+### Q47_sft — Process评测
 
 有效证据覆盖：100.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4701,7 +4701,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q48
 
-### Q48_base — Process v2
+### Q48_base — Process评测
 
 有效证据覆盖：66.67%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:sufficient；Final：complete。
@@ -4748,7 +4748,7 @@ Process硬失败：False；Process终止：policy_stop:sufficient；Final：comp
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q48_sft — Process v2
+### Q48_sft — Process评测
 
 有效证据覆盖：50.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4803,7 +4803,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q49
 
-### Q49_base — Process v2
+### Q49_base — Process评测
 
 有效证据覆盖：0.00%；State忠实度：N/O（N/O=无已接受State调用，不填0）。
 Process硬失败：True；Process终止：model_contract_failure；Final：not_started。
@@ -4855,7 +4855,7 @@ Process硬失败：True；Process终止：model_contract_failure；Final：not_s
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q49_sft — Process v2
+### Q49_sft — Process评测
 
 有效证据覆盖：37.50%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：runtime_budget_exhausted；Final：complete。
@@ -4907,7 +4907,7 @@ Process硬失败：False；Process终止：runtime_budget_exhausted；Final：co
 
 ## Q50
 
-### Q50_base — Process v2
+### Q50_base — Process评测
 
 有效证据覆盖：12.50%；State忠实度：100.00%（N/O=无已接受State调用，不填0）。
 Process硬失败：False；Process终止：policy_stop:diminishing_returns；Final：complete。
@@ -4959,7 +4959,7 @@ Process硬失败：False；Process终止：policy_stop:diminishing_returns；Fin
 
 本分数为对提供文本的暂定离线审核，不是临床安全认证。
 
-### Q50_sft — Process v2
+### Q50_sft — Process评测
 
 有效证据覆盖：25.00%；State忠实度：83.33%（N/O=无已接受State调用，不填0）。
 Process硬失败：True；Process终止：model_contract_failure；Final：not_started。
