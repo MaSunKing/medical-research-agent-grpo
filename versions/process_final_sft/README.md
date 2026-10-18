@@ -4,17 +4,18 @@
 
 ## 已完成评测：原始972 Process-SFT · Latest50
 
-本次比较 **Base全流程** 与 **原始972 Process-SFT + 同一个Base Final**，共50题、100条轨迹。SFT使用原始972训练的checkpoint1322，不是recovery157/recovery100加强版，也未使用Final-SFT。此处是独立已完成批次，不是下文700题、38题开发或20题四组计划的结果；运行身份以本次归档为准，不套用下文旧批次参数。
+本次比较 **Base全流程** 与 **原始972 Process-SFT + 同一个Base Final**，共50题、100条轨迹。SFT使用原始972训练的checkpoint1322。本节仅报告本次运行，身份与参数以冻结归档为准。
 
 | 评测层次 | 指标与分母 | Base | Process-SFT + Base Final |
 |---|---|---:|---:|
 | Process | 有效证据覆盖均分，各50题，含失败 | 43.75% | **53.83%** |
-| Process | State忠实度，共同可观察39题 | **81.20%** | 69.66% |
+| Process | 有效信息覆盖胜出题数，另14题相当 | 11 | **25** |
+| 行为背景 | 被接受State调用数，非质量分 | 83 | 169 |
 | 工程 | Process硬失败，各50条 | 6 | **2** |
 | HealthBench-style答案 | 共同有评分40题的均分 | **7.23%** | 5.96% |
 | 答案评分覆盖 | 全部50题 | 43/50 | 46/50 |
 
-Process不因链路更长直接扣分，而是看新增证据是否真正覆盖问题、State是否忠实。SFT取得更多有效证据、硬失败更少，但State忠实度与本次答案均分未同步改善；不合并成一个总分，也不据此断言泛化优劣。Process为非盲离线暂定审核；答案采用Qwen3.7-max替代裁判，非医学准确率或官方HealthBench榜单。
+Process不因链路更长直接扣分，而是看新增证据是否真正覆盖问题。SFT更常带来有效信息、硬失败更少，但本次答案均分未同步提升。State更新次数和信息负荷不同，不能以累计重复/错误数判断优劣；最终State量表仅作诊断，逐断言及更新机会归一的比较尚未完成。不合并成一个总分，也不据此断言泛化优劣。Process为非盲离线暂定审核；答案采用Qwen3.7-max替代裁判，非医学准确率或官方HealthBench榜单。
 
 **完整Process评测：[全部100条Process重评 v2](process_review_v2/README.md)**，包含评分规则、全50题配对表、全部100条逐项评分和具体问题记录。**答案评测：[HealthBench 50题明细](latest50_evaluation.md#3-healthbench-style答案评分)**，与Process分开报告。
 
@@ -98,20 +99,9 @@ M &= \sum_{i=1}^{N}\sum_{t\in T_i}w_{it}.
 
 这是按整个epoch的加权token量固定缩放，不是每条短Decision与长State先取均值后同权；阶段影响由target长度与span权重决定。最后不足8条按实际batch大小结算。Smoke中的单条token-mean loss与正式训练口径分别记录。
 
-### 38题Process开发对照
+### Process开发评测方法
 
-38题用于比较Base Process与Process-SFT真实工具轨迹。共用最新检索、英文Prompt、预算、题目和matched seed，Process温度1；审核Checklist、Query、Evidence、State、Stop与工程格式，不用Final写作差异替代Process质量。
-
-过程观察的能力特点：
-
-| 方面 | Base常见薄弱点 | Process-SFT的优势方向 |
-|---|---|---|
-| Search规划 | 单次搜索后补证不足；Query与缺口衔接弱 | 更多轮次围绕State缺口补充搜索 |
-| 知识来源 | 来源集中，遗漏指南、研究或补充材料 | 获取更丰富的来源与内容 |
-| 工具协议 | 无效动作、重复读取与格式拒绝 | 更遵守来源ID、动作格式和工程约束 |
-| 状态与后续动作 | 未解决需求不充分推动下一步 | 利用State变化指导补证和停止 |
-
-这些是过程层面的观察与待验证重点，不代表每题SFT胜出，也不推出Final必然更好。仍须检查Query漂移、证据无关、State高估和停止时机；本页不展示旧测试记录或将其作为38题的分数。
+在同题、matched seed、相同检索与工具预算下比较Base与Process-SFT，检查实际证据覆盖、State事实与绑定、缺口更新和停止行为。更新次数与链路长度单列，不作为质量扣分；不以Final写作差异代替Process质量。已完成结果统一见上方本次50题评测。
 
 ## Pre-Final与Final-SFT
 

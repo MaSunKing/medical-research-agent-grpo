@@ -1,6 +1,13 @@
 {
   "version": 2,
   "review_status": "COMPLETE_PROVISIONAL",
+  "state_interpretation_revision": {
+    "existing_scores": "Retained final-State ordinal diagnostics, not per-call accuracy or semantic repetition rates",
+    "exposure_file": "STATE_EXPOSURE.json",
+    "accepted_state_calls": {"base": 83, "sft": 169},
+    "information_load_adjusted_ranking": null,
+    "limitation": "Different update exposure and evidence loads; per-claim and new-evidence-opportunity re-annotation not completed; do not infer State ability ranking from aggregate counts or these diagnostics alone"
+  },
   "questions": 50,
   "trajectories": 100,
   "scope": "all available latest attempts, including Process/Final failures and ungraded cases",

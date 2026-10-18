@@ -1,0 +1,725 @@
+{
+  "scope": "All 50 questions per arm, including failed trajectories",
+  "unit": "Accepted State model calls, including accepted empty updates; not individual requirement updates",
+  "interpretation": "Exposure only, not a quality score or an error-rate denominator",
+  "state_semantic_repetition_rate": null,
+  "unresolved": "Per-claim correctness and new-evidence update opportunities have not been re-annotated",
+  "groups": {
+    "base": {
+      "trajectories": 50,
+      "accepted_state_calls": 83,
+      "accepted_calls_per_trajectory_mean": 1.66,
+      "accepted_calls_per_trajectory_median": 2.0,
+      "trajectories_with_accepted_state": 43
+    },
+    "sft": {
+      "trajectories": 50,
+      "accepted_state_calls": 169,
+      "accepted_calls_per_trajectory_mean": 3.38,
+      "accepted_calls_per_trajectory_median": 4.0,
+      "trajectories_with_accepted_state": 45
+    }
+  },
+  "trajectories": [
+    {
+      "id": "Q01_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "b274f12b4ce9e59b01ea7314b4138112895f656c56458b6b3b6da7f00d96263e"
+    },
+    {
+      "id": "Q01_sft",
+      "arm": "sft",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "5801ad161c07c1af5fdc37844f49ce40e4c43920e88b61450064d42f237a2864"
+    },
+    {
+      "id": "Q02_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "99a56fed9570049ed98531d5b3def61fefaa956ec2074100cb1e05a4628d6832"
+    },
+    {
+      "id": "Q02_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "90f90c2ef229922edda0e2d60ae429417b195b873fcc08ae5e5a0ef0d8e3f77e"
+    },
+    {
+      "id": "Q03_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "3d516234a3a15ed87d641c621f3e5f915abc68c3724dbb135edb9adde1d74743"
+    },
+    {
+      "id": "Q03_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "d98b9dedd54e6f438b682b2fe1779ce7317462cafd54265379bdac3d98db88f9"
+    },
+    {
+      "id": "Q04_base",
+      "arm": "base",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "2d08259d8fe2fe8016466c913ee84e892882904d2ea9e5ce26d484a730aa99c5"
+    },
+    {
+      "id": "Q04_sft",
+      "arm": "sft",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "7255c0c61074f077cecb3989e75846414f07fe929088678a2af661f4ed3baf07"
+    },
+    {
+      "id": "Q05_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "30ac435beed30cc505d8870f84df2714f4ec607cebc09dd5f4eb98b7ce49bf43"
+    },
+    {
+      "id": "Q05_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "618e2da476aecdc9b008fbcb5737e71d01a4a6b01cada09d86117fb18f634511"
+    },
+    {
+      "id": "Q06_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "441990d3e634b9f12bb3ad3d4de80746d5ac8af34eced15ff5f0790c9fe1a049"
+    },
+    {
+      "id": "Q06_sft",
+      "arm": "sft",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "08e375ce63e47d6179f4c9de1c45b06261b3e7e00f7633d636691be62548a331"
+    },
+    {
+      "id": "Q07_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "d692ff7f9313f2cc8eb75cff5b780d62fe0b2c73cd9c16fdfe75caa912407cc0"
+    },
+    {
+      "id": "Q07_sft",
+      "arm": "sft",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "4b10e9dbce9c994e9d381dbccde314aa10b03cd572106cf3794dcc16b8123dc7"
+    },
+    {
+      "id": "Q08_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "d208702cce38c59df9b393abf65b6b87f4aee830156e81e730db4c0875ba01a7"
+    },
+    {
+      "id": "Q08_sft",
+      "arm": "sft",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "1e1bbc28638c9788e9efda07301f625121f5e5ba68c1f4cfd48bc3d33c306444"
+    },
+    {
+      "id": "Q09_base",
+      "arm": "base",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "e781b0fcfe30fa588d9174eeb0f1cecee738549483173a132c73e1f62b665056"
+    },
+    {
+      "id": "Q09_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "3a2656b9e48d475cc8c651af81996e32644786b9467573d1bb2f36525adaa0e7"
+    },
+    {
+      "id": "Q10_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "8ca191df30c0365780950bf046adb79d4511fb8bd94853200184792d74df20d5"
+    },
+    {
+      "id": "Q10_sft",
+      "arm": "sft",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "cfb3a3b05e3bb669bb2fa187f1805ed126fab43494b8cf6076281c646d742511"
+    },
+    {
+      "id": "Q11_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "7193b22cdce42aa64de22c1339c922852b683af84481fcf92c62e4c80dec8373"
+    },
+    {
+      "id": "Q11_sft",
+      "arm": "sft",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "5514d1ac1d1bbcb68c631a1c59e4af2e01907f439e181bb653e81858ea8830db"
+    },
+    {
+      "id": "Q12_base",
+      "arm": "base",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "8262a38ade00ce65485cee4b27b5d2c2ec3f4cf4d51fb091d7830e2d4d44658f"
+    },
+    {
+      "id": "Q12_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "2bd396d8f46098ca6881fd5f63d8c3e9fa14305589c5e9a3f68a6d15f07889f8"
+    },
+    {
+      "id": "Q13_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "9f4c545f2db3e7f3944ee1d0154353664d597c724dd2d3c4fdbeb97680c17b51"
+    },
+    {
+      "id": "Q13_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "aa102fa3d01eed4ea58b94b57dbd2244c1019be150eb0c9b14a355297b47dff0"
+    },
+    {
+      "id": "Q14_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "f933e972f9350068a401f9029ce578a83df05d2238d59909167e198c9dfd33ef"
+    },
+    {
+      "id": "Q14_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "d30723d22c5c08fbbcc21e6c437d84e7451c81f402e0a744eef9439a434c25be"
+    },
+    {
+      "id": "Q15_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "df7be7b8c0a412eef346367311cf3087c066ffce6f944e1c417d68ea1d2ddf73"
+    },
+    {
+      "id": "Q15_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "4fd6c935b6b7f1c9b44f6f5aad6cf63ae5a9e0934d496a32023f7a6cb9e22665"
+    },
+    {
+      "id": "Q16_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "be157d35019faf3fdb3a54d579145b3fd7028614221a4ae613be684c2336bf47"
+    },
+    {
+      "id": "Q16_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "77d3b7913508a56d794dcd1a66657634bacd37391d8bc5db968396150196245c"
+    },
+    {
+      "id": "Q17_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "8dc53e4a7cf2890bca1ca5150c915801912c32a0f74774b452e0711a35adda84"
+    },
+    {
+      "id": "Q17_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "ddc3f9bf7e8b9f1b01ea3f0cd3d9aec1cc44e4e300f109ccb71f98ae00b5215b"
+    },
+    {
+      "id": "Q18_base",
+      "arm": "base",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "b6dce89a87a6c3491673bc17cf102afeb2ac54aa4ec6c0fbebed254ec2b60dda"
+    },
+    {
+      "id": "Q18_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "720434a39b87f5b8d8b6cc5a5d1d35833fa945de5b0cb4f580723de9e25be59c"
+    },
+    {
+      "id": "Q19_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "9eb5efd1cd8bfe3e51d209c36f099954de36ba3125c577b608d0144742bef3a9"
+    },
+    {
+      "id": "Q19_sft",
+      "arm": "sft",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "da239d321e7004d195f21e23b218860434a03a546ca95316e70245d0fac8366c"
+    },
+    {
+      "id": "Q20_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "73f865f09da435adb3aaef8a66bb7ff7dae73e2de3c21275e1016d75f7cfce9a"
+    },
+    {
+      "id": "Q20_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "86fa38a889d0de6545c48a9fc0773d2ea821676f1f00847a64ef7ec89d1ec1cf"
+    },
+    {
+      "id": "Q21_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "5c5efcfb8e3ecefb4371f515a4caf8ceacd6e0274ca2a8153a3b4c2959e99229"
+    },
+    {
+      "id": "Q21_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "cf352128be43a909c135ec4890ac8aa8add5001ca93a9aece39a659be8b11002"
+    },
+    {
+      "id": "Q22_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "ffc7e4dac982239750876b3dc618b3f336c16c25fcf1b6292df402f647d02e42"
+    },
+    {
+      "id": "Q22_sft",
+      "arm": "sft",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "04f3acda0595d82729b9c59f878a2a8bd4a54b8ec9242a38dc4133c76dc3d7b5"
+    },
+    {
+      "id": "Q23_base",
+      "arm": "base",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "a85510ab788d58eab375a91bfab454e64c920b948395fa2b413f76f78f5c90e8"
+    },
+    {
+      "id": "Q23_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "237489530d028c2d43c82ea3414fec9ffa8a787e754326264dabc50f45be3cb9"
+    },
+    {
+      "id": "Q24_base",
+      "arm": "base",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "a53e17f6c55d6069b2f1950ebf50de7eec0dbaf036b1eec41f0bb596b2824277"
+    },
+    {
+      "id": "Q24_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "74417fea940ae4cf15616aac6f396e210fa33c2c2a20a1ebfaf88f533142b307"
+    },
+    {
+      "id": "Q25_base",
+      "arm": "base",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "96688b774f71ea053593071409471c80c7c963f57e6018239c6a6bff4bfca045"
+    },
+    {
+      "id": "Q25_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "0cfb022bf82a89ab9d4693cf083ce276efdf49cb09e6befb4c7b629421007b84"
+    },
+    {
+      "id": "Q26_base",
+      "arm": "base",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "fd87cd1847d42a4da37c4d9b9a3812eb2fa54e3e8beded8acafeda99b991a0b2"
+    },
+    {
+      "id": "Q26_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "088598785b674b1b8e87e68137904db141f24a795ac251c780f3f319ea3c153b"
+    },
+    {
+      "id": "Q27_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "75e85a7c2abb8d9a20bf9b7beccf2b79386a24cc0d1b8ad768a700bd2bf4007e"
+    },
+    {
+      "id": "Q27_sft",
+      "arm": "sft",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "b6bcb4f4c3d55613d6e775a847cd7589ac8c5d88a7ebb17d10b6a0ee9186f8cf"
+    },
+    {
+      "id": "Q28_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "bcce5e0c20cb55f52fcfe9adb7bf724538d2ecd324b851e7c6b4479cf049a5c5"
+    },
+    {
+      "id": "Q28_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "50be2810732934bcc876f3a96aeefedb602bc1fb5a01e8796bd5c838d5dab797"
+    },
+    {
+      "id": "Q29_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "8cbfc3da086354b98b4985431e28b981edd79166dcab64ea366fc75090f4116d"
+    },
+    {
+      "id": "Q29_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "1e0e3b13659bf06aaa0c4137b99022aa4d2ae77489f1e08df4b2786f1c22f9c8"
+    },
+    {
+      "id": "Q30_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "778244e18a1ea8dcef891b2820b32a3f95c52cf421024480aed6b7e5ca3f3da5"
+    },
+    {
+      "id": "Q30_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "ec805bec7fe5bf5507c6306fb2ecab991ff314993384ec2981e20970d76fdf4c"
+    },
+    {
+      "id": "Q31_base",
+      "arm": "base",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "d6dca7b06fa9989e34f754159c7a2b7875eb92ca544d7ac162c25c13b4cfe9ac"
+    },
+    {
+      "id": "Q31_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "06676d337405161eb1e3540dbccd99a03b3151f0688e19a82c756c8642a6b9c1"
+    },
+    {
+      "id": "Q32_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "354eb60362902a464c7332f112ac648fd2c81cb0ad53826e9a7a0c9bb88da4bc"
+    },
+    {
+      "id": "Q32_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "1875ee999ea83e5802cee364f5dad70e7a572c6b59123076ee542336ebb826c4"
+    },
+    {
+      "id": "Q33_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "fea7b49fb17452a743e4dc7ecd7993564ee4884773f1021e54586f0bfa5b953c"
+    },
+    {
+      "id": "Q33_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "6074843f59db3b8fa6a14f367db1091501ee9e1ef93dc814cbf0483e3322fc40"
+    },
+    {
+      "id": "Q34_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "52edbfddf13831ef1ac3c8062454cf5cd772496455627f48911242e306180409"
+    },
+    {
+      "id": "Q34_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "3a62c40d5920c3e1d363f512d96e64a3f5fe5e3dce1399addad944299da73ca3"
+    },
+    {
+      "id": "Q35_base",
+      "arm": "base",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "5f07dbafc2ac2f469468c3dcc19967903101316bc8ab532960bd9d51eacb1b01"
+    },
+    {
+      "id": "Q35_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "92b8b8d188f10dca43090abd6cabe1e26412222bea1c4be92cc6efc6b825df03"
+    },
+    {
+      "id": "Q36_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "e56edf1e7b881814d5ab9613284ca0175addbf79fa5c2387d976b45093591af7"
+    },
+    {
+      "id": "Q36_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "aafe640563058bf8336391eac64f4d87d0775db014c6917cdc70deaa721997b7"
+    },
+    {
+      "id": "Q37_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "4d7cc2698675c01522f94d1c1b91b63fcc6160a51d70669b0aedec5cc79b6bcc"
+    },
+    {
+      "id": "Q37_sft",
+      "arm": "sft",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "2475fd0b6180360d1eb5f993ba08462a14b7d347a73e11fe9691365fe9d0f138"
+    },
+    {
+      "id": "Q38_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "32d9ef95cc9fb3a2fad8a1b17d866c800081fa4eac561c5bb83baa971602b699"
+    },
+    {
+      "id": "Q38_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "6705fadc4fad963e5ebecaeebe5d76e1e63094a77adfdfa33e32a47725421e04"
+    },
+    {
+      "id": "Q39_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "b6609f87e0fe3391310d596120836bbf9f837c19751fb059c38b7566a2002d33"
+    },
+    {
+      "id": "Q39_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "026ae027aa83f91b5616a6381e86ef64cef9b18f5bc927b21289b62dc4d55113"
+    },
+    {
+      "id": "Q40_base",
+      "arm": "base",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 2,
+      "dossier_sha256": "f76426f443aac1af575da6e0692fa62196efe4229f31da306caf8c63436409fb"
+    },
+    {
+      "id": "Q40_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "bbf25e5091f73716c7c4b5f6efb1794cfd99d9fa21e9eba057966bf7b7e3998c"
+    },
+    {
+      "id": "Q41_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "783f42b05742383ca461d9ea3cb3ee54a716f1f0aaad8fb3c455113e3a128b32"
+    },
+    {
+      "id": "Q41_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "8da4ac5c096f8cc379dc624f0b75f81433c609d82a6a26d8cbce12d3239e696a"
+    },
+    {
+      "id": "Q42_base",
+      "arm": "base",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 2,
+      "dossier_sha256": "36d48ce0c6629157e774eaf0ef1123cc61eb76b49e732cb364054c5a53bf8154"
+    },
+    {
+      "id": "Q42_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "6d45917c95866bd8d2b70c063fd46b058b13c660f30e87d3f5e54168a1270a69"
+    },
+    {
+      "id": "Q43_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "5647394af52c01fe56820ea73f4dbb9da9d69fb7e9dfa5954c878e7d1674d611"
+    },
+    {
+      "id": "Q43_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "43cc8b902d5b08232567dacd6dc9816c604ecd52bd89cef2de5d90b5de7864e8"
+    },
+    {
+      "id": "Q44_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "ab5d8525471fd7a3b974d72fd09bb4244b614fa2fd9e34bd5921a7396ae9d1e6"
+    },
+    {
+      "id": "Q44_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "52e1e794bd2192488aa68a90cdbf845c398526fbfca7a536b3818c6b7b469c92"
+    },
+    {
+      "id": "Q45_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "2c91df0d50c6c023438d3af3f3e41f3f8a13257e9e622a7fab53262ecaac3541"
+    },
+    {
+      "id": "Q45_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "dc25c38c25525120d4dbedbd2e5e46314721b301a123dd126488747752eb54ec"
+    },
+    {
+      "id": "Q46_base",
+      "arm": "base",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "96b3fd6bac259990b46c8111ab6ab01c8f893620a417600e357503ac4e311404"
+    },
+    {
+      "id": "Q46_sft",
+      "arm": "sft",
+      "accepted_state_calls": 4,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "cd09b998f2411b9c4e169fc8506bf288ff2d014f40668a8950899599fa774e28"
+    },
+    {
+      "id": "Q47_base",
+      "arm": "base",
+      "accepted_state_calls": 2,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "a5531d68daab97a8c34203c49ef7369d0d26e2dd01c029bd72b995b4bcba0e44"
+    },
+    {
+      "id": "Q47_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "b5e34f81ef38b28785f75650f48840d3d68e5ea4000f738e9e23ac800a67ef7a"
+    },
+    {
+      "id": "Q48_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "bf6d47692ba65e6468183d6a30141400d3b33f46d8336944c9c5b37e371c7a4a"
+    },
+    {
+      "id": "Q48_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "4cc740dfb9956b14f354e0553b7771e18a49e586378201a0a1be0fa1893d4b19"
+    },
+    {
+      "id": "Q49_base",
+      "arm": "base",
+      "accepted_state_calls": 0,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "af522f7fe0e7cfe99d04d54463cc1af3402c90e26468d24bc6714ce26171707c"
+    },
+    {
+      "id": "Q49_sft",
+      "arm": "sft",
+      "accepted_state_calls": 5,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "03801c4ed06ccb553fffb9a1fea2d732cbabdad8092ab8b621e889f71746870b"
+    },
+    {
+      "id": "Q50_base",
+      "arm": "base",
+      "accepted_state_calls": 1,
+      "rejected_state_generations": 1,
+      "dossier_sha256": "5f85ceab733ef482e0bb34068307bb956ff17ad964c972f5d69e8e915cbd8a42"
+    },
+    {
+      "id": "Q50_sft",
+      "arm": "sft",
+      "accepted_state_calls": 3,
+      "rejected_state_generations": 0,
+      "dossier_sha256": "193f918a62436d209fbdc9f70bbf6558fde1293262fa0ed594bfa79004f20d28"
+    }
+  ]
+}
