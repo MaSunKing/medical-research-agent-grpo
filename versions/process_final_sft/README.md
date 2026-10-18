@@ -1,6 +1,6 @@
 # 版本三：Process-SFT + Final-SFT
 
-[返回首页](../../README.md) · **[最新50题评测结果](latest50_evaluation.md)** · [评测与四组消融计划](evaluation.md) · [GRPO算法计划](grpo.md)
+[返回首页](../../README.md) · **[全部100条Process重评 v2](process_review_v2/README.md)** · [HealthBench答案评分](latest50_evaluation.md#3-healthbench-style答案评分) · [评测与四组消融计划](evaluation.md) · [GRPO算法计划](grpo.md)
 
 ## 已完成评测：原始972 Process-SFT · Latest50
 
@@ -14,7 +14,9 @@
 | HealthBench-style答案 | 共同有评分40题的均分 | **7.23%** | 5.96% |
 | 答案评分覆盖 | 全部50题 | 43/50 | 46/50 |
 
-Process不因链路更长直接扣分，而是看新增证据是否真正覆盖问题、State是否忠实。SFT取得更多有效证据、硬失败更少，但State忠实度与本次答案均分未同步改善；不合并成一个总分，也不据此断言泛化优劣。Process为非盲离线暂定审核；答案采用Qwen3.7-max替代裁判，非医学准确率或官方HealthBench榜单。完整口径、失败记录与50题答案分见 **[本次评测明细](latest50_evaluation.md)**。
+Process不因链路更长直接扣分，而是看新增证据是否真正覆盖问题、State是否忠实。SFT取得更多有效证据、硬失败更少，但State忠实度与本次答案均分未同步改善；不合并成一个总分，也不据此断言泛化优劣。Process为非盲离线暂定审核；答案采用Qwen3.7-max替代裁判，非医学准确率或官方HealthBench榜单。
+
+**完整Process评测：[全部100条Process重评 v2](process_review_v2/README.md)**，包含评分规则、全50题配对表、全部100条逐项评分和具体问题记录。**答案评测：[HealthBench 50题明细](latest50_evaluation.md#3-healthbench-style答案评分)**，与Process分开报告。
 
 ## 原有训练说明与后续计划
 
