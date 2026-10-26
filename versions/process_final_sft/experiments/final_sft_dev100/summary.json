@@ -1,0 +1,110 @@
+{
+  "schema": "public_final_sft_dev100_summary_v1",
+  "questions": 100,
+  "records": 400,
+  "weights": {
+    "evidence_use": 40,
+    "question_relevance": 30,
+    "faithfulness": 20,
+    "uncertainty": 10
+  },
+  "common_valid_n": 97,
+  "checkpoints": {
+    "base": {
+      "reviewed": 100,
+      "status_counts": {
+        "complete": 100
+      },
+      "accepted_mean": 76.6917,
+      "common_valid_mean": 77.0619,
+      "common_valid_dimension_means": {
+        "evidence_use": 2.8969,
+        "question_relevance": 3.701,
+        "faithfulness": 2.6804,
+        "uncertainty": 2.7732
+      },
+      "accepted_answers_with_major_issue": 26
+    },
+    "epoch1": {
+      "reviewed": 100,
+      "status_counts": {
+        "complete": 98,
+        "final_failure": 2
+      },
+      "accepted_mean": 58.2143,
+      "common_valid_mean": 58.4021,
+      "common_valid_dimension_means": {
+        "evidence_use": 2.2268,
+        "question_relevance": 3.0928,
+        "faithfulness": 1.4433,
+        "uncertainty": 2.2887
+      },
+      "accepted_answers_with_major_issue": 63
+    },
+    "epoch1_5": {
+      "reviewed": 100,
+      "status_counts": {
+        "complete": 98,
+        "final_failure": 2
+      },
+      "accepted_mean": 61.8367,
+      "common_valid_mean": 61.5722,
+      "common_valid_dimension_means": {
+        "evidence_use": 2.3711,
+        "question_relevance": 3.1959,
+        "faithfulness": 1.567,
+        "uncertainty": 2.4227
+      },
+      "accepted_answers_with_major_issue": 51
+    },
+    "epoch2": {
+      "reviewed": 100,
+      "status_counts": {
+        "complete": 99,
+        "final_failure": 1
+      },
+      "accepted_mean": 66.0606,
+      "common_valid_mean": 65.9794,
+      "common_valid_dimension_means": {
+        "evidence_use": 2.5567,
+        "question_relevance": 3.4227,
+        "faithfulness": 1.6598,
+        "uncertainty": 2.5773
+      },
+      "accepted_answers_with_major_issue": 53
+    }
+  },
+  "base_paired": {
+    "epoch1": {
+      "n": 98,
+      "sft_minus_base_mean": -18.4694,
+      "base_wins": 81,
+      "ties": 4,
+      "sft_wins": 13
+    },
+    "epoch1_5": {
+      "n": 98,
+      "sft_minus_base_mean": -15.2041,
+      "base_wins": 70,
+      "ties": 8,
+      "sft_wins": 20
+    },
+    "epoch2": {
+      "n": 99,
+      "sft_minus_base_mean": -10.6061,
+      "base_wins": 64,
+      "ties": 9,
+      "sft_wins": 26
+    }
+  },
+  "review_limits": [
+    "Base was evaluated separately after the original blinded SFT300 review, not simultaneous four-way blinding.",
+    "Original SFT300 scores remain unchanged; topic ranges reuse the same reviewers.",
+    "Assistant assessment of supplied evidence, not independent human clinical certification.",
+    "One generated candidate per input/model plus original bounded repair; no run-to-run variance estimate.",
+    "No external medical retrieval or paid judge. These are not official HealthBench scores.",
+    "Conditional complete-only means exclude failed answers; failures retained separately, not imputed zero.",
+    "Zero-evidence inputs have an inapplicable evidence-use dimension and are reported separately."
+  ],
+  "source_reviews_sha256": "dd3baff76285a78e36aafbb70992920dac92d4b02d01cf1b3a4a9c961193a8ee"
+}

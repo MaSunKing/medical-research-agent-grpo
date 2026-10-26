@@ -1,3 +1,7 @@
+# 评测计划与已完成结果的边界
+
+已完成的旧50题四组开发对照见[最新结果与逐题记录](experiments/process_grpo_20261026/README.md)，固定输入dev100 Final对照见[Final-SFT与Base](experiments/final_sft_dev100/README.md)。下面保留原先四组消融计划，不能将其视作已经执行的同配置独立测试。
+
 # 评测与消融方案
 
 ## 两类对照不要混淆

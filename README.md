@@ -4,7 +4,7 @@
 
 项目关注的不只是“搜到一个相关标题”，而是 **读到了什么、解决了哪个需求、还有什么没有证实**。用于研究，不替代临床判断。
 
-**当前主线：Process-SFT获取证据 → 冻结Pre-Final → 构建并训练独立Final → 双模块评测 → 固定Final优化Process。** 前半段已有实现与运行记录；Final金标、独立Final训练及后续GRPO按阶段推进，不将计划写成已完成能力。
+**当前主线：Process-SFT获取证据 → 独立Final-SFT对照 → 冻结Base Final → Process-GRPO → 分开评测证据交付和最终答案。** 已完成一轮GRPO的13/25批checkpoint评测，见[版本三实验与逐题结果](versions/process_final_sft/experiments/process_grpo_20261026/README.md)；Final-SFT暂未胜过Base，见[dev100四组对照](versions/process_final_sft/experiments/final_sft_dev100/README.md)。
 
 ## 当前主线与历史探索
 
@@ -40,7 +40,8 @@
 | Base Process | Qwen3-8B / 4-bit NF4，无项目 LoRA；执行 Checklist / Decision / State / Stop |
 | Base Final | 同一4-bit NF4基座，无项目 LoRA；冻结后综合Pre-Final，不是更大的替代模型 |
 | Process-SFT | 同一4-bit NF4基座 + 原始972 Process LoRA checkpoint1322；不训练Final target |
-| Final-SFT（后续） | 同基座 + 独立Final LoRA；只训练证据到答案的completion，不表示当前已训练 |
+| Final-SFT（已对照） | 同基座 + 独立Final LoRA，已训练1/1.5/2轮；dev100未胜Base，本轮GRPO不采用 |
+| Process-GRPO | 从原972 SFT继续，只更新Process LoRA；保留13/25批，Final固定Base |
 | 压缩兜底 | 同基座禁用Process LoRA，独立无状态请求；不另设自主检索Agent |
 | Teacher / Grader | Process teacher、后续Final金标审核者与Qwen替代裁判分别登记；不混入Base对照 |
 
@@ -90,9 +91,9 @@ flowchart TB
 
 当前是一个模型策略循环，由LangGraph节点编排、MCP工具执行，属于ReAct式“决策—工具反馈—再决策”，不是多个模型轮流自主检索。程序不代替模型判断医学支持程度，也不要求预算内必须把每项都判成direct。
 
-完整问答模式已支持Base Final；**当前训练数据采集模式只运行到冻结Pre-Final，不调用Final**。后续训练的Final LoRA替换答案模块，不要求重新定义Process动作或证据协议。引用/语法核验不能代替医学质量审核。
+完整问答模式使用Base Final；Pre-final采集可在冻结输入处结束。本轮GRPO采集同时保存固定Base Final输出，但本地Process奖励评价的是实际交付材料与过程，Final不更新。独立Final-SFT已单独对照，未作为本轮答案模块；引用/语法核验不能代替医学质量审核。
 
-评测结果与模型选择理由单独见[Base/SFT评测报告](versions/process_final_sft/latest50_evaluation.md#选择process-sft作为后续训练起点的依据)；主页聚焦当前完整设计与训练路线。
+评测结果与模型选择理由见[Base / SFT / GRPO13 / GRPO25](versions/process_final_sft/experiments/process_grpo_20261026/README.md)及[Final-SFT与Base对照](versions/process_final_sft/experiments/final_sft_dev100/README.md)；主页展示完整设计，逐题分数和错误放在版本三评测中。
 
 ## 从当前模型继续训练的完整路线
 
@@ -101,22 +102,23 @@ flowchart TB
     Teacher[Teacher真实工具轨迹与阶段输出] --> PSFT[Process-SFT：已完成原始972训练]
     PSFT --> Gather[固定Process采集完整轨迹与Pre-Final]
     Gather --> Freeze[固定实际Final输入、证据映射与train/dev划分]
-    Freeze --> Candidates[后续：两位老师基于同一输入生成Final候选]
+    Freeze --> Candidates[两位老师基于同一输入生成Final候选]
     Candidates --> Review[按证据支持、覆盖、引用与安全边界审核]
     Review --> Hold[不合格留置，不强行进入训练]
     Review --> Gold[合格Final金标及可追溯输入]
-    Gold --> FSFT[后续：独立Final-SFT，仅监督答案completion]
-    FSFT --> Compare[同题消融：分离Process和Final收益]
-    Compare --> RL[后续：固定Final，以GRPO优化Process]
-    RL --> Independent[独立保留题上的整体评测]
+    Gold --> FSFT[独立Final-SFT：已比较1 / 1.5 / 2轮]
+    FSFT --> Compare[固定输入dev100：Base Final暂优]
+    Compare --> RL[固定Base Final：已完成一轮Process-GRPO]
+    RL --> Development[旧50题开发对照：13 / 25批checkpoint]
+    Development --> Independent[尚未执行：新独立题集同配置验证]
 ```
 
-1. **当前采集**：600题预先划分500 train / 100 dev，使用原始972 Process，保留全部成功、失败与质量留置记录；不在采集中生成Final或启动训练。
-2. **接下来制作Final金标**：每题两位老师读取同一冻结输入，生成候选并按证据审核；不是只挑更流畅的答案。修复输入后必须重新绑定候选，不能沿用不匹配的金标。
-3. **再训练与选择Final**：只用通过审核的train数据训练，用dev定位问题和选择checkpoint；不把预定500题自动视为500份合格样本。
-4. **再做整体优化**：先用同题消融确认Process/Final各自收益，再固定Final开展Process-GRPO；独立测试不参与金标制作、调参或checkpoint选择。
+1. **冻结输入**：600题预划500 train / 100 dev，用原972 Process采集并保留失败与质量问题；实际Final输入与完整存档分开核验。
+2. **制作金标并验证Final**：老师读取相同证据生成候选，使用指定gold训练独立Final LoRA；dev100对照中三个checkpoint均未超过Base Final，因此没有直接追加训练。
+3. **固定Base Final更新Process**：另100道训练题各采4条轨迹，本地审核实际交付与过程，99个可用题组完成25批离线GRPO更新。
+4. **分别评测内容与答案**：13/25批各重新运行旧50题，报告交付覆盖、State错误、完成率和HealthBench分。旧题用于开发，新独立题集验证尚未启动。
 
-这里只说明训练依赖与先后顺序，不新增学习率、轮次、开发题数或GRPO参数。具体计划仍见[版本三](versions/process_final_sft/README.md)、[评测计划](versions/process_final_sft/evaluation.md)和[GRPO计划](versions/process_final_sft/grpo.md)。
+这里展示已经执行的依赖与当前验证边界；完整参数、分数和后续设计见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO算法与后续设计](versions/process_final_sft/grpo.md)。
 
 ## 两条检索链路
 
@@ -221,10 +223,10 @@ W_0\ \text{frozen},\quad A,B\ \text{trainable}.
 \ell_{it}=-m_{it}\log\pi_\theta(y_{it}\mid x_i,y_{i,\lt t}).
 ```
 
-如何聚合这些CE项，以及阶段权重、GRPO优势与策略目标，分别见[单LoRA公式](versions/single_lora/README.md#sft与grpo公式)、[双LoRA计划公式](versions/dual_lora/README.md#计划算法与公式)、[Process与Final公式](versions/process_final_sft/README.md)、[Process-GRPO公式](versions/process_final_sft/grpo.md#计划目标函数与算法)。
+如何聚合这些CE项，以及阶段权重、GRPO优势与策略目标，分别见[单LoRA公式](versions/single_lora/README.md#sft与grpo公式)、[双LoRA计划公式](versions/dual_lora/README.md#计划算法与公式)、[Process与Final边界](versions/process_final_sft/README.md)、[本轮Process-GRPO公式](versions/process_final_sft/experiments/process_grpo_20261026/training.md)。
 
-当前使用原始972题、10,575阶段样本训练的Process checkpoint1322；已完成50题Base/SFT各一条的对照。另600题提前固定Final用途的500 train/100 dev，全部采集Process→Pre-Final，三题试采已完成，尚不声明600题全量或Final训练完成。无证据、乱码、State误读及其他质量问题须保留并审核，不能因工程通过自动进入训练。
+原始972题、10575阶段样本产生Process checkpoint1322；600题固定500 train/100 dev用于独立Final训练与对照。此后完成100题×4条Process-GRPO轨迹、99组25批更新，并完成旧50题的新GRPO13/25评测。Base/SFT历史与新GRPO共200条Process、dev100共400条Final均有逐题记录；无证据、State误读和失败保留，不以完成运行代替质量通过。
 
-后续评测、checkpoint选择和GRPO计划暂按原文保留，待讨论后再修订；不将计划样本数当作当前已完成结果。见[版本三](versions/process_final_sft/README.md)、[评测计划](versions/process_final_sft/evaluation.md)和[GRPO计划](versions/process_final_sft/grpo.md)。
+后续设计与历史计划分别标注，不将尚未执行的独立验证、消融或新一轮训练写成结果。见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO后续设计](versions/process_final_sft/grpo.md)。
 
 Apache-2.0；必要署名见 [第三方声明](THIRD_PARTY_NOTICES.md)。模型与外部服务另受各自条款约束。

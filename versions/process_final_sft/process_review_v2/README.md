@@ -1,3 +1,5 @@
+> 历史评分口径存档。最新实际交付口径的四组200条结果及逐题问题见[当前评测](../experiments/process_grpo_20261026/README.md)；旧发现覆盖与新交付覆盖不直接混算。
+
 # 全部100条Process评测
 
 [返回版本三](../README.md) · [HealthBench答案评分](../latest50_evaluation.md#3-healthbench-style答案评分)
