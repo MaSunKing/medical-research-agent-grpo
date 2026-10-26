@@ -15,7 +15,25 @@
 | **[5. 评测方法与结果](evaluation.md)** | 指标含义、完整对照表、失败、统计边界与模型选择 |
 | **[6. 逐题评分与问题](records.md)** | 50题Process四组、100题Final四组；每条均有分数与文字 |
 
+## 已完成的实验
+
+| 实验 | 规模 | 当前结果 |
+|---|---|---|
+| Process-SFT | 972题、10575阶段样本、1322次更新 | 作为后续Process策略起点 |
+| Final-SFT | 500训练题；dev100×Base及三个checkpoint | SFT的1/1.5/2轮均未超过Base Final |
+| Process-GRPO | 100题×4条，99组可用、25批更新 | 保留第13批中途与第25批最终checkpoint |
+| Process开发评测 | 50题×Base/SFT/GRPO13/GRPO25 | 200条逐题审核；188个有效HealthBench-style答案分 |
+
+**当前的内容效果候选是GRPO13。** 它的实际证据交付覆盖为69.75%，高于历史SFT的55.83%；GRPO25完成率更高。State重大错误仍存在，综合质量值改善不明确；同题区间跨0、历史运行配置存在差异，尚不能宣称GRPO稳定或显著优于SFT。[查看完整结果与解释](evaluation.md#process四组结果)
+
+**当前答案模块仍选Base Final。** 在相同冻结输入的共同有效97题上，Base为77.06分，Final-SFT的1/1.5/2轮分别为58.40、61.57、65.98分；这些是项目评分，不是HealthBench分。[查看为何暂停加训](final_sft.md#为什么没有继续增加轮次)
+
 ## 研究路线
+
+Base → Process-SFT → 独立Final对照 → 固定Base Final → Process-GRPO → 分开评测。
+
+<details>
+<summary>展开训练演进图</summary>
 
 ```mermaid
 flowchart TD
@@ -31,18 +49,7 @@ flowchart TD
 
 上图是训练演进；实际单题问答的节点与数据流见[系统设计](design.md#单题如何运行)。Final-SFT没有接入本轮GRPO，后者始终冻结Base Final。
 
-## 已完成的实验
-
-| 实验 | 规模 | 当前结果 |
-|---|---|---|
-| Process-SFT | 972题、10575阶段样本、1322次更新 | 作为后续Process策略起点 |
-| Final-SFT | 500训练题；dev100×Base及三个checkpoint | SFT的1/1.5/2轮均未超过Base Final |
-| Process-GRPO | 100题×4条，99组可用、25批更新 | 保留第13批中途与第25批最终checkpoint |
-| Process开发评测 | 50题×Base/SFT/GRPO13/GRPO25 | 200条逐题审核；188个有效HealthBench-style答案分 |
-
-**当前的内容效果候选是GRPO13。** 它的实际证据交付覆盖为69.75%，高于历史SFT的55.83%；GRPO25完成率更高。State重大错误仍存在，综合质量值改善不明确；同题区间跨0、历史运行配置存在差异，尚不能宣称GRPO稳定或显著优于SFT。[查看完整结果与解释](evaluation.md#process四组结果)
-
-**当前答案模块仍选Base Final。** 在相同冻结输入的共同有效97题上，Base为77.06分，Final-SFT的1/1.5/2轮分别为58.40、61.57、65.98分；这些是项目评分，不是HealthBench分。[查看为何暂停加训](final_sft.md#为什么没有继续增加轮次)
+</details>
 
 ## 如何理解这份记录
 
