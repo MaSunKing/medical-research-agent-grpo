@@ -1,12 +1,85 @@
-# Process-GRPO：已执行算法与后续设计
+# 4. Process-GRPO：采集、奖励与更新
 
-[版本三](README.md) · [实际训练与公式](experiments/process_grpo_20261026/training.md) · [四组结果](experiments/process_grpo_20261026/README.md)
+[概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · **GRPO** · [评测](evaluation.md) · [逐题记录](records.md)
 
-## 已执行的一轮
+## 一轮训练怎么走
 
-从原972 Process-SFT初始化，100训练题×4条封存轨迹，本地按实际Pre-final交付与Process评分；99组参与25批一次遍历，保存13/25批checkpoint。Final冻结Base，不参与训练奖励或梯度。只对Process原始输出token优化，同条轨迹共享同题中心化优势；不是逐步优势，也不是先用Final-only奖励训练的消融。
+```mermaid
+flowchart TD
+    A[原972 Process-SFT冻结策略] --> B[100训练题各采4条轨迹]
+    B --> C[本地逐条评分实际交付与Process]
+    C --> D[同题四条计算相对优势]
+    D --> E[服务器离线更新Process LoRA]
+    E --> F[保存第13与25批checkpoint]
+    F --> G[重新检索评测后再决定下一轮]
+```
 
-实际方法为group-mean不除标准差，epsilon0.2 token裁剪，单独detach的IS权重上限2，beta=0，lr1e-6。采样与训练数值路径的差异通过保留真实行为概率、重算初始训练概率及校正权重处理，不宣称概率差异已消失。完整公式、mask、归一化及恢复验收见[已执行算法](experiments/process_grpo_20261026/training.md)。
+采集、评分和更新是三个独立步骤。本轮先采完400条，再本地审核，最后一次遍历99个可用题组；没有在服务器边跑工具边用即时Final分更新。
+
+## 奖励到底来自哪里
+
+**本轮Final权重为0；奖励评价Process真正交给Final的内容和过程可靠性。** P1覆盖40分、P2 State30分、P3 Checklist20分、P4决策10分。普通轨迹R=P/100；未纠正重大错误R=0.49×P/100；致命/明确Process模型失败R=0；工程留置R=null。逐项标准与例子见[评分规则](evaluation.md#process怎么评分)。
+
+同题四条共享内容点与尺度。Final答案和HealthBench分作为独立诊断，不进入这轮训练奖励；不能把“冻结Final”理解为其分数必然应该给Process。
+
+## 数据、初始化和训练边界
+
+100题×4个rollout，400条完整记录；99组可用、1组工程留置。初始策略是原972 Process-SFT checkpoint1322，不是从未微调Base直接开始。100题与旧HealthBench50的ID/规范化文本重叠为0；不据此排除语义相关或预训练污染。
+
+量化基座为Qwen3-8B NF4双重量化、BF16计算。仅更新原Process LoRA的504个FP32张量；输出头以未合并FP32线性计算并冻结。Final/Reader禁用adapter、恢复原输出头。本轮离线更新不运行检索、Final或裁判，使用封存真实阶段输入、token和已审核奖励。
+
+Checklist、Decision、State的原始采样attempt均可进入策略目标，包括被拒JSON及程序修正前原文；输入、工具Observation、压缩输出、程序Pre-final和Final token全部mask。同一轨迹共享一个优势，不宣称已做逐步信用分配。
+
+## 同题优势
+
+```math
+A_i=R_i-\frac{1}{4}\sum_{j=1}^{4}R_j.
+```
+
+不除组内标准差，不在不同题之间直接比较奖励大小。四条相等时优势为0；任一条工程留置null，则整组不更新。普通模型失败保留R=0及真实策略token。重大轨迹若仍高于同题均值也可能正优势，不人为强制负值。
+
+## 分开保存行为概率与训练路径概率
+
+b为采集时真实采样token的logprob；o为本次初始权重在训练执行路径、任何更新前重新计算的logprob；c为当前更新中logprob。
+
+```math
+w_t=\mathrm{stopgrad}\!\left(\min\{\exp(o_t-b_t),2\}\right),\qquad
+\rho_t=\exp(c_t-o_t).
+```
+
+```math
+\ell_t=-w_t\min\!\left(\rho_t A_i,\mathrm{clip}(\rho_t,0.8,1.2)A_i\right).
+```
+
+初始未更新时要求训练路径ratio=1；w保留采集与训练计算路径差异的校正，不篡改采集概率，不声称概率差异已经消失。每条轨迹先对其全部Process策略token取均值，再对四条rollout及本批题组等权平均，避免长链路自动获得更大权重。本轮beta=0，无额外KL参考模型项；属于适配封存多节点轨迹的GRPO风格离线更新，不等同于所有标准库默认实现。
+
+## 实际参数和完成状态
+
+| 项目 | 本轮执行配置 |
+|---|---|
+| 初始化 | 原972 checkpoint1322 Process LoRA |
+| 训练数据 | 99个可用题组，4条/题；另外1组留置 |
+| 数据遍历 | 单次遍历，25个更新批次 |
+| 每批 | 最多4题、16条rollout；末批按实际题数归一 |
+| optimizer / LR | AdamW；1e-6；max_grad_norm=1 |
+| clip / IS cap | epsilon=0.2；IS上限2 |
+| 信号 | reward减同题四条均值，不除标准差 |
+| 精度 | NF4/BF16基座、FP32 LoRA与冻结FP32 Process输出头 |
+| 确定性 | 关闭dropout，确定性算法，CUBLAS_WORKSPACE_CONFIG=:4096:8 |
+| 显存 | 梯度检查点，词表分块计算；不截断真实输入来通过验收 |
+| checkpoint | 第13批中途、25批完成；不是13轮/25轮 |
+
+正式完成记录为completed_batches=25、checkpoint-0025。最后一批144次Process调用、12571个策略token，梯度范数0.0580，clipped_fraction约0.000477，初始路径对齐最大误差0；单批指标不构成整体效果证明。
+
+## 数值验收与恢复
+
+早期NF4采样缓存路径与完整前向有约0.03–0.11的局部logprob差；FP32输出头只能减小部分误差，未完全消除。后续保存行为概率、缓存重放和训练路径概率，分离校正权重与更新ratio，并验证真实非空State的反向。
+
+原始非确定性模式曾在相同loss下产生约1.4e-6的adapter差异；固定梯度的优化器更新可完全一致，定位到反向非确定性。启用确定性修正后，完整8题32条的保存恢复验收中adapter差、loss差均0，optimizer精确匹配，才开始正式更新。
+
+训练曾因磁盘配额不足中断；保留验收和最后完整断点、清理旧权重后续训，最终完成25批。部分写入目录不当作成功，已完成批次不重复训练；该磁盘故障不是模型质量失败。
+
+本轮只完成这一批封存数据的一次更新实验。下一轮若改变策略，需要重新采集当前策略轨迹并冻结新奖励身份，不能无限复用这400条冒充新on-policy数据。
 
 ## 后续设计：先固定结论边界，再决定新一轮
 
@@ -18,135 +91,11 @@
 
 尚未确定下一轮题数、训练轮数或新参数；此页不自动发起采集、评分或训练。
 
-## 历史初始计划（原文存档，不代表本轮实际算法）
 
-下文保留此前方案，其中“优先BF16”“Final-only基线”“leave-one-out优势”等未作为本轮执行配置。实际结果和公式以上方链接为准，不能把历史候选写成已完成消融。
+## 本轮尚未实现什么
 
-# Process-only GRPO：下一阶段计划
+没有做逐步优势分配、Final-only奖励消融、额外KL参考项或后续新策略数据轮次。逐步问题记录用于诊断，同一轨迹的Checklist、Decision和State token目前共享一个终局优势；不能宣称已经识别每一步的因果贡献。
 
-[版本说明](README.md) · [正式四组评测](evaluation.md) · [返回首页](../../README.md)
+早期BF16优先、leave-one-out与Final-only候选保存在[历史算法计划](archive/grpo_initial_plan.md)，不与本轮公式混用。下一轮题数和新参数尚未冻结，不自动提交训练。
 
-本页是待执行协议，不代表已经完成Process-only GRPO。先以开发集选择Final，再冻结生成器、输入合同和reward；独立测试题不用于RL更新或反复挑参数。
-
-## 可训练边界
-
-```mermaid
-flowchart TB
-    Q[同一训练问题] --> Group[Process policy：4条不同rollout]
-    Group --> Tool[真实Search / Browse与回执]
-    Tool --> State[因果历史、State、Stop]
-    State --> Pack[分别导出实际Pre-Final]
-    Pack --> Final[同一个冻结Final生成器]
-    Final --> Judge[最终效用 + 过程质量 + 成本]
-    Judge --> Advantage[同题组内相对优势]
-    Advantage --> Update[仅更新Process LoRA]
-```
-
-Qwen3-8B base冻结；Process LoRA可训练；Final LoRA（若采用）及Final base都冻结。Final token不进入policy loss；冻结也不能仅靠不计Final loss实现，必须排除Final adapter参数，并确认更新前后其hash不变。可共用base并切换adapter，但KV cache必须清空、按Final输入重新prefill。
-
-## 精度、行为概率与数据身份
-
-SFT的QLoRA adapter可作初始化；GRPO优先使用匹配的BF16 frozen base + Process LoRA进行rollout和replay，不将BF16采样与NF4 / k-bit prepare重放混合。adapter dtype、attention、模板、thinking、上下文、位置、特殊token和采样过滤配置一并冻结。
-
-每批先冻结old policy snapshot，再从它采样；保存生成token、输入token、有效策略跨度、行为logprob、工具回执及模型/源码身份。old policy与KL reference不是同一个概念；reference用于约束漂移，old snapshot用于本批ratio。概率取原始模型分布还是采样变换后的分布，必须一致定义和验证，不能混用。
-
-更新前用同一snapshot重放短/长真实Process样本，检查逐tokenlogprob差、mask、数据位置和比率。parity不通过先修数值路径，不通过放宽容差掩盖不一致。Final不需要参与Process logprob重放，但其生成配置、输入与输出须可审计。
-
-## Rollout与奖励
-
-初版每题4条Process rollout，Process T=1用于探索。下游Final使用同一冻结checkpoint和低随机性配置，降低相同证据信息被随机生成不同答案造成的reward噪声；该设置独立于正式T=1对照实验。固定seed本身不保证跨数值路径确定性。
-
-奖励候选为最终任务效用、证据增益、State忠实性、合法停止与工具成本。先冻结rubric、权重、归一化和失败处理，再开训：
-
-- Final效用衡量Process交给固定生成器的信息是否有用，不反向更新Final。
-- 证据增益以实际新文本对原问题的支持为准，不奖励来源数量、字符串新颖或自报 `direct`。
-- State检查实体、数字、终点与引用对应；自行将unknown升级direct不自动得到正奖励。
-- Stop检查未解决缺口、预算和继续搜索预期收益；环境访问失败不等于任务已无证据。
-- 成本按真实回执结算，区分计费动作、环境失败豁免、非法动作与无收益重复；不双重扣同一失败。
-
-先验证final-only reward基线，再研究附加过程reward的独立收益，避免未经校准的多个分数互相重复。HealthBench式rubric可作效用设计参考，但正式测试20题及其评测反馈不进入训练；训练reward需使用独立训练问题和冻结规则。
-
-## 计划目标函数与算法
-
-### 固定生成器下的奖励
-
-对问题 $q$，从同一冻结old Process snapshot采样 $G=4$ 条轨迹 $\tau_i$。实际输入导出器 $g$ 与冻结Final生成器 $f_\phi$ 形成：
-
-```math
-z_i=g(q,\tau_i),\qquad y_i=f_\phi(z_i).
-```
-
-计划reward为：
-
-```math
-R_i=\lambda_F R_F(q,y_i)
-+\sum_{c\in\mathcal C_P}\lambda_c R_c(q,\tau_i)
--\eta C(\tau_i),
-```
-
-其中过程通道集合为Checklist、Search、Browse、Evidence Gain、State、Stop；C是按回执核实的成本，λ与η在开训前冻结。先做仅终局效用的基线：λ_F=1、各过程λ_c=0；增加过程reward是单独消融，不预报正收益。Final本身不获得梯度。
-
-### 组内相对优势
-
-初版计划沿用可解释的leave-one-out baseline，不默认按组内标准差缩放：
-
-```math
-b_i=\frac{1}{G-1}\sum_{j\ne i}R_j,\qquad
-A_i=R_i-b_i.
-```
-
-有效组内reward完全相同时A_i=0，按约定记录零信号并跳过更新。缺失judge/不可复算reward不是0分；环境失败的有效性与失败reward先明确规则，保留失败记录，不按分数删轨迹。若后续采用group-std-normalized优势，另作算法变量冻结与对照。
-
-### 策略目标与mask
-
-令 $T_i^P$ 为Process真实生成的策略token集合，$h_{it}$ 包含此前真实历史及工具Observation，但只有 $T_i^P$ 进入loss。比率：
-
-```math
-\rho_{it}(\theta)=
-\frac{\pi_\theta(a_{it}\mid h_{it})}
-{\pi_{\mathrm{old}}(a_{it}\mid h_{it})}.
-```
-
-为避免长公式挤在一行，先定义clipped项 $s_{it}$ 与reference-KL项 $K_{it}$，再写同一个目标：
-
-```math
-\begin{aligned}
-s_{it} &= \min\!\left(\rho_{it}A_i,
-\mathrm{clip}(\rho_{it},1-\epsilon,1+\epsilon)A_i\right), \\
-K_{it} &= D_{\mathrm{KL}}\!\left(
-\pi_\theta(\cdot\mid h_{it})\Vert\pi_{\mathrm{ref}}(\cdot\mid h_{it})\right), \\
-J(\theta) &= \frac{1}{G}\sum_{i=1}^{G}\frac{1}{|T_i^P|}
-\sum_{t\in T_i^P}\left[s_{it}-\beta K_{it}\right].
-\end{aligned}
-```
-
-训练最小化−J。θ只包含Process LoRA；base、Final、输入历史与证据均无训练梯度。old为本批行为snapshot，ref为冻结参考策略，不能混为同一个角色。β≥0是计划的可选reference-KL项；β=0时只保留clipping与漂移监测。reference-KL尚未在此版本验收，不能借历史target-KL早停声称已经实现。
-
-初版把同一A_i赋给该轨迹的所有有效Process token；细粒度版再以真实capture对应的通道A_ic替换，按通道权重归一化。两种信用分配是待比较算法，不在同一实验中悄悄切换。ε、β、学习率、组batch与更新轮数在小批验收后冻结。
-
-### 单批训练流程
-
-1. 冻结old snapshot、ref、Final、reward与源码身份。
-2. 同题采样4条Process轨迹，保存输入、动作token、行为logprob、工具回执及State。
-3. 分别导出实际Pre-Final，调用同一冻结Final，复算reward并构造A_i。
-4. 同snapshot replay先通过逐token概率parity，再按策略mask计算−J。
-5. optimizer只更新Process LoRA；监测ratio、clip fraction、KL、reward方差、零优势比例、梯度与访问成本。
-6. 保存完整续跑状态；结束后冻结checkpoint，用独立测试集作配对评价。
-
-工具环境不要求可微；梯度经过动作logprob，而不反向穿过Search、Browse、Final或judge。
-
-## 优势与归因约束
-
-同题内部按上面的leave-one-out公式计算相对优势。组内分数相同则没有相对排序信号，按约定零优势/跳过并记录比例，不无限重采直到出现满意分数。组大小、有效题数、失败rollout、token长度及reward方差一起报告。
-
-只对Process生成的Checklist、Decision、State、Stop策略token计算clipped policy objective；Question、Prompt、历史、工具结果、证据和Frozen Final全部mask。终局效用先作用于整条Process；更细的阶段归因需明确映射到实际capture跨度，不能按邻近token猜测。KL系数、clip范围、学习率、batch和更新次数待小规模验收后冻结，本页不借用SFT参数冒充已确定RL配置。
-
-## 开训 gate、保存与评价
-
-1. 检查真实工具、预算和因果历史；确认Final输入来自该rollout而非teacher理想证据。
-2. rollout/replay parity通过；检查仅Process参数有梯度且实际更新，base与Final均未变化。
-3. 完成一个真实组的小更新：reward可复算、无未来/target泄漏、无NaN、无失控重复。
-4. 保存Process adapter、optimizer、scheduler、RNG、数据位置、old/reference身份、冻结Final身份、reward配置和源码hash；做fresh-process续跑测试。
-5. 冻结训练checkpoint后，在独立题上做同工具预算的Base / SFT / GRPO比较；同时报告官方rubric口径的替代grader评分与项目多维度审核。
-
-GRPO是否提升证据获取、State和停止，以及是否在固定Final下提升答案，须由上述对照验证；不预报正结果。
+**下一章：[评测方法与四组结果](evaluation.md)。**
