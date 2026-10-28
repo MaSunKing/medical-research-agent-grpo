@@ -104,14 +104,14 @@ Checklist、Decision、State的实际采样输出均属于Process策略token。�
 先计算从行为路径到初始训练路径的token权重，再计算当前训练策略相对初始训练策略的更新比率：
 
 ```math
-w_t=\operatorname{stopgrad}\!\left(\min\{\exp(o_t-b_t),2\}\right),
+w_t=\mathrm{stopgrad}\!\left(\min\{\exp(o_t-b_t),2\}\right),
 \qquad
 \rho_t=\exp(c_t-o_t).
 ```
 
 ```math
 \ell_{q,i,t}=-w_t\min\!\left(
-\rho_t A_{q,i},\ \operatorname{clip}(\rho_t,0.8,1.2)A_{q,i}
+\rho_t A_{q,i},\ \mathrm{clip}(\rho_t,0.8,1.2)A_{q,i}
 \right).
 ```
 

@@ -171,7 +171,7 @@
     "versions/process_final_sft/experiments/final_sft_dev100/summary.json": "774621aea04f48d5747209d4fa315f0190ca5aec2f4db7e858dd807b8fce112e",
     "versions/process_final_sft/experiments/final_sft_dev100/README.md": "35e170dfa47ce45180ddf51cfc3be7d1bd5f3f5c789dd30a13187a4e190b8530",
     "versions/process_final_sft/README.md": "ced314dedbd9b3f7b627bb33538f68e126d1e716d850275daf1efdc1a6b5b4ab",
-    "versions/process_final_sft/grpo.md": "58d549533b614e6b43f0470928981d8144e56562b7388a725d50bf4f7f2f4e9d",
+    "versions/process_final_sft/grpo.md": "fadb33c4a9c054c3987200c5b843b66b0f05dd67bf915527fb4f3a799ca42e51",
     "versions/process_final_sft/evaluation.md": "475f29a31cc7d33ad65a233f65da97e993a4426f8b042e6aaa03687cd801ab4b",
     "versions/process_final_sft/latest50_evaluation.md": "5f91f0b615ddcc138cd96b221a000f070d0879031a2797bfcf853a9d508f4e0e",
     "versions/process_final_sft/process_review_v2/README.md": "f8c917ac04e0edb4ee13ac52b937b22541ded3a9267c1ca26371a88a5583682c",
@@ -451,7 +451,7 @@
     },
     "files": {
       "versions/process_final_sft/README.md": "ced314dedbd9b3f7b627bb33538f68e126d1e716d850275daf1efdc1a6b5b4ab",
-      "versions/process_final_sft/grpo.md": "58d549533b614e6b43f0470928981d8144e56562b7388a725d50bf4f7f2f4e9d",
+      "versions/process_final_sft/grpo.md": "fadb33c4a9c054c3987200c5b843b66b0f05dd67bf915527fb4f3a799ca42e51",
       "README.md": "81d1a8d4e08ca38286a153904c7ba0eee107530c8d6daeae5054637541a99642",
       "versions/process_final_sft/design.md": "a92c9111bc214114578a733e635804896f7a908d994e8687f8f526beb99fa3e7",
       "versions/process_final_sft/current/README.md": "c6bdac028d33122cd40b4a9803d1c81d4de92f8350a1c3342734da860d8991c0"

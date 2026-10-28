@@ -281,7 +281,7 @@
     "versions/process_final_sft/experiments/newbench_20261028/test_public_results.py": "42ce9962d5e79bde93acbe63a2ad43789dc2af68c091edbbb9afc157ca6601f5",
     "versions/process_final_sft/experiments/newbench_20261028/verify_results.py": "50fdb679b051b0776f3b2b096e5b214eb8e78b7437a2aba7bf48e73dc1be7c04",
     "versions/process_final_sft/experiments/process_grpo_20261026/PUBLICATION.json": "93bc4ce7d648a03552392613e3c119ab924f9723aa4f23e3b4377b8655cf44f5",
-    "versions/process_final_sft/grpo.md": "58d549533b614e6b43f0470928981d8144e56562b7388a725d50bf4f7f2f4e9d",
+    "versions/process_final_sft/grpo.md": "fadb33c4a9c054c3987200c5b843b66b0f05dd67bf915527fb4f3a799ca42e51",
     "versions/process_final_sft/records.md": "9a9b63f365963369819e4129a14f25e033c43413c17f48c467d73c879212a5ba",
     "versions/process_final_sft/experiments/newbench_20261028/questions_100.json": "8a9b41f0699d93ac6a65d87501253f061bc9f4a82cb2a0aada5e6f50731e1bb1",
     "versions/process_final_sft/experiments/final_sft_dev100/README.md": "35e170dfa47ce45180ddf51cfc3be7d1bd5f3f5c789dd30a13187a4e190b8530",
@@ -475,7 +475,7 @@
       "versions/process_final_sft/current/README.md": "c6bdac028d33122cd40b4a9803d1c81d4de92f8350a1c3342734da860d8991c0",
       "versions/process_final_sft/current/SOURCE_MANIFEST.json": "afba541e88f56faa2c95aecfca61ab519597e9f30c66f76559170f200b64ec97",
       "versions/process_final_sft/design.md": "a92c9111bc214114578a733e635804896f7a908d994e8687f8f526beb99fa3e7",
-      "versions/process_final_sft/grpo.md": "58d549533b614e6b43f0470928981d8144e56562b7388a725d50bf4f7f2f4e9d"
+      "versions/process_final_sft/grpo.md": "fadb33c4a9c054c3987200c5b843b66b0f05dd67bf915527fb4f3a799ca42e51"
     }
   }
 }
