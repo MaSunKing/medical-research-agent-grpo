@@ -28,14 +28,73 @@ def aliases(row):
     return result
 
 
+def native_identity_group(row):
+    """Project only recognized identifiers from one native provider row."""
+    group = {}
+    pmid = str(row.get('pmid') or '').removeprefix('PMID:')
+    if pmid.isdigit():group['pmid'] = pmid
+    paper = str(row.get('paperId') or '')
+    if re.fullmatch(r'[0-9a-fA-F]{40}', paper):group['paperId'] = paper.lower()
+    def doi(value):
+        value = re.sub(r'^(?:https?://(?:dx\.)?doi\.org/|doi:\s*)', '',
+                       str(value or '').strip().lower())
+        return value if re.fullmatch(r'10\.[^\s]+/[^\s]+', value) else None
+    if normalized := doi(row.get('doi')):group['doi'] = normalized
+    ext = row.get('externalIds') or {}
+    if not isinstance(ext, dict):raise ValueError('invalid_native_paper_identity')
+    chosen = {}
+    external_pmid = str(ext.get('PubMed') or '').removeprefix('PMID:')
+    if external_pmid.isdigit():chosen['PubMed'] = external_pmid
+    if normalized := doi(ext.get('DOI')):chosen['DOI'] = normalized
+    if chosen:group['externalIds'] = chosen
+    if (group.get('pmid') and chosen.get('PubMed') and group['pmid'] != chosen['PubMed']
+            or group.get('doi') and chosen.get('DOI') and group['doi'] != chosen['DOI']):
+        raise ValueError('conflicting_native_paper_identity')
+    return group
+
+
+def restored_native_groups(row, base_keys):
+    """Validate the generated identifier graph, rooted in this canonical row."""
+    groups = row.get('native_identity_groups', [])
+    if not isinstance(groups, list):raise ValueError('invalid_restored_native_identity_groups')
+    prepared = []
+    for group in groups:
+        if (not isinstance(group, dict) or not group
+                or set(group)-{'pmid','paperId','doi','externalIds'}
+                or group != native_identity_group(group) or not aliases(group)):
+            raise ValueError('invalid_restored_native_identity_group')
+        if group not in prepared:prepared.append(copy.deepcopy(group))
+    connected = list(base_keys)
+    pending = list(prepared)
+    while pending:
+        remaining = []
+        for group in pending:
+            keys = aliases(group)
+            if set(keys) & set(connected):
+                connected += [key for key in keys if key not in connected]
+            else:remaining.append(group)
+        if len(remaining) == len(pending):
+            raise ValueError('disconnected_restored_native_identity_group')
+        pending = remaining
+    return prepared, connected
+
+
 class Registry:
     def __init__(self):self.rows={};self.by_alias={}
+    def _bind_aliases(self, sid, keys):
+        """Join native-ID components without undoing an earlier merge."""
+        canonical = self.by_alias.get(sid, sid)
+        joined = {self.by_alias[key] for key in keys if key in self.by_alias}
+        for key, target in list(self.by_alias.items()):
+            if target in joined:self.by_alias[key] = canonical
+        for key in keys:self.by_alias[key] = canonical
     def restore(self, records):
         """Restore verified Search rows without reselecting canonical IDs.
 
         A canonical S2 ID can legitimately predate a later discovered PMID.
-        Restore that same ID, and derive usable aliases from native fields,
-        rather than trusting arbitrary claimed alias lists or re-running fuse.
+        Keep returned IDs readable while rebuilding native-identifier merges.
+        Older replayed rows may extend a known component, never split it or
+        roll its canonical mapping back. Claimed alias lists are not trusted.
         """
         prepared = []
         for record in records:
@@ -50,6 +109,7 @@ class Registry:
             keys = aliases(row)
             if sid not in keys:
                 raise ValueError('restored_paper_source_identity_mismatch')
+            native_groups, keys = restored_native_groups(row, keys)
             claimed = row.get('identity_aliases', [])
             if not isinstance(claimed, list) or any(not isinstance(a, str) or not re.fullmatch(
                     r'(?:PMID:[0-9]+|S2:[a-f0-9]{40}|DOI:10\.[^\s]+/[^\s]+)', a) for a in claimed):
@@ -72,9 +132,9 @@ class Registry:
                 if address is not None and (address.is_private or address.is_loopback or address.is_link_local
                         or address.is_multicast or address.is_reserved or address.is_unspecified):
                     raise ValueError('unsafe_restored_paper_url')
-            prepared.append((sid, row, keys))
+            prepared.append((sid, row, keys, native_groups))
         # Validate the complete batch before changing either registry.
-        for sid, row, keys in prepared:
+        for sid, row, keys, native_groups in prepared:
             prior = copy.deepcopy(self.rows.get(sid, {}))
             for key, value in row.items():
                 if value not in (None,'',[]):prior.setdefault(key, value)
@@ -82,8 +142,18 @@ class Registry:
             # per-discovery provenance follows the latest completed Search.
             for key in ('identity_aliases','discovery_channels','source_ranks','rrf_score'):
                 if key in row:prior[key] = copy.deepcopy(row[key])
+            if 'native_identity_groups' in row:
+                accumulated = copy.deepcopy(prior.get('native_identity_groups', []))
+                for group in native_groups:
+                    if group not in accumulated:accumulated.append(group)
+                prior['native_identity_groups'] = accumulated
             self.rows[sid] = prior
-            for key in keys:self.by_alias.setdefault(key, sid)
+            # The row's returned ID identifies the canonical selected by the
+            # original fuse. Resolve it first: a cached pre-merge S2 row must
+            # not undo a newer S2 -> PMID relation. Native co-occurring IDs
+            # then join complete alias components, including aliases absent
+            # from this particular public row. Existing rows stay readable.
+            self._bind_aliases(sid, keys)
         return len(prepared)
     def fuse(self,results,limit=10):
         entries=[]
@@ -105,14 +175,30 @@ class Registry:
             sid=previous[0] if previous else next((a for a in keys if a.startswith('PMID:')),next((a for a in keys if a.startswith('S2:')),None))
             if sid is None:continue
             row=copy.deepcopy(self.rows.get(sid,{}))
+            # Retain each provider's ID co-occurrence rather than relying on
+            # the first paperId/DOI retained in the merged display row. Only
+            # our own generated groups are carried forward from stored rows;
+            # a provider-supplied same-named metadata field is ignored.
+            native_groups = []
+            for previous_id in dict.fromkeys([sid] + previous):
+                existing = self.rows.get(previous_id, {})
+                prior_groups = existing.get('native_identity_groups')
+                if prior_groups is None:
+                    prior_groups = [native_identity_group(existing)]
+                for item in prior_groups:
+                    if item and item not in native_groups:native_groups.append(copy.deepcopy(item))
+            for _, _, data, _ in group:
+                item = native_identity_group(data)
+                if item and item not in native_groups:native_groups.append(item)
             channel_ranks={}
             for channel,rank,data,_ in sorted(group,key=lambda e:e[0]!='pubmed'):
                 for k,v in data.items():
                     if v not in (None,'',[]):row.setdefault(k,v)
                 channel_ranks[channel]=min(rank,channel_ranks.get(channel,rank))
-            for a in keys:self.by_alias[a]=sid
+            self._bind_aliases(sid, keys)
             row.update(source_id=sid,identity_aliases=keys,discovery_channels=sorted(channel_ranks),
-                       source_ranks=channel_ranks,rrf_score=sum(1/(60+r) for r in channel_ranks.values()))
+                       source_ranks=channel_ranks,rrf_score=sum(1/(60+r) for r in channel_ranks.values()),
+                       native_identity_groups=native_groups)
             row['pmid']=next((a[5:] for a in keys if a.startswith('PMID:')),row.get('pmid'))
             self.rows[sid]=row
             ranked.append(row)

@@ -3,7 +3,7 @@ import copy
 import hashlib
 import re
 
-VERSION = 'browse_sections_bounded_nonbody_v17'
+VERSION = 'browse_sections_bounded_nonbody_v18'
 
 # Combine template purpose with text shape, never site/domain or topic rules.
 TEMPLATE_HEADING = re.compile(r'导航|热门产品|热门推荐|更多推荐|扫码|扫一扫|分享|技术支持|版权|友情链接|社区|活动|圈层|开发者|'
@@ -59,6 +59,22 @@ def short_body_content_protected(text):
         r'(?<!\w)\d+(?:[.,]\d+)?\s*(?:mg|mcg|[µμ]g|g/kg|mL|ml|L/min|mmHg|mmol/L|'
         r'mmol|mEq|bpm|cmH2O|毫克|微克|毫升|毫米汞柱)(?![A-Za-z])|'
         r'\b(?:p|n)\s*[<=>≤≥]\s*\d|[<>≤≥]\s*\d', text, re.I)
+    # Quantified targets/rates and care intervals can be complete clinical
+    # instructions without a finite verb or terminal punctuation. Require a
+    # measurement/plan cue as well as a value, so percentages and dates in a
+    # menu, promotion or release schedule are not blanket exemptions.
+    percentage = re.search(r'(?<![\d.])\d+(?:[.,]\d+)?\s*(?:[%％]|per\s+cent|percent(?:age)?)', text, re.I)
+    percentage_context = re.search(
+        r'\b(?:saturation|spo2|oxygenation|fraction|risk|mortality|incidence|'
+        r'prevalence|efficacy|sensitivity|specificity|response\s+rate|survival)\b|'
+        r'饱和度|血氧|发生率|死亡率|生存率|风险', text, re.I)
+    interval = re.search(
+        r'(?<!\w)\d+(?:[.,]\d+)?\s*(?:[-–—]\s*)?(?:hours?|days?|weeks?|months?|years?)\b|'
+        r'\d+(?:[.,]\d+)?\s*(?:小时|天|周|个月|月|年)', text, re.I)
+    care_plan = re.search(
+        r'\b(?:follow[-\s]?up|reassess(?:ment)?|re[-\s]?evaluat(?:e|ion)|'
+        r'monitor(?:ing)?|retest|recheck|check[-\s]?up|repeat\s+(?:test|assessment|measurement)|'
+        r'review\s+(?:treatment|therapy|symptoms))\b|随访|复查|复评|复诊|监测', text, re.I)
     assertion = re.search(
         r'\b(?:no|not|without|versus|vs|compared|should|must|advised|recommended|'
         r'is|are|was|were|has|have|had|requires?|indicates?|shows?|showed|found|'
@@ -70,7 +86,9 @@ def short_body_content_protected(text):
         r'需(?:要)?(?:监测|随访|治疗)|(?:患者|受试者).{0,20}(?:应|需|接受|使用|出现)|'
         r'(?:监测|评估|记录)(?:症状|血压|血氧|血糖|疗效|不良反应|用药)|'
         r'(?:降低|增加|改善|减少|升高|下降).{0,16}(?:风险|死亡|症状|发生率|血压|血氧)', text)
-    return bool(table or FACTUAL_PROSE.search(text) or measurement or assertion or chinese_statement)
+    return bool(table or FACTUAL_PROSE.search(text) or measurement
+                or (percentage and percentage_context) or (interval and care_plan)
+                or assertion or chinese_statement)
 
 
 def high_confidence_nonbody_shape(heading, text):

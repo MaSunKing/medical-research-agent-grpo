@@ -170,12 +170,12 @@
     "versions/process_final_sft/experiments/final_sft_dev100/scores_400.csv": "2d6e90d71185b2443befc5f33590551845a4b73d8376b82ec8062b65d8af091e",
     "versions/process_final_sft/experiments/final_sft_dev100/summary.json": "774621aea04f48d5747209d4fa315f0190ca5aec2f4db7e858dd807b8fce112e",
     "versions/process_final_sft/experiments/final_sft_dev100/README.md": "35e170dfa47ce45180ddf51cfc3be7d1bd5f3f5c789dd30a13187a4e190b8530",
-    "versions/process_final_sft/README.md": "ced314dedbd9b3f7b627bb33538f68e126d1e716d850275daf1efdc1a6b5b4ab",
-    "versions/process_final_sft/grpo.md": "fadb33c4a9c054c3987200c5b843b66b0f05dd67bf915527fb4f3a799ca42e51",
+    "versions/process_final_sft/README.md": "d27d6c360f543cfe1ff5d9ca90c4a95730be6e5424e133d4c2dd57f932e0bbd0",
+    "versions/process_final_sft/grpo.md": "6a98bf24baea0a0dce94bce7eba7bbb12dc279bd044d82489e5752a936eaf809",
     "versions/process_final_sft/evaluation.md": "475f29a31cc7d33ad65a233f65da97e993a4426f8b042e6aaa03687cd801ab4b",
     "versions/process_final_sft/latest50_evaluation.md": "5f91f0b615ddcc138cd96b221a000f070d0879031a2797bfcf853a9d508f4e0e",
     "versions/process_final_sft/process_review_v2/README.md": "f8c917ac04e0edb4ee13ac52b937b22541ded3a9267c1ca26371a88a5583682c",
-    "README.md": "81d1a8d4e08ca38286a153904c7ba0eee107530c8d6daeae5054637541a99642",
+    "README.md": "cc21cdc517465e75a590a757ed7de101f26ac783dc7a38bbb23c94a75f465635",
     "versions/process_final_sft/experiments/process_grpo_20261026/verify_results.py": "e39499671f0cbea2a69c6967a8b9b7fe55be4e9062df76aa1825e33ef7aa2c1d",
     "versions/process_final_sft/archive/grpo_initial_plan.md": "7ce8061f414d0bd0c32ed4238220004ba87a00910be08a3e16c36ac73652ff2c",
     "versions/process_final_sft/archive/evaluation_initial_plan.md": "8fcc466ac13fce515e926179e93fe21b9fc2ab7ec3f383312036178d79727f97",
@@ -450,9 +450,9 @@
       "versions/process_final_sft/current/README.md": "b9bf26d579399f42248a4e44003740cb6526588b45e6f818ed1a6404f4f360f0"
     },
     "files": {
-      "versions/process_final_sft/README.md": "ced314dedbd9b3f7b627bb33538f68e126d1e716d850275daf1efdc1a6b5b4ab",
-      "versions/process_final_sft/grpo.md": "fadb33c4a9c054c3987200c5b843b66b0f05dd67bf915527fb4f3a799ca42e51",
-      "README.md": "81d1a8d4e08ca38286a153904c7ba0eee107530c8d6daeae5054637541a99642",
+      "versions/process_final_sft/README.md": "d27d6c360f543cfe1ff5d9ca90c4a95730be6e5424e133d4c2dd57f932e0bbd0",
+      "versions/process_final_sft/grpo.md": "6a98bf24baea0a0dce94bce7eba7bbb12dc279bd044d82489e5752a936eaf809",
+      "README.md": "cc21cdc517465e75a590a757ed7de101f26ac783dc7a38bbb23c94a75f465635",
       "versions/process_final_sft/design.md": "a92c9111bc214114578a733e635804896f7a908d994e8687f8f526beb99fa3e7",
       "versions/process_final_sft/current/README.md": "c6bdac028d33122cd40b4a9803d1c81d4de92f8350a1c3342734da860d8991c0"
     }

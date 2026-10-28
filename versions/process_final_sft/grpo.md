@@ -175,7 +175,9 @@ GRPO13表示完成前13个更新批次，即固定顺序中的前52个可用题�
 
 断点包含adapter、optimizer、批次、配置、环境和参考概率身份。已封存批次跳过；处理中断的部分梯度丢弃，完整断点之后的批次重新计算。未完成目录不当成成功，恢复不得重复计算已完成更新，也不得更换奖励或初始概率参考。
 
-正式完成记录为`completed_batches=25、checkpoint-0025`。最后一批144次Process调用、12571个策略token，梯度范数0.0580，clipped_fraction约0.000477，初始路径对齐最大误差0。这些是执行状态指标，内容收益由[四组评测](evaluation.md)核验。
+正式完成记录为`completed_batches=25、checkpoint-0025`。最后一批144次Process调用、12571个策略token，梯度范数0.0580，clipped_fraction约0.000477。这些是执行状态指标，内容收益由[四组评测](evaluation.md)核验。
+
+逐批诊断明确区分未测与实测：`initial_alignment_checked=false、initial_alignment_calls=0、initial_alignment_max_abs=null`表示未执行探针，只有实际测量后才报告最大误差和调用数。独立的初始对齐结论来自真正测量并封存的`ALIGNMENT.json`；未测字段不能作为误差为0的证据。该标记只描述观测状态，不参与loss、概率校正或optimizer计算。
 
 ## 后续设计：先固定结论边界，再决定新一轮
 

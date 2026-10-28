@@ -94,7 +94,7 @@ Browse指定当前可选来源和本次`reading_focus`。它描述“这次希�
 
 两条弱标题规则仍保留：`template_heading_and_short_list`与`guideline_heading_and_topic_list`。它们用于识别模板标题下的短目录或主题列表。短临床建议、剂量条目和表格也可能具有相似外观，因此弱规则先检查正文保护：事实陈述、否定或比较、数值单位及阈值、中文指令、可识别表格会优先保留；相邻指南导航分支使用同一保护。
 
-这种“明确模板过滤＋正文特征保护”兼顾上下文控制与信息保留。裸数字或逗号、分号、冒号本身不提供通用豁免，明确的行政控制仍有原过滤顺序；是否以句号结尾也不单独决定一段文本有没有价值。
+这种“明确模板过滤＋正文特征保护”兼顾上下文控制与信息保留。保护还覆盖临床测量词对应的百分比目标/范围，以及随访、复查、监测动作对应的数值时间间隔。裸数字、折扣、日期目录或逗号、分号、冒号本身不提供通用豁免，明确的行政控制仍有原过滤顺序；是否以句号结尾也不单独决定一段文本有没有价值。
 
 **适用限制：** 保护识别的是文本形态，不是医学真值或相关性。带事实句式的混合目录可能保留更多，需要后续检索排序和内容审核继续判断；表格只有在解析器实际读出行列后才能保留，未解析的图片内容不会自动变成证据。
 
@@ -168,6 +168,8 @@ worker启动时从自身output的`worker_operations`读取已完成Search回执�
 
 新鲜WEB Search补注册时合并已有完整metadata，避免公共返回投影覆盖内部检索来源字段。论文保留canonical ID，原生可用字段沿用融合规则，最近一次发现的来源顺序等provenance随回执更新。
 
+论文来源合并由正常执行和恢复共用：已确认连接的PMID、S2、DOI形成同一个身份分量，旧回执不会把它重新拆开。`native_identity_groups`只记录真实provider原生ID字段的共现关系，恢复时核验格式和与canonical的连通性，不信任标题相似或任意声称的alias。此记录保存在后端回执，模型候选投影不增加这些恢复字段；已返回的来源行仍可继续读取。
+
 **适用限制：** 重启恢复仅使用本地已完成且校验通过的材料，只能恢复回执实际保存的字段。未完成或结果未知的操作不会被推定成功；损坏、不匹配或越界回执拒绝恢复，缺失映射不会触发隐式联网重搜。哈希验证确认材料一致性，不验证网页内容真实。
 
 源码：[worker执行边界](current/runtime/retrieval_snapshot_v2/worker.py) · [来源恢复](current/runtime/retrieval_snapshot_v2/source_registry.py) · [论文Registry](current/runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/dual_paper.py) · [本地操作回执](current/runtime/src/trainable_agent/retrieval_deadlines.py)
@@ -179,3 +181,5 @@ worker启动时从自身output的`worker_operations`读取已完成Search回执�
 这些测试核验工程行为；检索相关性、医学支持程度、实际交付覆盖与答案质量在[评测](evaluation.md)和[逐题记录](records.md)中分别报告。原始响应、修复事件、失败尝试和实际交付材料各自留档，保证问题能够追溯到具体阶段。
 
 测试入口：[正文保护](current/runtime/tests/test_short_body_protection.py) · [来源恢复](current/runtime/tests/test_worker_source_registry.py) · [当前源码检查](current/README.md#离线检查)
+
+真实流程见[两个v3案例](../../examples/version3_cases/README.md)：完成案例保留预算停止和Final不足，失败案例保留被拒动作与空Final，不以流程图替代真实执行。

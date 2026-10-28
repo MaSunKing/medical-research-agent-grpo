@@ -210,4 +210,102 @@ class GradientTests(unittest.TestCase):
             with self.assertRaises(ValueError):rt.restore(m,opt,cp,dict(fixture=True))
 
 
+class AlignmentDiagnosticTests(unittest.TestCase):
+    def prepare(self,old_offset=0.,zero_advantage=False):
+        torch.manual_seed(61);model=Toy().eval()
+        calls={};rollouts=[]
+        for index,advantage in enumerate((-.3,-.1,.1,.3)):
+            call=fixture();call['call_id']=str(index)+'_state'
+            call['response']['token_ids']=[index+3,index+4]
+            old=rt.logprobs(model,call).tolist()
+            call['response']['behavior_logprobs']=old
+            call['response']['old_train_logprobs']=[v+old_offset for v in old]
+            name=str(index)+'.json';calls[name]=[call]
+            rollouts.append(dict(calls_file=name,policy_tokens=2,
+                A=0. if zero_advantage else advantage))
+        params={n:p for n,p in model.named_parameters() if p.requires_grad}
+        optimizer=torch.optim.AdamW(list(params.values()),lr=1e-6,weight_decay=0)
+        config=json.loads((Path(__file__).parent/'CONFIG.json').read_text())
+        return model,params,optimizer,[dict(rollouts=rollouts)],calls,config
+
+    def update(self,prepared,**kwargs):
+        model,params,optimizer,batch,calls,config=prepared
+        with patch.object(rt,'call_path',side_effect=lambda data,r:r['calls_file']),\
+             patch.object(rt,'read',side_effect=lambda path:calls[path]),\
+             patch.object(rt,'reference_values',side_effect=lambda ref,r,c:c['response']['old_train_logprobs']),\
+             patch.object(torch.cuda,'max_memory_allocated',return_value=0):
+            return rt.update_batch(model,params,optimizer,None,None,batch,config,**kwargs)
+
+    def test_unmeasured_alignment_is_null_not_zero(self):
+        metrics=self.update(self.prepare())
+        self.assertTrue(metrics['optimizer_step'])
+        self.assertFalse(metrics['initial_alignment_checked'])
+        self.assertEqual(metrics['initial_alignment_calls'],0)
+        self.assertIsNone(metrics['initial_alignment_max_abs'])
+        self.assertIn('"initial_alignment_max_abs": null',json.dumps(metrics))
+
+    def test_measured_zero_and_nonzero_alignment_are_distinct(self):
+        for offset in (0.,5e-5):
+            with self.subTest(offset=offset):
+                metrics=self.update(self.prepare(old_offset=offset),forward_check=True)
+                self.assertTrue(metrics['initial_alignment_checked'])
+                self.assertEqual(metrics['initial_alignment_calls'],4)
+                if offset==0:self.assertEqual(metrics['initial_alignment_max_abs'],0.)
+                else:
+                    self.assertGreater(metrics['initial_alignment_max_abs'],0.)
+                    self.assertLessEqual(metrics['initial_alignment_max_abs'],1e-4)
+
+    def test_empty_and_zero_advantage_batches_report_only_actual_probes(self):
+        for empty in (False,True):
+            for enabled in (False,True):
+                with self.subTest(empty=empty,enabled=enabled):
+                    prepared=self.prepare(zero_advantage=True)
+                    if empty:prepared[3].clear()
+                    before={n:p.detach().clone() for n,p in prepared[0].named_parameters()}
+                    metrics=self.update(prepared,forward_check=enabled)
+                    measured=enabled and not empty
+                    self.assertFalse(metrics['optimizer_step'])
+                    self.assertEqual(metrics['initial_alignment_checked'],measured)
+                    self.assertEqual(metrics['initial_alignment_calls'],4 if measured else 0)
+                    self.assertEqual(metrics['initial_alignment_max_abs'],0. if measured else None)
+                    self.assertFalse(prepared[2].state)
+                    for n,p in prepared[0].named_parameters():
+                        self.assertTrue(torch.equal(p,before[n]),n)
+
+    def test_probe_does_not_change_loss_or_optimizer_update(self):
+        unchecked=self.prepare();checked=self.prepare()
+        a=self.update(unchecked);b=self.update(checked,forward_check=True)
+        self.assertEqual(a['loss'],b['loss'])
+        self.assertEqual(a['gradient_norm'],b['gradient_norm'])
+        for (na,pa),(nb,pb) in zip(unchecked[0].named_parameters(),checked[0].named_parameters()):
+            self.assertEqual(na,nb);self.assertTrue(torch.equal(pa,pb),na)
+        for key,state in unchecked[2].state_dict()['state'].items():
+            for n,value in state.items():
+                self.assertTrue(torch.equal(value,checked[2].state_dict()['state'][key][n]))
+
+    def test_interruption_keeps_none_contract_and_discards_partial_gradients(self):
+        for completed in (0,1):
+            with self.subTest(completed=completed):
+                prepared=self.prepare();seen=0
+                before={n:p.detach().clone() for n,p in prepared[0].named_parameters()}
+                def stop():
+                    nonlocal seen
+                    seen+=1
+                    return seen>completed
+                self.assertIsNone(self.update(prepared,forward_check=True,stop=stop))
+                self.assertFalse(prepared[2].state)
+                for n,p in prepared[0].named_parameters():
+                    self.assertTrue(torch.equal(p,before[n]),n)
+                    self.assertIsNone(p.grad)
+
+    def test_alignment_tolerance_hold_still_precedes_optimizer_step(self):
+        prepared=self.prepare(old_offset=.001)
+        before={n:p.detach().clone() for n,p in prepared[0].named_parameters()}
+        with self.assertRaisesRegex(ValueError,'initial_grad_forward_alignment_hold'):
+            self.update(prepared,forward_check=True)
+        self.assertFalse(prepared[2].state)
+        for n,p in prepared[0].named_parameters():
+            self.assertTrue(torch.equal(p,before[n]),n)
+
+
 if __name__=='__main__':unittest.main(verbosity=2)

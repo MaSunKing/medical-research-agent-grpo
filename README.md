@@ -4,7 +4,33 @@
 
 项目关注的不只是“搜到一个相关标题”，而是 **读到了什么、解决了哪个需求、还有什么没有证实**。用于研究，不替代临床判断。
 
-**当前主线：Process-SFT获取证据 → 独立Final-SFT对照 → 冻结Base Final → Process-GRPO → 分开评测证据交付和最终答案。** 已完成一轮GRPO及新100题四组同配置检验：GRPO保持零完全重复Search、GRPO25交付更多适用证据；逐题胜负、重大错误和失败均公开，见[版本三实验与逐题结果](versions/process_final_sft/evaluation.md)；Final-SFT暂未胜过Base，见[dev100四组对照](versions/process_final_sft/final_sft.md)。
+**这是一个完成训练与评测闭环的医学研究Agent原型。** 主线是Base → Process-SFT → Process-GRPO：SFT建立阶段和工具交互能力，GRPO优化实际证据交付与过程可靠性；Final采用独立对照后保留的冻结Base。
+
+## 已完成什么，有什么结果
+
+已完成972题、10,575阶段样本的Process-SFT；独立Final-SFT的dev100固定输入对照；100题×4轨迹、99个可用题组、25批Process-GRPO更新；以及HealthBench50＋MedBrowseComp50、四组共400条新轨迹的同配置评测。
+
+| 新100题同配置指标 | Base | Process-SFT | GRPO13 | GRPO25 |
+|---|---:|---:|---:|---:|
+| HealthBench实际证据交付覆盖 | 63.08% | 78.00% | 76.08% | **81.92%** |
+| MedBrowseComp实际证据交付覆盖 | 4.50% | 10.00% | 7.17% | **13.17%** |
+| 完全重复Search额外动作 | 31 | 1 | **0** | **0** |
+| 重大或Process失败，去重题数 | 21 | 17 | **14** | **14** |
+| Process失败 / 100 | 6 | 2 | **1** | **1** |
+| Final失败 / 100 | **0** | **0** | 1 | 2 |
+
+当前以GRPO25作为证据交付主候选，GRPO13保留为HealthBench答案指标对照。GRPO25对SFT的交付覆盖为22胜、11负、67平；完整胜负、答案Judge分、失败及统计边界见[四组评测](versions/process_final_sft/experiments/newbench_20261028/README.md)。交付覆盖衡量可用证据，不是医学答案准确率；重复动作可能命中缓存，不等于重复API请求。Final-SFT未超过Base的对照结果见[dev100实验](versions/process_final_sft/final_sft.md)。
+
+## 两分钟验证入口
+
+| 想看什么 | 直接入口 |
+|---|---|
+| Agent实际如何工作 | **[v3完整交付案例＋失败诊断](examples/version3_cases/README.md)**：原题、Checklist、动作、证据、State、停止和Final |
+| 每一步为什么这样设计 | [架构与12步展开](versions/process_final_sft/engineering.md)：模型/程序分工、来源连续性、上下文及适用限制 |
+| GRPO怎样真正更新参数 | [奖励与概率校正公式](versions/process_final_sft/grpo.md) · [本轮训练器源码](versions/process_final_sft/current/process_grpo_update/README.md) |
+| 如何在本地核验 | [源码和离线测试](versions/process_final_sft/current/README.md#离线检查) · `python -B examples/test_version3_cases.py` |
+
+**公开复现分三层：** clone后可运行不依赖私有数据的离线检查；安装对应依赖后可运行合成CPU测试；真实GPU训练与原始实验重现还需另行提供轨迹、奖励、模型和身份文件。公开源码不自动附带这些私有材料，具体见[公开范围与部署要求](versions/process_final_sft/current/process_grpo_update/README.md#部署输入与适用范围)。
 
 ## 当前主线与历史探索
 
@@ -17,6 +43,9 @@
 | [版本二：双LoRA](versions/dual_lora/README.md) · 历史探索 | [冻结旧检索](versions/legacy_retrieval/README.md) |
 
 版本目录区分已经执行的训练与待执行的研究计划。公开内容仅包含代码、合同、配置、方法说明与脱敏评分汇总，不包含私有训练题、完整采集记录、金标答案、模型权重或凭据。
+
+<details>
+<summary>展开模型、量化配置与角色分工</summary>
 
 ## Base 模型与角色
 
@@ -46,6 +75,8 @@
 | Teacher / Grader | Process teacher、后续Final金标审核者与Qwen替代裁判分别登记；不混入Base对照 |
 
 SFT 使用 NF4 QLoRA、BF16 compute、FP32 LoRA；在线 Process 与 Final 的实际加载精度、thinking及采样配置分别登记，不能只凭模型名称认定数值路径相同。文档统一称 Base；历史配置中的 `raw` profile、JSON键与文件名保留，确保旧结果可复现。
+
+</details>
 
 ## 工程架构：LangGraph + ReAct + MCP
 
@@ -94,6 +125,9 @@ flowchart TB
 完整问答模式使用Base Final；Pre-final采集可在冻结输入处结束。本轮GRPO采集同时保存固定Base Final输出，但本地Process奖励评价的是实际交付材料与过程，Final不更新。独立Final-SFT已单独对照，未作为本轮答案模块；引用/语法核验不能代替医学质量审核。
 
 评测结果与模型选择理由见[Base / SFT / GRPO13 / GRPO25](versions/process_final_sft/evaluation.md)及[Final-SFT与Base对照](versions/process_final_sft/final_sft.md)；主页展示完整设计，逐题分数和错误放在版本三评测中。
+
+<details>
+<summary>展开训练路线、检索预算与数学合同；详细章节也可从上方入口直接阅读</summary>
 
 ## 从当前模型继续训练的完整路线
 
@@ -153,7 +187,7 @@ flowchart TB
 
 ## 候选池：保留历史，不覆盖最新结果
 
-当前可见窗口最多 **8 个候选**。首次搜索沿 Search 后端的返回顺序填充；之后最多先放 4 个最新候选，剩余位置从历史池按原问题的 MiniLM 相关性选择。历史不足时，用更多最新候选补齐。
+当前可见窗口最多 **8 个候选**。首次搜索沿 Search 后端的返回顺序填充；之后最多先放4个最新候选，剩余位置从历史池按原问题的Cross-Encoder相关性选择，当前默认采用MedCPT。历史不足时，用更多最新候选补齐。
 
 新查询先沿后端顺序组装最新/历史窗口，不做第三次语义全局重排，再应用可用性和阅读状态的稳定分组：未读优先、已读但未明确耗尽的后置。显示顺序改变不重命名来源字母。候选池保存累计来源，可见窗口只是模型投影。
 
@@ -187,7 +221,7 @@ flowchart TB
 
 原始证据快照、实际输入消息与各文件分别登记哈希；模型可见元数据投影不抹掉原始坐标或 provenance。原文选片/证据卡只是预算交接，不替代原出处，也不证明所选内容充分。
 
-Final使用已打开的 `[E1]` 等证据ID，保留到source_id/chunk_id的映射；输出单个 `<answer>...</answer>`。无证据不能编造E1。引用存在、格式正确与句子被支持分别检查，不能互相替代。当前600题只冻结输入，不调用Final生成。见[引用与Final合同](docs/final_contract.md)。
+Final使用已打开的 `[E1]` 等证据ID，保留到source_id/chunk_id的映射；输出单个 `<answer>...</answer>`。无证据不能编造E1。引用存在、格式正确与句子被支持分别检查，不能互相替代。Process-only模式在输入冻结处结束，完整问答继续生成Final。见[引用与Final合同](docs/final_contract.md)。
 
 ## 源码与阅读入口
 
@@ -228,5 +262,7 @@ W_0\ \text{frozen},\quad A,B\ \text{trainable}.
 原始972题、10575阶段样本产生Process checkpoint1322；600题固定500 train/100 dev用于独立Final训练与对照。此后完成100题×4条Process-GRPO轨迹、99组25批更新，并完成旧50题的新GRPO13/25评测。旧题200条Process、新100题400条Process、dev100共400条Final均有逐题记录；无证据、State误读和失败保留，不以完成运行代替质量通过。
 
 新增检验与旧题开发对照分开标注，不将尚未执行的消融或新一轮训练写成结果。见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO后续设计](versions/process_final_sft/grpo.md)。
+
+</details>
 
 Apache-2.0；必要署名见 [第三方声明](THIRD_PARTY_NOTICES.md)。模型与外部服务另受各自条款约束。

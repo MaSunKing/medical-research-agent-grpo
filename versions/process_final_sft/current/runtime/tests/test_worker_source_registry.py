@@ -130,6 +130,150 @@ class FixtureCase(unittest.TestCase):
 
 
 class RegistryTests(FixtureCase):
+    def test_native_identity_graph_stays_out_of_model_candidate_projection(self):
+        from trainable_agent.tools import normalize
+        row = DUAL.Registry().fuse({'semantic_scholar':[
+            {'paperId':PAPER_ID, 'externalIds':{'PubMed':'12345'},
+             'title':'Synthetic paper', 'abstract':'Synthetic preview'}]})[0]
+        self.assertTrue(row['native_identity_groups'])
+        projected = normalize({'data':[row]}, 'paper')
+        without_graph = copy.deepcopy(row)
+        without_graph.pop('native_identity_groups')
+        self.assertEqual(projected, normalize({'data':[without_graph]}, 'paper'))
+        self.assertNotIn('native_identity_groups', projected['candidates'][0])
+
+    def paper_merge_history(self):
+        registry = DUAL.Registry()
+        first = copy.deepcopy(registry.fuse({'pubmed':[
+            {'pmid':'12345', 'title':'Original paper'}]}))
+        second = copy.deepcopy(registry.fuse({'semantic_scholar':[
+            {'paperId':PAPER_ID, 'doi':'10.1000/original',
+             'title':'Provider title', 'abstract':'Provider abstract'}]}))
+        merged = copy.deepcopy(registry.fuse({'semantic_scholar':[
+            {'paperId':PAPER_ID, 'externalIds':{'PubMed':'12345'}}]}))
+        self.assertEqual(first[0]['source_id'], 'PMID:12345')
+        self.assertEqual(second[0]['source_id'], 'S2:'+PAPER_ID)
+        self.assertEqual(merged[0]['source_id'], 'PMID:12345')
+        return registry, (first, second, merged)
+
+    def test_independent_sources_merge_then_restart_and_search_keep_canonical(self):
+        live, history = self.paper_merge_history()
+        for i, rows in enumerate(history, 1):
+            j = self.journal({'data':rows}, identity=f'{i:064x}')
+            os.utime(j.folder/'state.json', ns=(i*1_000_000_000, i*1_000_000_000))
+        restore_completed_searches(self.root, self.restore)
+        self.assertEqual(self.paper.by_alias, live.by_alias)
+        # Both already-returned IDs remain directly readable after the merge.
+        for rows in history[:2]:
+            sid = rows[0]['source_id']
+            for key, value in live.rows[sid].items():
+                # Optional unknown fields may be absent instead of null.
+                self.assertEqual(self.paper.rows[sid].get(key), value)
+        query = {'semantic_scholar':[{'paperId':PAPER_ID}]}
+        self.assertEqual(self.paper.fuse(query), live.fuse(query))
+        self.assertEqual(self.paper.by_alias['S2:'+PAPER_ID], 'PMID:12345')
+
+    def test_old_search_and_paired_replay_do_not_undo_native_identity_merge(self):
+        live, history = self.paper_merge_history()
+        store = PairedReceiptStore(self.root/'paired', release_id='synthetic-paper-merge', mode='freeze')
+        arguments = {'tool':'pubmed_search', 'query':'synthetic provider query'}
+        store.resolve('search', arguments, lambda:{'data':history[1]})
+        for rows in history:self.restore({'data':rows})
+        expected = copy.deepcopy(self.paper.by_alias)
+        self.restore({'data':history[1]})
+        replay, receipt = store.resolve('search', arguments,
+                                       lambda:self.fail('cached Search must not execute again'))
+        self.assertEqual(receipt['disposition'], 'replayed')
+        self.restore(replay)
+        self.assertEqual(self.paper.by_alias, expected)
+        self.assertEqual(self.paper.by_alias, live.by_alias)
+        self.assertEqual(self.paper.fuse({'semantic_scholar':[{'paperId':PAPER_ID}]}),
+                         live.fuse({'semantic_scholar':[{'paperId':PAPER_ID}]}))
+
+    def test_transitive_native_aliases_follow_merge_even_when_absent_from_new_row(self):
+        live, history = self.paper_merge_history()
+        self.assertNotIn('DOI:10.1000/original', DUAL.aliases(history[2][0]))
+        for rows in history:self.paper.restore(rows)
+        # The old S2 DOI is not in the final row, but its existing verified
+        # component was joined; a DOI-only follow-up must use the same ID.
+        self.assertEqual(live.by_alias['DOI:10.1000/original'], 'PMID:12345')
+        self.assertEqual(self.paper.by_alias, live.by_alias)
+        query = {'semantic_scholar':[{'doi':'10.1000/original'}]}
+        self.assertEqual(self.paper.fuse(query), live.fuse(query))
+
+    def test_s2_discovered_before_pmid_keeps_its_returned_canonical(self):
+        live = DUAL.Registry()
+        first = copy.deepcopy(live.fuse({'semantic_scholar':[{'paperId':PAPER_ID}]}))
+        merged = copy.deepcopy(live.fuse({'semantic_scholar':[
+            {'paperId':PAPER_ID, 'externalIds':{'PubMed':'12345'}}]}))
+        self.assertEqual(merged[0]['source_id'], 'S2:'+PAPER_ID)
+        self.paper.restore(first);self.paper.restore(merged);self.paper.restore(first)
+        self.assertEqual(self.paper.by_alias, live.by_alias)
+        self.assertEqual(self.paper.by_alias['PMID:12345'], 'S2:'+PAPER_ID)
+
+    def test_matching_titles_and_claimed_aliases_do_not_merge_unrelated_papers(self):
+        other_id = 'b'*40
+        registry = DUAL.Registry()
+        first = copy.deepcopy(registry.fuse({'pubmed':[{'pmid':'12345', 'title':'Same title'}]}))
+        second = copy.deepcopy(registry.fuse({'semantic_scholar':[
+            {'paperId':other_id, 'title':'Same title'}]}))
+        # A syntactically valid claimed alias is not native identity evidence.
+        second[0]['identity_aliases'].append('PMID:12345')
+        self.paper.restore(first);self.paper.restore(second)
+        self.assertEqual(self.paper.by_alias['PMID:12345'], 'PMID:12345')
+        self.assertEqual(self.paper.by_alias['S2:'+other_id], 'S2:'+other_id)
+
+    def test_native_discovery_groups_keep_multiple_s2_and_doi_identifiers(self):
+        live = DUAL.Registry()
+        first = copy.deepcopy(live.fuse({'pubmed':[{'pmid':'12345'}]}))
+        second = copy.deepcopy(live.fuse({'semantic_scholar':[
+            {'paperId':PAPER_ID, 'doi':'10.1000/first',
+             'externalIds':{'PubMed':'12345'}}]}))
+        extra = 'c'*40
+        third = copy.deepcopy(live.fuse({'semantic_scholar':[
+            {'paperId':extra, 'externalIds':{'PubMed':'12345','DOI':'10.1000/second'}}]}))
+        # The display/native row deliberately retains its first useful values.
+        self.assertEqual(third[0]['paperId'], PAPER_ID)
+        self.assertEqual(third[0]['doi'], '10.1000/first')
+        self.assertNotIn('S2:'+extra, DUAL.aliases(third[0]))
+        self.assertNotIn('DOI:10.1000/second', DUAL.aliases(third[0]))
+        # A single latest cached row carries the actual provider-ID history.
+        self.paper.restore(third)
+        self.assertEqual(self.paper.by_alias, live.by_alias)
+        self.assertEqual(self.paper.rows['PMID:12345'], third[0])
+        # Restoring the older result may not erase either later identity link.
+        self.paper.restore(first);self.paper.restore(second)
+        self.assertEqual(self.paper.by_alias, live.by_alias)
+        query = {'semantic_scholar':[{'paperId':extra}]}
+        self.assertEqual(self.paper.fuse(query), live.fuse(query))
+
+    def test_fuse_projects_only_native_id_fields_and_ignores_supplied_groups(self):
+        rows = DUAL.Registry().fuse({'semantic_scholar':[
+            {'paperId':PAPER_ID, 'externalIds':{'PubMed':'12345','DOI':'10.1000/example',
+                                             'CorpusId':'unused'},
+             'title':'Original title', 'native_identity_groups':[{'paperId':'b'*40}]}]})
+        self.assertEqual(rows[0]['native_identity_groups'], [
+            {'paperId':PAPER_ID, 'externalIds':{'PubMed':'12345','DOI':'10.1000/example'}}])
+        self.paper.restore(rows)
+        self.assertNotIn('S2:'+'b'*40, self.paper.by_alias)
+
+    def test_invalid_or_disconnected_native_groups_are_rejected_atomically(self):
+        valid = DUAL.Registry().fuse({'pubmed':[{'pmid':'12345'}]})[0]
+        bad_values = [None, 'not-a-list', [None], [{}],
+                      [{'paperId':'not-an-id'}],
+                      [{'pmid':'12345','title':'not an ID field'}],
+                      [{'pmid':'12345','externalIds':{'PubMed':'99999'}}],
+                      [{'pmid':'12345','externalIds':{'CorpusId':'unused'}}],
+                      [{'paperId':'b'*40}],
+                      [{'pmid':'99999','paperId':'b'*40}]]
+        for groups in bad_values:
+            with self.subTest(groups=groups):
+                bad = copy.deepcopy(valid);bad['native_identity_groups'] = groups
+                target = DUAL.Registry()
+                with self.assertRaises(ValueError):target.restore([valid, bad])
+                self.assertEqual(target.rows, {})
+                self.assertEqual(target.by_alias, {})
+
     def test_restore_web_and_canonical_s2_with_later_pmid_without_refusing_id(self):
         web, paper = values()
         self.journal(web, identity='1'*64);self.journal(paper, identity='2'*64)

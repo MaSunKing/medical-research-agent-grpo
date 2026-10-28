@@ -1,11 +1,11 @@
 {
   "date": "2026-10-28",
   "files": {
-    "README.md": "81d1a8d4e08ca38286a153904c7ba0eee107530c8d6daeae5054637541a99642",
+    "README.md": "cc21cdc517465e75a590a757ed7de101f26ac783dc7a38bbb23c94a75f465635",
     "THIRD_PARTY_NOTICES.md": "741b56a4bb6d88d40c8c7a97798e7be55f8f89f74d3ec8d86ac18aece62eb127",
-    "versions/process_final_sft/README.md": "ced314dedbd9b3f7b627bb33538f68e126d1e716d850275daf1efdc1a6b5b4ab",
+    "versions/process_final_sft/README.md": "d27d6c360f543cfe1ff5d9ca90c4a95730be6e5424e133d4c2dd57f932e0bbd0",
     "versions/process_final_sft/current/README.md": "c6bdac028d33122cd40b4a9803d1c81d4de92f8350a1c3342734da860d8991c0",
-    "versions/process_final_sft/current/SOURCE_MANIFEST.json": "afba541e88f56faa2c95aecfca61ab519597e9f30c66f76559170f200b64ec97",
+    "versions/process_final_sft/current/SOURCE_MANIFEST.json": "9cd054f7dafd254e2c89ae39bcc6594103fc6bbfc2da53096949273e6fd03a4c",
     "versions/process_final_sft/design.md": "a92c9111bc214114578a733e635804896f7a908d994e8687f8f526beb99fa3e7",
     "versions/process_final_sft/evaluation.md": "475f29a31cc7d33ad65a233f65da97e993a4426f8b042e6aaa03687cd801ab4b",
     "versions/process_final_sft/experiments/newbench_20261028/BUILD_RECEIPT.json": "577603b7bd6ed6db95ac228ef9c9be0e1faab5fdded4a89897042c9758de0544",
@@ -281,7 +281,7 @@
     "versions/process_final_sft/experiments/newbench_20261028/test_public_results.py": "42ce9962d5e79bde93acbe63a2ad43789dc2af68c091edbbb9afc157ca6601f5",
     "versions/process_final_sft/experiments/newbench_20261028/verify_results.py": "50fdb679b051b0776f3b2b096e5b214eb8e78b7437a2aba7bf48e73dc1be7c04",
     "versions/process_final_sft/experiments/process_grpo_20261026/PUBLICATION.json": "93bc4ce7d648a03552392613e3c119ab924f9723aa4f23e3b4377b8655cf44f5",
-    "versions/process_final_sft/grpo.md": "fadb33c4a9c054c3987200c5b843b66b0f05dd67bf915527fb4f3a799ca42e51",
+    "versions/process_final_sft/grpo.md": "6a98bf24baea0a0dce94bce7eba7bbb12dc279bd044d82489e5752a936eaf809",
     "versions/process_final_sft/records.md": "9a9b63f365963369819e4129a14f25e033c43413c17f48c467d73c879212a5ba",
     "versions/process_final_sft/experiments/newbench_20261028/questions_100.json": "8a9b41f0699d93ac6a65d87501253f061bc9f4a82cb2a0aada5e6f50731e1bb1",
     "versions/process_final_sft/experiments/final_sft_dev100/README.md": "35e170dfa47ce45180ddf51cfc3be7d1bd5f3f5c789dd30a13187a4e190b8530",
@@ -470,12 +470,12 @@
       "versions/process_final_sft/grpo.md": "aea3d40cfd60d6b2fff022248b41d4dbf22a30caebd0487bfeb11d2f10d2c2e9"
     },
     "files": {
-      "README.md": "81d1a8d4e08ca38286a153904c7ba0eee107530c8d6daeae5054637541a99642",
-      "versions/process_final_sft/README.md": "ced314dedbd9b3f7b627bb33538f68e126d1e716d850275daf1efdc1a6b5b4ab",
+      "README.md": "cc21cdc517465e75a590a757ed7de101f26ac783dc7a38bbb23c94a75f465635",
+      "versions/process_final_sft/README.md": "d27d6c360f543cfe1ff5d9ca90c4a95730be6e5424e133d4c2dd57f932e0bbd0",
       "versions/process_final_sft/current/README.md": "c6bdac028d33122cd40b4a9803d1c81d4de92f8350a1c3342734da860d8991c0",
-      "versions/process_final_sft/current/SOURCE_MANIFEST.json": "afba541e88f56faa2c95aecfca61ab519597e9f30c66f76559170f200b64ec97",
+      "versions/process_final_sft/current/SOURCE_MANIFEST.json": "9cd054f7dafd254e2c89ae39bcc6594103fc6bbfc2da53096949273e6fd03a4c",
       "versions/process_final_sft/design.md": "a92c9111bc214114578a733e635804896f7a908d994e8687f8f526beb99fa3e7",
-      "versions/process_final_sft/grpo.md": "fadb33c4a9c054c3987200c5b843b66b0f05dd67bf915527fb4f3a799ca42e51"
+      "versions/process_final_sft/grpo.md": "6a98bf24baea0a0dce94bce7eba7bbb12dc279bd044d82489e5752a936eaf809"
     }
   }
 }

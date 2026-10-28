@@ -2,7 +2,8 @@
 import copy
 import unittest
 
-from trainable_agent.context_processing.browser import classify_section, preprocess_document
+from trainable_agent.context_processing.browser import (
+    classify_section, preprocess_document, short_body_content_protected)
 
 
 class ShortBodyProtectionTests(unittest.TestCase):
@@ -43,6 +44,47 @@ class ShortBodyProtectionTests(unittest.TestCase):
                      'Out-of-pocket costs persist despite community care'):
             with self.subTest(text=text):
                 self.assert_retained('Community recommendations', text)
+
+    def test_percentage_targets_ranges_and_rates_without_final_period(self):
+        for text in ('Target oxygen saturation 92% to 96%',
+                     'Target oxygen saturation 92–96%',
+                     'SpO2 target range 92-96%',
+                     'Response rate 60 to 75 percent',
+                     'Estimated mortality 5%–8%',
+                     'Risk reduction 12.5 per cent',
+                     '目标血氧饱和度92％至96％'):
+            with self.subTest(text=text):
+                self.assert_retained('Respiratory support', text)
+                self.assert_retained('Clinical guidelines', text)
+
+    def test_quantified_care_intervals_without_assertion_verb(self):
+        for text in ('Follow-up every 3 months after treatment',
+                     'Follow up at 6 weeks',
+                     'Reassess in 6 weeks',
+                     'Repeat blood pressure monitoring after 2 weeks',
+                     'Monitoring at 24-hour intervals',
+                     '每3个月复查一次',
+                     '术后6周复诊'):
+            with self.subTest(text=text):
+                self.assert_retained('Clinical guidelines', text)
+                self.assert_retained('Recommended support', text)
+
+    def test_percentage_or_time_in_navigation_is_not_blanket_protection(self):
+        for text in ('Home 20% discount Resources Contact',
+                     'Target 20% discount Resources Contact',
+                     'Downloads 5% off Contact Support',
+                     'News updates every 3 months Downloads Contact',
+                     '2026 3 months Resources Contact'):
+            with self.subTest(text=text):
+                self.assertFalse(short_body_content_protected(text))
+                self.assertEqual(classify_section('Support', text)[0], 'web_boilerplate')
+                self.assertEqual(classify_section('Clinical guidelines', text)[0], 'navigation_index')
+
+    def test_explicit_subscription_controls_override_quantified_protection(self):
+        text = 'Subscribe to our newsletter for target oxygen saturation 92% to 96%'
+        self.assertTrue(short_body_content_protected(text))
+        self.assertEqual(classify_section('Newsletter', text),
+                         ('web_boilerplate', 'subscription_or_promotion_controls'))
 
     def test_chinese_instructions_without_final_punctuation(self):
         for text in ('患者需监测血氧并及时随访', '监测血压；记录症状', '不推荐常规使用，未见明显获益'):

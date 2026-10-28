@@ -1,0 +1,21 @@
+{
+  "schema": "v3_real_case_publication_v1",
+  "files": {
+    "Q45_grpo25/CASE.json": "82f653c9d90c2551df84e798002603d38a751bf75936d245235d98fdca51fe45",
+    "Q45_grpo25/final_answer.md": "2eec9338b797258003bee4f0370c2d99c8b7cd22985e482e8a2e2a89b54d8a26",
+    "Q45_grpo25/README.md": "aa06c48655e33f355a926e76a5a05f2cb30b3f59c3e19ac795e2493408143e03",
+    "Q98_grpo25/CASE.json": "dcc578a06cea9c099cac96abd2f335cfe8ed887456cd3e8cd1814bccdfaf8cc6",
+    "Q98_grpo25/README.md": "ca804fb2eb00218adb5609155ea5640ba2dd6aaa6163de4586cfe6449be23f19",
+    "README.md": "2397d0ffd8c1aded875749a9d46b38cb270b7c5295058ae687797bb81e536513"
+  },
+  "questions": [
+    45,
+    98
+  ],
+  "arm": "grpo25",
+  "new_generation": false,
+  "rescored": false,
+  "full_captures_included": false,
+  "private_case_verification_sha256": "98e6871abdd08092ad956e230c75fda32140d271e77b711150ad20654c009d54",
+  "static_run_excerpt": true
+}

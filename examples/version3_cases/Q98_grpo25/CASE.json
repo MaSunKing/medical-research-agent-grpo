@@ -1,0 +1,491 @@
+{
+  "schema": "v3_real_case_excerpt_v1",
+  "index": 98,
+  "benchmark": "medbrowsecomp",
+  "arm": "grpo25",
+  "question_id": "mbnew_187a66b9a3d9aa96d6c9",
+  "question": "For clinical trial NCT00022191, review the more effective regimen ingredients and identify which ingredient starts with the letter G.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+  "question_sha256": "3735e56c5a14b5c53dbe97cae7657e17c85ed15e1c78e9f0a5dc622d98470692",
+  "run_identity": "4cc0324edf09f1fc5f0a2de5d9cd9441181c4cd897c765a609fdf099f8b4e311",
+  "status": "process_failure",
+  "process_termination": "model_contract_failure",
+  "final_status": "not_started",
+  "checklist_model_text": "{\"requirements\":[\"Review clinical trial NCT00022191’s regimen ingredients to identify which ingredients are more effective, verifying the study date and comparison.\",\"Identify the pharmaceutical company that received the most recent FDA approval (up until December 2024) for the identified ingredient, ensuring the approval concerns overall FDA drug approval, not new indications or supplemental approvals.\",\"If that company is listed on any US stock market (including over-the-counter markets), provide its stock ticker symbol and the opening stock price on the FDA approval date.\",\"If the company is not listed on any US stock market, indicate that it is NOT LISTED.\"]}",
+  "checklist_model_text_sha256": "7079f4d0902a83bcd8981d395a4720dad3038561a061c8aaa73dfc9248b64937",
+  "requirements": {
+    "R1": "Review clinical trial NCT00022191’s regimen ingredients to identify which ingredients are more effective, verifying the study date and comparison.",
+    "R2": "Identify the pharmaceutical company that received the most recent FDA approval (up until December 2024) for the identified ingredient, ensuring the approval concerns overall FDA drug approval, not new indications or supplemental approvals.",
+    "R3": "If that company is listed on any US stock market (including over-the-counter markets), provide its stock ticker symbol and the opening stock price on the FDA approval date.",
+    "R4": "If the company is not listed on any US stock market, indicate that it is NOT LISTED."
+  },
+  "steps": [
+    {
+      "turn": 1,
+      "model_text": "{\"action\":\"search\",\"requirement_ids\":[\"R1\"],\"channel\":\"web\",\"query\":\"NCT00022191 clinical trial regimen ingredients efficacy comparison original study date\"}",
+      "model_text_sha256": "8098b8a6a909e592d2daa45574a4db91ad7183f088d01c913645fb0a052cad22",
+      "executed_action": {
+        "action": "search",
+        "requirement_ids": [
+          "R1"
+        ],
+        "channel": "web",
+        "query": "NCT00022191 clinical trial regimen ingredients efficacy comparison original study date"
+      },
+      "feedback": {
+        "status": "ok",
+        "error_code": "",
+        "retryable": false,
+        "new_evidence_ids": [],
+        "executed": true,
+        "budget_exempt": false
+      }
+    },
+    {
+      "turn": 2,
+      "model_text": "{\"action\":\"browse\",\"requirement_ids\":[\"R1\"],\"source_id\":\"C\",\"reading_focus\":\"NCT00022191: cisplatin plus gemcitabine with or without paclitaxel regimen ingredients, efficacy comparison, and study dates\"}",
+      "model_text_sha256": "7b2d3658c26bc008c8e7d6d3a5ada0bfd6bdc686b7011eac323f1d81b73990f7",
+      "executed_action": {
+        "action": "browse",
+        "requirement_ids": [
+          "R1"
+        ],
+        "source_id": "WEB:bd32b643d261d891",
+        "reading_focus": "NCT00022191: cisplatin plus gemcitabine with or without paclitaxel regimen ingredients, efficacy comparison, and study dates"
+      },
+      "feedback": {
+        "status": "ok",
+        "error_code": "",
+        "retryable": false,
+        "new_evidence_ids": [
+          "E1"
+        ],
+        "executed": true,
+        "budget_exempt": false
+      }
+    },
+    {
+      "turn": 3,
+      "model_text": "{\"action\":\"search\",\"requirement_ids\":[\"R1\"],\"channel\":\"paper\",\"query\":\"NCT00022191 phase III cisplatin gemcitabine paclitaxel randomized trial overall survival progression-free survival\"}",
+      "model_text_sha256": "398a31354e593b472327440920cd527a5a50b2cfbfd1fa9eebe0b272ced93055",
+      "executed_action": {
+        "action": "search",
+        "requirement_ids": [
+          "R1"
+        ],
+        "channel": "paper",
+        "query": "NCT00022191 phase III cisplatin gemcitabine paclitaxel randomized trial overall survival progression-free survival"
+      },
+      "feedback": {
+        "status": "ok",
+        "error_code": "",
+        "retryable": false,
+        "new_evidence_ids": [],
+        "executed": true,
+        "budget_exempt": false
+      }
+    },
+    {
+      "turn": 4,
+      "model_text": "{\"action\":\"browse\",\"requirement_ids\":[\"R1\"],\"source_id\":\"B\",\"reading_focus\":\"NCT00022191 cisplatin gemcitabine with or without paclitaxel regimen ingredients, efficacy results and original study dates\"}",
+      "model_text_sha256": "acb0ed1ab294b503d2594cd71cb14b947d680caf0c12e2757ee746432606aebc",
+      "executed_action": {
+        "action": "browse",
+        "requirement_ids": [
+          "R1"
+        ],
+        "source_id": "WEB:401d2422ad5f64f4",
+        "reading_focus": "NCT00022191 cisplatin gemcitabine with or without paclitaxel regimen ingredients, efficacy results and original study dates"
+      },
+      "feedback": {
+        "status": "ok",
+        "error_code": "",
+        "retryable": false,
+        "new_evidence_ids": [
+          "E2",
+          "E3"
+        ],
+        "executed": true,
+        "budget_exempt": false
+      }
+    },
+    {
+      "turn": 5,
+      "model_text": "{\"action\":\"search\",\"requirement_ids\":[\"R2\"],\"channel\":\"web\",\"query\":\"gemcitabine FDA drug approval manufacturing company most recent overall drug approval until December 2024\"}",
+      "model_text_sha256": "e4152584512416d73d81aa35845d2816e68c1a31273fc771b0cfdba202751787",
+      "executed_action": {
+        "action": "search",
+        "requirement_ids": [
+          "R2"
+        ],
+        "channel": "web",
+        "query": "gemcitabine FDA drug approval manufacturing company most recent overall drug approval until December 2024"
+      },
+      "feedback": {
+        "status": "ok",
+        "error_code": "",
+        "retryable": false,
+        "new_evidence_ids": [],
+        "executed": true,
+        "budget_exempt": false
+      }
+    }
+  ],
+  "state_updates": [
+    {
+      "after": {
+        "R1": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "Review clinical trial NCT00022191’s regimen ingredients to identify which ingredients are more effective, verifying the study date and comparison.",
+          "support": "missing"
+        },
+        "R2": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "Identify the pharmaceutical company that received the most recent FDA approval (up until December 2024) for the identified ingredient, ensuring the approval concerns overall FDA drug approval, not new indications or supplemental approvals.",
+          "support": "missing"
+        },
+        "R3": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "If that company is listed on any US stock market (including over-the-counter markets), provide its stock ticker symbol and the opening stock price on the FDA approval date.",
+          "support": "missing"
+        },
+        "R4": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "If the company is not listed on any US stock market, indicate that it is NOT LISTED.",
+          "support": "missing"
+        }
+      },
+      "before": {
+        "R1": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "Review clinical trial NCT00022191’s regimen ingredients to identify which ingredients are more effective, verifying the study date and comparison.",
+          "support": "missing"
+        },
+        "R2": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "Identify the pharmaceutical company that received the most recent FDA approval (up until December 2024) for the identified ingredient, ensuring the approval concerns overall FDA drug approval, not new indications or supplemental approvals.",
+          "support": "missing"
+        },
+        "R3": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "If that company is listed on any US stock market (including over-the-counter markets), provide its stock ticker symbol and the opening stock price on the FDA approval date.",
+          "support": "missing"
+        },
+        "R4": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "If the company is not listed on any US stock market, indicate that it is NOT LISTED.",
+          "support": "missing"
+        }
+      },
+      "delta": {
+        "updates": []
+      }
+    },
+    {
+      "after": {
+        "R1": {
+          "conflict": "",
+          "evidence_ids": [
+            "E2",
+            "E3"
+          ],
+          "gap": "The trial compares cisplatin plus gemcitabine with paclitaxel, cisplatin and gemcitabine. Efficacy results and exact study completion date are not provided in the visible evidence, so which arm was more effective and when the study completed remain unverified.",
+          "support": "direct"
+        },
+        "R2": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "Identify the pharmaceutical company that received the most recent FDA approval (up until December 2024) for the identified ingredient, ensuring the approval concerns overall FDA drug approval, not new indications or supplemental approvals.",
+          "support": "missing"
+        },
+        "R3": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "If that company is listed on any US stock market (including over-the-counter markets), provide its stock ticker symbol and the opening stock price on the FDA approval date.",
+          "support": "missing"
+        },
+        "R4": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "If the company is not listed on any US stock market, indicate that it is NOT LISTED.",
+          "support": "missing"
+        }
+      },
+      "before": {
+        "R1": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "Review clinical trial NCT00022191’s regimen ingredients to identify which ingredients are more effective, verifying the study date and comparison.",
+          "support": "missing"
+        },
+        "R2": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "Identify the pharmaceutical company that received the most recent FDA approval (up until December 2024) for the identified ingredient, ensuring the approval concerns overall FDA drug approval, not new indications or supplemental approvals.",
+          "support": "missing"
+        },
+        "R3": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "If that company is listed on any US stock market (including over-the-counter markets), provide its stock ticker symbol and the opening stock price on the FDA approval date.",
+          "support": "missing"
+        },
+        "R4": {
+          "conflict": "",
+          "evidence_ids": [],
+          "gap": "If the company is not listed on any US stock market, indicate that it is NOT LISTED.",
+          "support": "missing"
+        }
+      },
+      "delta": {
+        "updates": [
+          {
+            "conflict": "",
+            "evidence_ids": [
+              "E2",
+              "E3"
+            ],
+            "gap": "The trial compares cisplatin plus gemcitabine with paclitaxel, cisplatin and gemcitabine. Efficacy results and exact study completion date are not provided in the visible evidence, so which arm was more effective and when the study completed remain unverified.",
+            "requirement_id": "R1",
+            "support": "direct"
+          }
+        ]
+      }
+    }
+  ],
+  "final_state": {
+    "R1": {
+      "support": "direct",
+      "evidence_ids": [
+        "E2",
+        "E3"
+      ],
+      "gap": "The trial compares cisplatin plus gemcitabine with paclitaxel, cisplatin and gemcitabine. Efficacy results and exact study completion date are not provided in the visible evidence, so which arm was more effective and when the study completed remain unverified.",
+      "conflict": ""
+    },
+    "R2": {
+      "support": "missing",
+      "evidence_ids": [],
+      "gap": "Identify the pharmaceutical company that received the most recent FDA approval (up until December 2024) for the identified ingredient, ensuring the approval concerns overall FDA drug approval, not new indications or supplemental approvals.",
+      "conflict": ""
+    },
+    "R3": {
+      "support": "missing",
+      "evidence_ids": [],
+      "gap": "If that company is listed on any US stock market (including over-the-counter markets), provide its stock ticker symbol and the opening stock price on the FDA approval date.",
+      "conflict": ""
+    },
+    "R4": {
+      "support": "missing",
+      "evidence_ids": [],
+      "gap": "If the company is not listed on any US stock market, indicate that it is NOT LISTED.",
+      "conflict": ""
+    }
+  },
+  "evidence": [
+    {
+      "evidence_id": "E1",
+      "source_id": "WEB:bd32b643d261d891",
+      "chunk_id": "WEB:bd32b643d261d891#s0-c0-v644ced76fbcd0195",
+      "url": "https://clinicaltrials.gov/study/NCT00022191",
+      "text_sha256": "7dac036b318429714eab89edf252e63c995bbfd173103a90bf2594d6fd288340",
+      "text_characters": 111,
+      "actual_final_input_contains_evidence": false,
+      "scope": {
+        "retrieved_scope": "selected_parsed_passages",
+        "full_document_verified": false,
+        "selected_content_types": [
+          "prose"
+        ],
+        "document_readability_status": "readable_body"
+      },
+      "excerpts": []
+    },
+    {
+      "evidence_id": "E2",
+      "source_id": "WEB:401d2422ad5f64f4",
+      "chunk_id": "WEB:401d2422ad5f64f4#s0-c0-va82802121620122d",
+      "url": "https://www.loyolamedicine.org/clinical-research/clinical-trials/nct00022191",
+      "text_sha256": "0a7c60aaadb92e7c2c3540bea9b921ad14ea717321334cb6118a7b07b9a681f5",
+      "text_characters": 764,
+      "actual_final_input_contains_evidence": false,
+      "scope": {
+        "retrieved_scope": "selected_parsed_passages",
+        "full_document_verified": false,
+        "selected_content_types": [
+          "prose"
+        ],
+        "document_readability_status": "readable_body"
+      },
+      "excerpts": [
+        {
+          "text": "Cisplatin Plus Gemcitabine With or Without Paclitaxel",
+          "start_char": 12,
+          "end_char": 65,
+          "sha256": "9491125f0f92edd29640e581a7dbcaac31b0196dd2a731c9fef0208b0bd62d17"
+        },
+        {
+          "text": "It is not yet known which combination chemotherapy regimen is more effective",
+          "start_char": 479,
+          "end_char": 555,
+          "sha256": "7c0f46b1cd918c03343c2a97ffda7211b5e885eafdb5b8b77bb9fb6ec3cb3ff8"
+        }
+      ]
+    },
+    {
+      "evidence_id": "E3",
+      "source_id": "WEB:401d2422ad5f64f4",
+      "chunk_id": "WEB:401d2422ad5f64f4#s0-c2-vf19390922ee09981",
+      "url": "https://www.loyolamedicine.org/clinical-research/clinical-trials/nct00022191",
+      "text_sha256": "4faf9febcf34b53aa5bd4460a2713029b985e380c0f3412c50f1a9768f7963e0",
+      "text_characters": 2753,
+      "actual_final_input_contains_evidence": false,
+      "scope": {
+        "retrieved_scope": "selected_parsed_passages",
+        "full_document_verified": false,
+        "selected_content_types": [
+          "prose"
+        ],
+        "document_readability_status": "readable_body"
+      },
+      "excerpts": []
+    }
+  ],
+  "rejected_generations": [
+    {
+      "stage": "decision",
+      "attempt": 0,
+      "model_text": "{\"action\":\"browse\",\"requirement_ids\":[\"R2\",\"R3\",\"R4\"],\"source_id\":\"T\",\"reading_focus\":\"FDA approval date and manufacturer of gemcitabine intravesical system: Inlexzo versus overall FDA drug approval, comparative market value and stock listing\"}",
+      "model_text_sha256": "a6ebb898f5bea63d617a62e36f13c2072438794ca059d1674271e994b1994b73",
+      "error": "1 validation error for tagged-union[Search,Browse,Stop]\nbrowse.requirement_ids\n  List should have at most 2 items after validation, not 3 [type=too_long, input_value=['R2', 'R3', 'R4'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.14/v/too_long"
+    },
+    {
+      "stage": "decision",
+      "attempt": 1,
+      "model_text": "{\"action\":\"browse\",\"requirement_ids\":[\"R2\",\"R3\",\"R4\"],\"source_id\":\"U\",\"reading_focus\":\"Gemcitabine FDA overall drug approval by manufacturer, approval date, stock ticker symbol and opening stock price on approval day\"}",
+      "model_text_sha256": "db952ae1e5ad4b726338bb8bf8f43604999ab4257907e43c93c478d94068df1f",
+      "error": "1 validation error for tagged-union[Search,Browse,Stop]\nbrowse.requirement_ids\n  List should have at most 2 items after validation, not 3 [type=too_long, input_value=['R2', 'R3', 'R4'], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.14/v/too_long"
+    }
+  ],
+  "budget": {
+    "charged": 5,
+    "actual": 5,
+    "exemptions": 0,
+    "max_charged": 6,
+    "max_actual": 11,
+    "max_exemptions": 5
+  },
+  "actual_final_input_present": false,
+  "actual_final_input_sha256": null,
+  "answer": null,
+  "answer_sha256": null,
+  "answer_source_digest_algorithm": "SHA256 of canonical JSON string, UTF-8",
+  "answer_text_sha256": null,
+  "final_answer_markdown_sha256": null,
+  "comparison": [
+    {
+      "arm": "base",
+      "status_original": "complete",
+      "coverage_percent": 0.0,
+      "p1": 0.0,
+      "p2": 20,
+      "p3": 15,
+      "p4": 2.5,
+      "process_score": 37.5,
+      "quality_value": 0.18375,
+      "benchmark_score": 0.0,
+      "major": true,
+      "fatal": false
+    },
+    {
+      "arm": "sft",
+      "status_original": "complete",
+      "coverage_percent": 16.666666666666668,
+      "p1": 6.666666666666667,
+      "p2": 20,
+      "p3": 15,
+      "p4": 7.5,
+      "process_score": 49.16666666666667,
+      "quality_value": 0.4916666666666667,
+      "benchmark_score": 1.0,
+      "major": false,
+      "fatal": false
+    },
+    {
+      "arm": "grpo13",
+      "status_original": "complete",
+      "coverage_percent": 16.666666666666668,
+      "p1": 6.666666666666667,
+      "p2": 30,
+      "p3": 15,
+      "p4": 7.5,
+      "process_score": 59.166666666666664,
+      "quality_value": 0.5916666666666667,
+      "benchmark_score": 1.0,
+      "major": false,
+      "fatal": false
+    },
+    {
+      "arm": "grpo25",
+      "status_original": "process_failure",
+      "coverage_percent": 0.0,
+      "p1": 0.0,
+      "p2": 25,
+      "p3": 15,
+      "p4": 10,
+      "process_score": 50.0,
+      "quality_value": 0,
+      "benchmark_score": null,
+      "major": false,
+      "fatal": false
+    }
+  ],
+  "existing_review": {
+    "notes": "检索过程中确实找到了正确NCT00022191的cisplatin/gemcitabine/paclitaxel方案，定位动作有价值；但Decision两次绑定3个需求后终止，Final从未收到输入。按模型Process失败P1=0且R=0，其他项仅诊断记录，不删除该条，也不把它归工程异常。",
+    "issues": [
+      "两次Browse均传3个requirement_ids，超过最多2个的契约，修复失败。",
+      "Checklist没有保留G字母选择；末态direct但比较疗效仍缺失。"
+    ],
+    "points": [
+      {
+        "id": "CP1",
+        "score": 0,
+        "reason": "Process模型契约失败，无实际Final请求，已找到的试验资料仅作诊断不算交付。",
+        "evidence_ids": []
+      },
+      {
+        "id": "CP2",
+        "score": 0,
+        "reason": "无实际Final输入及公司正文。",
+        "evidence_ids": []
+      },
+      {
+        "id": "CP3",
+        "score": 0,
+        "reason": "无实际Final输入及股票资料。",
+        "evidence_ids": []
+      }
+    ]
+  },
+  "provenance": {
+    "source_files": {
+      "DONE.json": "8c8f786747d2aed9852405905b772642934118c2461e4f2ac99dd72c694ed3f1",
+      "EVENTS.json": "04d46195e2cc73c87ae1449ec5005797161c31d68c62f6e5ed209ac2737c4a4f",
+      "RESULT.json": "6f8a186ac62678e77b3fceb168895eb37fe435e22e1ccb65b5535fdba15a22ec",
+      "TRAJECTORY.json": "ceb5e7aa08a669b4b4229b8c30b69cfdc6d072ef0c6e550e10991dcdd531bbc6"
+    },
+    "source_export_manifest_sha256": "ac91ead4abf8ecdd33dadff9feccef6bd54367daad681802df734347cf8340b8",
+    "source_package_manifest_sha256": "4a18830c5e371dbb43001147fc7e0f73fb2c4043069711d5e11b991c327ca514",
+    "transformation": "Selected fields and short exact evidence excerpts; Markdown Final uses LF; JSON answer retains source text",
+    "newly_generated": false,
+    "rescored": false,
+    "full_capture_published": false
+  }
+}

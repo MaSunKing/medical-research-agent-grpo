@@ -48,9 +48,10 @@
       "changes": "byte-identical"
     },
     "runtime/src/trainable_agent/context_processing/browser.py": {
-      "source_sha256": "7b0129ca1cbf57b0b5ff05a7d5a7d71835b6af00e7ed92f473b19c0f5705475a",
-      "published_sha256": "7b0129ca1cbf57b0b5ff05a7d5a7d71835b6af00e7ed92f473b19c0f5705475a",
-      "changes": "Current implementation; UTF-8/LF source export"
+      "source_sha256": "063e78cfce2d4354584da124989766ab0f279638e58ad11b8298fd73a96a68e0",
+      "published_sha256": "063e78cfce2d4354584da124989766ab0f279638e58ad11b8298fd73a96a68e0",
+      "changes": "Current bounded-body protection and source-identity contracts; UTF-8/LF export",
+      "reference_source_sha256": "7b0129ca1cbf57b0b5ff05a7d5a7d71835b6af00e7ed92f473b19c0f5705475a"
     },
     "runtime/src/trainable_agent/context_processing/cleaning.py": {
       "source_sha256": "2d35688e215fa81996d537ea2d5c3869d1115bb3045c92ead364fc7579b50ad2",
@@ -378,9 +379,10 @@
       "changes": "UTF-8/LF text normalization only"
     },
     "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/dual_paper.py": {
-      "source_sha256": "c5833e05af37648b5361bddc8adae35b1ced3bcacdb8019023914c33ccb239c9",
-      "published_sha256": "24082bfd75df608af9a9ea1a605eec3908151ad664bbb0984e39641c8d2e6097",
-      "changes": "Current implementation; UTF-8/LF source export"
+      "source_sha256": "1438aad1891251dd910799776a4e7d9bd4dc777c9202f87119f05bec1a3afc04",
+      "published_sha256": "37b00199911f8760e0ee78d508fbd67947e93624e08418eebdbcdf10abd8ed46",
+      "changes": "Current bounded-body protection and source-identity contracts; UTF-8/LF export",
+      "reference_source_sha256": "c5833e05af37648b5361bddc8adae35b1ced3bcacdb8019023914c33ccb239c9"
     },
     "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/evidence_handoff_v3.py": {
       "source_sha256": "e51aecdaecb6630d4ad1791c3606a9bc9d761406132975b825a76379f062b93d",
@@ -703,8 +705,8 @@
       "changes": "byte-identical"
     },
     "runtime/retrieval_snapshot_v2/MANIFEST.json": {
-      "source_sha256": "195626892198aee8e0c74c159efb39f9294c9423a03978b8655ab181f3cd673f",
-      "published_sha256": "0845aa8f70601141ebdd032fef54355c106180d367fd4814f277f3889f88cec5",
+      "source_sha256": "d0b9e60fd84b13a9fa44b0e7a883062b6699204e57bbc6d4bd4b69295a2c9ed5",
+      "published_sha256": "247224a01ce6a4737fa7249d68e5c03c4baf4845a4df289b233a085bdd59776d",
       "changes": "Current retrieval identity; hashes bound to normalized public sources and shared modules"
     },
     "runtime/retrieval_snapshot_v2/paired_receipts.py": {
@@ -933,14 +935,16 @@
       "changes": "Current implementation; UTF-8/LF source export"
     },
     "runtime/tests/test_short_body_protection.py": {
-      "source_sha256": "b204b90a3cb2deb2bdd8e4fc3ea3cd9d265e4502037122e4bba52e537fb9b3b1",
-      "published_sha256": "b204b90a3cb2deb2bdd8e4fc3ea3cd9d265e4502037122e4bba52e537fb9b3b1",
-      "changes": "Current implementation; UTF-8/LF source export"
+      "source_sha256": "184e8f99aff7aba75a6997bab88058324a29c8a8a1e5a0950f58402344c0b958",
+      "published_sha256": "184e8f99aff7aba75a6997bab88058324a29c8a8a1e5a0950f58402344c0b958",
+      "changes": "Current bounded-body protection and source-identity contracts; UTF-8/LF export",
+      "reference_source_sha256": "b204b90a3cb2deb2bdd8e4fc3ea3cd9d265e4502037122e4bba52e537fb9b3b1"
     },
     "runtime/tests/test_worker_source_registry.py": {
-      "source_sha256": "538ca3d033a6f473d307d6be25bbe145f868e0d4b521c655c5a2f3bf8387ecda",
-      "published_sha256": "538ca3d033a6f473d307d6be25bbe145f868e0d4b521c655c5a2f3bf8387ecda",
-      "changes": "Current implementation; UTF-8/LF source export"
+      "source_sha256": "0ab8986e26ccaf6555ab2b3ae40c04a2a9063f769ac16cbb14494f10f0134e2d",
+      "published_sha256": "0ab8986e26ccaf6555ab2b3ae40c04a2a9063f769ac16cbb14494f10f0134e2d",
+      "changes": "Current bounded-body protection and source-identity contracts; UTF-8/LF export",
+      "reference_source_sha256": "538ca3d033a6f473d307d6be25bbe145f868e0d4b521c655c5a2f3bf8387ecda"
     },
     "process_grpo_update/README.md": {
       "source_sha256": null,
@@ -949,7 +953,7 @@
     },
     "process_grpo_update/SOURCE_MANIFEST.json": {
       "source_sha256": null,
-      "published_sha256": "6832c231b9f9d7b00adb33eb1c232ca4b5ddc65dc89f0c5b63ab5989c2c7d756",
+      "published_sha256": "619af9e2e607bb6675f5cfbe4f34d51972c1b59a57dc4d7e3bd97993fd2d7684",
       "changes": "Source-only Process-GRPO update implementation; no private data"
     },
     "process_grpo_update/training/process_grpo_update/CONFIG.json": {
@@ -968,14 +972,14 @@
       "changes": "Source-only Process-GRPO update implementation; no private data"
     },
     "process_grpo_update/training/process_grpo_update/runtime.py": {
-      "source_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31",
-      "published_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31",
-      "changes": "Source-only Process-GRPO update implementation; no private data"
+      "source_sha256": "38fec6daced43899bea61d90af159396fac8df206d5d8d4dc7ce93bc3848c33b",
+      "published_sha256": "38fec6daced43899bea61d90af159396fac8df206d5d8d4dc7ce93bc3848c33b",
+      "changes": "Explicit alignment checked/count/null diagnostics; UTF-8/LF source export"
     },
     "process_grpo_update/training/process_grpo_update/test_update.py": {
-      "source_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635",
-      "published_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635",
-      "changes": "Source-only Process-GRPO update implementation; no private data"
+      "source_sha256": "5bb6d299e8e39702c0d99c29a54f686acc3ea13962c4685c482d7515aca8f0af",
+      "published_sha256": "5bb6d299e8e39702c0d99c29a54f686acc3ea13962c4685c482d7515aca8f0af",
+      "changes": "Explicit alignment checked/count/null diagnostics; UTF-8/LF source export"
     },
     "process_grpo_update/training/process_grpo_update/train.py": {
       "source_sha256": "86c57b5a8f6eda4a0912d8059c750eb3c40f7284e800990f98410b37e49f28a4",
@@ -996,8 +1000,8 @@
   "reference_source_freeze_manifest_sha256": "6e6beb20c00117e9c1a6ef3fc21ba2da973c1396b796cf56a588e5c4403a3268",
   "implementation_scope": "Current production source; each archived experiment keeps its own execution-source manifest",
   "contracts": {
-    "body_quality": "bounded_nonbody_v17; original heading rules retained with content protection",
-    "source_registry": "verified completed Search receipt recovery; no Search reexecution",
+    "body_quality": "bounded_nonbody_v18; clinical percentage ranges and care intervals protected",
+    "source_registry": "verified native identifier graph; monotonic alias merge and stale receipt replay",
     "reading_focus_projection_bytes_per_call": 320,
     "original_question_anchor_bytes": 640,
     "query_thresholds_changed": false

@@ -26,10 +26,11 @@
       "source_component": "sealed update objective and contract"
     },
     "training/process_grpo_update/runtime.py": {
-      "source_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31",
-      "published_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31",
-      "changes": "UTF-8/LF source export",
-      "source_component": "deterministic execution"
+      "source_sha256": "38fec6daced43899bea61d90af159396fac8df206d5d8d4dc7ce93bc3848c33b",
+      "published_sha256": "38fec6daced43899bea61d90af159396fac8df206d5d8d4dc7ce93bc3848c33b",
+      "changes": "Explicit alignment checked/count/null diagnostics; UTF-8/LF source export",
+      "source_component": "Process update diagnostics and synthetic contracts",
+      "reference_source_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31"
     },
     "training/process_grpo_update/train.py": {
       "source_sha256": "86c57b5a8f6eda4a0912d8059c750eb3c40f7284e800990f98410b37e49f28a4",
@@ -38,10 +39,11 @@
       "source_component": "deterministic execution"
     },
     "training/process_grpo_update/test_update.py": {
-      "source_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635",
-      "published_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635",
-      "changes": "UTF-8/LF source export",
-      "source_component": "deterministic execution"
+      "source_sha256": "5bb6d299e8e39702c0d99c29a54f686acc3ea13962c4685c482d7515aca8f0af",
+      "published_sha256": "5bb6d299e8e39702c0d99c29a54f686acc3ea13962c4685c482d7515aca8f0af",
+      "changes": "Explicit alignment checked/count/null diagnostics; UTF-8/LF source export",
+      "source_component": "Process update diagnostics and synthetic contracts",
+      "reference_source_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635"
     },
     "training/process_grpo_update/verify_package.py": {
       "source_sha256": "d695923f7f391f2a6d3e6a47f96fe06e41daca498cebb15c27a3d9af08e03a2a",
@@ -49,5 +51,6 @@
       "changes": "UTF-8/LF source export",
       "source_component": "sealed update objective and contract"
     }
-  }
+  },
+  "alignment_diagnostics": "Unmeasured is checked=false, calls=0, max_abs=null; measured probe values are explicit; objective unchanged"
 }

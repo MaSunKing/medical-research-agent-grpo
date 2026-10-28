@@ -4,6 +4,8 @@
 
 [项目首页](../../README.md) · [源码入口](current/README.md) · [历史归档](archive/README.md)
 
+**先看实际行为：[v3证据交付案例与失败诊断](../../examples/version3_cases/README.md)。** 原题、Checklist、全部已执行动作、State变化、证据短摘录、实际停止方式及Final与评分集中展示。
+
 ## 阅读顺序
 
 | 章节 | 主要内容 |

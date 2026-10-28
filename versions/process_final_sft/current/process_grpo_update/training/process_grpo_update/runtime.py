@@ -168,7 +168,10 @@ def reference_values(reference,r,call):
 def update_batch(model,trainable,optimizer,data,reference,batch,c,forward_check=False,stop=None):
     import torch
     from objective import backward_call
-    optimizer.zero_grad(set_to_none=True);loss=0.;calls=0;tokens=0;clipped=0;stages=set();maxdiff=0.
+    optimizer.zero_grad(set_to_none=True);loss=0.;calls=0;tokens=0;clipped=0;stages=set()
+    # A missing measurement is not a measured zero. Alignment calls include
+    # zero-advantage rollouts when the optional probe actually runs.
+    maxdiff=None;alignment_calls=0
     base_versions={n:p._version for n,p in model.named_parameters() if not p.requires_grad}
     for g in batch:
         for r in g['rollouts']:
@@ -179,7 +182,8 @@ def update_batch(model,trainable,optimizer,data,reference,batch,c,forward_check=
                 if forward_check:
                     current=logprobs(model,call,gradient=True,chunk=c['logit_chunk_tokens'])
                     diff=float((current.detach()-torch.tensor(old,device=current.device)).abs().max())
-                    maxdiff=max(maxdiff,diff)
+                    maxdiff=diff if maxdiff is None else max(maxdiff,diff)
+                    alignment_calls+=1
                     require(diff<=c['forward_tolerance'],'initial_grad_forward_alignment_hold')
                     del current
                 if r['A']==0:continue
@@ -191,8 +195,10 @@ def update_batch(model,trainable,optimizer,data,reference,batch,c,forward_check=
                 loss+=item['loss'];tokens+=item['tokens'];calls+=1;stages.add(call['request']['stage']);clipped+=item['clipped']
     require(all(base_versions[n]==p._version for n,p in model.named_parameters() if n in base_versions),
             'frozen_base_changed')
+    alignment=dict(initial_alignment_checked=alignment_calls>0,
+        initial_alignment_calls=alignment_calls,initial_alignment_max_abs=maxdiff)
     if not calls:
-        return dict(optimizer_step=False,loss=0.,calls=0,tokens=0,zero_advantage_group=True)
+        return dict(optimizer_step=False,loss=0.,calls=0,tokens=0,zero_advantage_group=True,**alignment)
     require(all(p.grad is not None and torch.isfinite(p.grad).all().item() for p in trainable.values()),
             'missing_or_nonfinite_adapter_gradient')
     require(all(p.grad is None for p in model.parameters() if not p.requires_grad),'base_gradient_detected')
@@ -202,7 +208,7 @@ def update_batch(model,trainable,optimizer,data,reference,batch,c,forward_check=
     require(all(torch.isfinite(p).all().item() for p in trainable.values()),'nonfinite_updated_adapter')
     optimizer.zero_grad(set_to_none=True)
     return dict(optimizer_step=True,loss=loss,calls=calls,tokens=tokens,clipped_fraction=clipped/max(1,tokens),
-        stages=sorted(stages),gradient_norm=float(norm),initial_alignment_max_abs=maxdiff,
+        stages=sorted(stages),gradient_norm=float(norm),**alignment,
         peak_allocated_GiB=torch.cuda.max_memory_allocated()/2**30)
 
 

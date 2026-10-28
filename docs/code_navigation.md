@@ -24,6 +24,8 @@
 
 当前Process更新实现见[Process-GRPO源码](../versions/process_final_sft/current/process_grpo_update/README.md)，包括轨迹等权目标、概率校正、确定性和断点校验；根目录training保留其既有实现身份。[逐步设计](../versions/process_final_sft/engineering.md)解释各模块为何存在以及限制，[算法说明](../versions/process_final_sft/grpo.md)将奖励连接到实际参数更新。
 
+从实际行为开始阅读，可先看[v3完整案例与失败定位](../examples/version3_cases/README.md)。`examples/trajectory_demo`保留原有历史身份，不作为v3/GRPO的执行案例。
+
 ## 已公开组件与参考入口
 
 | 功能 | 已公开快照/参考源码 |
