@@ -23,7 +23,7 @@
 
 ## 可复核的选题合同
 
-源文件地址、revision、SHA256和全部100个原始题号见[选题身份清单](selection_manifest.json)，选择实现见[prepare_data.py](code/eval/prepare_data.py)。清单只保留身份，不附原题和gold。
+源文件地址、revision、SHA256和全部100个原始题号见[选题身份清单](selection_manifest.json)，选择实现见[prepare_data.py](code/eval/prepare_data.py)。身份清单不含gold；实际评测原题另见[100题原文](questions_100.json)，并置于每个逐题页评分表之前。
 
 排序键为固定seed `newbench-20261026-v1` 与来源ID/行身份的SHA256；它不是按本次模型输出或分数排序。HealthBench仅保留一条user消息、至少12个英文词、ASCII比例至少97%、常见英文词比例至少12%的候选，再排重取50题；此启发式筛选不等于代表全部HealthBench。MedBrowseComp按五类各10题、每个NCT只保留一题，保留原题的日期和字母限制。
 

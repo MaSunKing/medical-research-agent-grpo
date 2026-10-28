@@ -101,6 +101,16 @@ def verify():
             for a, b in itertools.combinations(ARMS, 2):
                 s = summary['benchmark'][scope]['paired'][a + '__' + b]['benchmark_score']
                 assert pair(subset, a, b, 'benchmark_score') == (s['a_wins'], s['b_wins'], s['ties'])
+    questions = load('questions_100.json')
+    selection = {q['index']: q for q in load('selection_manifest.json')['questions']}
+    assert len(questions) == 100 and {q['index'] for q in questions} == set(range(1, 101))
+    for q in questions:
+        assert q['question'] and q['question_id'] == selection[q['index']]['question_id']
+        assert q['source_id'] == selection[q['index']]['source_id']
+        assert hashlib.sha256(q['question'].encode('utf8')).hexdigest() == q['question_sha256']
+        page = (HERE / 'questions' / f"Q{q['index']:02d}.md").read_text(encoding='utf8')
+        assert q['question'] in page and q['question_sha256'] in page
+        assert page.index('## 原题（英文原文）') < page.index('## 共同内容点')
     pages = sorted((HERE / 'questions').glob('Q*.md'))
     assert len(pages) == 100
     for i in range(1, 101):

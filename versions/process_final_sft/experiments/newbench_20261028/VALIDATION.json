@@ -13,5 +13,8 @@
   "review_scope": "AI evidence-grounded review; not clinical certification",
   "model_calls": 0,
   "paid_api_calls": 0,
-  "training": false
+  "training": false,
+  "question_texts_published": 100,
+  "question_texts_match_frozen_actual_inputs": true,
+  "scores_changed_by_question_addition": false
 }

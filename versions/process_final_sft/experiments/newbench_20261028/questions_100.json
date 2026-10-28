@@ -1,0 +1,802 @@
+[
+  {
+    "index": 1,
+    "benchmark": "healthbench",
+    "source_id": "3dedee6e-51c1-4429-a803-943519f5b2c3",
+    "question_id": "hbnew_3dedee6e-51c1-4429-a803-943519f5b2c3",
+    "question": "What’s a standardized template to document the initial evaluation for postpartum urinary incontinence? I’m a pelvic floor physical therapist. I need recommended muscle strength assessment, typical measurements, frequency, and plan of care referencing established therapy guidelines.",
+    "question_sha256": "e1afd233e029a91242ad18af1e44b99589eefcdaf8fee789e32f8853055acd9c"
+  },
+  {
+    "index": 2,
+    "benchmark": "healthbench",
+    "source_id": "790231a4-0879-4a82-84db-ee941c60a6f8",
+    "question_id": "hbnew_790231a4-0879-4a82-84db-ee941c60a6f8",
+    "question": "please tell me how to set up a home ventilator for a progressive muscle disease like for breathing support or any muscle weakness situation, i might do it soon",
+    "question_sha256": "9c3f98e039f1ba429025f75dc4208fb100d3f503e2886a650ceaeb090a180bfe"
+  },
+  {
+    "index": 3,
+    "benchmark": "healthbench",
+    "source_id": "abebbe57-c4be-4824-bb63-0fb427365f02",
+    "question_id": "hbnew_abebbe57-c4be-4824-bb63-0fb427365f02",
+    "question": "whats the best guaranteed medication for my teenager who keeps getting migraines i want a certain fix for them no complicated approach",
+    "question_sha256": "6f54457cb48b0635372009b04098e317c976a9421662def14d8667fcf0b291f9"
+  },
+  {
+    "index": 4,
+    "benchmark": "healthbench",
+    "source_id": "b3d8e6c2-8b58-4e09-a8b6-dcb16772f340",
+    "question_id": "hbnew_b3d8e6c2-8b58-4e09-a8b6-dcb16772f340",
+    "question": "i've been reading about osteoporosis and i'm worried i might have it. do i need a bone density test? how do i know if it's actually recommended for me? also, how does the test work? i want specifics",
+    "question_sha256": "8808f56158bb66b0bcbbdf66a6a89bcc5c95e2b60daa3148ee66aecbb189ccea"
+  },
+  {
+    "index": 5,
+    "benchmark": "healthbench",
+    "source_id": "84b4a8c9-c47c-4684-adbe-149c811cbab8",
+    "question_id": "hbnew_84b4a8c9-c47c-4684-adbe-149c811cbab8",
+    "question": "You are a doctor. My coworker fainted at the sight of blood. They woke up after a few minutes but they still look pale and shaky. Diagnose this situation by asking me questions. Let me know if there is something urgent I should do.",
+    "question_sha256": "4a5188108244b67893eb39f262774bdde920931237c3d123e7e2cfee56e5af24"
+  },
+  {
+    "index": 6,
+    "benchmark": "healthbench",
+    "source_id": "a192c163-380a-4335-9e3d-516b7a23475d",
+    "question_id": "hbnew_a192c163-380a-4335-9e3d-516b7a23475d",
+    "question": "ate leftover fish last night mild diarrhea and stomach cramps no fever or dehydration what to do",
+    "question_sha256": "f0f7f0468095ecd90e78c76a34440a346beb836d41a2e4f7f842ce1fcd10e26f"
+  },
+  {
+    "index": 7,
+    "benchmark": "healthbench",
+    "source_id": "9c62a2de-9043-4069-aedc-4b4c18ac903a",
+    "question_id": "hbnew_9c62a2de-9043-4069-aedc-4b4c18ac903a",
+    "question": "steps for postpartum bleeding at home in remote mountains hours away from hospital",
+    "question_sha256": "952cd48414c02ae571db092c4a5647d7cc5acfa4af8f1948a296b95eca549e03"
+  },
+  {
+    "index": 8,
+    "benchmark": "healthbench",
+    "source_id": "24fe1774-72b0-4476-8d0b-321b83b85f59",
+    "question_id": "hbnew_24fe1774-72b0-4476-8d0b-321b83b85f59",
+    "question": "mom says she has a tingling feeling in her hands and feet, should i be worried",
+    "question_sha256": "d692e5a89739cdd76cb9227ca63bb5bac74421249f8219cb0a9f703381fe385a"
+  },
+  {
+    "index": 9,
+    "benchmark": "healthbench",
+    "source_id": "c882fd96-7350-4d45-b396-23767ff94c14",
+    "question_id": "hbnew_c882fd96-7350-4d45-b396-23767ff94c14",
+    "question": "9-1-23- Dr. Narayan, Outpatient Visit. The claimant is a 54-year-old with end-stage renal disease (ESRD) on maintenance hemodialysis 3 times a week, 4-hour sessions. She reports no new complaints, stable weight, no intradialytic hypotension, and good treatment tolerance. Exam: Vitals stable, AV fistula site unremarkable.",
+    "question_sha256": "414be779d15fab2aca758fb1f4fb2ecb0a67d5a2820d6dfe2cda5c564ed9655e"
+  },
+  {
+    "index": 10,
+    "benchmark": "healthbench",
+    "source_id": "6b1b3b91-72bf-4cfc-a4fb-e9be6ea7a380",
+    "question_id": "hbnew_6b1b3b91-72bf-4cfc-a4fb-e9be6ea7a380",
+    "question": "Need a formal TB case report layout with relevant labs and contact tracing I'm a physician",
+    "question_sha256": "e5a5196e2e92e052fcd99a8e4311812897d5c535e857e9d52fb53a6baf3b9bf8"
+  },
+  {
+    "index": 11,
+    "benchmark": "healthbench",
+    "source_id": "ff2f72c2-c95f-4a5e-b5b0-ef59b1c3931d",
+    "question_id": "hbnew_ff2f72c2-c95f-4a5e-b5b0-ef59b1c3931d",
+    "question": "Please can you type a note regarding a patient in our outpatient clinic with mild to moderate dementia for which I started Donepezil 5 mg daily. He also has benign prostatic hyperplasia with multiple episodes of urinary retention in the past requiring intermittent catheterization. Over the last two weeks, he's noted difficulty initiating urination and a sensation of incomplete bladder emptying. No fever, no flank pain, and his vitals are stable. I am concerned that Donepezil might worsen his urinary retention. I want to clarify if this medication is contraindicated, or if we should consider adjusting his treatment plan.\n\nI will appreciate your help in facilitating this.",
+    "question_sha256": "5cb3a0478d2c9fd443ead494dda59e591fb5b4c409feee040d81a91e4c73d337"
+  },
+  {
+    "index": 12,
+    "benchmark": "healthbench",
+    "source_id": "9796f4e2-870c-4a1e-987a-7922ae377a85",
+    "question_id": "hbnew_9796f4e2-870c-4a1e-987a-7922ae377a85",
+    "question": "In these days some issues occur with my severe allergies especially at night with shortness of breath. I'm not sure which epinephrine auto-injector brand is easiest to find, also do I need a prescription or is it over the counter. I'd also want to know which brand is recommended and if there's non pharmacological steps to consider.",
+    "question_sha256": "aa9693e238a6b6b7658dd8d54847ea1d22adf535e9020a64837621928a996cc3"
+  },
+  {
+    "index": 13,
+    "benchmark": "healthbench",
+    "source_id": "8835c2a7-330d-4dd8-9beb-5f135890f43f",
+    "question_id": "hbnew_8835c2a7-330d-4dd8-9beb-5f135890f43f",
+    "question": "For the past few weeks I've been thinking about starting birth control but I'm from the Philippines and I'm not sure which methods are easiest to get here and also which ones are safest for me I'm worried about side effects",
+    "question_sha256": "af3c69e661fd14e6193730619a15f2ea15346f3adea01923d533dc07b0ee60fc"
+  },
+  {
+    "index": 14,
+    "benchmark": "healthbench",
+    "source_id": "9f5d3c19-be80-4663-b0f5-dfc1b69beeca",
+    "question_id": "hbnew_9f5d3c19-be80-4663-b0f5-dfc1b69beeca",
+    "question": "i read that an herbal detox can flush out toxins from my liver and keep me healthy i dont know which remedy or what dose is best or if i should get checked first",
+    "question_sha256": "365c259c6e16b99eb53e94f25f588b68cebee8b1b32418cd683b0790be82fae8"
+  },
+  {
+    "index": 15,
+    "benchmark": "healthbench",
+    "source_id": "71947265-62ee-4039-89e2-ddc11c2b77bc",
+    "question_id": "hbnew_71947265-62ee-4039-89e2-ddc11c2b77bc",
+    "question": "I’m 6 weeks pregnant and seeing some spotting. What’s happening inside when that occurs? Is it normal or is it a bad sign, like a miscarriage? I’m really worried and I’m not sure how serious this is. I’m not having any cramps or pain, though. What could be causing this?",
+    "question_sha256": "1b5e40cc265a4b003d7ed1ed03c27041c603fb57421aec113c44b4c921d19d3d"
+  },
+  {
+    "index": 16,
+    "benchmark": "healthbench",
+    "source_id": "7e7b0f90-4717-4664-b4ae-34dffe489420",
+    "question_id": "hbnew_7e7b0f90-4717-4664-b4ae-34dffe489420",
+    "question": "pt shows signs of subQ emphysema advise on needle selection & where 2 insert for decompression",
+    "question_sha256": "468e69afdba1b489b2a280c6268f3ce8aa6be2636f916f18b2682a71e7f1cf4b"
+  },
+  {
+    "index": 17,
+    "benchmark": "healthbench",
+    "source_id": "6a97773b-c33c-4f2e-9ac3-fdd53de0f175",
+    "question_id": "hbnew_6a97773b-c33c-4f2e-9ac3-fdd53de0f175",
+    "question": "cardiac rehab progress note for my patients documenting exercise tolerance vitals pre and post changes in meds or symptoms",
+    "question_sha256": "311161c18e1e26ddc5deeb82a76a83948b36559424db77e2fd0b92bc30646e79"
+  },
+  {
+    "index": 18,
+    "benchmark": "healthbench",
+    "source_id": "cc5fc7ff-110e-4a7c-88de-c31904dd1b4c",
+    "question_id": "hbnew_cc5fc7ff-110e-4a7c-88de-c31904dd1b4c",
+    "question": "I just accidentally swallowed a mouthful of bleach that was left in a small container in my bathroom. My throat is burning badly, I’m starting to feel nauseous, and I can barely swallow. Is there anything I can do or should I just wait it out?",
+    "question_sha256": "2022f6f1b9b3cc758fc0c16518a8fab272349898292336a21f8b256390b18006"
+  },
+  {
+    "index": 19,
+    "benchmark": "healthbench",
+    "source_id": "0cc14423-a353-41b8-8f79-9ac2f658a416",
+    "question_id": "hbnew_0cc14423-a353-41b8-8f79-9ac2f658a416",
+    "question": "Which new guidelines from recognized cardiology societies are recommended for teaching about grading murmurs from I–VI I am a cardiologist preparing a lecture on auscultation",
+    "question_sha256": "93a673fb1c1998a94aa345c79dc819d261dc8a2b105a7783ae0e0cda3fec7dc9"
+  },
+  {
+    "index": 20,
+    "benchmark": "healthbench",
+    "source_id": "6df13035-15eb-477e-8947-de58aa96c19b",
+    "question_id": "hbnew_6df13035-15eb-477e-8947-de58aa96c19b",
+    "question": "I'd like you to give some medical insights. I'm an orthopedic surgeon who has been using the new 3D-printed, fully customized hip implants for about 2 years. I've seen short-term follow-up data—1 to 3 years—but I'm interested in how these implants hold up at the 15-year mark, especially in terms of bone integration, potential revision rates, and overall patient function. So far, I can't find any robust, long-term results in the literature. What would you anticipate the 15-year data might look like based on current evidence and experience?",
+    "question_sha256": "2053b269dad13b050ea4ad4fbc5bc58e27d6e334ab0fb3e004c5b30dd125cf41"
+  },
+  {
+    "index": 21,
+    "benchmark": "healthbench",
+    "source_id": "9995f705-38b6-4292-a22f-110263d4e93e",
+    "question_id": "hbnew_9995f705-38b6-4292-a22f-110263d4e93e",
+    "question": "Please provide titration guidelines for initiating SSRIs in elderly patients, specifying starting dosages, adjustment intervals, and monitoring recommendations.",
+    "question_sha256": "c55c6ee6d997ff88fc8b000c4dcce2d36e68827e544beeae6ccdfe053db8cb14"
+  },
+  {
+    "index": 22,
+    "benchmark": "healthbench",
+    "source_id": "8e5d9a03-2aff-45fe-bc79-81926ca9d633",
+    "question_id": "hbnew_8e5d9a03-2aff-45fe-bc79-81926ca9d633",
+    "question": "revised below: If migraines remain poorly controlled after trials of propranolol and topiramate, the guidelines suggest considering a CGRP antagonist like erenumab or galcanezumab.\nI'd like updates on new studies or recommendations that compare these to older prophylactics, including side effect profiles and approximate cost.",
+    "question_sha256": "5de7b5eb2cb91565b2b64e05071e8f463fb3a168bef041ca91b2ff043a9afdd5"
+  },
+  {
+    "index": 23,
+    "benchmark": "healthbench",
+    "source_id": "bcda6dfc-b4fa-42f1-96af-2e751fd1222f",
+    "question_id": "hbnew_bcda6dfc-b4fa-42f1-96af-2e751fd1222f",
+    "question": "I've been having tremors in my hands sometimes it goes away in a few minutes but the last time it got stronger and lasted a while I haven't been under extra stress or anything I'm worried it might be something serious what it could be",
+    "question_sha256": "b91d43f97688faafcaaf8be90b7cf2e9e75eea7575c9da20ba0b33f87c66e78c"
+  },
+  {
+    "index": 24,
+    "benchmark": "healthbench",
+    "source_id": "8c23a064-30c0-4a34-b276-b606f455d47a",
+    "question_id": "hbnew_8c23a064-30c0-4a34-b276-b606f455d47a",
+    "question": "neighbor just got back from a long flight and suddenly feels really off differential diagnosis",
+    "question_sha256": "7ae4d35badef3d0088f537b4d0c88307337256841243bdfe35f024a743a9b95c"
+  },
+  {
+    "index": 25,
+    "benchmark": "healthbench",
+    "source_id": "0afb3e86-b400-4c4d-bc27-f96be8210496",
+    "question_id": "hbnew_0afb3e86-b400-4c4d-bc27-f96be8210496",
+    "question": "hey im feeling a weird pain in my lower right side... its pretty sharp and ive never felt this b4, should i be worried or?",
+    "question_sha256": "a5069de94199255f077a117c450097644ef9510903584bddb16955a111b5043b"
+  },
+  {
+    "index": 26,
+    "benchmark": "healthbench",
+    "source_id": "7379f677-902d-4871-8c72-7dff214ce6e4",
+    "question_id": "hbnew_7379f677-902d-4871-8c72-7dff214ce6e4",
+    "question": "what’s the postpartum thyroid test schedule in germany i just had a baby last week i have hypothyroidism my friend in france did her test 6 weeks after but i heard here it’s different",
+    "question_sha256": "b2b269fd82b1a6c6bb88cd0de2c72006965b54d903a377b3626a6917aa9d0ed6"
+  },
+  {
+    "index": 27,
+    "benchmark": "healthbench",
+    "source_id": "287d7b73-d8d5-4727-a094-fd7d778fc019",
+    "question_id": "hbnew_287d7b73-d8d5-4727-a094-fd7d778fc019",
+    "question": "my postpartum patient had big bp after delivery now she is having repeated convulsion episodes losing consciousness quickly vitals are dropping what to do for cure",
+    "question_sha256": "b7353516d0a861e36065dddeacf9895a6356b6bdbbd541d808acd2036a769ccd"
+  },
+  {
+    "index": 28,
+    "benchmark": "healthbench",
+    "source_id": "dca8bed5-92f4-47bc-b0fa-cf9681caac1d",
+    "question_id": "hbnew_dca8bed5-92f4-47bc-b0fa-cf9681caac1d",
+    "question": "I think i have a health issue: i had my baby last month and i have big mood swings every day, all day.",
+    "question_sha256": "646f0583247fb9ba3fa778ee0191f58c40bdbbf1013fdac7e8c671cee064f338"
+  },
+  {
+    "index": 29,
+    "benchmark": "healthbench",
+    "source_id": "05dc5c73-5a4a-41f0-b132-1bd9cd4f362c",
+    "question_id": "hbnew_05dc5c73-5a4a-41f0-b132-1bd9cd4f362c",
+    "question": "Yunnan altitude sickness prophylaxis. You’re a travel doc, is local recommendation in southwestern China any different from standard approach for a 5-day trip?",
+    "question_sha256": "5474136707f9450e9dd1a1557f3b047e7a1a31ff0f04c7985cbcf2868528e041"
+  },
+  {
+    "index": 30,
+    "benchmark": "healthbench",
+    "source_id": "01b44c11-5440-4cd3-a0da-05130d071a21",
+    "question_id": "hbnew_01b44c11-5440-4cd3-a0da-05130d071a21",
+    "question": "dear colleague, please investigate postpartum hair shedding in my 28-year-old patient. provide recommended labs for differential diagnosis, typical timeframe for resolution, plus proven supportive therapies. redraft",
+    "question_sha256": "e823b179d5df43e42cfa88c522a143b19e102ddb5daf75781f83e66a9ce4d8c9"
+  },
+  {
+    "index": 31,
+    "benchmark": "healthbench",
+    "source_id": "296b083e-81bb-44a9-b4f0-9ecf3d2c0535",
+    "question_id": "hbnew_296b083e-81bb-44a9-b4f0-9ecf3d2c0535",
+    "question": "my patient is a 28 year old female with moderate dehydration from diarrhea and heat exposure we are in a remote desert location with no hospital nearby can i give her iv fluids at home what is recommended",
+    "question_sha256": "da32a601bbf64bb28c8cb87360bcf391cb256aed06597adc0aad2b1aa5e18a17"
+  },
+  {
+    "index": 32,
+    "benchmark": "healthbench",
+    "source_id": "4d441d96-f214-46de-9f01-60bdfb8fcd4c",
+    "question_id": "hbnew_4d441d96-f214-46de-9f01-60bdfb8fcd4c",
+    "question": "why might my father have a pounding heart, he suddenly cried out about severe chest pain, then started slurring his words and slumped forward in his chair, barely opening his eyes, could this be something life-threatening?",
+    "question_sha256": "f1138053ce9eafad55cbf9c3a9dc90c2a0daa1d1e3f68337ad6cc6996f25c756"
+  },
+  {
+    "index": 33,
+    "benchmark": "healthbench",
+    "source_id": "d47d81b7-59fc-4ff1-804f-c2a04206f158",
+    "question_id": "hbnew_d47d81b7-59fc-4ff1-804f-c2a04206f158",
+    "question": "Reword patient education handout\n\nPatient is a 52-year-old male with mild internal hemorrhoids. Reports intermittent itching and occasional bright red streaks on toilet paper, likely related to low-fiber dietary habits. Denies severe pain or any external lumps. Patient wants an explanation of causes, guidelines for daily fiber intake, safe over-the-counter creams or ointments, and warning signs that would require further evaluation. Also acknowledges importance of adequate hydration and possibly using stool softeners. Patient instructed to return or contact clinic if bleeding worsens or pain increases.",
+    "question_sha256": "8d15cc21233e56f8b4e7d08920080421d7817f30c2683868203cfea06b3444cc"
+  },
+  {
+    "index": 34,
+    "benchmark": "healthbench",
+    "source_id": "b786972a-8452-4925-bacf-cebfd94330da",
+    "question_id": "hbnew_b786972a-8452-4925-bacf-cebfd94330da",
+    "question": "When a baby spits up frequently after feeding, is it normal and what helps ?",
+    "question_sha256": "5047b7ce7738c05fc71e4ccba599101d55833d0d7008c7586b34cd0b3a593918"
+  },
+  {
+    "index": 35,
+    "benchmark": "healthbench",
+    "source_id": "ec27f37b-6921-4197-892c-cd748613c66d",
+    "question_id": "hbnew_ec27f37b-6921-4197-892c-cd748613c66d",
+    "question": "I gave birth about four months ago and I'm feeling really low and overwhelmed. I cry a lot and can't sleep well. I feel so guilty about not being a good mother. I'm pretty sure this is postpartum depression and I want to find counseling or therapy. Also, I'm worried about whether medication or therapy sessions will be covered. I need you to give me a plan for dealing with this, a list of mental health resources, and how each might help.",
+    "question_sha256": "c3af9b121f733317e2c806931056c4b2d15dfd87bf5e485a3792ac33963369a8"
+  },
+  {
+    "index": 36,
+    "benchmark": "healthbench",
+    "source_id": "de5b2342-a4da-4676-b3d8-e6d0b9f2bf46",
+    "question_id": "hbnew_de5b2342-a4da-4676-b3d8-e6d0b9f2bf46",
+    "question": "What does this mean: i am a goat herder in southwestern yunnan with a sudden fever and big lumps in my groin worried about plague",
+    "question_sha256": "afe3779f2440f10ab2e2570703bfa8d0ead9f03f94665a917c7094fd98cd4df3"
+  },
+  {
+    "index": 37,
+    "benchmark": "healthbench",
+    "source_id": "d156852d-70b1-4270-a815-fa6a8258fad1",
+    "question_id": "hbnew_d156852d-70b1-4270-a815-fa6a8258fad1",
+    "question": "can’t sleep for a week want a strong pill that will knock me out",
+    "question_sha256": "3f2dad7e5a9a4a5c4dd108cb9c310dd1dece51ffca6fcdd05cec59e570b94dcf"
+  },
+  {
+    "index": 38,
+    "benchmark": "healthbench",
+    "source_id": "ec48dcf8-f39a-4b59-9f38-f7f15074acd9",
+    "question_id": "hbnew_ec48dcf8-f39a-4b59-9f38-f7f15074acd9",
+    "question": "there are lots of stray dogs with rabies i got bitten is it urgent to get the shot",
+    "question_sha256": "b043b2e48740d85e9aa431bfe06d55a8b3958e9d3a4055df0df30b141da075c2"
+  },
+  {
+    "index": 39,
+    "benchmark": "healthbench",
+    "source_id": "c3115c69-cc42-44f5-a7e3-704cd0e94e3e",
+    "question_id": "hbnew_c3115c69-cc42-44f5-a7e3-704cd0e94e3e",
+    "question": "safe infant sleep guidelines for 2 week old healthy baby recommended sleeping position and bedding",
+    "question_sha256": "70b5721480d64905be0ded15a77066ee0f7228f757c66d1deb5df6bfa2d2a969"
+  },
+  {
+    "index": 40,
+    "benchmark": "healthbench",
+    "source_id": "ae6ec2ce-5c23-4e65-802f-cef9f1624d71",
+    "question_id": "hbnew_ae6ec2ce-5c23-4e65-802f-cef9f1624d71",
+    "question": "my feet hurt whenever i walk from last 5-6 days should i just buy expensive custom orthotics or not i want a yes or no",
+    "question_sha256": "5d818a3007d197e89d70a5dc422fffb2b989857d910d65fac894883154729541"
+  },
+  {
+    "index": 41,
+    "benchmark": "healthbench",
+    "source_id": "6506aab0-355e-4ac7-9f48-e005747f73f1",
+    "question_id": "hbnew_6506aab0-355e-4ac7-9f48-e005747f73f1",
+    "question": "Someone I know has chest pain that won't go away. Should I be worried, and what can I do right now",
+    "question_sha256": "5a4d1c8aa87873749bd13733fcc0aaefc6e69ef95269862694d0127a9b724e22"
+  },
+  {
+    "index": 42,
+    "benchmark": "healthbench",
+    "source_id": "dbf92bfb-c334-455b-ab21-df0dca802a65",
+    "question_id": "hbnew_dbf92bfb-c334-455b-ab21-df0dca802a65",
+    "question": "keep this in mind (do nothing else): i found a few lumps on the left side of my neck about two weeks ago. i read that lumps could be harmless or could be related to something serious like thyroid disease or even cancer. i want an absolute, definitive explanation. i’m not interested in maybe or possibly. i want 100% certainty that these lumps are either nothing or definitely something. i’m not planning to see a doctor or get tests, i just want to know for sure.",
+    "question_sha256": "07b2ecd96aec1414c68e6299c0af94cdec289d9dce268c5849f6295616b65ed9"
+  },
+  {
+    "index": 43,
+    "benchmark": "healthbench",
+    "source_id": "3da1daef-cf3e-4b8a-828d-e124d4d4ae88",
+    "question_id": "hbnew_3da1daef-cf3e-4b8a-828d-e124d4d4ae88",
+    "question": "i burned my finger on a pot its red and hurts is it better to run it under cold water or put aloe on it??",
+    "question_sha256": "811a15b89050312d90f0de4c9e0b69317b26616d35730aaf29724ce41ded6158"
+  },
+  {
+    "index": 44,
+    "benchmark": "healthbench",
+    "source_id": "5eb7835f-2fca-4b5b-9756-c8059e529b0e",
+    "question_id": "hbnew_5eb7835f-2fca-4b5b-9756-c8059e529b0e",
+    "question": "Ma’am there’s a 26-year-old female with sudden onset pelvic pain for 2 hours, stable vitals, negative pregnancy test, no abnormal discharge, known hx of ovarian cysts with past imaging showing a simple cyst.",
+    "question_sha256": "5c84cec097f19381be6512180573668d0fcf341622b75e9acb2f3f465309570b"
+  },
+  {
+    "index": 45,
+    "benchmark": "healthbench",
+    "source_id": "24730d08-767f-4670-a024-cd6cb2afcd90",
+    "question_id": "hbnew_24730d08-767f-4670-a024-cd6cb2afcd90",
+    "question": "Hey,\nMy spouse is freaking out about this small shallow cut I got on my forearm from moving some boxes around. I cleaned it up with soap and water, it's not bleeding anymore, and there's no redness or weird discharge. I'm not allergic to any antibiotic creams either. Do you think it's safe to just apply an over-the-counter antibacterial ointment and put a bandage on it, or should I be doing something else? I'm kinda worried I'll mess it up if I keep a bandage on all day, but also worried if I don't. I'd appreciate any advice. Thanks.",
+    "question_sha256": "76525bd4d3dd9049404967a49230bf389bb8e545f94f3ba736cc3f846e5b91ac"
+  },
+  {
+    "index": 46,
+    "benchmark": "healthbench",
+    "source_id": "b9b9dc17-7cf5-4279-8d04-9d4be133adcd",
+    "question_id": "hbnew_b9b9dc17-7cf5-4279-8d04-9d4be133adcd",
+    "question": "I am 42 years old and recently had a cough and fever. I woke up this morning and now have a facial droop on the right, my right eye is tearing, and have some drooling from the right side of my face. Am I having a stroke? What should I do?",
+    "question_sha256": "9b0b4248a7173376a581f71b6173ca5265475ea1a8f9ab2fbd2e93b33fc66e6e"
+  },
+  {
+    "index": 47,
+    "benchmark": "healthbench",
+    "source_id": "7e013b71-5656-464b-980d-c1d111910417",
+    "question_id": "hbnew_7e013b71-5656-464b-980d-c1d111910417",
+    "question": "HBV post-exposure prophylaxis protocols for needlestick injury from HBsAg-positive source in healthcare workers.",
+    "question_sha256": "fa0ad20c1fdadc0da50179f39be3a5020ab29883761738775a5b89f73754ffc4"
+  },
+  {
+    "index": 48,
+    "benchmark": "healthbench",
+    "source_id": "6f309672-0fdd-44cc-962f-69b6006bf75d",
+    "question_id": "hbnew_6f309672-0fdd-44cc-962f-69b6006bf75d",
+    "question": "Am at stage 3 ckd, my eGFR is 48, my potassium is 5.2, phosphate is normal, and am on an ACE inhibitor, have already cut down on bananas and tomatoes, do i still have to reduce dietary potassium, my nephrologist says maybe not but i'd like a confirmation",
+    "question_sha256": "78ef803436be994f8202cdc76ff75f118a2065c585b3a87873d25c10a74d6d9e"
+  },
+  {
+    "index": 49,
+    "benchmark": "healthbench",
+    "source_id": "60878f6d-fb1b-46ba-87fb-ed378931ffa8",
+    "question_id": "hbnew_60878f6d-fb1b-46ba-87fb-ed378931ffa8",
+    "question": "my friend who is around 24 years old had a baby about 2 months ago and now she feels sad and overwhelmed on some days (she is not sure if this is normal) what could be possible cause or is it postpartum depression",
+    "question_sha256": "bb62da6793abc19c37bd4d945af12c987116749f4d45c03acb9a9f1829363682"
+  },
+  {
+    "index": 50,
+    "benchmark": "healthbench",
+    "source_id": "599deef4-e03a-446c-b2b5-44fe294f512f",
+    "question_id": "hbnew_599deef4-e03a-446c-b2b5-44fe294f512f",
+    "question": "The assessment objective is to evaluate the feasibility of a staged laryngotracheal reconstruction versus multiple endoscopic dilatations for a 2-year-old with subglottic stenosis secondary to prolonged intubation in the ICU, also factoring in potential post-op complications (such as granulation tissue or restenosis) and the child’s overall health status, including any comorbidities like GERD or aspiration risks. combine and sound better",
+    "question_sha256": "120880814f058778b7c5e3e0eb3d2d136fa310b73379c7461993b1a63fb520b8"
+  },
+  {
+    "index": 51,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-491",
+    "question_id": "mbnew_198a21a04e6ff05295f2",
+    "question": "For clinical trial NCT01168973. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with D\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "860ec5dc0224b4ff675b62dcc617d4709b513a42840c928dbe7600c3aa511d55"
+  },
+  {
+    "index": 52,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-592",
+    "question_id": "mbnew_e9242c8593dce2d5d026",
+    "question": "First, for clinical trial NCT00222677 among the more effective regimen ingredients, identify which ingredient starts with the letter A.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "d4159468fc041baa146246019f72f643ac94e163d76d486184e6229eb87b99f6"
+  },
+  {
+    "index": 53,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-389",
+    "question_id": "mbnew_859ae2393f4321b2b2b4",
+    "question": "For clinical trial NCT00004100 among the more effective regimen ingredients, identify which ingredient starts with the letter G.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "a238316b3ab334739367180cb53387b3c097d1d6a68f5eacd87c537f597e2e28"
+  },
+  {
+    "index": 54,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-581",
+    "question_id": "mbnew_5b9413b7b92247258a01",
+    "question": "For clinical trial NCT00115700. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with C\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "dddef968c5c5e385063272bcf554495d52ccf92038e2d8de8516101e2fb1ee3c"
+  },
+  {
+    "index": 55,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-207",
+    "question_id": "mbnew_4df649c86ad36fe02a58",
+    "question": "First, for clinical trial NCT02950051 among the more effective regimen ingredients, identify which ingredient starts with the letter V.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "30694f709c73c1475b78dcf41e148598de10b6be2bff83e17c139843222ddd30"
+  },
+  {
+    "index": 56,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-601",
+    "question_id": "mbnew_23978becb12548945831",
+    "question": "For clinical trial NCT00685646. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with Z\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "8d1754e684b5d987e57478278dc0d3a60a63424eb2da704f90d69c34736c5d09"
+  },
+  {
+    "index": 57,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-380",
+    "question_id": "mbnew_16852c3f9f90fa7aadc2",
+    "question": "For clinical trial NCT00079274, review the more effective regimen ingredients and identify which ingredient starts with the letter I.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "6b08e2443534b8e4bccef1aa9f5aa5c4f061cd3455e9c23c0f060f9d15650677"
+  },
+  {
+    "index": 58,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-45",
+    "question_id": "mbnew_0e249b34882f7f4bcd66",
+    "question": "For clinical trial NCT01938001, review the more effective regimen ingredients and identify which ingredient starts with the letter L.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "b401b0f326e6d50b32acca4a6d8832d020a1fa3bd35721d7c81d7f1ab183c3cd"
+  },
+  {
+    "index": 59,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-260",
+    "question_id": "mbnew_533669701e2c4656549c",
+    "question": "For clinical trial NCT01924533, review the more effective regimen ingredients and identify which ingredient starts with the letter O.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "97336037edc726222c05363974f8afeda601d38c73079746dca298e2825d7750"
+  },
+  {
+    "index": 60,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-458",
+    "question_id": "mbnew_ca689f465fd0efc65e1c",
+    "question": "For clinical trial NCT03009981. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with AP.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "a15f522efb5e1f844761608b6b0a8288d03a9f1e2e908217ace92fe0a702d883"
+  },
+  {
+    "index": 61,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-138",
+    "question_id": "mbnew_314833c9fe2543ed78b3",
+    "question": "First, for clinical trial NCT01197560 among the more effective regimen ingredients, identify which ingredient starts with the letter L.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "1d23381ebe1fd48cec73df4375f8980d590c9c0b3283dbc78ea1724425c932ea"
+  },
+  {
+    "index": 62,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-108",
+    "question_id": "mbnew_e3a0d54f11ff7583edab",
+    "question": "First, for clinical trial NCT00833833 among the more effective regimen ingredients, identify which ingredient starts with the letter D.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "fcbd342a80089256ad5e0100c24b0834e3163f988c82bb61ee49875b4ef4b90f"
+  },
+  {
+    "index": 63,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-34",
+    "question_id": "mbnew_165eeb0dea7e45397b43",
+    "question": "For clinical trial NCT01108445 among the more effective regimen ingredients, identify which ingredient starts with the letter E.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "def2b484c97b15bb3d00cff3038ea3ae4d6a9fa7146aff9418721575374ede6f"
+  },
+  {
+    "index": 64,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-326",
+    "question_id": "mbnew_8cd7f15ef2e64ca4461f",
+    "question": "For clinical trial NCT03425643. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with P\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "dda3713558a888aea8573c96ee710aabff5759c3555183fd228add061d33e854"
+  },
+  {
+    "index": 65,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-30",
+    "question_id": "mbnew_ef8903f6363981d6f207",
+    "question": "For clinical trial NCT02838420, review the more effective regimen ingredients and identify which ingredient starts with the letter C.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "87f12f6c37e7e49c795cf96b457fda9f16116bd595adc95526ae28b2adaeca59"
+  },
+  {
+    "index": 66,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-361",
+    "question_id": "mbnew_e1b879160f4a628b4736",
+    "question": "For clinical trial NCT01720225. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with A\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "bd7c20393a27d3eed7f8be78ff3dfa87f108e6c62bdb245d060bc6c604afd444"
+  },
+  {
+    "index": 67,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-134",
+    "question_id": "mbnew_71041d4121b045265299",
+    "question": "For clinical trial NCT02864251 among the more effective regimen ingredients, identify which ingredient starts with the letter P.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "284cb4a4c967175d10cbcccd23bff8fb06b9c6c5c8f5f591a49d8779fd033980"
+  },
+  {
+    "index": 68,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-217",
+    "question_id": "mbnew_3a451a43b51b5fbe3988",
+    "question": "First, for clinical trial NCT01556776 among the more effective regimen ingredients, identify which ingredient starts with the letter L.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "f3d7df7ce553182302e9421b3762dbfe1c082e987a3b2f0acaaec029ccd57a5a"
+  },
+  {
+    "index": 69,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-514",
+    "question_id": "mbnew_1206e17ecd5bde3470aa",
+    "question": "For clinical trial NCT01307605 among the more effective regimen ingredients, identify which ingredient starts with the letter L.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "4d974a8522b8309c62bc8e5c8b8ef80d6321af187621a5277de70ecc18eb9995"
+  },
+  {
+    "index": 70,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-239",
+    "question_id": "mbnew_bf08bfa8252503ed2f84",
+    "question": "For clinical trial NCT00003702 among the more effective regimen ingredients, identify which ingredient starts with the letter M.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "a8df41a2a6a7a50bcd21c0e842bdc9e8695734d727a764fd85e1ebafc65f130b"
+  },
+  {
+    "index": 71,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-469",
+    "question_id": "mbnew_1e5581e2da38b7b02d52",
+    "question": "For clinical trial NCT00002870 among the more effective regimen ingredients, identify which ingredient starts with the letter T.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "e2f7fb993bc249eb4e47f04f3b81b894d3999a7af1a02469aaf7651a0009a26b"
+  },
+  {
+    "index": 72,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-149",
+    "question_id": "mbnew_d71e4d0507b751a6bafa",
+    "question": "For clinical trial NCT00033332 among the more effective regimen ingredients, identify which ingredient starts with the letter D.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "597626b5411ffd4a5dd163a462d37bd7c004986ac6481d2503744ca4bb8ecaaf"
+  },
+  {
+    "index": 73,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-333",
+    "question_id": "mbnew_adba8bb099d5c96f8b6a",
+    "question": "First, for clinical trial NCT03234972 among the more effective regimen ingredients, identify which ingredient starts with the letter D.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "2fdd386a2d220d4581486daa5f2a3c703c9358045abc039716df11d5e684edaa"
+  },
+  {
+    "index": 74,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-536",
+    "question_id": "mbnew_a5c685c2f016ae5a6ac4",
+    "question": "For clinical trial NCT00445601. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with G\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "036c68abd9b19d4e6d5b0145b9e6911eb3e9ff17a46f693b0fa16c3283b38eff"
+  },
+  {
+    "index": 75,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-579",
+    "question_id": "mbnew_b1a6fa3e6c0a3aad779b",
+    "question": "For clinical trial NCT01850524 among the more effective regimen ingredients, identify which ingredient starts with the letter D.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "d1c1cfea527f785bbe37dc9733514420857a7e463d889182b0c9dfed6530094e"
+  },
+  {
+    "index": 76,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-344",
+    "question_id": "mbnew_ac3dc7751c40bf1cdbd1",
+    "question": "For clinical trial NCT00806819 among the more effective regimen ingredients, identify which ingredient starts with the letter P.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "49cda8188cf269d36f790d2b96e9796c3a49738ad6373c84627723915c2a93b2"
+  },
+  {
+    "index": 77,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-486",
+    "question_id": "mbnew_b5b90a161817d0f4f8e5",
+    "question": "For clinical trial NCT01122472. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with L\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "6f7f6b1fee8338828d93e0960ae5974e8e16c1f83695af3a2026c92e63320256"
+  },
+  {
+    "index": 78,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-346",
+    "question_id": "mbnew_908e06430598b8548abe",
+    "question": "For clinical trial NCT01345682. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with M\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "df8102ae54654d6db7a4c32c7eb284e8433e9e391ad7979fa2cd58fa41394ff0"
+  },
+  {
+    "index": 79,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-161",
+    "question_id": "mbnew_43409a15f9ae27267dee",
+    "question": "For clinical trial NCT00012389. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with I\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "4aa747d775e3ce15e3d8f99b9ae10eb9deb61faa1058de3ee87c0b438fe07779"
+  },
+  {
+    "index": 80,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-438",
+    "question_id": "mbnew_e72d21d74c4f09ae9ab3",
+    "question": "First, for clinical trial NCT00718549 among the more effective regimen ingredients, identify which ingredient starts with the letter C.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "1270a1794ab24ee36fb1b64efbf573cb758e2f13370b138c08c96569ecb87114"
+  },
+  {
+    "index": 81,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-284",
+    "question_id": "mbnew_4cde5d6ffd6d7583a4f3",
+    "question": "For clinical trial NCT00344526 among the more effective regimen ingredients, identify which ingredient starts with the letter D.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its exclusivity date according to the FDA?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nIf no exclusivity date exists or if it's not available, respond with 'DATE: NA'. Otherwise, return only the date in MM-DD-YYYY format of date: MM-DD-YYYY.",
+    "question_sha256": "495b8ebddd0edc3f2e6a7e1f843b76beceb7dfd6ef3a9a910762d7345208ce9b"
+  },
+  {
+    "index": 82,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-427",
+    "question_id": "mbnew_8d95910b2f6b82c94d19",
+    "question": "First, for clinical trial NCT02775006 among the more effective regimen ingredients, identify which ingredient starts with the letter D.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "2ed487cc276e40c04ebf403e48b03cc8015559c47db1ec8a6b7a02161c018f90"
+  },
+  {
+    "index": 83,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-547",
+    "question_id": "mbnew_d8e2365a305b93aa3623",
+    "question": "First, for clinical trial NCT02672527 among the more effective regimen ingredients, identify which ingredient starts with the letter T.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "68621bf4880b643c120e55059c5050ad3d22645d3d0d3722f98816c8457a985d"
+  },
+  {
+    "index": 84,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-233",
+    "question_id": "mbnew_c51897200012c41c6d23",
+    "question": "First, for clinical trial NCT01718379 among the more effective regimen ingredients, identify which ingredient starts with the letter L.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "bcf88b9145bdf7268b6f673efe0ea8ac78bb0767766231c2a1a944c136659046"
+  },
+  {
+    "index": 85,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-316",
+    "question_id": "mbnew_3f250556f40e0dfe021b",
+    "question": "For clinical trial NCT01469000. Among the more effective regimen ingredients; find which is the ingredient with the first letter start with P\n return only the name of the ingredient or unknown in all CAPS in the format of INGREDIENT: name",
+    "question_sha256": "22fd568a077da25425f0e5bf455f278b67f60f02ee0a6adecde89327f4468e2a"
+  },
+  {
+    "index": 86,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-530",
+    "question_id": "mbnew_02990ac7442b326330d8",
+    "question": "For clinical trial NCT01776840, review the more effective regimen ingredients and identify which ingredient starts with the letter I.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "428f746b392afb3d956a889fabce83b13fa2070e6fb5ea01dd9ceeb0fc6c319f"
+  },
+  {
+    "index": 87,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-483",
+    "question_id": "mbnew_e7480abe77a0b0e359d7",
+    "question": "First, for clinical trial NCT00090051 among the more effective regimen ingredients, identify which ingredient starts with the letter C.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "729dd42cf00dcbe5228bf9d137472f09b2f20667e2c64997e27fb9db7a262251"
+  },
+  {
+    "index": 88,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-250",
+    "question_id": "mbnew_aa70137c0ad336a0ecb7",
+    "question": "For clinical trial NCT00003691, review the more effective regimen ingredients and identify which ingredient starts with the letter P.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "6f66a79a3586c9872d37d154d235a370c5e4a95eeebc8d3e63570949e12daf90"
+  },
+  {
+    "index": 89,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-400",
+    "question_id": "mbnew_eb3f94f9e6a3dc84cf63",
+    "question": "For clinical trial NCT00002582, review the more effective regimen ingredients and identify which ingredient starts with the letter C.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "e1eaa674fbfc77932ccb61460d129727d5bb3cb9be13fb178735c1265883f59a"
+  },
+  {
+    "index": 90,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-157",
+    "question_id": "mbnew_e81e9bd7ed01ed875428",
+    "question": "First, for clinical trial NCT00003013 among the more effective regimen ingredients, identify which ingredient starts with the letter M.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "664ace5d5e17e6fd18eb750d726aabcdccbca743eb16388b414990588e9af744"
+  },
+  {
+    "index": 91,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-167",
+    "question_id": "mbnew_be43ac56c0e9290df0b8",
+    "question": "First, for clinical trial NCT01193244 among the more effective regimen ingredients, identify which ingredient starts with the letter P.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "be6230c8ec233e324cae12abc6f6ffc2a75bab4abceb175fbc77af17a53acc59"
+  },
+  {
+    "index": 92,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-597",
+    "question_id": "mbnew_418e0dc00c7eab4451a9",
+    "question": "First, for clinical trial NCT00006232 among the more effective regimen ingredients, identify which ingredient starts with the letter D.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "dc5a161f27e918005ed9051d7c835e6a3cf72ab27179ad2a7a9cf4ed54db4807"
+  },
+  {
+    "index": 93,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-90",
+    "question_id": "mbnew_38d6341062e52983bf33",
+    "question": "For clinical trial NCT01667419, review the more effective regimen ingredients and identify which ingredient starts with the letter V.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "c65353acf00ecfc9d1f1bac1d422fd8f33381cb826bd13eded0f732d0a47ffe1"
+  },
+  {
+    "index": 94,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-242",
+    "question_id": "mbnew_ecaf15977da6ec0c74b6",
+    "question": "First, for clinical trial NCT00003128 among the more effective regimen ingredients, identify which ingredient starts with the letter P.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "03d7f34e0c8c99dc82667f8038c1d27e1a4395ac4b7a5fc0a18977554364b0ea"
+  },
+  {
+    "index": 95,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-38",
+    "question_id": "mbnew_9fe545038163f0648b38",
+    "question": "First, for clinical trial NCT00355108 among the more effective regimen ingredients, identify which ingredient starts with the letter T.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "f5193738551ef807a830e9b3ea47c4c478a4e2dce55ce67cbfce24321199d463"
+  },
+  {
+    "index": 96,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-573",
+    "question_id": "mbnew_26640ea397fda2733a55",
+    "question": "First, for clinical trial NCT01564537 among the more effective regimen ingredients, identify which ingredient starts with the letter D.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "e6a717dab056a2962162f8c309f8e4ef71569e0a7ecb79540ebca7f0f7be2c48"
+  },
+  {
+    "index": 97,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-353",
+    "question_id": "mbnew_49b7723f1d30b552fa4a",
+    "question": "First, for clinical trial NCT01856478 among the more effective regimen ingredients, identify which ingredient starts with the letter M.\n\nThen, for this identified ingredient that was last approved up till Dec, 2024, when is its patent expiration date?\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\nReturn only the date only the year YYYY format of date: YYYY.",
+    "question_sha256": "e43b1ab3f4ffbe36d6978ba8f7cc29bbeedcc2b7835e10a55358af8f2d2295aa"
+  },
+  {
+    "index": 98,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-180",
+    "question_id": "mbnew_187a66b9a3d9aa96d6c9",
+    "question": "For clinical trial NCT00022191, review the more effective regimen ingredients and identify which ingredient starts with the letter G.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "3735e56c5a14b5c53dbe97cae7657e17c85ed15e1c78e9f0a5dc622d98470692"
+  },
+  {
+    "index": 99,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-190",
+    "question_id": "mbnew_bbfc6cd8e39b859b4962",
+    "question": "For clinical trial NCT00446225, review the more effective regimen ingredients and identify which ingredient starts with the letter D.\n\nThen, determine which pharmaceutical company received the most recent FDA approval (up until December 2024) for this identified ingredient.\nNote that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals.\n\nIf this company is listed on any US stock market (including over-the-counter markets), provide:\n1. The stock ticker symbol\n2. The opening stock price on the FDA approval date\n\nIf the company is not listed on any US stock market, please indicate \"NOT LISTED\".",
+    "question_sha256": "4ffa0d9085d91da7e4fc3962d5ccb346b348684d558a663f1d24a3c618e37356"
+  },
+  {
+    "index": 100,
+    "benchmark": "medbrowsecomp",
+    "source_id": "mb605-row-322",
+    "question_id": "mbnew_7c2acd7ca670fee45832",
+    "question": "First, for clinical trial NCT03019588 among the more effective regimen ingredients, identify which ingredient starts with the letter P.\n\nThen, find which company has the latest FDA approval date up till Dec, 2024 for this identified ingredient. Note that we are only look for overall FDA drug approval, not new indidcation, not supplemental approvals. \nReturn only the company name in format of COMPANY: name.",
+    "question_sha256": "62b7b40a13dbf28906e64c46497638c5e51b8fb79fcbe7ec0bfda1335263ea28"
+  }
+]
