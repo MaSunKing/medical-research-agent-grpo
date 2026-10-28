@@ -118,8 +118,20 @@ def main():
     from dr_agent.anchored_query import encode_anchored_query
     spec=importlib.util.spec_from_file_location('portable_common',root/'backend/common.py')
     common=importlib.util.module_from_spec(spec);spec.loader.exec_module(common)
-    from web_region import call_search,call_browse
+    from web_region import call_search,call_browse,focused_web
     from source_metadata_v58 import public_source_facts
+    from source_registry import restore_search_result, restore_completed_searches, restore_web_search_rows
+    from dr_agent.mcp_backend.apis.medical_web_apis import register_medical_web_sources, get_medical_web_source_metadata
+    def register_web_sources(rows):
+        # Search uses broad public-web discovery. Reuse its URL safety policy,
+        # not the default routed-domain ranking preferences.
+        with focused_web(backend):
+            restore_web_search_rows(rows, lookup=get_medical_web_source_metadata,
+                                    register=register_medical_web_sources)
+    def restore_sources(value):
+        return restore_search_result(value, register_web=register_web_sources,
+            register_paper=backend._restore_paper_search_sources)
+    restore_completed_searches(args.output, restore_sources)
     receipt_store=PairedReceiptStore(
         os.environ.get('MEDGAP_PAIRED_RECEIPT_DIR'),
         release_id=os.environ.get('MEDGAP_RETRIEVAL_RELEASE_ID'),
@@ -156,6 +168,7 @@ def main():
             journal=OperationJournal(args.output,operation_id,operation,arguments)
             recovered,mode=reconcile_operation(args.output,operation_id,operation,arguments)
             if recovered is not None:
+                if operation=='search':restore_sources(recovered)
                 emit(dict(status='ok',value=recovered,request_id=request_id));continue
             if (journal.folder/'state.json').exists() and mode!='resume_same_task':
                 raise ValueError('unknown_worker_operation_requires_reconciliation')
@@ -184,6 +197,7 @@ def main():
                 value=recovered if recovered is not None else timeout_value(operation_id,'worker_operation',mode)
                 receipt=None
             value=json.loads(redact(json.dumps(value,ensure_ascii=False)))
+            if operation=='search':restore_sources(value)
             journal.finish(value)
             response=dict(status='ok',value=value,request_id=request_id)
             if receipt is not None:response['paired_receipt']=receipt

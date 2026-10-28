@@ -1,12 +1,12 @@
 # 当前工程说明与归档同步记录
 
-## 当前设计（2026-10-18）
+## 当前设计
 
 当前为LangGraph显式节点、MCP真实工具的单策略循环；原始972 Process训练与50题对照见[版本三](../versions/process_final_sft/README.md)。已实现本题同query缓存重显、未读优先/部分已读后置、作用域耗尽与失败候选隐藏、保守JSON语法修复，以及软12,288/硬15,000完整请求预算。模型原文抽取仍最后兜底，Search预览与Browse正文隔离。
 
-600题预分500 train/100 dev，全部只采Process→Pre-Final，保存完整原包和真实Final构建器冻结的MESSAGES。三题服务端试采和输入完整性通过，但有乱码/State待审问题，不能自动认定金标合格或全量采集完成。程序修复和完整导出不等于医学语义正确。
+Pre-Final采集保存完整原包和真实Final构建器准备的MESSAGES，完整问答继续执行冻结Base Final。过程质量、实际交付和答案评分分别报告，已完成实验统一见[版本三](../versions/process_final_sft/README.md)。
 
-当前源码现已独立同步到[版本三current目录](../versions/process_final_sft/current/README.md)，包括节点、最新98文件检索快照、共享上下文、原972训练器及采集冻结导出。旧组件不被覆盖；不包含私有题目、权重或凭据，发布身份和路径适配另列。[架构](architecture.md)、[检索](retrieval.md)、[Final输入](final_contract.md)和[代码导航](code_navigation.md)为当前说明；后续计划不调整。
+当前源码位于[版本三current目录](../versions/process_final_sft/current/README.md)，包括节点、99文件检索快照、共享上下文、正文保护、来源恢复、原972训练器及Process-GRPO更新器。清洗保留模板过滤并保护短正文；worker复用校验过的Search回执恢复映射。[逐步设计](../versions/process_final_sft/engineering.md)说明每一步的理由与限制，[GRPO算法](../versions/process_final_sft/grpo.md)说明奖励、概率校正和确定性恢复；历史实验保持各自源码身份。
 
 ## 归档：2026-09公开源码同步记录（不是当前配置）
 

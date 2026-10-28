@@ -55,3 +55,5 @@ jobs:
       - name: Test original972 trainer on CPU toy data
         working-directory: versions/process_final_sft/current/original972_training
         run: python -B test_training.py
+      - name: Verify Process-GRPO source and synthetic CPU update contracts
+        run: python -B versions/process_final_sft/current/process_grpo_update/verify_public.py --tests

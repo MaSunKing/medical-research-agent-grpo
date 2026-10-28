@@ -1,4 +1,4 @@
-# 版本三｜Process与Final解耦训练
+# 版本三｜Process-SFT到Process-GRPO的证据策略优化
 
 **让小模型先找对证据，再可靠地使用证据回答。** 本版本把真实检索过程与答案综合分开训练、分开评价；当前已完成Process-SFT、Final-SFT对照，以及冻结Base Final下的一轮Process-GRPO。
 
@@ -9,9 +9,10 @@
 | 章节 | 主要内容 |
 |---|---|
 | **[1. 系统设计与题集](design.md)** | 模型、节点、检索、Pre-final、题目来源与数据隔离 |
+| **[逐步工程设计](engineering.md)** | 每个节点的输入、执行理由、上下文预算、来源恢复及适用限制 |
 | **[2. Process-SFT](process_sft.md)** | 972题如何变成阶段样本，mask、loss与真实训练参数 |
 | **[3. Final-SFT实验](final_sft.md)** | gold构建、500/100划分、Base对照与暂不加训的依据 |
-| **[4. Process-GRPO](grpo.md)** | 400条轨迹、本地奖励、概率校正、25批更新及后续设计 |
+| **[4. Process-GRPO](grpo.md)** | 轨迹奖励、同题优势、三种概率、校正/裁剪公式、确定性与断点恢复 |
 | **[5. 评测方法与结果](evaluation.md)** | 指标含义、完整对照表、失败、统计边界与模型选择 |
 | **[6. 逐题评分与问题](records.md)** | 新增100题Process四组、旧50题及Final对照；每条有评分与问题 |
 

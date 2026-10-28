@@ -1,4 +1,4 @@
-# Teacher轨迹与当前Pre-Final采集
+# Teacher轨迹与Pre-Final采集合同
 
 [首页](../README.md) · [版本三](../versions/process_final_sft/README.md) · [Final输入合同](final_contract.md)
 
@@ -40,9 +40,9 @@ flowchart LR
 
 原始证据、State和历史不因冻结输入的预算投影改变。压缩兜底可能有真实辅助模型调用，但不生成Final；不能把纯程序fixture、已有记录重放或输入冻结当新的完整模型轨迹。
 
-## 当前验收与质量边界
+## 采集验收与质量边界
 
-服务端三题正常Process完成，三份Final输入完整，分别总占用9256/7633/7400，均在15000硬线内；600题全量尚未收到完成验收。三题已有乱码、范围扩展和State语义待审问题，工程完成不等于可以直接训练。
+采集检查区分Process完成、实际Final输入完整、token预算通过和语义质量审核。pilot用于核验真实链路与导出，完整数据仍逐条检查；结构检查不能代替乱码、范围和State语义审核。已完成数据、Final对照及GRPO结果见[版本三实验](../versions/process_final_sft/README.md)，不以pilot状态替代全量结论。
 
 正常、降级、Process失败、无证据、Final packing失败及语义可疑分开记录。程序JSON修复只改可确定语法，不替模型修医学含义；原坏输出和修复事件不抹去。Final金标仅由同一冻结可见证据支持，两位老师不能偷偷补充外部内容；不合格就留置，不按预定数量强行补齐。
 

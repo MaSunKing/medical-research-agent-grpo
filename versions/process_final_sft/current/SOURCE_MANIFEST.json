@@ -5,7 +5,6 @@
   "includes_runs": false,
   "includes_weights": false,
   "includes_credentials": false,
-  "source_freeze_manifest_sha256": "6e6beb20c00117e9c1a6ef3fc21ba2da973c1396b796cf56a588e5c4403a3268",
   "source_runtime_matches_local": true,
   "files": {
     "runtime/src/trainable_agent/__init__.py": {
@@ -49,9 +48,9 @@
       "changes": "byte-identical"
     },
     "runtime/src/trainable_agent/context_processing/browser.py": {
-      "source_sha256": "53c7b95c969530ea1146daff14c091a4159bb986c986a0baa3af2afb05af7d6e",
-      "published_sha256": "53c7b95c969530ea1146daff14c091a4159bb986c986a0baa3af2afb05af7d6e",
-      "changes": "byte-identical"
+      "source_sha256": "7b0129ca1cbf57b0b5ff05a7d5a7d71835b6af00e7ed92f473b19c0f5705475a",
+      "published_sha256": "7b0129ca1cbf57b0b5ff05a7d5a7d71835b6af00e7ed92f473b19c0f5705475a",
+      "changes": "Current implementation; UTF-8/LF source export"
     },
     "runtime/src/trainable_agent/context_processing/cleaning.py": {
       "source_sha256": "2d35688e215fa81996d537ea2d5c3869d1115bb3045c92ead364fc7579b50ad2",
@@ -379,9 +378,9 @@
       "changes": "UTF-8/LF text normalization only"
     },
     "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/dual_paper.py": {
-      "source_sha256": "9ae4fdd7155644b94d1d925b2db7410a032c27321b4f2b40399ac433a3e9a997",
-      "published_sha256": "3f281d0f3a576e0e551d2901dc12f5692a99e0545593f9fd57bfd3268a564780",
-      "changes": "UTF-8/LF text normalization only"
+      "source_sha256": "c5833e05af37648b5361bddc8adae35b1ced3bcacdb8019023914c33ccb239c9",
+      "published_sha256": "24082bfd75df608af9a9ea1a605eec3908151ad664bbb0984e39641c8d2e6097",
+      "changes": "Current implementation; UTF-8/LF source export"
     },
     "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/evidence_handoff_v3.py": {
       "source_sha256": "e51aecdaecb6630d4ad1791c3606a9bc9d761406132975b825a76379f062b93d",
@@ -704,9 +703,9 @@
       "changes": "byte-identical"
     },
     "runtime/retrieval_snapshot_v2/MANIFEST.json": {
-      "source_sha256": "085c816ace02ee17036724460b71774bb6a04d7e60b3928df0831b201726966a",
-      "published_sha256": "a83ce9bf2b902d9c8a26c27027191e58fdd7319034ebfbb3c246854edb504265",
-      "changes": "Rebound to published normalized source bytes; no policy change"
+      "source_sha256": "195626892198aee8e0c74c159efb39f9294c9423a03978b8655ab181f3cd673f",
+      "published_sha256": "0845aa8f70601141ebdd032fef54355c106180d367fd4814f277f3889f88cec5",
+      "changes": "Current retrieval identity; hashes bound to normalized public sources and shared modules"
     },
     "runtime/retrieval_snapshot_v2/paired_receipts.py": {
       "source_sha256": "6975b7aa5ad64f7d2407ff82648335f56171ff28834189babf320db703b94cdf",
@@ -779,9 +778,9 @@
       "changes": "byte-identical"
     },
     "runtime/retrieval_snapshot_v2/worker.py": {
-      "source_sha256": "86bb1e431331e56df895e89e667eb5c984f070484cf7d7ed9d50b00f5f2a61ed",
-      "published_sha256": "1663de4d399f63086fc8ad9a115d5b2287534d4583965a5a24b65ab6eedb07bb",
-      "changes": "UTF-8/LF text normalization only"
+      "source_sha256": "f0a63fcea4940912ce0649156576cb32a121703ba1426900681495e01a8d7925",
+      "published_sha256": "4c4a0a6da43d8a8b36f2a8f6c64205e6c81ad826ccf75b240fc894f0f0a845ad",
+      "changes": "Current implementation; UTF-8/LF source export"
     },
     "runtime/pyproject.toml": {
       "source_sha256": "72374fe166551946c68c9b864ce08f7f587045ed9164cf81560ea837f0d411b1",
@@ -920,13 +919,87 @@
     },
     "README.md": {
       "source_sha256": null,
-      "changes": "documentation-only: link separately frozen new benchmark source; runtime unchanged",
-      "published_sha256": "b9bf26d579399f42248a4e44003740cb6526588b45e6f818ed1a6404f4f360f0"
+      "changes": "Current implementation documentation and offline source checks",
+      "published_sha256": "c6bdac028d33122cd40b4a9803d1c81d4de92f8350a1c3342734da860d8991c0"
     },
     "check_public_source.py": {
       "source_sha256": null,
-      "changes": "Public documentation/source-only verifier",
-      "published_sha256": "17e5d173e62dba225f76f43eb116c5b14b24a1cbef98d8793843ed6a4260b254"
+      "changes": "Current implementation documentation and offline source checks",
+      "published_sha256": "12d393936db158457e37b8fee4ef9a69705829c604dd55c7c1d11322b9eb3e31"
+    },
+    "runtime/retrieval_snapshot_v2/source_registry.py": {
+      "source_sha256": "3ec0ee5bbcf897616cee1b5d40b8d0b02d2bb11bc75ed6a2fda0599b28ebfdbb",
+      "published_sha256": "3ec0ee5bbcf897616cee1b5d40b8d0b02d2bb11bc75ed6a2fda0599b28ebfdbb",
+      "changes": "Current implementation; UTF-8/LF source export"
+    },
+    "runtime/tests/test_short_body_protection.py": {
+      "source_sha256": "b204b90a3cb2deb2bdd8e4fc3ea3cd9d265e4502037122e4bba52e537fb9b3b1",
+      "published_sha256": "b204b90a3cb2deb2bdd8e4fc3ea3cd9d265e4502037122e4bba52e537fb9b3b1",
+      "changes": "Current implementation; UTF-8/LF source export"
+    },
+    "runtime/tests/test_worker_source_registry.py": {
+      "source_sha256": "538ca3d033a6f473d307d6be25bbe145f868e0d4b521c655c5a2f3bf8387ecda",
+      "published_sha256": "538ca3d033a6f473d307d6be25bbe145f868e0d4b521c655c5a2f3bf8387ecda",
+      "changes": "Current implementation; UTF-8/LF source export"
+    },
+    "process_grpo_update/README.md": {
+      "source_sha256": null,
+      "published_sha256": "45e70dbea49b027a45f646b00e6fedf534b1d8eda27382e50c25e6e99b5f3a11",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/SOURCE_MANIFEST.json": {
+      "source_sha256": null,
+      "published_sha256": "6832c231b9f9d7b00adb33eb1c232ca4b5ddc65dc89f0c5b63ab5989c2c7d756",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/training/process_grpo_update/CONFIG.json": {
+      "source_sha256": "9783a031c190c08d75805800e26b5460a725e8074412e521504be1878b6c1d77",
+      "published_sha256": "9783a031c190c08d75805800e26b5460a725e8074412e521504be1878b6c1d77",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/training/process_grpo_update/contract.py": {
+      "source_sha256": "02ca88a9c91f64dedfee91623a527c4f4e8fbd89ef4a03e28ed1e9231fc28f9c",
+      "published_sha256": "02ca88a9c91f64dedfee91623a527c4f4e8fbd89ef4a03e28ed1e9231fc28f9c",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/training/process_grpo_update/objective.py": {
+      "source_sha256": "034dffea68aad118622cc0a7b6b61d755392bbd299a64a66fcb4f1902950da19",
+      "published_sha256": "034dffea68aad118622cc0a7b6b61d755392bbd299a64a66fcb4f1902950da19",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/training/process_grpo_update/runtime.py": {
+      "source_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31",
+      "published_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/training/process_grpo_update/test_update.py": {
+      "source_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635",
+      "published_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/training/process_grpo_update/train.py": {
+      "source_sha256": "86c57b5a8f6eda4a0912d8059c750eb3c40f7284e800990f98410b37e49f28a4",
+      "published_sha256": "86c57b5a8f6eda4a0912d8059c750eb3c40f7284e800990f98410b37e49f28a4",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/training/process_grpo_update/verify_package.py": {
+      "source_sha256": "d695923f7f391f2a6d3e6a47f96fe06e41daca498cebb15c27a3d9af08e03a2a",
+      "published_sha256": "d695923f7f391f2a6d3e6a47f96fe06e41daca498cebb15c27a3d9af08e03a2a",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
+    },
+    "process_grpo_update/verify_public.py": {
+      "source_sha256": null,
+      "published_sha256": "b7110621736035ce575ec69e416ebac103b35a2dbcbae3373a9ad2218d53f563",
+      "changes": "Source-only Process-GRPO update implementation; no private data"
     }
+  },
+  "reference_source_freeze_manifest_sha256": "6e6beb20c00117e9c1a6ef3fc21ba2da973c1396b796cf56a588e5c4403a3268",
+  "implementation_scope": "Current production source; each archived experiment keeps its own execution-source manifest",
+  "contracts": {
+    "body_quality": "bounded_nonbody_v17; original heading rules retained with content protection",
+    "source_registry": "verified completed Search receipt recovery; no Search reexecution",
+    "reading_focus_projection_bytes_per_call": 320,
+    "original_question_anchor_bytes": 640,
+    "query_thresholds_changed": false
   }
 }

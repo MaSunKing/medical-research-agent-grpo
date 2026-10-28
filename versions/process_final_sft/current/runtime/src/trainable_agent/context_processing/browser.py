@@ -3,7 +3,7 @@ import copy
 import hashlib
 import re
 
-VERSION = 'browse_sections_bounded_nonbody_v16'
+VERSION = 'browse_sections_bounded_nonbody_v17'
 
 # Combine template purpose with text shape, never site/domain or topic rules.
 TEMPLATE_HEADING = re.compile(r'导航|热门产品|热门推荐|更多推荐|扫码|扫一扫|分享|技术支持|版权|友情链接|社区|活动|圈层|开发者|'
@@ -45,6 +45,32 @@ ACCESS_NOTICE = re.compile(
     r'(?:This is a preview of subscription content[,;.]?\s*)?'
     r'(?:log in|sign in) via an institution to (?:check|get) access[.!]?(?=\s|$)', re.I)
 BARE_DATE = re.compile(r'(?:\d{4}[-/]\d{1,2}[-/]\d{1,2}|\d{1,2}[./]\d{1,2}[./]\d{4})')
+
+
+def short_body_content_protected(text):
+    """Protect claim/list/table shapes before the two weak heading filters.
+
+    This is a conservative preservation test, not a relevance or medical-truth
+    classifier. A topic, a bare number, or punctuation alone is not sufficient.
+    Explicit access/UI/catalogue rules retain their earlier precedence.
+    """
+    table = re.search(r'<table\b|\|\s*:?-{2,}:?\s*\||\|\s*\d+(?:\.\d+)?%?\s*\|', text, re.I)
+    measurement = re.search(
+        r'(?<!\w)\d+(?:[.,]\d+)?\s*(?:mg|mcg|[µμ]g|g/kg|mL|ml|L/min|mmHg|mmol/L|'
+        r'mmol|mEq|bpm|cmH2O|毫克|微克|毫升|毫米汞柱)(?![A-Za-z])|'
+        r'\b(?:p|n)\s*[<=>≤≥]\s*\d|[<>≤≥]\s*\d', text, re.I)
+    assertion = re.search(
+        r'\b(?:no|not|without|versus|vs|compared|should|must|advised|recommended|'
+        r'is|are|was|were|has|have|had|requires?|indicates?|shows?|showed|found|'
+        r'reduces?|reduced|increases?|increased|decreases?|decreased|improves?|improved|'
+        r'persists?|remains?|associated|contraindicated|avoid|administer)\b', text, re.I)
+    chinese_statement = re.search(
+        r'应当|应予|必须|不应|不宜|禁用|慎用|未见|未发现|无明显|'
+        r'不(?:推荐|建议)|(?:建议|推荐)(?:使用|给予|进行|监测|随访)|'
+        r'需(?:要)?(?:监测|随访|治疗)|(?:患者|受试者).{0,20}(?:应|需|接受|使用|出现)|'
+        r'(?:监测|评估|记录)(?:症状|血压|血氧|血糖|疗效|不良反应|用药)|'
+        r'(?:降低|增加|改善|减少|升高|下降).{0,16}(?:风险|死亡|症状|发生率|血压|血氧)', text)
+    return bool(table or FACTUAL_PROSE.search(text) or measurement or assertion or chinese_statement)
 
 
 def high_confidence_nonbody_shape(heading, text):
@@ -195,14 +221,15 @@ def publication_shape(heading, text):
     has_guidelines_heading = bool(re.fullmatch(r'(?:[\w-]+\s+){0,4}guidelines(?:\s*[-:]\s*(?:endorsed|directory|index))?|指南目录', str(heading).strip(' #*.'), re.I))
     sentences = len(re.findall(r'[。！？!?]|(?<!\d)\.(?=\s|$)', text))
     table_markup = bool(re.search(r'\||<table\b', text, re.I))
-    if has_guidelines_heading and not table_markup and sentences == 0 and len(text.split()) >= 4 and not FACTUAL_PROSE.search(text):
+    body_protected = short_body_content_protected(text)
+    if has_guidelines_heading and not table_markup and sentences == 0 and len(text.split()) >= 4 and not body_protected:
         return 'navigation_index', 'guideline_heading_and_topic_list'
     navigation_cues = len(re.findall(r'\b(?:guidelines in development|sections will be released|'
                                     r'expected in|read the (?:guideline|joint statement)|view key messages)\b', text, re.I))
     index_context = INDEX_HEADING.fullmatch(str(heading).strip(' #*.')) or (
         re.search(r'\bguideline development process\b', text, re.I)
         and re.search(r'\blearn more\b', text, re.I)) or (has_guidelines_heading and navigation_cues >= 2)
-    if index_context and not table_markup and not FACTUAL_PROSE.search(text):
+    if index_context and not table_markup and not body_protected:
         if re.search(r'\b(?:access .*resources|guidelines in development|guideline development process|'
                      r'learn more|read (?:the |in )|view .*guidelines|expected in|sections will be released|'
                      r'these include guidelines)\b', text, re.I):
@@ -256,7 +283,8 @@ def classify_section(heading, text):
     if len(FORMATS.findall(text)) >= 2 and len(text) <= 400:
         return 'web_boilerplate', 'citation_format_controls'
     short_units = len(text.split()) >= 3
-    if TEMPLATE_HEADING.search(str(heading)) and len(text) <= 400 and sentences == 0 and short_units:
+    if (TEMPLATE_HEADING.search(str(heading)) and len(text) <= 400 and sentences == 0
+            and short_units and not short_body_content_protected(text)):
         return 'web_boilerplate', 'template_heading_and_short_list'
     return 'content', 'insufficient_template_evidence'
 

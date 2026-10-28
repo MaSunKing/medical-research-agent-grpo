@@ -17,7 +17,8 @@ MODULES=['test_agent','test_model_json','test_tokenizer_return_contract','test_s
  'test_context_pipeline','test_context_capacity_v2','test_context_receipt_projection',
  'test_context_empty_projection','test_search_context','test_soft_hard_context',
  'test_source_coordinates','test_deterministic_context','test_table_context_provenance',
- 'test_nonbody_block_cleaning','test_bounded_browser_noise']
+ 'test_nonbody_block_cleaning','test_bounded_browser_noise',
+ 'test_short_body_protection','test_worker_source_registry']
 
 
 def verify():

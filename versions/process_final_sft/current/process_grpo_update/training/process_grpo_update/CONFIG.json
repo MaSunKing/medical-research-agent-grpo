@@ -1,0 +1,19 @@
+{
+  "schema": "process_grpo_update_v1",
+  "passes": 1,
+  "seed": 42,
+  "groups_per_update": 4,
+  "acceptance_questions": 8,
+  "lr": 0.000001,
+  "epsilon": 0.2,
+  "is_cap": 2.0,
+  "beta": 0.0,
+  "max_grad_norm": 1.0,
+  "forward_tolerance": 0.0001,
+  "max_capped_fraction": 0.05,
+  "minimum_weight_ess_fraction": 0.8,
+  "gradient_checkpointing": true,
+  "rollout_reduction": "mean_policy_tokens_per_rollout_then_equal_rollout_mean",
+  "advantage": "reward_minus_question_mean_no_std",
+  "logit_chunk_tokens": 8
+}

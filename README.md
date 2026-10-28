@@ -12,7 +12,7 @@
 
 | 路线与定位 | 检索代码 |
 |---|---|
-| **[版本三：Process-SFT + Final-SFT](versions/process_final_sft/README.md)** · 当前主线 | [当前源码与检索](versions/process_final_sft/current/README.md) |
+| **[版本三：Process-SFT → Process-GRPO](versions/process_final_sft/README.md)** · 当前主线，Final独立 | [当前源码与检索](versions/process_final_sft/current/README.md) |
 | [版本一：单LoRA](versions/single_lora/README.md) · 历史探索 | [冻结旧检索](versions/legacy_retrieval/README.md) |
 | [版本二：双LoRA](versions/dual_lora/README.md) · 历史探索 | [冻结旧检索](versions/legacy_retrieval/README.md) |
 
@@ -61,7 +61,7 @@ SFT 使用 NF4 QLoRA、BF16 compute、FP32 LoRA；在线 Process 与 Final 的�
 
 每次模型调用都由程序显式传入工作状态，不依赖服务端隐式聊天记忆。**节点化用于拆清输入、输出与错误边界，不表示增加了多个自主推理Agent，也不自动保证证据或医学结论正确。** Process与Final是可分别训练、切换adapter的角色，不要求部署为两套独立基座。
 
-实现入口：[节点与路由](versions/process_final_sft/current/runtime/src/trainable_agent/engine.py) · [MCP工具](versions/process_final_sft/current/runtime/src/trainable_agent/tools.py) · [持久化](versions/process_final_sft/current/runtime/src/trainable_agent/storage.py) · [详细架构](docs/architecture.md)。
+实现入口：[逐步设计与限制](versions/process_final_sft/engineering.md) · [GRPO算法与概率校正](versions/process_final_sft/grpo.md) · [节点与路由](versions/process_final_sft/current/runtime/src/trainable_agent/engine.py) · [MCP工具](versions/process_final_sft/current/runtime/src/trainable_agent/tools.py) · [持久化](versions/process_final_sft/current/runtime/src/trainable_agent/storage.py)。
 
 ## 当前完整问答流程
 

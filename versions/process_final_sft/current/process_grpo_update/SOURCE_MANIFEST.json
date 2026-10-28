@@ -1,0 +1,53 @@
+{
+  "schema": "process_grpo_update_public_source_v1",
+  "source_only": true,
+  "includes_private_data": false,
+  "includes_weights": false,
+  "includes_credentials": false,
+  "reference_package_manifest_sha256": "e59826f1c964d63f1e5b572c66994a666a66ba4e488525924ec627cef1b3340f",
+  "reference_execution_patch_sha256": "4a794fe2cda433c74b7fb9d1c42eaf7daec546c4dc268228e3975cdc7a0b3416",
+  "files": {
+    "training/process_grpo_update/CONFIG.json": {
+      "source_sha256": "9783a031c190c08d75805800e26b5460a725e8074412e521504be1878b6c1d77",
+      "published_sha256": "9783a031c190c08d75805800e26b5460a725e8074412e521504be1878b6c1d77",
+      "changes": "UTF-8/LF source export",
+      "source_component": "sealed update objective and contract"
+    },
+    "training/process_grpo_update/contract.py": {
+      "source_sha256": "02ca88a9c91f64dedfee91623a527c4f4e8fbd89ef4a03e28ed1e9231fc28f9c",
+      "published_sha256": "02ca88a9c91f64dedfee91623a527c4f4e8fbd89ef4a03e28ed1e9231fc28f9c",
+      "changes": "UTF-8/LF source export",
+      "source_component": "sealed update objective and contract"
+    },
+    "training/process_grpo_update/objective.py": {
+      "source_sha256": "034dffea68aad118622cc0a7b6b61d755392bbd299a64a66fcb4f1902950da19",
+      "published_sha256": "034dffea68aad118622cc0a7b6b61d755392bbd299a64a66fcb4f1902950da19",
+      "changes": "UTF-8/LF source export",
+      "source_component": "sealed update objective and contract"
+    },
+    "training/process_grpo_update/runtime.py": {
+      "source_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31",
+      "published_sha256": "f2931685a5981110c4e4a835e6c3242817102d578613903de018499619c0ca31",
+      "changes": "UTF-8/LF source export",
+      "source_component": "deterministic execution"
+    },
+    "training/process_grpo_update/train.py": {
+      "source_sha256": "86c57b5a8f6eda4a0912d8059c750eb3c40f7284e800990f98410b37e49f28a4",
+      "published_sha256": "86c57b5a8f6eda4a0912d8059c750eb3c40f7284e800990f98410b37e49f28a4",
+      "changes": "UTF-8/LF source export",
+      "source_component": "deterministic execution"
+    },
+    "training/process_grpo_update/test_update.py": {
+      "source_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635",
+      "published_sha256": "444677c0e7d3fba197d77efa5181f84ecb01897573a8aabac8b7fc59c71d7635",
+      "changes": "UTF-8/LF source export",
+      "source_component": "deterministic execution"
+    },
+    "training/process_grpo_update/verify_package.py": {
+      "source_sha256": "d695923f7f391f2a6d3e6a47f96fe06e41daca498cebb15c27a3d9af08e03a2a",
+      "published_sha256": "d695923f7f391f2a6d3e6a47f96fe06e41daca498cebb15c27a3d9af08e03a2a",
+      "changes": "UTF-8/LF source export",
+      "source_component": "sealed update objective and contract"
+    }
+  }
+}

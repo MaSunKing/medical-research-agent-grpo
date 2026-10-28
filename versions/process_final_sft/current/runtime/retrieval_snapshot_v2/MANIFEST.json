@@ -12,7 +12,7 @@
     "backend/agent/dr_agent/mcp_backend/apis/browse_preprocess.py": "4cab4c750618d1ddebec98b7a84aff295664b3bae3f76d8f31812f1997824f0e",
     "backend/agent/dr_agent/mcp_backend/apis/crawl4ai_docker_api.py": "9994ca3e2c7be1c453c7bb630f3a3aa336c5ce2611ce3cd9b3a6eb181ff0e93a",
     "backend/agent/dr_agent/mcp_backend/apis/data_model.py": "ff9fa5054c58afcc569d4480ad837e91557c71648454e6bae704d52c070112b7",
-    "backend/agent/dr_agent/mcp_backend/apis/dual_paper.py": "3f281d0f3a576e0e551d2901dc12f5692a99e0545593f9fd57bfd3268a564780",
+    "backend/agent/dr_agent/mcp_backend/apis/dual_paper.py": "24082bfd75df608af9a9ea1a605eec3908151ad664bbb0984e39641c8d2e6097",
     "backend/agent/dr_agent/mcp_backend/apis/evidence_handoff_v3.py": "8d5bf84c88116f416a70b0260d8677c7067a73a6356bc610a1bedbd727248865",
     "backend/agent/dr_agent/mcp_backend/apis/evidence_reader_v28.py": "a964f9b309bbf1ea8bebab3fcd87be75763cb9554eba2bc573b62022b781ee67",
     "backend/agent/dr_agent/mcp_backend/apis/hybrid_passage_retriever.py": "90ee0e49f9072059f4018ec739f935478413e7a77d51a72ebdd543d77048d409",
@@ -97,7 +97,8 @@
     "test_quality_v8.py": "ba75c0de36b6ce1bbd0b03f1af7d95af60d995065dbf11c952fe691f6c43914e",
     "test_web_semantic_v9.py": "5545cec33061df1d7573ba7e65078d93e778f5420e628bc0b8cc1420439a482b",
     "verify_package.py": "6dab514f909814d65d23d77c7bfbf2b3952c35366513d726b418c17351bdf1b2",
-    "worker.py": "1663de4d399f63086fc8ad9a115d5b2287534d4583965a5a24b65ab6eedb07bb"
+    "worker.py": "4c4a0a6da43d8a8b36f2a8f6c64205e6c81ad826ccf75b240fc894f0f0a845ad",
+    "source_registry.py": "3ec0ee5bbcf897616cee1b5d40b8d0b02d2bb11bc75ed6a2fda0599b28ebfdbb"
   },
   "provenance": {
     "backend/agent/dr_agent/__init__.py": {
@@ -501,7 +502,7 @@
   "shared_context_files": {
     "src/trainable_agent/context_processing/__init__.py": "abaa3ccb0fc11d2767a535de0574de0ba3ded250afc1a7718fb826c54c5d88b1",
     "src/trainable_agent/context_processing/aliases.py": "b19633b44cd521193457d03a55001cc62621777cc1c6b05c6046097970a24e6a",
-    "src/trainable_agent/context_processing/browser.py": "53c7b95c969530ea1146daff14c091a4159bb986c986a0baa3af2afb05af7d6e",
+    "src/trainable_agent/context_processing/browser.py": "7b0129ca1cbf57b0b5ff05a7d5a7d71835b6af00e7ed92f473b19c0f5705475a",
     "src/trainable_agent/context_processing/cleaning.py": "2d35688e215fa81996d537ea2d5c3869d1115bb3045c92ead364fc7579b50ad2",
     "src/trainable_agent/context_processing/deterministic_context.py": "50655c84041708af317ea72643788cace0413f21ef66c52b9311e615c932c162",
     "src/trainable_agent/context_processing/fallback.py": "e7866e9c23f17dcaf9d8a1125b18ab7738d46edc9d1cf775c9ad31b7a882c480",
@@ -520,5 +521,6 @@
   },
   "timeout_contract": "layered_startup_operation_bridge_deadlines; durable_operation_identity_and_receipt_hash; resume_only_verified_existing_pdf_task; unknown_submission_no_replay; bounded_counted_retry",
   "context_contract": "deterministic_projection_v3; known_engineering_window_receipts_archived; normal_floor_and_override_projection_identical; protected_table_text_in_floor; history_and_raw_evidence_retained",
-  "body_quality_contract": "shared_intrinsic_author_catalog_gate_before_ranking_and_after_budget_clipping; bounded_refill; clinical_claims_and_unknown_mixed_content_preserved"
+  "body_quality_contract": "shared_intrinsic_author_catalog_gate_before_ranking_and_after_budget_clipping; bounded_refill; original_weak_heading_rules_retained_with_short_claim_measurement_chinese_table_protection_v17",
+  "source_registry_contract": "completed_search_journal_restore_v1; startup_and_completed_or_paired_replay; local_output_only; verified_hashes_canonical_ids_public_urls; no_search_reexecution"
 }

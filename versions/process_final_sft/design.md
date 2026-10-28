@@ -1,6 +1,6 @@
 # 1. 系统设计与题集
 
-[概览](README.md) · **系统与数据** · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
+[概览](README.md) · **系统与数据** · [逐步工程设计](engineering.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
 
 ## 研究目标与模型角色
 
@@ -44,6 +44,8 @@ flowchart TD
 
 LangGraph负责节点编排，ReAct描述决策—工具—观察—再决策的循环，MCP封装真实工具。它们服务于一个Process策略，不表示多个自主Agent轮流检索。持久化用自有SQLite Store与调用回执，支持可审计的断点续跑。
 
+[逐步工程设计](engineering.md)展开每一步的输入、处理方式、设计理由与适用限制：从需求拆解、重复查询缓存、单次reading_focus，到正文保护、State、Pre-final及worker来源恢复。
+
 ## Search与Browse的区别
 
 Search返回标题、摘要或snippet及候选元信息，不能直接记为已读正文。Browse按来源和阅读重点取得实际文本，完成清洗、片段选择与E ID绑定；Final只能使用实际交付材料，不能借搜索预览补证据。
@@ -59,6 +61,14 @@ Search返回标题、摘要或snippet及候选元信息，不能直接记为已�
 | 候选可用性 | 未读优先；明确当前路由不可读/耗尽的候选移出当前可选集，记录仍保留 |
 | Browse失败 | 留下原因与反馈，允许模型换来源/改query；失败不证明不存在证据 |
 | 证据交接 | 已读原文、来源、ID及状态按预算投影，保留无损引用的解析规则 |
+
+### 检索文本与证据正文使用不同预算
+
+原题检索锚点最多640个UTF-8字节；本次query/reading_focus在检索投影中最多320个UTF-8字节。每次调用独立处理，不累计。它们用于保持检索意图简洁，不限制返回证据正文的长度；完整原题仍由模型节点上下文携带。动作结构中的Text字段另有1200字符上限，两层含义见[Browse与reading_focus](engineering.md#5-browse与reading_focus围绕本次缺口读取来源)。
+
+### 有界清洗与来源连续性
+
+清洗保留模板/指南短列表规则，并优先保护事实、否定比较、数值单位、中文指令和表格，兼顾上下文规模与正文保留。worker通过校验完成Search回执恢复原来源映射，保持重启和缓存重放后的Browse引用连续；不额外搜索，也不改已有canonical ID。具体行为与限制分别见[正文清洗](engineering.md#6-正文解析与清洗减少模板噪声保护有内容的短段落)和[来源恢复](engineering.md#12-worker与来源回执保持中断前后的引用连续)。
 
 ## 上下文、工具与语法合同
 

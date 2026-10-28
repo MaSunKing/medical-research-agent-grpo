@@ -1,5 +1,6 @@
 """Inference-only dual discovery. Raw abstracts, exact identity, explicit failures."""
 import copy
+import ipaddress
 import os
 import re
 import time
@@ -29,6 +30,61 @@ def aliases(row):
 
 class Registry:
     def __init__(self):self.rows={};self.by_alias={}
+    def restore(self, records):
+        """Restore verified Search rows without reselecting canonical IDs.
+
+        A canonical S2 ID can legitimately predate a later discovered PMID.
+        Restore that same ID, and derive usable aliases from native fields,
+        rather than trusting arbitrary claimed alias lists or re-running fuse.
+        """
+        prepared = []
+        for record in records:
+            if not isinstance(record, dict):
+                raise ValueError('invalid_restored_paper_record')
+            row = copy.deepcopy(record)
+            sid = row.get('source_id')
+            if not isinstance(sid, str) or not re.fullmatch(r'(?:PMID:[0-9]+|S2:[a-f0-9]{40})', sid):
+                raise ValueError('invalid_restored_paper_source_id')
+            if row.get('externalIds') is not None and not isinstance(row['externalIds'], dict):
+                raise ValueError('invalid_restored_paper_identity')
+            keys = aliases(row)
+            if sid not in keys:
+                raise ValueError('restored_paper_source_identity_mismatch')
+            claimed = row.get('identity_aliases', [])
+            if not isinstance(claimed, list) or any(not isinstance(a, str) or not re.fullmatch(
+                    r'(?:PMID:[0-9]+|S2:[a-f0-9]{40}|DOI:10\.[^\s]+/[^\s]+)', a) for a in claimed):
+                raise ValueError('invalid_restored_paper_aliases')
+            pdf = row.get('openAccessPdf')
+            if pdf is not None and not isinstance(pdf, dict):
+                raise ValueError('invalid_restored_paper_pdf')
+            for url in (row.get('url'), (pdf or {}).get('url')):
+                if not url:
+                    continue
+                if not isinstance(url, str):
+                    raise ValueError('invalid_restored_paper_url')
+                parsed = urlsplit(url)
+                host = (parsed.hostname or '').lower().rstrip('.')
+                if (parsed.scheme not in ('http','https') or not host or parsed.username or parsed.password
+                        or host == 'localhost' or host.endswith(('.local','.localhost'))):
+                    raise ValueError('unsafe_restored_paper_url')
+                try:address = ipaddress.ip_address(host)
+                except ValueError:address = None
+                if address is not None and (address.is_private or address.is_loopback or address.is_link_local
+                        or address.is_multicast or address.is_reserved or address.is_unspecified):
+                    raise ValueError('unsafe_restored_paper_url')
+            prepared.append((sid, row, keys))
+        # Validate the complete batch before changing either registry.
+        for sid, row, keys in prepared:
+            prior = copy.deepcopy(self.rows.get(sid, {}))
+            for key, value in row.items():
+                if value not in (None,'',[]):prior.setdefault(key, value)
+            # Match fuse: native fields keep their first useful value, while
+            # per-discovery provenance follows the latest completed Search.
+            for key in ('identity_aliases','discovery_channels','source_ranks','rrf_score'):
+                if key in row:prior[key] = copy.deepcopy(row[key])
+            self.rows[sid] = prior
+            for key in keys:self.by_alias.setdefault(key, sid)
+        return len(prepared)
     def fuse(self,results,limit=10):
         entries=[]
         for channel,data in results.items():
@@ -182,4 +238,5 @@ def install(backend):
         document['metadata'].update(pdf_enabled=pdf_enabled(),fetch_attempts=attempts)
         return document
     backend._dual_search=search
+    backend._restore_paper_search_sources=registry.restore
     backend.load_medical_document=load

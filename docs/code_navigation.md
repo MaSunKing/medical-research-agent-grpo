@@ -17,9 +17,12 @@
 | tools.py / retrieval_deadlines.py | MCP工具桥接、worker和超时/未知结果回执 |
 | storage.py / recovery.py / training.py | SQLite回执、显式恢复、真实当步输入与合法target导出 |
 | retrieval_snapshot_v2/backend/agent/dr_agent/ | PubMed/S2/Serper、正文解析、排序、清洗与片段证据 |
+| retrieval_snapshot_v2/source_registry.py / worker.py | 从已完成Search回执恢复来源映射，保持Browse引用连续；不额外搜索 |
 | packaging/prefinal600/ | 600题500/100划分校验、Process-only队列、真实Final输入冻结、一致性导出 |
 
 原始972训练代码单独公开于[original972_training](../versions/process_final_sft/current/original972_training)，按10,575行、1,322更新和effective-batch target-token mean核对；不能以本页下方的既有训练文件身份替代。
+
+当前Process更新实现见[Process-GRPO源码](../versions/process_final_sft/current/process_grpo_update/README.md)，包括轨迹等权目标、概率校正、确定性和断点校验；根目录training保留其既有实现身份。[逐步设计](../versions/process_final_sft/engineering.md)解释各模块为何存在以及限制，[算法说明](../versions/process_final_sft/grpo.md)将奖励连接到实际参数更新。
 
 ## 已公开组件与参考入口
 

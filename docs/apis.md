@@ -2,7 +2,7 @@
 
 公开仓库不包含任何凭证。先复制 `.env.example` 为本地 `.env`，只填写实际启用的服务；`.env`、`*.env`、`secrets*` 和本地凭证目录均被 `.gitignore` 排除。代码和日志只应检查“是否配置”，不得输出密钥值。
 
-当前600题Process-only采集只依赖本地Qwen模型与实际启用的检索服务，不调用Final、Teacher生成或Judge。Final输入冻结在超限时可使用禁用LoRA的同基座压缩兜底；这不是额外的网页Teacher或裁判API。下方Judge/Verifier属于按模式启用的独立组件，不因列在本页就默认运行。
+Process-only采集使用本地Qwen模型与实际启用的检索服务，不生成Final、不调用Teacher或Judge。完整问答模式继续调用本地冻结Base Final；benchmark答案评分才调用显式配置的Judge。Final输入构建在超限时可使用禁用LoRA的同基座压缩兜底。运行模式和每一步职责见[工程流程](../versions/process_final_sft/engineering.md)。
 
 当前工具实现已公开于[版本三最新检索快照](../versions/process_final_sft/current/runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis)。下文retrieval/...为既有兼容入口；当前部署应使用同一current/runtime源码及其manifest，不将新旧工具模块拼接。
 
@@ -18,6 +18,8 @@
 | PDF 正文解析 | 仅启用 PDF 路由时需要 MinerU 云端 Token 或自托管 MinerU 地址 |
 | 分阶段语义评分 | 需要一个 OpenAI-compatible HTTPS Judge endpoint 与 Key |
 | ChatGPT Pro 独立复核 | 是采集后的人工/产品侧审计，不是代码运行依赖，也不读取本仓库密钥 |
+
+底层服务是否支持匿名访问，与完整worker的启动合同分开：当前完整worker要求配置NCBI、S2、Serper和MinerU凭据，缺项明确停止，避免以“启动成功”掩盖未启用的检索路线。仅使用单个底层服务时，以该服务实际HTTP响应和限流为准。
 
 ## 服务清单
 
