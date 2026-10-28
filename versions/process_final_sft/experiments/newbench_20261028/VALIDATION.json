@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "published_records": 400,
+  "question_pages": 100,
+  "original_ratings_unchanged": true,
+  "new_result_boundary_tests": 5,
+  "evaluator_synthetic_contract_tests": 45,
+  "old_process_records_verified": 200,
+  "old_final_records_verified": 400,
+  "source_files_verified": 152,
+  "legacy_versions_unchanged": true,
+  "private_paths_and_secret_pattern_scan": "passed; not a guarantee against all personal content",
+  "review_scope": "AI evidence-grounded review; not clinical certification",
+  "model_calls": 0,
+  "paid_api_calls": 0,
+  "training": false
+}

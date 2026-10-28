@@ -4,7 +4,7 @@
 
 项目关注的不只是“搜到一个相关标题”，而是 **读到了什么、解决了哪个需求、还有什么没有证实**。用于研究，不替代临床判断。
 
-**当前主线：Process-SFT获取证据 → 独立Final-SFT对照 → 冻结Base Final → Process-GRPO → 分开评测证据交付和最终答案。** 已完成一轮GRPO的13/25批checkpoint评测，见[版本三实验与逐题结果](versions/process_final_sft/evaluation.md)；Final-SFT暂未胜过Base，见[dev100四组对照](versions/process_final_sft/final_sft.md)。
+**当前主线：Process-SFT获取证据 → 独立Final-SFT对照 → 冻结Base Final → Process-GRPO → 分开评测证据交付和最终答案。** 已完成一轮GRPO及新100题四组同配置检验：GRPO保持零完全重复Search、GRPO25交付更多适用证据；逐题胜负、重大错误和失败均公开，见[版本三实验与逐题结果](versions/process_final_sft/evaluation.md)；Final-SFT暂未胜过Base，见[dev100四组对照](versions/process_final_sft/final_sft.md)。
 
 ## 当前主线与历史探索
 
@@ -110,13 +110,13 @@ flowchart TB
     FSFT --> Compare[固定输入dev100：Base Final暂优]
     Compare --> RL[固定Base Final：已完成一轮Process-GRPO]
     RL --> Development[旧50题开发对照：13 / 25批checkpoint]
-    Development --> Independent[尚未执行：新独立题集同配置验证]
+    Development --> Independent[已完成：新100题四组同配置检验]
 ```
 
 1. **冻结输入**：600题预划500 train / 100 dev，用原972 Process采集并保留失败与质量问题；实际Final输入与完整存档分开核验。
 2. **制作金标并验证Final**：老师读取相同证据生成候选，使用指定gold训练独立Final LoRA；dev100对照中三个checkpoint均未超过Base Final，因此没有直接追加训练。
 3. **固定Base Final更新Process**：另100道训练题各采4条轨迹，本地审核实际交付与过程，99个可用题组完成25批离线GRPO更新。
-4. **分别评测内容与答案**：13/25批各重新运行旧50题，报告交付覆盖、State错误、完成率和HealthBench分。旧题用于开发，新独立题集验证尚未启动。
+4. **分别评测内容与答案**：13/25批各重新运行旧50题，报告交付覆盖、State错误、完成率和HealthBench分。旧题用于开发；新增HealthBench50与MedBrowseComp50四组400条已全部评测，逐题记录完整。
 
 这里展示已经执行的依赖与当前验证边界；完整参数、分数和后续设计见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO算法与后续设计](versions/process_final_sft/grpo.md)。
 
@@ -225,8 +225,8 @@ W_0\ \text{frozen},\quad A,B\ \text{trainable}.
 
 如何聚合这些CE项，以及阶段权重、GRPO优势与策略目标，分别见[单LoRA公式](versions/single_lora/README.md#sft与grpo公式)、[双LoRA计划公式](versions/dual_lora/README.md#计划算法与公式)、[Process与Final边界](versions/process_final_sft/README.md)、[本轮Process-GRPO公式](versions/process_final_sft/grpo.md)。
 
-原始972题、10575阶段样本产生Process checkpoint1322；600题固定500 train/100 dev用于独立Final训练与对照。此后完成100题×4条Process-GRPO轨迹、99组25批更新，并完成旧50题的新GRPO13/25评测。Base/SFT历史与新GRPO共200条Process、dev100共400条Final均有逐题记录；无证据、State误读和失败保留，不以完成运行代替质量通过。
+原始972题、10575阶段样本产生Process checkpoint1322；600题固定500 train/100 dev用于独立Final训练与对照。此后完成100题×4条Process-GRPO轨迹、99组25批更新，并完成旧50题的新GRPO13/25评测。旧题200条Process、新100题400条Process、dev100共400条Final均有逐题记录；无证据、State误读和失败保留，不以完成运行代替质量通过。
 
-后续设计与历史计划分别标注，不将尚未执行的独立验证、消融或新一轮训练写成结果。见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO后续设计](versions/process_final_sft/grpo.md)。
+新增检验与旧题开发对照分开标注，不将尚未执行的消融或新一轮训练写成结果。见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO后续设计](versions/process_final_sft/grpo.md)。
 
 Apache-2.0；必要署名见 [第三方声明](THIRD_PARTY_NOTICES.md)。模型与外部服务另受各自条款约束。

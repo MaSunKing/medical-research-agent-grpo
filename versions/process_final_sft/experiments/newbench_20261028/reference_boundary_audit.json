@@ -1,0 +1,101 @@
+{
+  "blank_exclusivity_questions": [
+    53,
+    63,
+    67,
+    70,
+    71,
+    76
+  ],
+  "year_prompt_full_date_reference_questions": [
+    60,
+    61,
+    62,
+    73,
+    80,
+    84,
+    87,
+    95,
+    96,
+    97
+  ],
+  "official_blank_normalization": "NA",
+  "official_source": "https://github.com/shan23chen/MedBrowseComp/blob/main/process_NCT_predictions.py",
+  "original_scores_modified": false,
+  "blank_valid_records": 22,
+  "blank_native_correct": 22,
+  "year_valid_records": 40,
+  "year_native_correct": 0,
+  "manual_boundary_review": "Six blank reference questions follow the author NA convention. All 22 valid NA records were scored correct. All 40 year-task answers were inspected: none supplied the correct reference year and was rejected solely for omitting month/day. No boundary-based score correction issued.",
+  "alternative_ingredient_question": 64,
+  "alternative_ingredient_process_review": "NCT03425643 delivered bodies link pembrolizumab, a P ingredient in the more effective regimen, to survival benefit. The reference selects pemetrexed disodium. Process credit follows original question scope; original benchmark answer-match scores remain unchanged.",
+  "healthbench_scope_checks": [
+    22,
+    27,
+    42,
+    50
+  ],
+  "healthbench_scope_audit": {
+    "Q22": "User explicitly asks recent studies/recommendations, adverse effects and cost, but example criteria ask reformulation and no recent medical evidence. Original rubric score is preserved.",
+    "Q27": "One example criterion assigns -9 to immediate emergency help in the opening; a cluster criterion assigns +5 to clear emergency referral in the opening. This conflicts at the wording level and needs human calibration.",
+    "Q42": "Literal keep this in mind (do nothing else) differs from the diagnostic-counseling rubric; Process follows the literal instruction.",
+    "Q50": "Rewriting task is actually aligned with its concise-reformulation rubric. This is a different task type, not a confirmed rubric defect."
+  },
+  "limitations": [
+    "NA answer-match does not establish successful trial-to-ingredient-to-date reasoning.",
+    "Q64 may admit more than one P ingredient; native single-reference score and evidence-grounded Process score answer different questions.",
+    "Physician rubric and literal user scope can differ; Process content points follow original question."
+  ],
+  "healthbench_sensitivity_excluding_scope_flagged_22_27_42": {
+    "base": {
+      "valid": 42,
+      "raw_mean": 0.03735520911731945
+    },
+    "sft": {
+      "valid": 46,
+      "raw_mean": 0.13116963345769053
+    },
+    "grpo13": {
+      "valid": 47,
+      "raw_mean": 0.1657374601509691
+    },
+    "grpo25": {
+      "valid": 46,
+      "raw_mean": 0.14619981966356704
+    }
+  },
+  "medbrowsecomp_benchmark_page_leak": {
+    "record": "Q58_B",
+    "arm": "grpo13",
+    "evidence_ids": [
+      "E7",
+      "E8",
+      "E9"
+    ],
+    "url": "https://huggingface.co/datasets/AIM-Harvard/MedBrowseComp",
+    "original_score_modified": false,
+    "excluding_question_58": {
+      "base": {
+        "valid": 48,
+        "correct": 9
+      },
+      "sft": {
+        "valid": 48,
+        "correct": 12
+      },
+      "grpo13": {
+        "valid": 48,
+        "correct": 12
+      },
+      "grpo25": {
+        "valid": 47,
+        "correct": 10
+      }
+    }
+  },
+  "other_trial_direction_ambiguity_questions": [
+    65,
+    78,
+    99
+  ]
+}

@@ -920,8 +920,8 @@
     },
     "README.md": {
       "source_sha256": null,
-      "changes": "Public documentation/source-only verifier",
-      "published_sha256": "b2788e096dceca512b7d6e9bc14620d954fc3e3b602c4d0985d65839fe80045a"
+      "changes": "documentation-only: link separately frozen new benchmark source; runtime unchanged",
+      "published_sha256": "b9bf26d579399f42248a4e44003740cb6526588b45e6f818ed1a6404f4f360f0"
     },
     "check_public_source.py": {
       "source_sha256": null,

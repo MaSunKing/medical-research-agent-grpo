@@ -1,0 +1,872 @@
+{
+  "source_only": true,
+  "includes_questions": false,
+  "includes_answers": false,
+  "includes_runs": false,
+  "includes_weights": false,
+  "includes_credentials": false,
+  "private_package_manifest_sha256": "4a18830c5e371dbb43001147fc7e0f73fb2c4043069711d5e11b991c327ca514",
+  "files": {
+    "eval/bind_config.py": {
+      "source_sha256": "abcffcd9f7571a264d4543fc83f6215e90226541a34a132f9811c04765b4d5d4",
+      "published_sha256": "2cd25e7eab86e78c642dca83a2f8891a1686146578bcedbf7e7c22f2ce622f6a",
+      "changes": [
+        "UTF-8/LF source export",
+        "personal deployment defaults removed; explicit model/adapter args required"
+      ]
+    },
+    "eval/eval_common.py": {
+      "source_sha256": "97eb3174229bd3d5c58d9286f0df2491701af0ac1deacea788bcfd38a8568c62",
+      "published_sha256": "97eb3174229bd3d5c58d9286f0df2491701af0ac1deacea788bcfd38a8568c62",
+      "changes": []
+    },
+    "eval/evaluate.py": {
+      "source_sha256": "b605eae3dd934599eea31b49a30608615b2d59dc8b029bdef054cd56e24f1d5c",
+      "published_sha256": "b605eae3dd934599eea31b49a30608615b2d59dc8b029bdef054cd56e24f1d5c",
+      "changes": []
+    },
+    "eval/grading.py": {
+      "source_sha256": "52b989544d55dfa5998178c96bf4eca370a3c84fe4fd60df31e382e566879ab0",
+      "published_sha256": "52b989544d55dfa5998178c96bf4eca370a3c84fe4fd60df31e382e566879ab0",
+      "changes": []
+    },
+    "eval/offline.py": {
+      "source_sha256": "574583854d02f0031c5185c799649594348129406a4f96caa4a01c2980368c8b",
+      "published_sha256": "574583854d02f0031c5185c799649594348129406a4f96caa4a01c2980368c8b",
+      "changes": []
+    },
+    "eval/ops.py": {
+      "source_sha256": "f41cb507fb380ddfe92fa81020868baf040afb38f7fab87be7f28cd0338130a3",
+      "published_sha256": "f41cb507fb380ddfe92fa81020868baf040afb38f7fab87be7f28cd0338130a3",
+      "changes": []
+    },
+    "eval/prepare_data.py": {
+      "source_sha256": "3b88fdc48a6c325f13ec0dd697cb648d89319fdc1f2a620044723ea36aec2d0b",
+      "published_sha256": "3b88fdc48a6c325f13ec0dd697cb648d89319fdc1f2a620044723ea36aec2d0b",
+      "changes": []
+    },
+    "eval/README.zh.md": {
+      "source_sha256": "47992ea20fb8a2bb2f251f2795bc458d7fe2a43fdd8b15dbed0d482f7327e2a6",
+      "published_sha256": "06a661b863d2e072e53317b795fd094ad9ba1de69a79f681e0ac2ea81577f58d",
+      "changes": [
+        "UTF-8/LF source export"
+      ]
+    },
+    "eval/review_export.py": {
+      "source_sha256": "57e4e06621c30614f5ed4bf11f136807264454cca7ebee542bee8c0e3434da9d",
+      "published_sha256": "57e4e06621c30614f5ed4bf11f136807264454cca7ebee542bee8c0e3434da9d",
+      "changes": []
+    },
+    "eval/submit.sh": {
+      "source_sha256": "062a6ce0a76d719b15be399520cd889ce7f55f673a61cafb57b9e702929bda1f",
+      "published_sha256": "062a6ce0a76d719b15be399520cd889ce7f55f673a61cafb57b9e702929bda1f",
+      "changes": []
+    },
+    "eval/test_binding.py": {
+      "source_sha256": "4a165e6d741450067beed4aa26913a4574b2da6e3091dc097e6d7b0d7026e052",
+      "published_sha256": "4a165e6d741450067beed4aa26913a4574b2da6e3091dc097e6d7b0d7026e052",
+      "changes": []
+    },
+    "eval/test_evaluate.py": {
+      "source_sha256": "1b735e7cc58b06731a5f900aba4ec8ba1c50843a6714d6fb71c36179b357eee4",
+      "published_sha256": "1b735e7cc58b06731a5f900aba4ec8ba1c50843a6714d6fb71c36179b357eee4",
+      "changes": []
+    },
+    "eval/test_grading.py": {
+      "source_sha256": "69af4d84eebf67085178320c6147a6ce6c83fbb59c4b2b8d13a7d7045159f05d",
+      "published_sha256": "69af4d84eebf67085178320c6147a6ce6c83fbb59c4b2b8d13a7d7045159f05d",
+      "changes": []
+    },
+    "eval/test_protocol.py": {
+      "source_sha256": "7742755bac162d1db3723b09b3ea8c9152a9073335f461987f9bfbf44a948523",
+      "published_sha256": "7742755bac162d1db3723b09b3ea8c9152a9073335f461987f9bfbf44a948523",
+      "changes": []
+    },
+    "grader/common.py": {
+      "source_sha256": "4ac7df721cec223716c21fadbf936c1233e808fb84b546d9318beadbe6f9a5c7",
+      "published_sha256": "4ac7df721cec223716c21fadbf936c1233e808fb84b546d9318beadbe6f9a5c7",
+      "changes": []
+    },
+    "grader/GRADER_CONFIG.json": {
+      "source_sha256": "04bcddebbc3bafcfbb63c17980e734beef48bc64bbe84f56b3ad3578670218f0",
+      "published_sha256": "04bcddebbc3bafcfbb63c17980e734beef48bc64bbe84f56b3ad3578670218f0",
+      "changes": []
+    },
+    "grader/healthbench.py": {
+      "source_sha256": "af5cf4855487c0306dd57727d2da63f64d10e77aad02f263b4f5f9f0a87ce74c",
+      "published_sha256": "af5cf4855487c0306dd57727d2da63f64d10e77aad02f263b4f5f9f0a87ce74c",
+      "changes": []
+    },
+    "grader/healthbench_eval.py": {
+      "source_sha256": "b763d8c1f53ecd165f0d170a32bc948216b3dfeadafe238b2083328e1af4b2df",
+      "published_sha256": "b763d8c1f53ecd165f0d170a32bc948216b3dfeadafe238b2083328e1af4b2df",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/__init__.py": {
+      "source_sha256": "7e903d4acedade0fe3f6da43290306bf5fddcf03c6566b4cb77904587cf8517a",
+      "published_sha256": "41235b77c3a05d68bde106bcac9f5c678ecfe3ba4eb61e70b9d5ce603828168a",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/agent_interface.py": {
+      "source_sha256": "d781cdaa9092a4ce670a68b8d5572d2e70b0b30ebb8872d7e96c2e8c01191925",
+      "published_sha256": "48f7e8f5f1a10f58824abe9b342b11692af4674497cbb281d1940385a865c83b",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/anchored_query.py": {
+      "source_sha256": "e2a595dc64b61bdc909e803b07805e4c25a551218ab47495f1e7e84b2662f6be",
+      "published_sha256": "e2a595dc64b61bdc909e803b07805e4c25a551218ab47495f1e7e84b2662f6be",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/client.py": {
+      "source_sha256": "80b44d492ba7e69a975281c443184d58be27350c43e0f1977ab960347f2a2831",
+      "published_sha256": "226a91f2a074ada0972c1535349ca2f9b1306b234d4c60760165632e642b81ea",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/context_manager.py": {
+      "source_sha256": "98631d71902c172c999f314751ce8def8d69e8c67fcb52e2a3bcd29a60903673",
+      "published_sha256": "98631d71902c172c999f314751ce8def8d69e8c67fcb52e2a3bcd29a60903673",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/dataset_utils/data_types.py": {
+      "source_sha256": "f36c6cd56bd6baf95be65c1c97b86aac0fe1c557afbd8197a6764638ccb643ae",
+      "published_sha256": "0ee4f2834c74007e67c2611981b288860deef6090bbe31041f8f040cf83e7ce8",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/dataset_utils/load_dataset.py": {
+      "source_sha256": "6834e1d844d480fbb09c1503f397b22cd8a871474b867843ef58529fababef82",
+      "published_sha256": "0b10f5aad3ea20d3a25d0079e184ac93c0b09e7976bb41b8a7cb064949ecbf11",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/__init__.py": {
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/__init__.py": {
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/browse_preprocess.py": {
+      "source_sha256": "9b7a10e2fde53acc4d04df9fe352a1659516caffd64656c8039ca9773bff2ec0",
+      "published_sha256": "4cab4c750618d1ddebec98b7a84aff295664b3bae3f76d8f31812f1997824f0e",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/crawl4ai_docker_api.py": {
+      "source_sha256": "52c4b469773f32eaf75478410aaeb828fd2679723fd85581adc639b82b0e75a5",
+      "published_sha256": "9994ca3e2c7be1c453c7bb630f3a3aa336c5ce2611ce3cd9b3a6eb181ff0e93a",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/data_model.py": {
+      "source_sha256": "fbf9ab2cad94e547f097e659343e69996c3a35d6b936510857531f70428b70c2",
+      "published_sha256": "ff9fa5054c58afcc569d4480ad837e91557c71648454e6bae704d52c070112b7",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/dual_paper.py": {
+      "source_sha256": "9ae4fdd7155644b94d1d925b2db7410a032c27321b4f2b40399ac433a3e9a997",
+      "published_sha256": "3f281d0f3a576e0e551d2901dc12f5692a99e0545593f9fd57bfd3268a564780",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/evidence_handoff_v3.py": {
+      "source_sha256": "e51aecdaecb6630d4ad1791c3606a9bc9d761406132975b825a76379f062b93d",
+      "published_sha256": "8d5bf84c88116f416a70b0260d8677c7067a73a6356bc610a1bedbd727248865",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/evidence_reader_v28.py": {
+      "source_sha256": "a964f9b309bbf1ea8bebab3fcd87be75763cb9554eba2bc573b62022b781ee67",
+      "published_sha256": "a964f9b309bbf1ea8bebab3fcd87be75763cb9554eba2bc573b62022b781ee67",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/hybrid_passage_retriever.py": {
+      "source_sha256": "90ee0e49f9072059f4018ec739f935478413e7a77d51a72ebdd543d77048d409",
+      "published_sha256": "90ee0e49f9072059f4018ec739f935478413e7a77d51a72ebdd543d77048d409",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/jina_apis.py": {
+      "source_sha256": "f4ae29857e7c0bb0e244d13c01176b88b2ee8a657762b5b118ffc0c5db553692",
+      "published_sha256": "285973db588cb27adf7510641226314fcee943474181f3ad70d0bd97c9f86e69",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/massive_serve_apis.py": {
+      "source_sha256": "011f36a3e244356ea714df137e11b04fcb889dff351c89a2fa047895bb9240c9",
+      "published_sha256": "b75a1163f9d17e88c7e868a88e000ca978a75e363d45d16edffbfbfc5bc2cc6d",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/medical_document_parser.py": {
+      "source_sha256": "20ca620afb20a389768c8e03cbef4f36bbdfbeb0317bedfed6243a7513907b19",
+      "published_sha256": "734904c91019a5ec2d0940ff88620ac4da5a5e18b43ef4d2de57fcbc2aad824e",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/medical_passage_retriever_v28.py": {
+      "source_sha256": "86c1b4a7c9067001045d667bbc71b60237691c7c912c5781744b027c30be3728",
+      "published_sha256": "86c1b4a7c9067001045d667bbc71b60237691c7c912c5781744b027c30be3728",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/medical_web_apis.py": {
+      "source_sha256": "93caa6329ef89a6b0f904f780c806697cbd8230fc3d3b9bb15164c2b091a277a",
+      "published_sha256": "3bdede8629e937496b7559efbef66049e44582b52a87f77ac5856a62fb4ede62",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/mineru_client.py": {
+      "source_sha256": "348e7c08f706ae07e4f9f19cd29e9bf9afe24278896b9d815a78717c712d56fd",
+      "published_sha256": "348e7c08f706ae07e4f9f19cd29e9bf9afe24278896b9d815a78717c712d56fd",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/mineru_cloud.py": {
+      "source_sha256": "68fdde00c17d2a1ee34d732ef2b83e4c79d94599c2217104cae76ece5972c1c6",
+      "published_sha256": "68fdde00c17d2a1ee34d732ef2b83e4c79d94599c2217104cae76ece5972c1c6",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/mineru_cloud_legacy_v54.py": {
+      "source_sha256": "470b0c2ebbb3e98937830712a7bbf04de902ebdacc073f5cd6699d51486d5113",
+      "published_sha256": "470b0c2ebbb3e98937830712a7bbf04de902ebdacc073f5cd6699d51486d5113",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/paper_semantic_ranking.py": {
+      "source_sha256": "7aa81ee4fdf10c1e415ffa9a375184aba056a24c82ec92e90e4c4470482d71ce",
+      "published_sha256": "7aa81ee4fdf10c1e415ffa9a375184aba056a24c82ec92e90e4c4470482d71ce",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/pdf_policy_v54.py": {
+      "source_sha256": "125476c3ae1b454660029172374cdb431556623627cfffae96d9a6bf80e65238",
+      "published_sha256": "125476c3ae1b454660029172374cdb431556623627cfffae96d9a6bf80e65238",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/pubmed_apis.py": {
+      "source_sha256": "925a1cd8af94fb2ec43ecad52285ea8e2c0665f42485f01b48679bb98a9e732e",
+      "published_sha256": "b542e38ed868210e7d76b424b18ee5554328d376826e981c6c02e17df65fbff9",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/reranker_apis.py": {
+      "source_sha256": "ef83d0ed5d8192776f220a2977fbc4ef3bf2d029214ba4bb3983023d37d8f5e9",
+      "published_sha256": "c5e72e3ac7c791ab45daf10ec20a1e6bba9194328b0c4146020ee0bd09742889",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/retrieval_observability.py": {
+      "source_sha256": "9491729b59428c7de90a3ad7e0211a5aae2d28dfd7209636f25d79a62d2b1e2b",
+      "published_sha256": "07033ca2952030653e423f08b382a5141da3e890347fa9152d234c763a0e001e",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/returned_window_identity.py": {
+      "source_sha256": "758f2e9d86c1a59c7a9adc3b4627f51a0adbd249f943124d87aae45bb00ea571",
+      "published_sha256": "758f2e9d86c1a59c7a9adc3b4627f51a0adbd249f943124d87aae45bb00ea571",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/s2_transport.py": {
+      "source_sha256": "12ad4c706fff201f4091e9835781353b4b5d69c132ce5d4017d3570239ee733e",
+      "published_sha256": "12ad4c706fff201f4091e9835781353b4b5d69c132ce5d4017d3570239ee733e",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/semantic_scholar_apis.py": {
+      "source_sha256": "c8326615b26ec14c34db5e3165438805b3219c51614f5d84bd8a3e9f1c92fa59",
+      "published_sha256": "c8326615b26ec14c34db5e3165438805b3219c51614f5d84bd8a3e9f1c92fa59",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/serper_apis.py": {
+      "source_sha256": "9ac4e696fcb572ac44112c71d84bfbff3808c217cd7f511267dc61500356b293",
+      "published_sha256": "c2273f8a1f8e704196a4f8dd8fd4bf3b5a96b7ba34121c4bb3792fc517cc74a4",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/table_integrity.py": {
+      "source_sha256": "93f14b699edc34bc28f0b4232416d8ef31a36faf0f484f01f51fe7e305d06436",
+      "published_sha256": "93f14b699edc34bc28f0b4232416d8ef31a36faf0f484f01f51fe7e305d06436",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/table_windows.py": {
+      "source_sha256": "04f5d7b920c210242d049084f2b0e109d5c4b7fbb409c53a9e049f0c2d1b8c23",
+      "published_sha256": "04f5d7b920c210242d049084f2b0e109d5c4b7fbb409c53a9e049f0c2d1b8c23",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/utils.py": {
+      "source_sha256": "2ba2ceadad9cc8f26cceb97874af61f9eee40a6d42d722de93e34065f4407943",
+      "published_sha256": "09c9c93a23d9a00d2fe8a1a32b81c85f955ce389a7bd226264a4065658d9780b",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/web_preflight.py": {
+      "source_sha256": "f437ade71290b9363822ad4808fadd776c7d5ca44c1694a81a6aa27762da9823",
+      "published_sha256": "f437ade71290b9363822ad4808fadd776c7d5ca44c1694a81a6aa27762da9823",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/web_semantic_ranking.py": {
+      "source_sha256": "0bc31e3df0644daf347c25d9a094aea5210a061088d5a0a974115bdc15923710",
+      "published_sha256": "0bc31e3df0644daf347c25d9a094aea5210a061088d5a0a974115bdc15923710",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/cache.py": {
+      "source_sha256": "68a15c859f7dea3cc9b402e4837a79d256a93d39f70d49c0392bd568894603bd",
+      "published_sha256": "9646d57b1b28d0e93afd71816ac9638ab2ed2e14cadff6deece76493eba771b4",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/local/__init__.py": {
+      "source_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "published_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/local/crawl4ai_fetcher.py": {
+      "source_sha256": "ed3ae14d607fedb640e1ed6413579ba4f7fd9a230a00d2b5214c07a4e39a8b6a",
+      "published_sha256": "38195306618d127343549a0f3f8cd587b889f820deb66ff72f6b050d274ba85a",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/local/search/__init__.py": {
+      "source_sha256": "49458af59df75d660e64f6708309b3378b131e5367c5522adf7e927f936c5cc2",
+      "published_sha256": "161551b0726ea9cb73a6653f5cd55caedfa09e942a96032e592705478922cd54",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/local/search/base.py": {
+      "source_sha256": "db08d23f1e815a11973d167d6c2ff136677c660ebc03f5c73874956327f75b11",
+      "published_sha256": "86131fb020f57331db69f2af3a65e4d62cf905cdf4a3dd96f5c53bb723ce6de2",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/local/search/bm25_retriever.py": {
+      "source_sha256": "44c005cf0387a76fe6cf3aeac1872dad0c05cb8868b3e248b45783a916e88515",
+      "published_sha256": "afc62f2f76d87d4a104d88abbad0d180d48e927a240b51e552b54dd606334041",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/local/search/faiss_retriever.py": {
+      "source_sha256": "0999f995cebe8d01d74669fe703e7e2bee1965a44efe63890b8131e1727c1f5a",
+      "published_sha256": "7a02f9750a0e16bd9cad8671cec7efb2a6c5955ea3b2ce5ccefd3c01fb1ea0e1",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/local/webparsers/webthinker.py": {
+      "source_sha256": "80fe21d8c76e75ce1be5caed0895b1245dea58b39ad317703a798c4bd2f15cdd",
+      "published_sha256": "7b48fde810a783e4a2d428e42d69b3132d49a52970eb4de173350624a0da3077",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/main.py": {
+      "source_sha256": "2e72af0e2eea0e62915cb86c69a94bab5478323a066981f38c876886b8b8b77a",
+      "published_sha256": "259f8397d7be276843c27b6ac262fb81662357957bb314bf1db23904c36cf3d8",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medgap/__init__.py": {
+      "source_sha256": "2b7d3aa3d6d779aa64aa0ba277505784e21ecf3cf4f43d51dbe92ece52bf9c9b",
+      "published_sha256": "2b7d3aa3d6d779aa64aa0ba277505784e21ecf3cf4f43d51dbe92ece52bf9c9b",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medgap/failure_taxonomy.py": {
+      "source_sha256": "6ef885ec53af0206612687799c367d87a06728aa0409d7d4cd35b1e96e67ea40",
+      "published_sha256": "6ef885ec53af0206612687799c367d87a06728aa0409d7d4cd35b1e96e67ea40",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medgap/reward.py": {
+      "source_sha256": "1be7d099f199a8dfb2d38c8553c6ddb8fbe9678350e4b0b018c9e70d7c37b281",
+      "published_sha256": "1be7d099f199a8dfb2d38c8553c6ddb8fbe9678350e4b0b018c9e70d7c37b281",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medgap/schemas.py": {
+      "source_sha256": "16726c395ae12dd304c2c08b8f1d47a25c7e5c6934f6d2845d18084ae37db915",
+      "published_sha256": "16726c395ae12dd304c2c08b8f1d47a25c7e5c6934f6d2845d18084ae37db915",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medgap/service.py": {
+      "source_sha256": "17082fa2b32af169661801c5da1a33ee93215f3c8a271c17515e522091d5a0b7",
+      "published_sha256": "17082fa2b32af169661801c5da1a33ee93215f3c8a271c17515e522091d5a0b7",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medgap/terminal_reward.py": {
+      "source_sha256": "92d3d3838563db5383e69ba018f735666b8d64e93673836c70ea6feb43672a74",
+      "published_sha256": "92d3d3838563db5383e69ba018f735666b8d64e93673836c70ea6feb43672a74",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medgap/verifier.py": {
+      "source_sha256": "e2c546e6cd163f8f6389370f8dd3d02793c4916b672a4450e5ab2a27d393f981",
+      "published_sha256": "e2c546e6cd163f8f6389370f8dd3d02793c4916b672a4450e5ab2a27d393f981",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medical_runtime.py": {
+      "source_sha256": "e198c12655968e90a5b60fe73f34ae5fe78491c58677ef76d661b905204fdfed",
+      "published_sha256": "e198c12655968e90a5b60fe73f34ae5fe78491c58677ef76d661b905204fdfed",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medical_source_metadata.py": {
+      "source_sha256": "fab10f1002c8dcdf1305b855c60949baf4b87f01af9a280e62d0c5b54f20001e",
+      "published_sha256": "fab10f1002c8dcdf1305b855c60949baf4b87f01af9a280e62d0c5b54f20001e",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/medical_tool_schema.py": {
+      "source_sha256": "acebe449140565900a3fb6623f3c7accc1301edcf1ad6cd0367339dcb64443a7",
+      "published_sha256": "acebe449140565900a3fb6623f3c7accc1301edcf1ad6cd0367339dcb64443a7",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/runtime_policy.py": {
+      "source_sha256": "7586f12335b542dec178e40670b025c9f9b9647475863a97a990ba1513b4a6eb",
+      "published_sha256": "7586f12335b542dec178e40670b025c9f9b9647475863a97a990ba1513b4a6eb",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/__init__.py": {
+      "source_sha256": "660cfbd28dc66e2d61c4ee3df73a8082a55d357d672f8c68f9866bdb8070a575",
+      "published_sha256": "cdd2ae9499778f33934b4bd512be37fb23058cd1a4340cab1cfadf58f708d6e7",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/medical_tool_calling_v1.yaml": {
+      "source_sha256": "f4d8ded43d25dd9a096c24267b3863e11855fbd9a6626f4beafe4cc105f8f263",
+      "published_sha256": "f4d8ded43d25dd9a096c24267b3863e11855fbd9a6626f4beafe4cc105f8f263",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/medical_tool_calling_v2.yaml": {
+      "source_sha256": "678c01382fd972c28254314762b90467e62c1d999f06ceaa481d6e5e617aefce",
+      "published_sha256": "678c01382fd972c28254314762b90467e62c1d999f06ceaa481d6e5e617aefce",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/native_tool_calling.py": {
+      "source_sha256": "36a5229626b36dd0130b6d987fe88bb1233be59d3590880fd176a995dea6b6b6",
+      "published_sha256": "4b69be51a116e4d5c6154abbca89551fb9ee5c9ade83754d349aa623b748d392",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/native_tool_calling.yaml": {
+      "source_sha256": "5d5043ff0872d518081c2e2c34c9878d8959f17d61e2c94f610965850f366188",
+      "published_sha256": "55c911d99e3ae8b7043050fac7e62288ea5237eb720c0395f91eed7e2e3e3d04",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/unified_tool_calling.py": {
+      "source_sha256": "605118eb1532b38a2affd29f70da0a301a7282a04da9d69b00332a76c6ce4113",
+      "published_sha256": "acbc92267b2ac1bd04fc13904da5758e4e5d5b9527cdbcb9fe7f48f1930d5fed",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/unified_tool_calling_cli.yaml": {
+      "source_sha256": "79a3c2f08f59e81d0d28afe72b8392faf5166479965af2055c181b347bca1a28",
+      "published_sha256": "51f0a580a2d6688e0ff1da87e777f73dfd3d221bc88d989b34de2bcc3993fda7",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/unified_tool_calling_v20250906.txt": {
+      "source_sha256": "e3e8596b8822b184290cb9b68e047724e9e704c011cb6337e0693ad60a55f0a1",
+      "published_sha256": "f5b987e44a92d5c42f023f2b74f5c5287d69156afc58a2d5b57c519662427af4",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/shared_prompts/unified_tool_calling_v20250907.yaml": {
+      "source_sha256": "3633f9802028964474d00084c9a67746c386ef21015fad7dc0fb14c2e8bd99fd",
+      "published_sha256": "fdd3d5e505c061e1ba164afe00f6e327243201984c18af82513623b086fdabfb",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/teacher_batch_finalizer.py": {
+      "source_sha256": "6fbe4db56bd87cd37f79e30a26ceb5ccdcac2857f844473350f816512f0f944e",
+      "published_sha256": "6fbe4db56bd87cd37f79e30a26ceb5ccdcac2857f844473350f816512f0f944e",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/teacher_policy.py": {
+      "source_sha256": "dcf348eb41a25b6a5d0d97186115858b59bc6c2f298f2f90248ce21e9933e51f",
+      "published_sha256": "dcf348eb41a25b6a5d0d97186115858b59bc6c2f298f2f90248ce21e9933e51f",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/tool_interface/__init__.py": {
+      "source_sha256": "d60d13573ec78c0e83c22ebe37ec03d436094dd34e4a07a2eddb14dd5f28e2ec",
+      "published_sha256": "f8bd1563b4aebd546b9bf57f9904424385e3644b071d7021b69f3a0e420325d7",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/tool_interface/agent_as_tool.py": {
+      "source_sha256": "c043bdca51bdaed591dac6344133bf297da310bfcd639cd16c30f585c5e4fcc3",
+      "published_sha256": "022e08305684a6da6401ed013ebeb1b49757f711406726ad7afb65ecad33a94d",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/tool_interface/base.py": {
+      "source_sha256": "eae6bce71c0eccf3e3f2de29617cb3a62ed9b8d03534be85b35c1ccae097bed8",
+      "published_sha256": "377f824dd9c22b569a6aa9b1fe311d77ae648bec56cb025d076e16d9e24bbaab",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/tool_interface/chained_tool.py": {
+      "source_sha256": "20610edf5cda89dc158170e02dc658142a7d6890f800c2de8d3b98d983ec103c",
+      "published_sha256": "f98311ce63131edd167ded014a0ae892f80f0f899da0010c801f0a24612f6532",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/tool_interface/data_types.py": {
+      "source_sha256": "ce650f0368fab4f42d386264d20bcf8d009c62c06edf4351fc1f673009fb0830",
+      "published_sha256": "be64333d923e4c7c2c6b7635a8117ca8b3c79fe4940d0f7657ebf21df5297a81",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/tool_interface/mcp_tools.py": {
+      "source_sha256": "0b15001b5dcf11568b9fd4d8c4250dca2bfff3bce02bd8a49f7669ba41ac8063",
+      "published_sha256": "2f6deb9c2ee631cae187a7eaf0391aded8bda1b9af365ed8574a2024b61e58ee",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/tool_interface/tool_parsers.py": {
+      "source_sha256": "f4688182671bcf199720eaea585fe053b6afec0428a54f64b5a63db3a2514548",
+      "published_sha256": "042bf06da37b923b76bc314b2aab7db814598dff70a3274d4f256a1f9fd91847",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/tool_interface/utils.py": {
+      "source_sha256": "a92901159fbc7de594125b4901431976d0fd38455914c44dfdb56a3f1237d66d",
+      "published_sha256": "cc03bfc44a0ca1ab3e9237c783f1ffa2d554fa43ef8ef1e0d347f38be7f5f94e",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/trajectory_logger.py": {
+      "source_sha256": "ee3df2b52259aa99a205cf3e3a32ce77f83bd1c8bb26c0818e9901781b528a32",
+      "published_sha256": "ee3df2b52259aa99a205cf3e3a32ce77f83bd1c8bb26c0818e9901781b528a32",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/utils.py": {
+      "source_sha256": "97885f86e260d0fef6bff9ede7b68a9bb326211dced28d80ac304f8fbd0b95e6",
+      "published_sha256": "1c4b51be91fe1ac445b0aa9667ccb0de4fc3ce262b35947e8bda909de642d629",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/web_api/__init__.py": {
+      "source_sha256": "7846aae0b7d3a4a238b310217874b7d0259b87a802816d9ae2e35d2e8c824549",
+      "published_sha256": "f96eafb90f41bb34c4cb96295dab3b12211f5538e85e014e76725989fb8db36a",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/web_api/api.py": {
+      "source_sha256": "1ce7929ddf79bdbbb7d4c30f4a35a822dce7428e9b0f58603976fdee7d994d64",
+      "published_sha256": "a65b5b2f0b143cbead304dab5e41b47b2cbaafdf4139bc9d6ed8edb3c1e4bb49",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/agent/dr_agent/workflow.py": {
+      "source_sha256": "1381c3795b63a676e1039570f512b0e184c06411a058ca8d878181a0847cb038",
+      "published_sha256": "da231627fc32f24e228d3d063cea60bfd6d10721a5247e4e938a09fd032b343a",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/backend/common.py": {
+      "source_sha256": "da5db3b75f4444e1a33ddc4364e15d32a1bdb6db0b85e4d33314563722f2f763",
+      "published_sha256": "da5db3b75f4444e1a33ddc4364e15d32a1bdb6db0b85e4d33314563722f2f763",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/MANIFEST.json": {
+      "source_sha256": "085c816ace02ee17036724460b71774bb6a04d7e60b3928df0831b201726966a",
+      "published_sha256": "a83ce9bf2b902d9c8a26c27027191e58fdd7319034ebfbb3c246854edb504265",
+      "changes": [
+        "rebind LF-normalized public source hashes; original hash preserved"
+      ]
+    },
+    "runtime/retrieval_snapshot_v2/paired_receipts.py": {
+      "source_sha256": "6975b7aa5ad64f7d2407ff82648335f56171ff28834189babf320db703b94cdf",
+      "published_sha256": "6975b7aa5ad64f7d2407ff82648335f56171ff28834189babf320db703b94cdf",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/support/engineering_v47.py": {
+      "source_sha256": "4b5a6612619efb70fe2980c457981b342565eff14c53779f7a7a30b37c203ae0",
+      "published_sha256": "4b5a6612619efb70fe2980c457981b342565eff14c53779f7a7a30b37c203ae0",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/support/source_metadata_v58.py": {
+      "source_sha256": "b003651d461e5e36b70fef1dd74b299b5ce4f0b8f074f86c87a0e82a0255afb5",
+      "published_sha256": "b003651d461e5e36b70fef1dd74b299b5ce4f0b8f074f86c87a0e82a0255afb5",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/support/web_region.py": {
+      "source_sha256": "d2f8cfadfc5d8fffbc6a7b9ce604069ae4d65682054c2d2c0a8d9670c8070a56",
+      "published_sha256": "d2f8cfadfc5d8fffbc6a7b9ce604069ae4d65682054c2d2c0a8d9670c8070a56",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_budget_reallocation.py": {
+      "source_sha256": "49583a8f1f9167aba51c740824775322d048891bdabaceb71683f4e7b2bf01fc",
+      "published_sha256": "49583a8f1f9167aba51c740824775322d048891bdabaceb71683f4e7b2bf01fc",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_metadata_structures.py": {
+      "source_sha256": "ff2fceb74787e3af752127069fdd524477d8b1f57690e8ec92fc5d8455462afd",
+      "published_sha256": "ff2fceb74787e3af752127069fdd524477d8b1f57690e8ec92fc5d8455462afd",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_paper_semantic_v10.py": {
+      "source_sha256": "88ca6287aa3d39ed705499b5077a74f63d5e20b09520c2d443a796613191e196",
+      "published_sha256": "88ca6287aa3d39ed705499b5077a74f63d5e20b09520c2d443a796613191e196",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_pdf_vpn.py": {
+      "source_sha256": "c48acbb138d37f114218c810ed8b7f31aaf9d50ee040d659f1f5aaced93fe044",
+      "published_sha256": "c48acbb138d37f114218c810ed8b7f31aaf9d50ee040d659f1f5aaced93fe044",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_portable.py": {
+      "source_sha256": "3921adf91d59258722ced5cca12e939582fcd96eecdae8bda7010a72fee88d87",
+      "published_sha256": "3921adf91d59258722ced5cca12e939582fcd96eecdae8bda7010a72fee88d87",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_quality_v6.py": {
+      "source_sha256": "fb0963ccca8afe8013ab02de6f75189fee82bf725a039e7286a09fac01279aee",
+      "published_sha256": "fb0963ccca8afe8013ab02de6f75189fee82bf725a039e7286a09fac01279aee",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_quality_v7.py": {
+      "source_sha256": "c440e646dba130b77bd7991801b97537fc3310590e290b6b2705ad44ce70bed8",
+      "published_sha256": "c440e646dba130b77bd7991801b97537fc3310590e290b6b2705ad44ce70bed8",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_quality_v8.py": {
+      "source_sha256": "ba75c0de36b6ce1bbd0b03f1af7d95af60d995065dbf11c952fe691f6c43914e",
+      "published_sha256": "ba75c0de36b6ce1bbd0b03f1af7d95af60d995065dbf11c952fe691f6c43914e",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/test_web_semantic_v9.py": {
+      "source_sha256": "5545cec33061df1d7573ba7e65078d93e778f5420e628bc0b8cc1420439a482b",
+      "published_sha256": "5545cec33061df1d7573ba7e65078d93e778f5420e628bc0b8cc1420439a482b",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/verify_package.py": {
+      "source_sha256": "6dab514f909814d65d23d77c7bfbf2b3952c35366513d726b418c17351bdf1b2",
+      "published_sha256": "6dab514f909814d65d23d77c7bfbf2b3952c35366513d726b418c17351bdf1b2",
+      "changes": []
+    },
+    "runtime/retrieval_snapshot_v2/worker.py": {
+      "source_sha256": "86bb1e431331e56df895e89e667eb5c984f070484cf7d7ed9d50b00f5f2a61ed",
+      "published_sha256": "1663de4d399f63086fc8ad9a115d5b2287534d4583965a5a24b65ab6eedb07bb",
+      "changes": [
+        "CRLF to LF only; original hash preserved"
+      ]
+    },
+    "runtime/src/trainable_agent/__init__.py": {
+      "source_sha256": "eed2afd3f63cb9fc54aff7014f79c525dad04af9cc360ca9814baccec58f423e",
+      "published_sha256": "eed2afd3f63cb9fc54aff7014f79c525dad04af9cc360ca9814baccec58f423e",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/cleaning.py": {
+      "source_sha256": "9db66ff12aaf2efaa96d2c9ad984117222179677e44f2f27ddfdb4893c85b57b",
+      "published_sha256": "9db66ff12aaf2efaa96d2c9ad984117222179677e44f2f27ddfdb4893c85b57b",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/cli.py": {
+      "source_sha256": "f6a20ddac79d3d174dee9d8e28ac90e00c22bc9d786c95bb46f93066bbfeac60",
+      "published_sha256": "f6a20ddac79d3d174dee9d8e28ac90e00c22bc9d786c95bb46f93066bbfeac60",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/codex_model.py": {
+      "source_sha256": "36e16cad2f687033acc1c703b0e9cee80c350a4d581c76046ec83774e9b4e37b",
+      "published_sha256": "36e16cad2f687033acc1c703b0e9cee80c350a4d581c76046ec83774e9b4e37b",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/compression.py": {
+      "source_sha256": "7d1275f5f1d703685810fd6d3ea8c6ae74e07f0d5e48a6c9d4e30182bae8bd35",
+      "published_sha256": "7d1275f5f1d703685810fd6d3ea8c6ae74e07f0d5e48a6c9d4e30182bae8bd35",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context.py": {
+      "source_sha256": "91ac2c2f734f22f10aab9a10f81e28ce81a4dc36740d5dc40a3d2ae44c60371b",
+      "published_sha256": "91ac2c2f734f22f10aab9a10f81e28ce81a4dc36740d5dc40a3d2ae44c60371b",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/__init__.py": {
+      "source_sha256": "abaa3ccb0fc11d2767a535de0574de0ba3ded250afc1a7718fb826c54c5d88b1",
+      "published_sha256": "abaa3ccb0fc11d2767a535de0574de0ba3ded250afc1a7718fb826c54c5d88b1",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/aliases.py": {
+      "source_sha256": "b19633b44cd521193457d03a55001cc62621777cc1c6b05c6046097970a24e6a",
+      "published_sha256": "b19633b44cd521193457d03a55001cc62621777cc1c6b05c6046097970a24e6a",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/browser.py": {
+      "source_sha256": "53c7b95c969530ea1146daff14c091a4159bb986c986a0baa3af2afb05af7d6e",
+      "published_sha256": "53c7b95c969530ea1146daff14c091a4159bb986c986a0baa3af2afb05af7d6e",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/cleaning.py": {
+      "source_sha256": "2d35688e215fa81996d537ea2d5c3869d1115bb3045c92ead364fc7579b50ad2",
+      "published_sha256": "2d35688e215fa81996d537ea2d5c3869d1115bb3045c92ead364fc7579b50ad2",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/decision.py": {
+      "source_sha256": "b3419d535bc0bd9ce5b8f7eeb760274208fb6c387e5e25f13be712a57930c8dd",
+      "published_sha256": "b3419d535bc0bd9ce5b8f7eeb760274208fb6c387e5e25f13be712a57930c8dd",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/deterministic_context.py": {
+      "source_sha256": "50655c84041708af317ea72643788cace0413f21ef66c52b9311e615c932c162",
+      "published_sha256": "50655c84041708af317ea72643788cace0413f21ef66c52b9311e615c932c162",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/extraction.py": {
+      "source_sha256": "287ef806b89822a3557bdcc6cb6574e056967ccaeed134d4bbeecf51bf9c652a",
+      "published_sha256": "287ef806b89822a3557bdcc6cb6574e056967ccaeed134d4bbeecf51bf9c652a",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/fallback.py": {
+      "source_sha256": "e7866e9c23f17dcaf9d8a1125b18ab7738d46edc9d1cf775c9ad31b7a882c480",
+      "published_sha256": "e7866e9c23f17dcaf9d8a1125b18ab7738d46edc9d1cf775c9ad31b7a882c480",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/final_pack.py": {
+      "source_sha256": "e9047226af688b36168916f4b584ec8f7f62f15c2a8014f07b7472efebcdf1fa",
+      "published_sha256": "e9047226af688b36168916f4b584ec8f7f62f15c2a8014f07b7472efebcdf1fa",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/html_body.py": {
+      "source_sha256": "bcb35401b6381118dc366d0565e441324ff2121d7528cd4e3a04d3e4802e0524",
+      "published_sha256": "bcb35401b6381118dc366d0565e441324ff2121d7528cd4e3a04d3e4802e0524",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/pipeline.py": {
+      "source_sha256": "39d9f2312ada715004e7f707431d7125149b6fab2ea0768331376f62b6ae5831",
+      "published_sha256": "39d9f2312ada715004e7f707431d7125149b6fab2ea0768331376f62b6ae5831",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/context_processing/search.py": {
+      "source_sha256": "30497fb929676cb989b73971c82c90aaace870e18b834a2e2a82cde077c6ffe7",
+      "published_sha256": "30497fb929676cb989b73971c82c90aaace870e18b834a2e2a82cde077c6ffe7",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/contracts.py": {
+      "source_sha256": "29b5cda673c387503b41685a84cd166d65501cbfbbb812e7d376882f5ab78997",
+      "published_sha256": "29b5cda673c387503b41685a84cd166d65501cbfbbb812e7d376882f5ab78997",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/deterministic_context.py": {
+      "source_sha256": "5d869ecae198ec92868c65078f83d064f8d493ce6b7ec1c80d03e09596cf361f",
+      "published_sha256": "5d869ecae198ec92868c65078f83d064f8d493ce6b7ec1c80d03e09596cf361f",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/engine.py": {
+      "source_sha256": "23a1cbcff3e105c2668ddfad9aea9599580bb0aaba5082a8b655c0ab487748d2",
+      "published_sha256": "23a1cbcff3e105c2668ddfad9aea9599580bb0aaba5082a8b655c0ab487748d2",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/failure_feedback.py": {
+      "source_sha256": "f5b0524673065da6f748960e213dd01bbb592b1369724b2515adc591103a7ab3",
+      "published_sha256": "f5b0524673065da6f748960e213dd01bbb592b1369724b2515adc591103a7ab3",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/model.py": {
+      "source_sha256": "466641dd90440728a4930235fca22180e8a20bebb070860043822f13335dccd9",
+      "published_sha256": "466641dd90440728a4930235fca22180e8a20bebb070860043822f13335dccd9",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/model_json.py": {
+      "source_sha256": "4f20ed530702d32399761dd74d834634fa0f3ac249cfd9cf25d626de58462336",
+      "published_sha256": "4f20ed530702d32399761dd74d834634fa0f3ac249cfd9cf25d626de58462336",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/prompts.py": {
+      "source_sha256": "83ba7d50b638c439612285ad0fedf07f32794e8e6d4eaca05c9822b3d6b45231",
+      "published_sha256": "83ba7d50b638c439612285ad0fedf07f32794e8e6d4eaca05c9822b3d6b45231",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/recovery.py": {
+      "source_sha256": "b1338bbfc1efe79e100959cd6d0190c96d3a5af71ea1721dbd52708350017995",
+      "published_sha256": "b1338bbfc1efe79e100959cd6d0190c96d3a5af71ea1721dbd52708350017995",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/retrieval_deadlines.py": {
+      "source_sha256": "f7578d9a9c50d7431d6e988fb2fab5db16736d5ee201798a0190558112d8d5bc",
+      "published_sha256": "f7578d9a9c50d7431d6e988fb2fab5db16736d5ee201798a0190558112d8d5bc",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/runtime_paths.py": {
+      "source_sha256": "d3d0a48d65626de4c7511010ffa8d9c157e379153904804451bb7aa735afc47b",
+      "published_sha256": "d3d0a48d65626de4c7511010ffa8d9c157e379153904804451bb7aa735afc47b",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/search_cache.py": {
+      "source_sha256": "c654be6fd3c7049c1a29e4607516dd92aa8788765394667488e3b0284035f38e",
+      "published_sha256": "c654be6fd3c7049c1a29e4607516dd92aa8788765394667488e3b0284035f38e",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/storage.py": {
+      "source_sha256": "e9b686f71d909bf43fc9b06abe224db8bfe8154445a7c8670a41add794858341",
+      "published_sha256": "e9b686f71d909bf43fc9b06abe224db8bfe8154445a7c8670a41add794858341",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/tools.py": {
+      "source_sha256": "e4d05dcc61da20fb9486cb0497846a5872a979e2076f92a1792a3a3dec490b79",
+      "published_sha256": "e4d05dcc61da20fb9486cb0497846a5872a979e2076f92a1792a3a3dec490b79",
+      "changes": []
+    },
+    "runtime/src/trainable_agent/training.py": {
+      "source_sha256": "7dfbad319f66a5cd2c49a541f9e9c6356fd192c7d017c36e639b6d5be550581e",
+      "published_sha256": "7dfbad319f66a5cd2c49a541f9e9c6356fd192c7d017c36e639b6d5be550581e",
+      "changes": []
+    },
+    "runtime/training/process_grpo/common.py": {
+      "source_sha256": "580835d71c86f4ce802b7a0ab5cd7891b393ea4c6d0629115dbb710a9ed71104",
+      "published_sha256": "580835d71c86f4ce802b7a0ab5cd7891b393ea4c6d0629115dbb710a9ed71104",
+      "changes": []
+    },
+    "runtime/training/process_grpo/decoupled.py": {
+      "source_sha256": "4012f3fd37604f3d06df0e724a5efa0cc7c433563125e2ac880cabdbb3cdcb3e",
+      "published_sha256": "4012f3fd37604f3d06df0e724a5efa0cc7c433563125e2ac880cabdbb3cdcb3e",
+      "changes": []
+    },
+    "runtime/training/process_grpo/native.py": {
+      "source_sha256": "2c9959ef1db80c734770e06cf64440e0abfbacb2324ff7af668347c395314dfa",
+      "published_sha256": "2c9959ef1db80c734770e06cf64440e0abfbacb2324ff7af668347c395314dfa",
+      "changes": []
+    }
+  }
+}

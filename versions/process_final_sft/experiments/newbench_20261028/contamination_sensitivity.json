@@ -1,0 +1,117 @@
+{
+  "record": "Q58 / grpo13",
+  "source_url": "https://huggingface.co/datasets/AIM-Harvard/MedBrowseComp",
+  "original_scores_unchanged": true,
+  "excluding_question_58_process": {
+    "base": {
+      "records": 49,
+      "process_mean": 47.98979591836735,
+      "delivery_coverage_percent": 4.081632653061225,
+      "p1_mean": 1.6326530612244898,
+      "p2_mean": 25,
+      "p3_mean": 17.551020408163264,
+      "p4_mean": 3.806122448979592,
+      "quality_mean": 0.41366224489795916,
+      "major": 14,
+      "fatal": 0,
+      "process_failures": 1,
+      "final_failures": 0,
+      "held": 0,
+      "high_quality": 2,
+      "mean_tool_actions": 3.326530612244898,
+      "mean_search_actions": 1.8979591836734695,
+      "mean_state_calls": 1.2448979591836735,
+      "records_with_exact_search_repeats": 14,
+      "exact_search_extra_actions": 18,
+      "total_search_actions": 93,
+      "mean_delivered_fragments": 3.4285714285714284
+    },
+    "sft": {
+      "records": 49,
+      "process_mean": 54.46938775510204,
+      "delivery_coverage_percent": 9.693877551020408,
+      "p1_mean": 3.877551020408163,
+      "p2_mean": 25.918367346938776,
+      "p3_mean": 18.571428571428573,
+      "p4_mean": 6.1020408163265305,
+      "quality_mean": 0.5157857142857143,
+      "major": 4,
+      "fatal": 0,
+      "process_failures": 1,
+      "final_failures": 0,
+      "held": 0,
+      "high_quality": 3,
+      "mean_tool_actions": 6.204081632653061,
+      "mean_search_actions": 3.7755102040816326,
+      "mean_state_calls": 1.9795918367346939,
+      "records_with_exact_search_repeats": 1,
+      "exact_search_extra_actions": 1,
+      "total_search_actions": 185,
+      "mean_delivered_fragments": 4.3061224489795915
+    },
+    "grpo13": {
+      "records": 49,
+      "process_mean": 51.445578231292515,
+      "delivery_coverage_percent": 6.802721088435375,
+      "p1_mean": 2.7210884353741496,
+      "p2_mean": 25,
+      "p3_mean": 18.163265306122447,
+      "p4_mean": 5.561224489795919,
+      "quality_mean": 0.48631802721088435,
+      "major": 4,
+      "fatal": 0,
+      "process_failures": 1,
+      "final_failures": 0,
+      "held": 0,
+      "high_quality": 1,
+      "mean_tool_actions": 6.326530612244898,
+      "mean_search_actions": 3.4693877551020407,
+      "mean_state_calls": 2.1020408163265305,
+      "records_with_exact_search_repeats": 0,
+      "exact_search_extra_actions": 0,
+      "total_search_actions": 170,
+      "mean_delivered_fragments": 4.63265306122449
+    },
+    "grpo25": {
+      "records": 49,
+      "process_mean": 56.49659863945578,
+      "delivery_coverage_percent": 12.92517006802721,
+      "p1_mean": 5.170068027210885,
+      "p2_mean": 27.142857142857142,
+      "p3_mean": 18.163265306122447,
+      "p4_mean": 6.020408163265306,
+      "quality_mean": 0.5378486394557823,
+      "major": 3,
+      "fatal": 0,
+      "process_failures": 1,
+      "final_failures": 1,
+      "held": 0,
+      "high_quality": 4,
+      "mean_tool_actions": 6.244897959183674,
+      "mean_search_actions": 3.7142857142857144,
+      "mean_state_calls": 1.9795918367346939,
+      "records_with_exact_search_repeats": 0,
+      "exact_search_extra_actions": 0,
+      "total_search_actions": 182,
+      "mean_delivered_fragments": 4.510204081632653
+    }
+  },
+  "excluding_question_58_benchmark": {
+    "base": {
+      "valid": 48,
+      "correct": 9
+    },
+    "sft": {
+      "valid": 48,
+      "correct": 12
+    },
+    "grpo13": {
+      "valid": 48,
+      "correct": 12
+    },
+    "grpo25": {
+      "valid": 47,
+      "correct": 10
+    }
+  }
+}

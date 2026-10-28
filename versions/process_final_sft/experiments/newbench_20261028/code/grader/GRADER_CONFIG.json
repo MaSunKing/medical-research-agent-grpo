@@ -1,0 +1,10 @@
+{
+  "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+  "model": "qwen3.7-max",
+  "temperature": 0.5,
+  "max_tokens": 2048,
+  "enable_thinking": false,
+  "official_original_grader": "gpt-4.1-2025-04-14",
+  "official_protocol": true,
+  "official_model": false
+}

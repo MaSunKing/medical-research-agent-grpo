@@ -42,3 +42,7 @@ collect/prepare/训练入口依赖私有QUESTIONS、SPLIT、模型身份、数�
 当前合同：Search原题/query为60:40；重复Search读本题缓存并计正常动作；未读优先、部分已读后置，失败/耗尽按作用域隐藏；6+5工具预算；软12,288/硬15,000；模型抽取最后兜底。Final输入冻结为独立步骤，Process-only不生成Final/Judge；原972训练与600题采集不共享新训练目标或权重更新。
 
 Teacher旧完整源码未被本目录补造；原训练保持真实messages身份。已公开训练包的7项测试不等于原数据已附带或当前金标已合格。后续Final训练与GRPO参数本次不调整。
+
+## 新100题评测对应的源码
+
+本目录仍保留原600题时期的实现身份。最新四组benchmark运行使用单独冻结原生服务和FP32 Process头，源码、评测/Judge适配及合成测试见[新增评测源码](../experiments/newbench_20261028/code/README.md)，结果见[新增100题](../experiments/newbench_20261028/README.md)。不把本目录旧入口称作全部最新实验的执行入口。

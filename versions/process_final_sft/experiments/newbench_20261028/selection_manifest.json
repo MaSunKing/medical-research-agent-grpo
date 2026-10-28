@@ -1,0 +1,794 @@
+{
+  "sources": {
+    "healthbench": {
+      "url": "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "sha256": "e99dd3c6372c10d6fcc5e385c5fae69d0dd40392dae56836ef9493ae324ecd2f",
+      "total_source_questions": 5000,
+      "selected": 50,
+      "definition": "custom English single-user-message subset; original prompts and physician rubrics retained"
+    },
+    "medbrowsecomp": {
+      "url": "https://huggingface.co/datasets/AIM-Harvard/MedBrowseComp",
+      "revision": "6fdd281e8de71cc1956ba01437dea92ca20dd4ed",
+      "file": "MedBrowseComp_605.csv",
+      "sha256": "e2c5a3d26aed980b97d7ac92d874205fbc140ca041cb9746174d633e7680219f",
+      "license": "Apache-2.0 as declared by dataset authors",
+      "total_source_questions": 605,
+      "selected": 50,
+      "definition": "custom 50, not official MedBrowseComp_50 split; ten per task and one per NCT trial",
+      "paper": "https://arxiv.org/abs/2505.14963",
+      "task_time_cutoff": "keep native wording, including Dec 2024 where present"
+    }
+  },
+  "selection_seed": "newbench-20261026-v1",
+  "source_selection_receipt_sha256": "b5b2d5d3e6ca0e986d2893a8563791da776bd345996cabf0c1e5c4a6fe813f16",
+  "known_exclusions_sha256": "6ddbac5c77060ae7b58d5f22becf79b512fd605418a5c9a0ca98f44c5cf51761",
+  "known_exclusion_records": 1922,
+  "known_registry_files": 1029,
+  "selection_used_model_outputs": false,
+  "task_counts": {
+    "Ingredient": 10,
+    "Applicant_Full_Name": 10,
+    "Exclusivity_Date": 10,
+    "Open_on_Approval": 10,
+    "Patent_Expire_Date_Text": 10
+  },
+  "questions": [
+    {
+      "index": 1,
+      "benchmark": "healthbench",
+      "source_id": "3dedee6e-51c1-4429-a803-943519f5b2c3",
+      "question_id": "hbnew_3dedee6e-51c1-4429-a803-943519f5b2c3",
+      "cluster": "3dedee6e-51c1-4429-a803-943519f5b2c3"
+    },
+    {
+      "index": 2,
+      "benchmark": "healthbench",
+      "source_id": "790231a4-0879-4a82-84db-ee941c60a6f8",
+      "question_id": "hbnew_790231a4-0879-4a82-84db-ee941c60a6f8",
+      "cluster": "790231a4-0879-4a82-84db-ee941c60a6f8"
+    },
+    {
+      "index": 3,
+      "benchmark": "healthbench",
+      "source_id": "abebbe57-c4be-4824-bb63-0fb427365f02",
+      "question_id": "hbnew_abebbe57-c4be-4824-bb63-0fb427365f02",
+      "cluster": "abebbe57-c4be-4824-bb63-0fb427365f02"
+    },
+    {
+      "index": 4,
+      "benchmark": "healthbench",
+      "source_id": "b3d8e6c2-8b58-4e09-a8b6-dcb16772f340",
+      "question_id": "hbnew_b3d8e6c2-8b58-4e09-a8b6-dcb16772f340",
+      "cluster": "b3d8e6c2-8b58-4e09-a8b6-dcb16772f340"
+    },
+    {
+      "index": 5,
+      "benchmark": "healthbench",
+      "source_id": "84b4a8c9-c47c-4684-adbe-149c811cbab8",
+      "question_id": "hbnew_84b4a8c9-c47c-4684-adbe-149c811cbab8",
+      "cluster": "84b4a8c9-c47c-4684-adbe-149c811cbab8"
+    },
+    {
+      "index": 6,
+      "benchmark": "healthbench",
+      "source_id": "a192c163-380a-4335-9e3d-516b7a23475d",
+      "question_id": "hbnew_a192c163-380a-4335-9e3d-516b7a23475d",
+      "cluster": "a192c163-380a-4335-9e3d-516b7a23475d"
+    },
+    {
+      "index": 7,
+      "benchmark": "healthbench",
+      "source_id": "9c62a2de-9043-4069-aedc-4b4c18ac903a",
+      "question_id": "hbnew_9c62a2de-9043-4069-aedc-4b4c18ac903a",
+      "cluster": "9c62a2de-9043-4069-aedc-4b4c18ac903a"
+    },
+    {
+      "index": 8,
+      "benchmark": "healthbench",
+      "source_id": "24fe1774-72b0-4476-8d0b-321b83b85f59",
+      "question_id": "hbnew_24fe1774-72b0-4476-8d0b-321b83b85f59",
+      "cluster": "24fe1774-72b0-4476-8d0b-321b83b85f59"
+    },
+    {
+      "index": 9,
+      "benchmark": "healthbench",
+      "source_id": "c882fd96-7350-4d45-b396-23767ff94c14",
+      "question_id": "hbnew_c882fd96-7350-4d45-b396-23767ff94c14",
+      "cluster": "c882fd96-7350-4d45-b396-23767ff94c14"
+    },
+    {
+      "index": 10,
+      "benchmark": "healthbench",
+      "source_id": "6b1b3b91-72bf-4cfc-a4fb-e9be6ea7a380",
+      "question_id": "hbnew_6b1b3b91-72bf-4cfc-a4fb-e9be6ea7a380",
+      "cluster": "6b1b3b91-72bf-4cfc-a4fb-e9be6ea7a380"
+    },
+    {
+      "index": 11,
+      "benchmark": "healthbench",
+      "source_id": "ff2f72c2-c95f-4a5e-b5b0-ef59b1c3931d",
+      "question_id": "hbnew_ff2f72c2-c95f-4a5e-b5b0-ef59b1c3931d",
+      "cluster": "ff2f72c2-c95f-4a5e-b5b0-ef59b1c3931d"
+    },
+    {
+      "index": 12,
+      "benchmark": "healthbench",
+      "source_id": "9796f4e2-870c-4a1e-987a-7922ae377a85",
+      "question_id": "hbnew_9796f4e2-870c-4a1e-987a-7922ae377a85",
+      "cluster": "9796f4e2-870c-4a1e-987a-7922ae377a85"
+    },
+    {
+      "index": 13,
+      "benchmark": "healthbench",
+      "source_id": "8835c2a7-330d-4dd8-9beb-5f135890f43f",
+      "question_id": "hbnew_8835c2a7-330d-4dd8-9beb-5f135890f43f",
+      "cluster": "8835c2a7-330d-4dd8-9beb-5f135890f43f"
+    },
+    {
+      "index": 14,
+      "benchmark": "healthbench",
+      "source_id": "9f5d3c19-be80-4663-b0f5-dfc1b69beeca",
+      "question_id": "hbnew_9f5d3c19-be80-4663-b0f5-dfc1b69beeca",
+      "cluster": "9f5d3c19-be80-4663-b0f5-dfc1b69beeca"
+    },
+    {
+      "index": 15,
+      "benchmark": "healthbench",
+      "source_id": "71947265-62ee-4039-89e2-ddc11c2b77bc",
+      "question_id": "hbnew_71947265-62ee-4039-89e2-ddc11c2b77bc",
+      "cluster": "71947265-62ee-4039-89e2-ddc11c2b77bc"
+    },
+    {
+      "index": 16,
+      "benchmark": "healthbench",
+      "source_id": "7e7b0f90-4717-4664-b4ae-34dffe489420",
+      "question_id": "hbnew_7e7b0f90-4717-4664-b4ae-34dffe489420",
+      "cluster": "7e7b0f90-4717-4664-b4ae-34dffe489420"
+    },
+    {
+      "index": 17,
+      "benchmark": "healthbench",
+      "source_id": "6a97773b-c33c-4f2e-9ac3-fdd53de0f175",
+      "question_id": "hbnew_6a97773b-c33c-4f2e-9ac3-fdd53de0f175",
+      "cluster": "6a97773b-c33c-4f2e-9ac3-fdd53de0f175"
+    },
+    {
+      "index": 18,
+      "benchmark": "healthbench",
+      "source_id": "cc5fc7ff-110e-4a7c-88de-c31904dd1b4c",
+      "question_id": "hbnew_cc5fc7ff-110e-4a7c-88de-c31904dd1b4c",
+      "cluster": "cc5fc7ff-110e-4a7c-88de-c31904dd1b4c"
+    },
+    {
+      "index": 19,
+      "benchmark": "healthbench",
+      "source_id": "0cc14423-a353-41b8-8f79-9ac2f658a416",
+      "question_id": "hbnew_0cc14423-a353-41b8-8f79-9ac2f658a416",
+      "cluster": "0cc14423-a353-41b8-8f79-9ac2f658a416"
+    },
+    {
+      "index": 20,
+      "benchmark": "healthbench",
+      "source_id": "6df13035-15eb-477e-8947-de58aa96c19b",
+      "question_id": "hbnew_6df13035-15eb-477e-8947-de58aa96c19b",
+      "cluster": "6df13035-15eb-477e-8947-de58aa96c19b"
+    },
+    {
+      "index": 21,
+      "benchmark": "healthbench",
+      "source_id": "9995f705-38b6-4292-a22f-110263d4e93e",
+      "question_id": "hbnew_9995f705-38b6-4292-a22f-110263d4e93e",
+      "cluster": "9995f705-38b6-4292-a22f-110263d4e93e"
+    },
+    {
+      "index": 22,
+      "benchmark": "healthbench",
+      "source_id": "8e5d9a03-2aff-45fe-bc79-81926ca9d633",
+      "question_id": "hbnew_8e5d9a03-2aff-45fe-bc79-81926ca9d633",
+      "cluster": "8e5d9a03-2aff-45fe-bc79-81926ca9d633"
+    },
+    {
+      "index": 23,
+      "benchmark": "healthbench",
+      "source_id": "bcda6dfc-b4fa-42f1-96af-2e751fd1222f",
+      "question_id": "hbnew_bcda6dfc-b4fa-42f1-96af-2e751fd1222f",
+      "cluster": "bcda6dfc-b4fa-42f1-96af-2e751fd1222f"
+    },
+    {
+      "index": 24,
+      "benchmark": "healthbench",
+      "source_id": "8c23a064-30c0-4a34-b276-b606f455d47a",
+      "question_id": "hbnew_8c23a064-30c0-4a34-b276-b606f455d47a",
+      "cluster": "8c23a064-30c0-4a34-b276-b606f455d47a"
+    },
+    {
+      "index": 25,
+      "benchmark": "healthbench",
+      "source_id": "0afb3e86-b400-4c4d-bc27-f96be8210496",
+      "question_id": "hbnew_0afb3e86-b400-4c4d-bc27-f96be8210496",
+      "cluster": "0afb3e86-b400-4c4d-bc27-f96be8210496"
+    },
+    {
+      "index": 26,
+      "benchmark": "healthbench",
+      "source_id": "7379f677-902d-4871-8c72-7dff214ce6e4",
+      "question_id": "hbnew_7379f677-902d-4871-8c72-7dff214ce6e4",
+      "cluster": "7379f677-902d-4871-8c72-7dff214ce6e4"
+    },
+    {
+      "index": 27,
+      "benchmark": "healthbench",
+      "source_id": "287d7b73-d8d5-4727-a094-fd7d778fc019",
+      "question_id": "hbnew_287d7b73-d8d5-4727-a094-fd7d778fc019",
+      "cluster": "287d7b73-d8d5-4727-a094-fd7d778fc019"
+    },
+    {
+      "index": 28,
+      "benchmark": "healthbench",
+      "source_id": "dca8bed5-92f4-47bc-b0fa-cf9681caac1d",
+      "question_id": "hbnew_dca8bed5-92f4-47bc-b0fa-cf9681caac1d",
+      "cluster": "dca8bed5-92f4-47bc-b0fa-cf9681caac1d"
+    },
+    {
+      "index": 29,
+      "benchmark": "healthbench",
+      "source_id": "05dc5c73-5a4a-41f0-b132-1bd9cd4f362c",
+      "question_id": "hbnew_05dc5c73-5a4a-41f0-b132-1bd9cd4f362c",
+      "cluster": "05dc5c73-5a4a-41f0-b132-1bd9cd4f362c"
+    },
+    {
+      "index": 30,
+      "benchmark": "healthbench",
+      "source_id": "01b44c11-5440-4cd3-a0da-05130d071a21",
+      "question_id": "hbnew_01b44c11-5440-4cd3-a0da-05130d071a21",
+      "cluster": "01b44c11-5440-4cd3-a0da-05130d071a21"
+    },
+    {
+      "index": 31,
+      "benchmark": "healthbench",
+      "source_id": "296b083e-81bb-44a9-b4f0-9ecf3d2c0535",
+      "question_id": "hbnew_296b083e-81bb-44a9-b4f0-9ecf3d2c0535",
+      "cluster": "296b083e-81bb-44a9-b4f0-9ecf3d2c0535"
+    },
+    {
+      "index": 32,
+      "benchmark": "healthbench",
+      "source_id": "4d441d96-f214-46de-9f01-60bdfb8fcd4c",
+      "question_id": "hbnew_4d441d96-f214-46de-9f01-60bdfb8fcd4c",
+      "cluster": "4d441d96-f214-46de-9f01-60bdfb8fcd4c"
+    },
+    {
+      "index": 33,
+      "benchmark": "healthbench",
+      "source_id": "d47d81b7-59fc-4ff1-804f-c2a04206f158",
+      "question_id": "hbnew_d47d81b7-59fc-4ff1-804f-c2a04206f158",
+      "cluster": "d47d81b7-59fc-4ff1-804f-c2a04206f158"
+    },
+    {
+      "index": 34,
+      "benchmark": "healthbench",
+      "source_id": "b786972a-8452-4925-bacf-cebfd94330da",
+      "question_id": "hbnew_b786972a-8452-4925-bacf-cebfd94330da",
+      "cluster": "b786972a-8452-4925-bacf-cebfd94330da"
+    },
+    {
+      "index": 35,
+      "benchmark": "healthbench",
+      "source_id": "ec27f37b-6921-4197-892c-cd748613c66d",
+      "question_id": "hbnew_ec27f37b-6921-4197-892c-cd748613c66d",
+      "cluster": "ec27f37b-6921-4197-892c-cd748613c66d"
+    },
+    {
+      "index": 36,
+      "benchmark": "healthbench",
+      "source_id": "de5b2342-a4da-4676-b3d8-e6d0b9f2bf46",
+      "question_id": "hbnew_de5b2342-a4da-4676-b3d8-e6d0b9f2bf46",
+      "cluster": "de5b2342-a4da-4676-b3d8-e6d0b9f2bf46"
+    },
+    {
+      "index": 37,
+      "benchmark": "healthbench",
+      "source_id": "d156852d-70b1-4270-a815-fa6a8258fad1",
+      "question_id": "hbnew_d156852d-70b1-4270-a815-fa6a8258fad1",
+      "cluster": "d156852d-70b1-4270-a815-fa6a8258fad1"
+    },
+    {
+      "index": 38,
+      "benchmark": "healthbench",
+      "source_id": "ec48dcf8-f39a-4b59-9f38-f7f15074acd9",
+      "question_id": "hbnew_ec48dcf8-f39a-4b59-9f38-f7f15074acd9",
+      "cluster": "ec48dcf8-f39a-4b59-9f38-f7f15074acd9"
+    },
+    {
+      "index": 39,
+      "benchmark": "healthbench",
+      "source_id": "c3115c69-cc42-44f5-a7e3-704cd0e94e3e",
+      "question_id": "hbnew_c3115c69-cc42-44f5-a7e3-704cd0e94e3e",
+      "cluster": "c3115c69-cc42-44f5-a7e3-704cd0e94e3e"
+    },
+    {
+      "index": 40,
+      "benchmark": "healthbench",
+      "source_id": "ae6ec2ce-5c23-4e65-802f-cef9f1624d71",
+      "question_id": "hbnew_ae6ec2ce-5c23-4e65-802f-cef9f1624d71",
+      "cluster": "ae6ec2ce-5c23-4e65-802f-cef9f1624d71"
+    },
+    {
+      "index": 41,
+      "benchmark": "healthbench",
+      "source_id": "6506aab0-355e-4ac7-9f48-e005747f73f1",
+      "question_id": "hbnew_6506aab0-355e-4ac7-9f48-e005747f73f1",
+      "cluster": "6506aab0-355e-4ac7-9f48-e005747f73f1"
+    },
+    {
+      "index": 42,
+      "benchmark": "healthbench",
+      "source_id": "dbf92bfb-c334-455b-ab21-df0dca802a65",
+      "question_id": "hbnew_dbf92bfb-c334-455b-ab21-df0dca802a65",
+      "cluster": "dbf92bfb-c334-455b-ab21-df0dca802a65"
+    },
+    {
+      "index": 43,
+      "benchmark": "healthbench",
+      "source_id": "3da1daef-cf3e-4b8a-828d-e124d4d4ae88",
+      "question_id": "hbnew_3da1daef-cf3e-4b8a-828d-e124d4d4ae88",
+      "cluster": "3da1daef-cf3e-4b8a-828d-e124d4d4ae88"
+    },
+    {
+      "index": 44,
+      "benchmark": "healthbench",
+      "source_id": "5eb7835f-2fca-4b5b-9756-c8059e529b0e",
+      "question_id": "hbnew_5eb7835f-2fca-4b5b-9756-c8059e529b0e",
+      "cluster": "5eb7835f-2fca-4b5b-9756-c8059e529b0e"
+    },
+    {
+      "index": 45,
+      "benchmark": "healthbench",
+      "source_id": "24730d08-767f-4670-a024-cd6cb2afcd90",
+      "question_id": "hbnew_24730d08-767f-4670-a024-cd6cb2afcd90",
+      "cluster": "24730d08-767f-4670-a024-cd6cb2afcd90"
+    },
+    {
+      "index": 46,
+      "benchmark": "healthbench",
+      "source_id": "b9b9dc17-7cf5-4279-8d04-9d4be133adcd",
+      "question_id": "hbnew_b9b9dc17-7cf5-4279-8d04-9d4be133adcd",
+      "cluster": "b9b9dc17-7cf5-4279-8d04-9d4be133adcd"
+    },
+    {
+      "index": 47,
+      "benchmark": "healthbench",
+      "source_id": "7e013b71-5656-464b-980d-c1d111910417",
+      "question_id": "hbnew_7e013b71-5656-464b-980d-c1d111910417",
+      "cluster": "7e013b71-5656-464b-980d-c1d111910417"
+    },
+    {
+      "index": 48,
+      "benchmark": "healthbench",
+      "source_id": "6f309672-0fdd-44cc-962f-69b6006bf75d",
+      "question_id": "hbnew_6f309672-0fdd-44cc-962f-69b6006bf75d",
+      "cluster": "6f309672-0fdd-44cc-962f-69b6006bf75d"
+    },
+    {
+      "index": 49,
+      "benchmark": "healthbench",
+      "source_id": "60878f6d-fb1b-46ba-87fb-ed378931ffa8",
+      "question_id": "hbnew_60878f6d-fb1b-46ba-87fb-ed378931ffa8",
+      "cluster": "60878f6d-fb1b-46ba-87fb-ed378931ffa8"
+    },
+    {
+      "index": 50,
+      "benchmark": "healthbench",
+      "source_id": "599deef4-e03a-446c-b2b5-44fe294f512f",
+      "question_id": "hbnew_599deef4-e03a-446c-b2b5-44fe294f512f",
+      "cluster": "599deef4-e03a-446c-b2b5-44fe294f512f"
+    },
+    {
+      "index": 51,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-491",
+      "question_id": "mbnew_198a21a04e6ff05295f2",
+      "cluster": "NCT01168973",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 52,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-592",
+      "question_id": "mbnew_e9242c8593dce2d5d026",
+      "cluster": "NCT00222677",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 53,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-389",
+      "question_id": "mbnew_859ae2393f4321b2b2b4",
+      "cluster": "NCT00004100",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 54,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-581",
+      "question_id": "mbnew_5b9413b7b92247258a01",
+      "cluster": "NCT00115700",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 55,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-207",
+      "question_id": "mbnew_4df649c86ad36fe02a58",
+      "cluster": "NCT02950051",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 56,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-601",
+      "question_id": "mbnew_23978becb12548945831",
+      "cluster": "NCT00685646",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 57,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-380",
+      "question_id": "mbnew_16852c3f9f90fa7aadc2",
+      "cluster": "NCT00079274",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 58,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-45",
+      "question_id": "mbnew_0e249b34882f7f4bcd66",
+      "cluster": "NCT01938001",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 59,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-260",
+      "question_id": "mbnew_533669701e2c4656549c",
+      "cluster": "NCT01924533",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 60,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-458",
+      "question_id": "mbnew_ca689f465fd0efc65e1c",
+      "cluster": "NCT03009981",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 61,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-138",
+      "question_id": "mbnew_314833c9fe2543ed78b3",
+      "cluster": "NCT01197560",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 62,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-108",
+      "question_id": "mbnew_e3a0d54f11ff7583edab",
+      "cluster": "NCT00833833",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 63,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-34",
+      "question_id": "mbnew_165eeb0dea7e45397b43",
+      "cluster": "NCT01108445",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 64,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-326",
+      "question_id": "mbnew_8cd7f15ef2e64ca4461f",
+      "cluster": "NCT03425643",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 65,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-30",
+      "question_id": "mbnew_ef8903f6363981d6f207",
+      "cluster": "NCT02838420",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 66,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-361",
+      "question_id": "mbnew_e1b879160f4a628b4736",
+      "cluster": "NCT01720225",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 67,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-134",
+      "question_id": "mbnew_71041d4121b045265299",
+      "cluster": "NCT02864251",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 68,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-217",
+      "question_id": "mbnew_3a451a43b51b5fbe3988",
+      "cluster": "NCT01556776",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 69,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-514",
+      "question_id": "mbnew_1206e17ecd5bde3470aa",
+      "cluster": "NCT01307605",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 70,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-239",
+      "question_id": "mbnew_bf08bfa8252503ed2f84",
+      "cluster": "NCT00003702",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 71,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-469",
+      "question_id": "mbnew_1e5581e2da38b7b02d52",
+      "cluster": "NCT00002870",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 72,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-149",
+      "question_id": "mbnew_d71e4d0507b751a6bafa",
+      "cluster": "NCT00033332",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 73,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-333",
+      "question_id": "mbnew_adba8bb099d5c96f8b6a",
+      "cluster": "NCT03234972",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 74,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-536",
+      "question_id": "mbnew_a5c685c2f016ae5a6ac4",
+      "cluster": "NCT00445601",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 75,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-579",
+      "question_id": "mbnew_b1a6fa3e6c0a3aad779b",
+      "cluster": "NCT01850524",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 76,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-344",
+      "question_id": "mbnew_ac3dc7751c40bf1cdbd1",
+      "cluster": "NCT00806819",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 77,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-486",
+      "question_id": "mbnew_b5b90a161817d0f4f8e5",
+      "cluster": "NCT01122472",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 78,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-346",
+      "question_id": "mbnew_908e06430598b8548abe",
+      "cluster": "NCT01345682",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 79,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-161",
+      "question_id": "mbnew_43409a15f9ae27267dee",
+      "cluster": "NCT00012389",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 80,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-438",
+      "question_id": "mbnew_e72d21d74c4f09ae9ab3",
+      "cluster": "NCT00718549",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 81,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-284",
+      "question_id": "mbnew_4cde5d6ffd6d7583a4f3",
+      "cluster": "NCT00344526",
+      "task_name": "Exclusivity_Date"
+    },
+    {
+      "index": 82,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-427",
+      "question_id": "mbnew_8d95910b2f6b82c94d19",
+      "cluster": "NCT02775006",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 83,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-547",
+      "question_id": "mbnew_d8e2365a305b93aa3623",
+      "cluster": "NCT02672527",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 84,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-233",
+      "question_id": "mbnew_c51897200012c41c6d23",
+      "cluster": "NCT01718379",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 85,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-316",
+      "question_id": "mbnew_3f250556f40e0dfe021b",
+      "cluster": "NCT01469000",
+      "task_name": "Ingredient"
+    },
+    {
+      "index": 86,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-530",
+      "question_id": "mbnew_02990ac7442b326330d8",
+      "cluster": "NCT01776840",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 87,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-483",
+      "question_id": "mbnew_e7480abe77a0b0e359d7",
+      "cluster": "NCT00090051",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 88,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-250",
+      "question_id": "mbnew_aa70137c0ad336a0ecb7",
+      "cluster": "NCT00003691",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 89,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-400",
+      "question_id": "mbnew_eb3f94f9e6a3dc84cf63",
+      "cluster": "NCT00002582",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 90,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-157",
+      "question_id": "mbnew_e81e9bd7ed01ed875428",
+      "cluster": "NCT00003013",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 91,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-167",
+      "question_id": "mbnew_be43ac56c0e9290df0b8",
+      "cluster": "NCT01193244",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 92,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-597",
+      "question_id": "mbnew_418e0dc00c7eab4451a9",
+      "cluster": "NCT00006232",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 93,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-90",
+      "question_id": "mbnew_38d6341062e52983bf33",
+      "cluster": "NCT01667419",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 94,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-242",
+      "question_id": "mbnew_ecaf15977da6ec0c74b6",
+      "cluster": "NCT00003128",
+      "task_name": "Applicant_Full_Name"
+    },
+    {
+      "index": 95,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-38",
+      "question_id": "mbnew_9fe545038163f0648b38",
+      "cluster": "NCT00355108",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 96,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-573",
+      "question_id": "mbnew_26640ea397fda2733a55",
+      "cluster": "NCT01564537",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 97,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-353",
+      "question_id": "mbnew_49b7723f1d30b552fa4a",
+      "cluster": "NCT01856478",
+      "task_name": "Patent_Expire_Date_Text"
+    },
+    {
+      "index": 98,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-180",
+      "question_id": "mbnew_187a66b9a3d9aa96d6c9",
+      "cluster": "NCT00022191",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 99,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-190",
+      "question_id": "mbnew_bbfc6cd8e39b859b4962",
+      "cluster": "NCT00446225",
+      "task_name": "Open_on_Approval"
+    },
+    {
+      "index": 100,
+      "benchmark": "medbrowsecomp",
+      "source_id": "mb605-row-322",
+      "question_id": "mbnew_7c2acd7ca670fee45832",
+      "cluster": "NCT03019588",
+      "task_name": "Applicant_Full_Name"
+    }
+  ],
+  "does_not_include": [
+    "question text",
+    "rubrics",
+    "reference answers",
+    "excluded question text"
+  ]
+}
