@@ -10,7 +10,7 @@
 
 采样、检索、prompt及预算以本次冻结运行配置为准。评测后JSON修复等新代码不追溯改写本次失败；没有重新运行轨迹或调用裁判。
 
-公开内容仅含脱敏汇总和编号评分，不发布原题、原始证据、完整轨迹、私有配置或模型权重。
+本页保留历史汇总与编号评分；[50道评测原题](experiments/process_grpo_20261026/questions_50.json)已补入[逐题页面](experiments/process_grpo_20261026/README.md#评测原题)。原始证据、完整轨迹、私有配置或模型权重不发布。
 
 ### 评测集如何构造
 
@@ -27,7 +27,7 @@
 | 公平输入 | 原始问题及rubric不改写；rubric仅用于事后答案评分，不输入Process/Final；选题分组不作为强制路由指令 |
 | 冻结执行 | 两组用同一50题，按题匹配Process seed与Final seed；Process/Final temperature均1，压缩兜底temperature为0.1；同版检索、Prompt和工具预算 |
 
-以上来自冻结包的SELECTION_AUDIT、SELECTION_REVIEW、TESTSET_IDENTITY与PLAN，近似排重实现另与构建脚本核对。公开保留以下身份摘要，不发布题目全文或私有排重清单：
+以上来自冻结包的SELECTION_AUDIT、SELECTION_REVIEW、TESTSET_IDENTITY与PLAN，近似排重实现另与构建脚本核对。公开保留以下身份摘要，原题另见上述逐题页面；私有排重清单不发布：
 
 <details>
 <summary>数据与题集身份（SHA256）</summary>
@@ -101,56 +101,56 @@ SFT−Base均分差为**−1.27个百分点**。配对40题的均值是有评分
 
 | 题号 | Base | SFT | SFT−Base（百分点） | 未评分原因 |
 |---|---:|---:|---:|---|
-| Q01 | 29.76% | 21.43% | −8.33 | — |
-| Q02 | 34.09% | 65.91% | +31.82 | — |
-| Q03 | 7.69% | 7.69% | 0.00 | — |
-| Q04 | N/A | N/A | — | 两边均仅Final失败 |
-| Q05 | 12.50% | 46.88% | +34.38 | — |
-| Q06 | 0.00% | 0.00% | 0.00 | — |
-| Q07 | 56.41% | 41.03% | −15.38 | — |
-| Q08 | −7.69% | −7.69% | 0.00 | — |
-| Q09 | 0.00% | 44.12% | +44.12 | — |
-| Q10 | 17.95% | 30.77% | +12.82 | — |
-| Q11 | 1.59% | −7.94% | −9.52 | — |
-| Q12 | 25.00% | 21.43% | −3.57 | — |
-| Q13 | 67.27% | −9.09% | −76.36 | — |
-| Q14 | −6.06% | −48.48% | −42.42 | — |
-| Q15 | 36.36% | −10.61% | −46.97 | — |
-| Q16 | 35.29% | −21.57% | −56.86 | — |
-| Q17 | 0.00% | 0.00% | 0.00 | — |
-| Q18 | N/A | 11.36% | — | Base Process失败 |
-| Q19 | 35.14% | 0.00% | −35.14 | — |
-| Q20 | 52.11% | 71.83% | +19.72 | — |
-| Q21 | 28.57% | 28.57% | 0.00 | — |
-| Q22 | 0.00% | −15.38% | −15.38 | — |
-| Q23 | 25.37% | 13.43% | −11.94 | — |
-| Q24 | N/A | 24.24% | — | Base Process失败 |
-| Q25 | N/A | 23.66% | — | Base Process失败 |
-| Q26 | −27.66% | −27.66% | 0.00 | — |
-| Q27 | 37.50% | N/A | — | SFT Process失败 |
-| Q28 | −8.64% | 25.93% | +34.57 | — |
-| Q29 | −5.37% | 0.67% | +6.04 | — |
-| Q30 | −32.81% | 10.94% | +43.75 | — |
-| Q31 | −16.28% | −34.88% | −18.60 | — |
-| Q32 | 0.00% | 50.00% | +50.00 | — |
-| Q33 | −14.29% | −21.43% | −7.14 | — |
-| Q34 | −18.75% | −18.75% | 0.00 | — |
-| Q35 | 0.00% | 0.00% | 0.00 | — |
-| Q36 | 0.00% | 12.96% | +12.96 | — |
-| Q37 | −86.67% | N/A | — | SFT完成但缺评分 |
-| Q38 | −46.55% | −36.21% | +10.34 | — |
-| Q39 | 22.58% | 53.23% | +30.65 | — |
-| Q40 | N/A | −29.27% | — | Base Process失败 |
-| Q41 | −15.62% | −34.38% | −18.75 | — |
-| Q42 | N/A | 10.00% | — | Base Process失败 |
-| Q43 | 0.00% | 0.00% | 0.00 | — |
-| Q44 | 15.79% | 3.51% | −12.28 | — |
-| Q45 | 8.14% | −3.49% | −11.63 | — |
-| Q46 | −26.67% | −18.33% | +8.33 | — |
-| Q47 | 3.95% | 3.95% | 0.00 | — |
-| Q48 | 0.00% | 0.00% | 0.00 | — |
-| Q49 | N/A | −23.46% | — | Base Process失败 |
-| Q50 | −17.07% | N/A | — | SFT Process失败 |
+| [Q01](experiments/process_grpo_20261026/questions/Q01.md) | 29.76% | 21.43% | −8.33 | — |
+| [Q02](experiments/process_grpo_20261026/questions/Q02.md) | 34.09% | 65.91% | +31.82 | — |
+| [Q03](experiments/process_grpo_20261026/questions/Q03.md) | 7.69% | 7.69% | 0.00 | — |
+| [Q04](experiments/process_grpo_20261026/questions/Q04.md) | N/A | N/A | — | 两边均仅Final失败 |
+| [Q05](experiments/process_grpo_20261026/questions/Q05.md) | 12.50% | 46.88% | +34.38 | — |
+| [Q06](experiments/process_grpo_20261026/questions/Q06.md) | 0.00% | 0.00% | 0.00 | — |
+| [Q07](experiments/process_grpo_20261026/questions/Q07.md) | 56.41% | 41.03% | −15.38 | — |
+| [Q08](experiments/process_grpo_20261026/questions/Q08.md) | −7.69% | −7.69% | 0.00 | — |
+| [Q09](experiments/process_grpo_20261026/questions/Q09.md) | 0.00% | 44.12% | +44.12 | — |
+| [Q10](experiments/process_grpo_20261026/questions/Q10.md) | 17.95% | 30.77% | +12.82 | — |
+| [Q11](experiments/process_grpo_20261026/questions/Q11.md) | 1.59% | −7.94% | −9.52 | — |
+| [Q12](experiments/process_grpo_20261026/questions/Q12.md) | 25.00% | 21.43% | −3.57 | — |
+| [Q13](experiments/process_grpo_20261026/questions/Q13.md) | 67.27% | −9.09% | −76.36 | — |
+| [Q14](experiments/process_grpo_20261026/questions/Q14.md) | −6.06% | −48.48% | −42.42 | — |
+| [Q15](experiments/process_grpo_20261026/questions/Q15.md) | 36.36% | −10.61% | −46.97 | — |
+| [Q16](experiments/process_grpo_20261026/questions/Q16.md) | 35.29% | −21.57% | −56.86 | — |
+| [Q17](experiments/process_grpo_20261026/questions/Q17.md) | 0.00% | 0.00% | 0.00 | — |
+| [Q18](experiments/process_grpo_20261026/questions/Q18.md) | N/A | 11.36% | — | Base Process失败 |
+| [Q19](experiments/process_grpo_20261026/questions/Q19.md) | 35.14% | 0.00% | −35.14 | — |
+| [Q20](experiments/process_grpo_20261026/questions/Q20.md) | 52.11% | 71.83% | +19.72 | — |
+| [Q21](experiments/process_grpo_20261026/questions/Q21.md) | 28.57% | 28.57% | 0.00 | — |
+| [Q22](experiments/process_grpo_20261026/questions/Q22.md) | 0.00% | −15.38% | −15.38 | — |
+| [Q23](experiments/process_grpo_20261026/questions/Q23.md) | 25.37% | 13.43% | −11.94 | — |
+| [Q24](experiments/process_grpo_20261026/questions/Q24.md) | N/A | 24.24% | — | Base Process失败 |
+| [Q25](experiments/process_grpo_20261026/questions/Q25.md) | N/A | 23.66% | — | Base Process失败 |
+| [Q26](experiments/process_grpo_20261026/questions/Q26.md) | −27.66% | −27.66% | 0.00 | — |
+| [Q27](experiments/process_grpo_20261026/questions/Q27.md) | 37.50% | N/A | — | SFT Process失败 |
+| [Q28](experiments/process_grpo_20261026/questions/Q28.md) | −8.64% | 25.93% | +34.57 | — |
+| [Q29](experiments/process_grpo_20261026/questions/Q29.md) | −5.37% | 0.67% | +6.04 | — |
+| [Q30](experiments/process_grpo_20261026/questions/Q30.md) | −32.81% | 10.94% | +43.75 | — |
+| [Q31](experiments/process_grpo_20261026/questions/Q31.md) | −16.28% | −34.88% | −18.60 | — |
+| [Q32](experiments/process_grpo_20261026/questions/Q32.md) | 0.00% | 50.00% | +50.00 | — |
+| [Q33](experiments/process_grpo_20261026/questions/Q33.md) | −14.29% | −21.43% | −7.14 | — |
+| [Q34](experiments/process_grpo_20261026/questions/Q34.md) | −18.75% | −18.75% | 0.00 | — |
+| [Q35](experiments/process_grpo_20261026/questions/Q35.md) | 0.00% | 0.00% | 0.00 | — |
+| [Q36](experiments/process_grpo_20261026/questions/Q36.md) | 0.00% | 12.96% | +12.96 | — |
+| [Q37](experiments/process_grpo_20261026/questions/Q37.md) | −86.67% | N/A | — | SFT完成但缺评分 |
+| [Q38](experiments/process_grpo_20261026/questions/Q38.md) | −46.55% | −36.21% | +10.34 | — |
+| [Q39](experiments/process_grpo_20261026/questions/Q39.md) | 22.58% | 53.23% | +30.65 | — |
+| [Q40](experiments/process_grpo_20261026/questions/Q40.md) | N/A | −29.27% | — | Base Process失败 |
+| [Q41](experiments/process_grpo_20261026/questions/Q41.md) | −15.62% | −34.38% | −18.75 | — |
+| [Q42](experiments/process_grpo_20261026/questions/Q42.md) | N/A | 10.00% | — | Base Process失败 |
+| [Q43](experiments/process_grpo_20261026/questions/Q43.md) | 0.00% | 0.00% | 0.00 | — |
+| [Q44](experiments/process_grpo_20261026/questions/Q44.md) | 15.79% | 3.51% | −12.28 | — |
+| [Q45](experiments/process_grpo_20261026/questions/Q45.md) | 8.14% | −3.49% | −11.63 | — |
+| [Q46](experiments/process_grpo_20261026/questions/Q46.md) | −26.67% | −18.33% | +8.33 | — |
+| [Q47](experiments/process_grpo_20261026/questions/Q47.md) | 3.95% | 3.95% | 0.00 | — |
+| [Q48](experiments/process_grpo_20261026/questions/Q48.md) | 0.00% | 0.00% | 0.00 | — |
+| [Q49](experiments/process_grpo_20261026/questions/Q49.md) | N/A | −23.46% | — | Base Process失败 |
+| [Q50](experiments/process_grpo_20261026/questions/Q50.md) | −17.07% | N/A | — | SFT Process失败 |
 
 ## 4. 失败与解释边界
 

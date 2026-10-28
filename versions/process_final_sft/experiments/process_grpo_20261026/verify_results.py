@@ -49,6 +49,16 @@ def main():
         assert abs(sum(float(r['accepted_answer_score']) for r in accepted) / len(accepted) - expected['accepted_mean']) < 1e-4
     valid_sets = [{r['case_index'] for r in final if r['variant'] == v and r['status'] == 'complete'} for v in fs['checkpoints']]
     assert len(set.intersection(*valid_sets)) == fs['common_valid_n'] == 97
+    for folder, filename, count, index_key in ((root, 'questions_50.json', 50, 'index'), (final_dir, 'questions_100.json', 100, 'case_index')):
+        prompts = json.loads((folder / filename).read_text(encoding='utf8'))
+        assert len(prompts) == count and {q[index_key] for q in prompts} == set(range(1, count + 1))
+        for q in prompts:
+            i = q[index_key]
+            page = folder / 'questions' / (f'Q{i:02d}.md' if count == 50 else f'{i:03d}.md')
+            body = page.read_text(encoding='utf8')
+            assert q['question'] in body and q['question_id'] in body
+            assert hashlib.sha256(q['question'].encode('utf8')).hexdigest() == q['question_sha256']
+            assert '## 原题（英文原文）' in body
     receipt = json.loads((root / 'PUBLICATION.json').read_text(encoding='utf-8'))
     for path, expected in receipt['files'].items():
         assert hashlib.sha256((repo / path).read_bytes()).hexdigest() == expected, path

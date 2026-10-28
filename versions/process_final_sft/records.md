@@ -3,7 +3,7 @@
 [概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · **逐题记录**
 
 
-所有已有分数和审核结论保持原样；这里补充主题、字段解释和稳定入口。新增100题页面已包含实际评测原题；旧批次页面保留其原有发布范围。gold、模型答案、E原句和回执留在私有归档。
+所有已有分数和审核结论保持原样；这里补充主题、字段解释和稳定入口。新增100题、旧50题Process及dev100 Final页面均已包含实际评测原题。gold、模型答案、E原句和回执留在私有归档。
 
 ## 新增100题400条
 
@@ -113,6 +113,8 @@
 |新Q98|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q98.md)|
 |新Q99|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q99.md)|
 |新Q100|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q100.md)|
+
+<a id="process四组50题"></a>
 
 ## 旧50题Process四组
 

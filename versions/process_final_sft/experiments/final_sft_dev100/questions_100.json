@@ -1,0 +1,1002 @@
+[
+  {
+    "case_index": 1,
+    "question_id": "final600_005f50c0f008c6a3",
+    "question": "How effective are hydrogel dressings for helping donor site wounds to heal after split-thickness skin grafts?",
+    "question_sha256": "1313ba7fd3b97f3f992d4429b017cbffbb92d1a865d9560fc04d6bc729f56a22",
+    "source_family": "Cochrane",
+    "source_id": "CD013570",
+    "source_url": "https://www.cochrane.org/evidence/CD013570_how-effective-are-hydrogel-dressings-helping-donor-site-wounds-heal-after-split-thickness-skin",
+    "private_case_sha256": "275243721a0c8e5ff438b4aae5f191a57afea102a6592560e6ecc238c059e092"
+  },
+  {
+    "case_index": 2,
+    "question_id": "final600_00e4ee4d191fc669",
+    "question": "Does special assessment of older people getting surgery improve their recovery after surgery?",
+    "question_sha256": "4447c2e467abd795e47f50da4d019471fb573c90364b61a875c07031b16db933",
+    "source_family": "Cochrane",
+    "source_id": "CD012485",
+    "source_url": "https://www.cochrane.org/evidence/CD012485_does-special-assessment-older-people-getting-surgery-improve-their-recovery-after-surgery",
+    "private_case_sha256": "7fb513c62678e2e6093f61aee78a46fa81fd05f28f9034ee67ca1bed415089c7"
+  },
+  {
+    "case_index": 3,
+    "question_id": "final600_031c6a4689379acb",
+    "question": "Do measures that aim to reduce aerosol production during dental procedures prevent the transmission of infectious diseases?",
+    "question_sha256": "dd6fce2fa6bd9493c66456db58923bfeca3d27067fd438de33a0ec7d919bd3d3",
+    "source_family": "Cochrane",
+    "source_id": "CD013686",
+    "source_url": "https://www.cochrane.org/evidence/CD013686_do-measures-aim-reduce-aerosol-production-during-dental-procedures-prevent-transmission-infectious",
+    "private_case_sha256": "12132d279d096e8e9f4b60d1bc43c5e914ea1f6b1b57d1d65871d92fc50950ea"
+  },
+  {
+    "case_index": 4,
+    "question_id": "final600_03d1e0873bdf70e7",
+    "question": "Are potassium treatments effective for reducing excess potassium among people with chronic kidney disease?",
+    "question_sha256": "f76199f959555a7aab39254b54c8706e61f46bd2ea31aa3d2794a1d9037889de",
+    "source_family": "Cochrane",
+    "source_id": "CD013165",
+    "source_url": "https://www.cochrane.org/evidence/CD013165_are-potassium-treatments-effective-reduce-excess-potassium-among-people-chronic-kidney-disease",
+    "private_case_sha256": "e18cb9538bf2cf65cfd29243479ac1e76e592487b694291717535c4dcaf0b295"
+  },
+  {
+    "case_index": 5,
+    "question_id": "final600_08330c20a1625fac",
+    "question": "What are the benefits and harms of adding intraperitoneal chemotherapy for people with stomach cancer undergoing surgery?",
+    "question_sha256": "bde3917b10679250dcd7f866f8d481a2d84b356530e0e64b6f5dff04e0e77175",
+    "source_family": "Cochrane",
+    "source_id": "CD015698",
+    "source_url": "https://www.cochrane.org/evidence/CD015698_what-are-benefits-and-harms-adding-intraperitoneal-chemotherapy-people-stomach-cancer-undergoing",
+    "private_case_sha256": "392c9c34c1f59b2890deb9def8c53dc5279e80a9a92cc49e0fa1e68374c413c1"
+  },
+  {
+    "case_index": 6,
+    "question_id": "final600_09b7e965164eb49f",
+    "question": "Can antifibrinolytics (medications that help to stabilise the clots that form after bleeding) stop bleeding in people with thrombocytopenia (low platelet count) and blood disorders?",
+    "question_sha256": "ed2142726999ef8be5fdfbce10ef6b4636e6b4f6b9a993946b84148e0b9d2d90",
+    "source_family": "Cochrane",
+    "source_id": "CD009733",
+    "source_url": "https://www.cochrane.org/evidence/CD009733_can-antifibrinolytics-medications-help-stabilise-clots-form-after-bleeding-stop-bleeding-people",
+    "private_case_sha256": "7c11ce8e1087e8d9a9965e9b5d6b2b67932691047f10a648c2b278e5d7e686af"
+  },
+  {
+    "case_index": 7,
+    "question_id": "final600_0b02dcd3e850d326",
+    "question": "Can the medicine dexrazoxane prevent or reduce heart damage in adults and children with cancer receiving anthracyclines?",
+    "question_sha256": "64d4c8291eb59f0674860c5a60033910702f15ee3a7604de93dc3cee8bead1e9",
+    "source_family": "Cochrane",
+    "source_id": "CD014638",
+    "source_url": "https://www.cochrane.org/evidence/CD014638_can-medicine-dexrazoxane-prevent-or-reduce-heart-damage-adults-and-children-cancer-receiving",
+    "private_case_sha256": "bca1744e038e5a5e8b0a0db9282fae2564e1cc6968fa3e0956fa5b698520ccee"
+  },
+  {
+    "case_index": 8,
+    "question_id": "final600_0d91805a61566a18",
+    "question": "Regarding HDL: The \"Good\" Cholesterol: What are HDL and LDL? How do I know what my HDL level is?",
+    "question_sha256": "7a2abc582b3e0f98988387f5368e96526770e96fb3178823e93ae77ad3135be5",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_6785",
+    "source_url": "https://medlineplus.gov/hdlthegoodcholesterol.html",
+    "private_case_sha256": "a55d5f61a1e3191419b47f80735468c672ecd28a8e62b9d53bc86533a47dc249"
+  },
+  {
+    "case_index": 9,
+    "question_id": "final600_10911b9f8ea30776",
+    "question": "Do short periods of artificially blocking blood flow to the limbs in people undergoing vascular surgery reduce death and organ injury?",
+    "question_sha256": "a9838910dd85daf0cc4e1f82276c733af465b0353ee925960d3136dceca247a6",
+    "source_family": "Cochrane",
+    "source_id": "CD008472",
+    "source_url": "https://www.cochrane.org/evidence/CD008472_do-short-periods-artificially-blocking-blood-flow-limbs-people-undergoing-vascular-surgery-reduce",
+    "private_case_sha256": "8bb14019a5e3605dde3c704c43d2a6750e2d4a83632eec282da43ba38e7472ff"
+  },
+  {
+    "case_index": 10,
+    "question_id": "final600_125f3b6d2c63f0fa",
+    "question": "Do antioxidant vitamin and mineral supplements slow down the progression of age-related macular degeneration (AMD)?",
+    "question_sha256": "6337d5d698224c69446f758d12e530a5bd0e46361e9c63cd8fffcbd7f7b55f95",
+    "source_family": "Cochrane",
+    "source_id": "CD000254",
+    "source_url": "https://www.cochrane.org/evidence/CD000254_do-antioxidant-vitamin-and-mineral-supplements-slow-down-progression-age-related-macular",
+    "private_case_sha256": "27d8fb531d0288b66d3ad4b73569b3fbbe73645f36d4386e952ed2d054029fa5"
+  },
+  {
+    "case_index": 11,
+    "question_id": "final600_14c51b980c10cfcc",
+    "question": "What are the benefits and risks of different wrist PC6 acupoint stimulation techniques for preventing nausea and vomiting after an operation?",
+    "question_sha256": "9c69d80c824e61ce3c34a034f9215e3d0829c0216bad629858a7b879795bbfc3",
+    "source_family": "Cochrane",
+    "source_id": "CD003281",
+    "source_url": "https://www.cochrane.org/evidence/CD003281_what-are-benefits-and-risks-different-wrist-pc6-acupoint-stimulation-techniques-preventing-nausea",
+    "private_case_sha256": "c0a860e35e3837ab40642439d0fe008d3e338392aae56ebbae36a09aea45a7cf"
+  },
+  {
+    "case_index": 12,
+    "question_id": "final600_16fb57d5b8a707cb",
+    "question": "Do digital technologies help people with cystic fibrosis stick to their inhaled treatments?",
+    "question_sha256": "79af4b751b80a8e0d6afe87bd3c7146a4d73ffeebe2ac89013b1f8d5bba05bcd",
+    "source_family": "Cochrane",
+    "source_id": "CD013733",
+    "source_url": "https://www.cochrane.org/evidence/CD013733_do-digital-technologies-help-people-cystic-fibrosis-stick-their-inhaled-treatments",
+    "private_case_sha256": "60002964fab0f7b51d1713a9fa00ccee2e488821fce54fdfb5aaeefdaa4de582"
+  },
+  {
+    "case_index": 13,
+    "question_id": "final600_1a6d5b9461c81ece",
+    "question": "What are the benefits and risks of exercise for adults with cancer who experience loss of appetite and weight loss?",
+    "question_sha256": "54b5bf03f9da04d8a67d39b1dad5b39e42ef19fc1fe2d9d107b12490577a16dc",
+    "source_family": "Cochrane",
+    "source_id": "CD010804",
+    "source_url": "https://www.cochrane.org/evidence/CD010804_what-are-benefits-and-risks-exercise-adults-cancer-who-experience-loss-appetite-and-weight-loss",
+    "private_case_sha256": "b9d324cbaf32b6c08a126be8d1ad8becf9def985d1eca1b44ab578a430e5f571"
+  },
+  {
+    "case_index": 14,
+    "question_id": "final600_1e86aa30f05dfc59",
+    "question": "Regarding Caffeine: What are caffeine's effects on the body? What are the side effects from too much caffeine?",
+    "question_sha256": "a3349cf2d79ff8f0cc2bbd13b8c5fa764112efe3706e2a046106e8500ce8f1c2",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_1456",
+    "source_url": "https://medlineplus.gov/caffeine.html",
+    "private_case_sha256": "fbefdac13c25c4abf87de30095f5fd7361e2e4e167f0e668a33c4386dcab8ce5"
+  },
+  {
+    "case_index": 15,
+    "question_id": "final600_1ec8675920ef7517",
+    "question": "Are shorter courses of systemic steroids as effective as conventional longer courses in the treatment of patients with flare-ups of COPD?",
+    "question_sha256": "b9c34eaefe56002a394933019fbfef44ccf373dd10cd7fb54dc45cf4d9a6f494",
+    "source_family": "Cochrane",
+    "source_id": "CD006897",
+    "source_url": "https://www.cochrane.org/evidence/CD006897_are-shorter-courses-systemic-steroids-effective-conventional-longer-courses-treatment-patients-flare",
+    "private_case_sha256": "d063c9fd0b2499c852ce3412240e570e7e04e856c9e85327450cfdf5c0347119"
+  },
+  {
+    "case_index": 16,
+    "question_id": "final600_1ee59fb208ad3fec",
+    "question": "Which hormones are most effective for stimulating the ovaries in women undergoing in vitro fertilisation (IVF)?",
+    "question_sha256": "5faec2ec2162857bdc57cd3cd21fcda558713be7d9196ed5d3d08aad4e0528c5",
+    "source_family": "Cochrane",
+    "source_id": "CD005354",
+    "source_url": "https://www.cochrane.org/evidence/CD005354_which-hormones-are-most-effective-stimulating-ovaries-women-undergoing-vitro-fertilisation-ivf",
+    "private_case_sha256": "500ac9c13d6e0278759658b4348164db2edb362af7c34c360548717520dcfb99"
+  },
+  {
+    "case_index": 17,
+    "question_id": "final600_2670df53880bcfd3",
+    "question": "Can music interventions replace sedatives for reduction of preoperative anxiety?",
+    "question_sha256": "97b4c8ea56ca727b8deca07291ae15f9ac6347d00c57845ec714ab670c7a1406",
+    "source_family": "Cochrane",
+    "source_id": "CD006908",
+    "source_url": "https://www.cochrane.org/evidence/CD006908_can-music-interventions-replace-sedatives-reduction-preoperative-anxiety",
+    "private_case_sha256": "0b7a55bba8fe97aedf099c5197527f189de7c003162b509c45a6d31d6406b2f3"
+  },
+  {
+    "case_index": 18,
+    "question_id": "final600_2b293265d66a638d",
+    "question": "What are the likely benefits and harms of non-medicine and non-surgical treatments for non-specific low back pain?",
+    "question_sha256": "aaacbfe8b4cadef5b80ef10b9c4dcef7aebb460f1555dadfff255b4acdb3cd2c",
+    "source_family": "Cochrane",
+    "source_id": "CD014691",
+    "source_url": "https://www.cochrane.org/evidence/CD014691_what-are-likely-benefits-and-harms-non-medicine-and-non-surgical-treatments-non-specific-low-back",
+    "private_case_sha256": "10110b0d71b4e3c8a941049872e0704c30421fcba104fe904cf3e9beaf2ee2d4"
+  },
+  {
+    "case_index": 19,
+    "question_id": "final600_2c0b817848e77428",
+    "question": "What is the diagnostic accuracy of antibody tests for the detection of infection with the COVID-19 virus?",
+    "question_sha256": "2745091efea72323950e728cf9fee7169b8005f6637eb71e80c43ded1f5cc8bd",
+    "source_family": "Cochrane",
+    "source_id": "CD013652",
+    "source_url": "https://www.cochrane.org/evidence/CD013652_what-diagnostic-accuracy-antibody-tests-detection-infection-covid-19-virus",
+    "private_case_sha256": "85c75afa73f6e1edde6194a01c4d75bf038944a95b9ff70133e15b71640afa87"
+  },
+  {
+    "case_index": 20,
+    "question_id": "final600_2ccb188134ae9420",
+    "question": "What type of intervention works best to help people with cancer get back to work?",
+    "question_sha256": "e1834446691269c70526c7ecc524b7c5fc52ab03d37b5926a2484bac175049e3",
+    "source_family": "Cochrane",
+    "source_id": "CD007569",
+    "source_url": "https://www.cochrane.org/evidence/CD007569_what-type-intervention-works-best-help-people-cancer-get-back-work",
+    "private_case_sha256": "3ca45c9099fb3c65c471b36741a886a589ff3052aa5d53aefdeb00e96d29aa62"
+  },
+  {
+    "case_index": 21,
+    "question_id": "final600_31c1e72e178b5626",
+    "question": "Can antibiotics clear or suppress infection with non-tuberculous mycobacteria in the lungs of people with cystic fibrosis?",
+    "question_sha256": "3604a14f9bdb102cd6fe10878f0542665f58dbaa3ca4be4fedffea4a8c4977de",
+    "source_family": "Cochrane",
+    "source_id": "CD016039",
+    "source_url": "https://www.cochrane.org/evidence/CD016039_can-antibiotics-clear-or-suppress-infection-non-tuberculous-mycobacteria-lungs-people-cystic",
+    "private_case_sha256": "3d226187700e4ba12a6137bfde55fe269bfc88f555f98fb088d0109d4c8d7572"
+  },
+  {
+    "case_index": 22,
+    "question_id": "final600_3330200f6e90602f",
+    "question": "Which models exist for prediction of future disease outcomes in people with multiple sclerosis?",
+    "question_sha256": "35937838f37c641408ff4ac60107b930de51b6511e57fe3550aa481206e19679",
+    "source_family": "Cochrane",
+    "source_id": "CD013606",
+    "source_url": "https://www.cochrane.org/evidence/CD013606_which-models-exist-prediction-future-disease-outcomes-people-multiple-sclerosis",
+    "private_case_sha256": "e4941c7da8339a5f0402e845697f712c4903b08d293ff4c00e50559c101b7468"
+  },
+  {
+    "case_index": 23,
+    "question_id": "final600_341d4d510aa499ba",
+    "question": "What medicines are useful to treat myotonia (delayed muscle relaxation after contraction)?",
+    "question_sha256": "54266682dcf87302ea0dd6d9ed773fb352cd7f8070e1f457a347f3f7239bb0a0",
+    "source_family": "Cochrane",
+    "source_id": "CD004762",
+    "source_url": "https://www.cochrane.org/evidence/CD004762_what-medicines-are-useful-treat-myotonia-delayed-muscle-relaxation-after-contraction",
+    "private_case_sha256": "f20b80301cea8cf8a6912b7cc4de7830ca5630486de43de5c4007a72d1cd4446"
+  },
+  {
+    "case_index": 24,
+    "question_id": "final600_3becefab201a5686",
+    "question": "Do long-term antibiotics help to reduce rheumatic fever recurrence and progression of rheumatic heart disease?",
+    "question_sha256": "c4600cf64ee82857573dfc999045f5359f8acc36be2a2037539abd4606c0d0d7",
+    "source_family": "Cochrane",
+    "source_id": "CD015779",
+    "source_url": "https://www.cochrane.org/evidence/CD015779_do-long-term-antibiotics-help-reduce-rheumatic-fever-recurrence-and-progression-rheumatic-heart",
+    "private_case_sha256": "1bc1b45a1e9a575b16a273f836e87dd2a951d37bd3d800c186777d06a51c843c"
+  },
+  {
+    "case_index": 25,
+    "question_id": "final600_3e7310ea27a80f3a",
+    "question": "Does repair of torn rotator cuff tendons work?",
+    "question_sha256": "7865521193c7733b8dc815031769c51ddcedbf27a93a1dd2e041c4cdb07c6dbe",
+    "source_family": "Cochrane",
+    "source_id": "CD013502",
+    "source_url": "https://www.cochrane.org/evidence/CD013502_does-repair-torn-rotator-cuff-tendons-work",
+    "private_case_sha256": "3c4fdc9f2ea69b1cd903ece6ac32da000b85ff8c43d971d9be00b708a579c1f2"
+  },
+  {
+    "case_index": 26,
+    "question_id": "final600_3efb131c7b38974e",
+    "question": "What types of psychological and social support programs help women quit smoking during pregnancy?",
+    "question_sha256": "242e1d6f57cc1566ce3d29d979fea8aeeae3815300cebd1c1c9f010275ac5f5c",
+    "source_family": "Cochrane",
+    "source_id": "CD001055",
+    "source_url": "https://www.cochrane.org/evidence/CD001055_what-types-psychological-and-social-support-programs-help-women-quit-smoking-during-pregnancy",
+    "private_case_sha256": "66dd82111d28ba14a494cc4dd71e3d65ae65edf97b55ac47dd8eebbb69273d50"
+  },
+  {
+    "case_index": 27,
+    "question_id": "final600_3f30d5edbe86adf0",
+    "question": "Does surgical glue prevent postoperative pancreatic fistula (leaking of fluid from the pancreas) and promote healing after surgery?",
+    "question_sha256": "0cd956ea324fe1c5f2b71781f9e9748ad9c5814a3f2026074e3bfde346b21cff",
+    "source_family": "Cochrane",
+    "source_id": "CD009621",
+    "source_url": "https://www.cochrane.org/evidence/CD009621_does-surgical-glue-prevent-postoperative-pancreatic-fistula-leaking-fluid-pancreas-and-promote",
+    "private_case_sha256": "a37e3e301471c72bfeb4c5aeccc40a887b2dc50c6a269a42b3d6a6f1b3b2f29f"
+  },
+  {
+    "case_index": 28,
+    "question_id": "final600_48f0d18e2f47179a",
+    "question": "Does non-invasive brain stimulation or language training help people with primary progressive aphasia?",
+    "question_sha256": "b82bbca9ed5194d3048f7b276b87059fde8613db8336d61eca1d9d16916b577a",
+    "source_family": "Cochrane",
+    "source_id": "CD015067",
+    "source_url": "https://www.cochrane.org/evidence/CD015067_does-non-invasive-brain-stimulation-or-language-training-help-people-primary-progressive-aphasia",
+    "private_case_sha256": "b39cc1fc8c1edaaaa19f7a58038bc53f48149e1ef26a959233f8addf4ec5751f"
+  },
+  {
+    "case_index": 29,
+    "question_id": "final600_4926f501a2dfdcca",
+    "question": "What is the accuracy of Xpert Ultra for diagnosing tuberculosis and resistance to rifampicin (an antibiotic) in children?",
+    "question_sha256": "becc652266bd5a4966b23d1cd1dd4709d8a399c9e2abcaba19ba382d9d4ae1d5",
+    "source_family": "Cochrane",
+    "source_id": "CD013359",
+    "source_url": "https://www.cochrane.org/evidence/CD013359_what-accuracy-xpert-ultra-diagnosing-tuberculosis-and-resistance-rifampicin-antibiotic-children",
+    "private_case_sha256": "5311a592fc9f6b6451176a45158e463831f9db27cc5b8929a405800b28f3d388"
+  },
+  {
+    "case_index": 30,
+    "question_id": "final600_49634c5173b721e4",
+    "question": "Regarding HIV in Women: How does HIV spread? Are there treatments for HIV?",
+    "question_sha256": "fb68fd836721974dfe8736420ea6f2f4398a313846c2c4cfa44b742150fa864b",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_5737",
+    "source_url": "https://medlineplus.gov/hivinwomen.html",
+    "private_case_sha256": "01b1ba0b54ded5e644399b96b807ae1e98be7d69f770fe7fc640bea8fc0ceac7"
+  },
+  {
+    "case_index": 31,
+    "question_id": "final600_4c903229f318331f",
+    "question": "Does taking a supplement of myo-inositol work as an effective treatment for women who develop diabetes during pregnancy?",
+    "question_sha256": "e6cf463ab5c74588a37b8a34a845fbc7ef03f6063c94001b6ee470b9f13b0644",
+    "source_family": "Cochrane",
+    "source_id": "CD012048",
+    "source_url": "https://www.cochrane.org/evidence/CD012048_does-taking-supplement-myo-inositol-work-effective-treatment-women-who-develop-diabetes-during",
+    "private_case_sha256": "789debe28ce7058330b7ee66313b323ec0596575b63e3f10d82a443172cded57"
+  },
+  {
+    "case_index": 32,
+    "question_id": "final600_4edf0cbdbdec602e",
+    "question": "What are the benefits and risks of different treatments for intermittent exotropia (an eye co-ordination problem that starts in childhood)?",
+    "question_sha256": "3b34cc01b602c412f2038bf2c91dc0310f285633df8ca43374fcd971f7e840d6",
+    "source_family": "Cochrane",
+    "source_id": "CD003737",
+    "source_url": "https://www.cochrane.org/evidence/CD003737_what-are-benefits-and-risks-different-treatments-intermittent-exotropia-eye-co-ordination-problem",
+    "private_case_sha256": "697f16ac72a06e1d2687073b88a41a00d23f4669e178dd51f793ed1603e9843b"
+  },
+  {
+    "case_index": 33,
+    "question_id": "final600_4fe28f4339ecb98e",
+    "question": "Regarding Cesarean Delivery: What are the risks of a cesarean delivery? What is a cesarean delivery?",
+    "question_sha256": "3e651047fa7318e609496d08e53161fcf0f69d00ba07a17c98acd14f924fc815",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_3159",
+    "source_url": "https://medlineplus.gov/cesareandelivery.html",
+    "private_case_sha256": "24603e1ed6998cef489ea521a73878a8ad082a2409ce37def66b491efc14cf3c"
+  },
+  {
+    "case_index": 34,
+    "question_id": "final600_545437a9a7a4bf3e",
+    "question": "Regarding Reflux in Infants: What causes reflux and GERD in infants? What feeding changes can help treat my infant's reflux or GERD?",
+    "question_sha256": "b7fd405091a1bbdf1918c3700f9adfc50e4504bd8f3069bb48d0dcceb9d078bb",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_6467",
+    "source_url": "https://medlineplus.gov/refluxininfants.html",
+    "private_case_sha256": "46e2a539839701933776cbb13ed75425b95ec4e3db729213ebcc3802863f0e76"
+  },
+  {
+    "case_index": 35,
+    "question_id": "final600_5454fd6d00d2a54a",
+    "question": "What are the effects of oral decongestants on blood pressure?",
+    "question_sha256": "411727975db27240e5bb81c1fa70fcb5d4a41d7e934979de1c4199bea6615fcc",
+    "source_family": "Cochrane",
+    "source_id": "CD007895",
+    "source_url": "https://www.cochrane.org/evidence/CD007895_what-are-effects-oral-decongestants-blood-pressure",
+    "private_case_sha256": "4749c6c2349d7dbb42d8393af078eb6407b95b1d1f229812efc24658e34d8f46"
+  },
+  {
+    "case_index": 36,
+    "question_id": "final600_59a92e78b3a4d099",
+    "question": "Can injection of platelet-rich plasma in the womb or ovaries of infertile women undergoing assisted reproduction help them to become pregnant?",
+    "question_sha256": "9e4c985926d3bd1686402957d2d9ca057ce9e83f8f8097bef3469ccf72def2f6",
+    "source_family": "Cochrane",
+    "source_id": "CD013875",
+    "source_url": "https://www.cochrane.org/evidence/CD013875_can-injection-platelet-rich-plasma-womb-or-ovaries-infertile-women-undergoing-assisted-reproduction",
+    "private_case_sha256": "543cdf3537f17a30bb16fb4a909826bca19e319f2ecd0c30f312346db106e859"
+  },
+  {
+    "case_index": 37,
+    "question_id": "final600_59ecc4e6997a3a32",
+    "question": "Can reducing prescriptions of anticholinergic medicines improve cognitive outcomes in older adults?",
+    "question_sha256": "308cd23f11d4f3fc8992301a58771b3489174d73be106d86043f1ff5d46ac875",
+    "source_family": "Cochrane",
+    "source_id": "CD015405",
+    "source_url": "https://www.cochrane.org/evidence/CD015405_can-reducing-prescriptions-anticholinergic-medicines-improve-cognitive-outcomes-older-adults",
+    "private_case_sha256": "afa66d7e199b85073e24a5327dd74e4d89383edfe156623e3dead7f666008881"
+  },
+  {
+    "case_index": 38,
+    "question_id": "final600_611f97f9673dfba0",
+    "question": "Can exercising before vaccination reduce numbers of adults who get flu or develop complications?",
+    "question_sha256": "900ade9a4b318795c659628278d74e9dc664f3b99a581c7f9ea19cba4226c052",
+    "source_family": "Cochrane",
+    "source_id": "CD011857",
+    "source_url": "https://www.cochrane.org/evidence/CD011857_can-exercising-vaccination-reduce-numbers-adults-who-get-flu-or-develop-complications",
+    "private_case_sha256": "4074d1cfc35cc1994e3a832bb3c3105b4d8e7468bd8eb222d08a3a8acf9c220f"
+  },
+  {
+    "case_index": 39,
+    "question_id": "final600_6226fbcfd967565e",
+    "question": "How effective are physical activity and education for chronic musculoskeletal pain in children and adolescents?",
+    "question_sha256": "a08e08d0d8dd1df2d563ab95cdc6e56a5eda351478d2e0b79011ac24e667ef64",
+    "source_family": "Cochrane",
+    "source_id": "CD013527",
+    "source_url": "https://www.cochrane.org/evidence/CD013527_how-effective-are-physical-activity-and-education-chronic-musculoskeletal-pain-children-and",
+    "private_case_sha256": "2e4806f4e8d2fda6762f82c425f3edc1857d76fb8576a2aa84ec1604db5fe36a"
+  },
+  {
+    "case_index": 40,
+    "question_id": "final600_62506d3e6c0db45a",
+    "question": "Regarding Cannabis: How do people use cannabis? What are the effects of cannabis?",
+    "question_sha256": "78e5249887a19dc2086329e2322bcc67e3f072cc22f1dfbbcfae94d5bbdef718",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_317",
+    "source_url": "https://medlineplus.gov/cannabis.html",
+    "private_case_sha256": "931945998d904bb96d1bc48c10f931a48fdce5c028285a128b0616f997c82546"
+  },
+  {
+    "case_index": 41,
+    "question_id": "final600_63d61eaa17707909",
+    "question": "Do blood thinners prevent people who are hospitalised with COVID-19 from developing blood clots?",
+    "question_sha256": "19fc7d9f5cdf2466c42f1d1ac9ff028a8f4b8fda26ece2fdd9366664f1802032",
+    "source_family": "Cochrane",
+    "source_id": "CD013739",
+    "source_url": "https://www.cochrane.org/evidence/CD013739_do-blood-thinners-prevent-people-who-are-hospitalised-covid-19-developing-blood-clots",
+    "private_case_sha256": "b4d0f97c2b2c29f1d160fdd454a5e4c589e88b3c261cc5934f2f147034bf127c"
+  },
+  {
+    "case_index": 42,
+    "question_id": "final600_65232cf44d4f57f1",
+    "question": "When trying to have a baby through assisted conception, is it better to transfer the embryo to the womb on day 3 or day 5?",
+    "question_sha256": "d7785a16c1fa3c107563566ef417647c1998e7c2476af143db9ad23338a3d6ce",
+    "source_family": "Cochrane",
+    "source_id": "CD002118",
+    "source_url": "https://www.cochrane.org/evidence/CD002118_when-trying-have-baby-through-assisted-conception-it-better-transfer-embryo-womb-day-3-or-day-5",
+    "private_case_sha256": "91156e0fe9bca9186a08b3b09e833be6607941070ebce6f3cc18a62a6d13dc82"
+  },
+  {
+    "case_index": 43,
+    "question_id": "final600_66daf264ecf8c2a1",
+    "question": "Can training health professionals in stop-smoking support help more of their patients quit smoking?",
+    "question_sha256": "7694719d6203742f194cadd2de70973e974b7b346c5cc779968777ddecc28f9a",
+    "source_family": "Cochrane",
+    "source_id": "CD000214",
+    "source_url": "https://www.cochrane.org/evidence/CD000214_can-training-health-professionals-stop-smoking-support-help-more-their-patients-quit-smoking",
+    "private_case_sha256": "9f1a6675e7d36db994fb77ec0eda97d49840bccd0b37b83d40918efd52a68f90"
+  },
+  {
+    "case_index": 44,
+    "question_id": "final600_69fbfd66071672ad",
+    "question": "Are there any treatments that can prevent haemolytic uraemic syndrome in individuals already infected with high-risk bacteria?",
+    "question_sha256": "f5156a7111259593c12a76edd6764e69fd830dcb982c4947664ccee659115efc",
+    "source_family": "Cochrane",
+    "source_id": "CD012997",
+    "source_url": "https://www.cochrane.org/evidence/CD012997_are-there-any-treatments-can-prevent-haemolytic-uraemic-syndrome-individuals-already-infected-high",
+    "private_case_sha256": "ef3ae02d1b57ae46707be6e23a7885f59bd52c534d00127fb3dd8b400db8b1a2"
+  },
+  {
+    "case_index": 45,
+    "question_id": "final600_6c35bbc81f363181",
+    "question": "What is the best treatment for children with crowded teeth?",
+    "question_sha256": "8a8c0d7f0be1f74324cf73055dc7620885629b4253f58befbcaf72cd33b9f2a6",
+    "source_family": "Cochrane",
+    "source_id": "CD003453",
+    "source_url": "https://www.cochrane.org/evidence/CD003453_what-best-treatment-children-crowded-teeth",
+    "private_case_sha256": "e714f6127feeca59d3c66fc48760d7a74241d33cad7327099d6065dcf037791f"
+  },
+  {
+    "case_index": 46,
+    "question_id": "final600_6eb5db4e761dd0ef",
+    "question": "Does weekly dosing of paclitaxel improve survival, compared with tri-weekly dosing of paclitaxel in the initial treatment of ovarian cancer?",
+    "question_sha256": "6a7b0edeac4ad0f61b4813d62f6b6f63a5dbb7918aea4687f6f05da9b7394eb5",
+    "source_family": "Cochrane",
+    "source_id": "CD012007",
+    "source_url": "https://www.cochrane.org/evidence/CD012007_does-weekly-dosing-paclitaxel-improve-survival-compared-tri-weekly-dosing-paclitaxel-initial",
+    "private_case_sha256": "5b01f9fd2f7fa5fca89764e09446b976c6c2b7ae658dfcaed0971e357f49d855"
+  },
+  {
+    "case_index": 47,
+    "question_id": "final600_71efaeebf5082ffe",
+    "question": "What are the benefits and risks of different treatments for elbow fractures in children?",
+    "question_sha256": "8835b9a71cfcc83052d521ad57fa9a8ca730e861dc95eec85d7f3366f00a5bb3",
+    "source_family": "Cochrane",
+    "source_id": "CD013609",
+    "source_url": "https://www.cochrane.org/evidence/CD013609_what-are-benefits-and-risks-different-treatments-elbow-fractures-children",
+    "private_case_sha256": "5d303cbd9fced548413e5e23e0483dc36b497d0dd08929bba8982105e27798be"
+  },
+  {
+    "case_index": 48,
+    "question_id": "final600_727d9117e9820f3f",
+    "question": "How successful are healthy eating programmes in preschools, kindergartens and childcare settings?",
+    "question_sha256": "3e08a8b7762d167f6b07c9ba973849d76bb78b87806b8c8cc3801a9c6ff7f33a",
+    "source_family": "Cochrane",
+    "source_id": "CD013862",
+    "source_url": "https://www.cochrane.org/evidence/CD013862_how-successful-are-healthy-eating-programmes-preschools-kindergartens-and-childcare-settings",
+    "private_case_sha256": "0228b02ee684e3953acc245fb131ca77140695d43fa41a2ec17d85d5b39eee66"
+  },
+  {
+    "case_index": 49,
+    "question_id": "final600_74418f74e76dedf7",
+    "question": "Which method of determining MGMT promoter methylation best predicts survival in people with glioblastoma treated with temozolomide?",
+    "question_sha256": "60292020c297c58c414c2fe0235b2fdcb8f56ceb96efb4fc3b96cdba2beb0d6d",
+    "source_family": "Cochrane",
+    "source_id": "CD013316",
+    "source_url": "https://www.cochrane.org/evidence/CD013316_which-method-determining-mgmt-promoter-methylation-best-predicts-survival-people-glioblastoma",
+    "private_case_sha256": "e48db7ad9d3ac1b3d737cee9f80d354102f3c3fe6782e9a5593af50032395398"
+  },
+  {
+    "case_index": 50,
+    "question_id": "final600_75d6682efee0e7cc",
+    "question": "Do psychosocial interventions help parents reduce how often they drink heavily or use drugs?",
+    "question_sha256": "17e3bb2262f3047b4a1739995b2ded61e40693682680d52c987bf26cd632c0d9",
+    "source_family": "Cochrane",
+    "source_id": "CD012823",
+    "source_url": "https://www.cochrane.org/evidence/CD012823_do-psychosocial-interventions-help-parents-reduce-how-often-they-drink-heavily-or-use-drugs",
+    "private_case_sha256": "57ee6d24d1229483fa34a0b66568961ce087267eb5f615d8ed473047896e1c4b"
+  },
+  {
+    "case_index": 51,
+    "question_id": "final600_770b46583da30c01",
+    "question": "What is the evidence for stopping long-acting beta2-agonists for adults with stable asthma using combination therapy?",
+    "question_sha256": "35e873432ac7f347c8127b0e4e50dd3d22e0cf072a58a5dbadf56fc626e04c8e",
+    "source_family": "Cochrane",
+    "source_id": "CD011306",
+    "source_url": "https://www.cochrane.org/evidence/CD011306_what-evidence-stopping-long-acting-beta2-agonists-adults-stable-asthma-using-combination-therapy",
+    "private_case_sha256": "baba57605223db0a02190e952ed20fa47cb8438e6e9d383a6353a729b1552e19"
+  },
+  {
+    "case_index": 52,
+    "question_id": "final600_77246e85eea7c591",
+    "question": "What are the benefits and harms of diuretics given as a first treatment compared to other drug classes for hypertension (high blood pressure)?",
+    "question_sha256": "f40b917b7ff696ba9ab68b14d009277d6bcd8bfd85ee1c08104380eb2a195bee",
+    "source_family": "Cochrane",
+    "source_id": "CD008161",
+    "source_url": "https://www.cochrane.org/evidence/CD008161_what-are-benefits-and-harms-diuretics-given-first-treatment-compared-other-drug-classes-hypertension",
+    "private_case_sha256": "63e1e05c44acf754837b3af906cba0d6859674fcb20fbb94b499353ffa84b387"
+  },
+  {
+    "case_index": 53,
+    "question_id": "final600_7fccadc5573a8a7e",
+    "question": "What factors increase the risk of a seizure following a first unprovoked seizure (one with no clear cause)?",
+    "question_sha256": "ce83f162cb0690260038c593cc0e640614c7ff16abb744420f58a45aa11549f4",
+    "source_family": "Cochrane",
+    "source_id": "CD013848",
+    "source_url": "https://www.cochrane.org/evidence/CD013848_what-factors-increase-risk-seizure-following-first-unprovoked-seizure-one-no-clear-cause",
+    "private_case_sha256": "22d0ab302ea25b6e857723ce5fb2e0fa29481bac8d1fed684de025a5eafd46ec"
+  },
+  {
+    "case_index": 54,
+    "question_id": "final600_822e61fdec9d4ec8",
+    "question": "What are the different ways eye tests are carried out and spectacles provided in the community and in health clinics worldwide?",
+    "question_sha256": "041ff086bb869210bd88e12ea12a200cc2d65b34d0d4af3783e79b252847e010",
+    "source_family": "Cochrane",
+    "source_id": "CD016043",
+    "source_url": "https://www.cochrane.org/evidence/CD016043_what-are-different-ways-eye-tests-are-carried-out-and-spectacles-provided-community-and-health",
+    "private_case_sha256": "58098dc93034c77ff1ba4fe340eb3e09c785ea885541726889b11334f552f64e"
+  },
+  {
+    "case_index": 55,
+    "question_id": "final600_822ec7bf2eda014a",
+    "question": "Do bone-modifying medicines help reduce bone loss in women with early or locally advanced breast cancer?",
+    "question_sha256": "df74eb6ae46f6eeb679080d222c657c92338b28765065ed7f278a4ba0019b9d8",
+    "source_family": "Cochrane",
+    "source_id": "CD013451",
+    "source_url": "https://www.cochrane.org/evidence/CD013451_do-bone-modifying-medicines-help-reduce-bone-loss-women-early-or-locally-advanced-breast-cancer",
+    "private_case_sha256": "64e268b61245e9fee41047c7609b2abede137b4a07ce0cb6ef9c9ac7f898d167"
+  },
+  {
+    "case_index": 56,
+    "question_id": "final600_863dfaadb833ca06",
+    "question": "Regarding Veterans and Military Health: What types of injuries do service members face? What health care services are available to service members and veterans?",
+    "question_sha256": "1f7de3e6f083c989b80fd8a509cc86d3096a8e4527368437d58dbf78e787de5c",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_453",
+    "source_url": "https://medlineplus.gov/veteransandmilitaryhealth.html",
+    "private_case_sha256": "f47acabc6ca0c619282581032f82aa9e87684bff9251ff2442f110ed6b80d12e"
+  },
+  {
+    "case_index": 57,
+    "question_id": "final600_866e6cd2c9040e54",
+    "question": "Does giving people feedback on the effects of smoking on their body help them quit smoking?",
+    "question_sha256": "351758b8ac6871ec6ca72b13abe8c6e20c12f64d353e3e418e68fb7751f2228e",
+    "source_family": "Cochrane",
+    "source_id": "CD004705",
+    "source_url": "https://www.cochrane.org/evidence/CD004705_does-giving-people-feedback-effects-smoking-their-body-help-them-quit-smoking",
+    "private_case_sha256": "5063e8dddf3c6eb1b3b15fef81e8c05b9c55c684dac8f3a27e8f7236f43135ef"
+  },
+  {
+    "case_index": 58,
+    "question_id": "final600_897d6d0875a20812",
+    "question": "How accurate are GAD-7 and GAD-2 questionnaires for detecting anxiety disorders?",
+    "question_sha256": "ee2d3547c9addc6ebf9c95b1e8eb0d4e22d1892fb2db3a4c38275d9d565abe3b",
+    "source_family": "Cochrane",
+    "source_id": "CD015455",
+    "source_url": "https://www.cochrane.org/evidence/CD015455_how-accurate-are-gad-7-and-gad-2-questionnaires-detecting-anxiety-disorders",
+    "private_case_sha256": "f1404aadb99f15168246f352ef749b41e8199424c3252c3708490bec7435542e"
+  },
+  {
+    "case_index": 59,
+    "question_id": "final600_8fd0e37c0c81ec41",
+    "question": "Can dihydrocodeine reduce illegal opiate use in adolescents and adults?",
+    "question_sha256": "c9cdae8d38c214af1d9fe8004dafa3f4e381ebd0cb987f3e886b4376990ed615",
+    "source_family": "Cochrane",
+    "source_id": "CD012254",
+    "source_url": "https://www.cochrane.org/evidence/CD012254_can-dihydrocodeine-reduce-illegal-opiate-use-adolescents-and-adults",
+    "private_case_sha256": "4ab481e97efa398bfe17edff8bbbbd8cb987cf64892a83538ecfb7d089704f74"
+  },
+  {
+    "case_index": 60,
+    "question_id": "final600_916a9c6dd1066259",
+    "question": "Do physical measures such as hand-washing or wearing masks stop or slow down the spread of respiratory viruses?",
+    "question_sha256": "b914cc02eac1ac6deb8d516286108b01bfefff3c279ecea3b659dc4e343146cd",
+    "source_family": "Cochrane",
+    "source_id": "CD006207",
+    "source_url": "https://www.cochrane.org/evidence/CD006207_do-physical-measures-such-hand-washing-or-wearing-masks-stop-or-slow-down-spread-respiratory-viruses",
+    "private_case_sha256": "53979f18b14fc754ab5c4f8195bb219feb43f280a60c4c86f3cc45f29bd018d5"
+  },
+  {
+    "case_index": 61,
+    "question_id": "final600_95c1b00a0f6f7abe",
+    "question": "What are the benefits and risks of corticosteroids given directly to the ear in Ménière's disease?",
+    "question_sha256": "ee6ee363a2df141e7aebfa719281d51926d5fefebc0778586584602bff34830b",
+    "source_family": "Cochrane",
+    "source_id": "CD015245",
+    "source_url": "https://www.cochrane.org/evidence/CD015245_what-are-benefits-and-risks-corticosteroids-given-directly-ear-menieres-disease",
+    "private_case_sha256": "f84468ed3c8b7a12e87ec7b3a60b8f8f84047ac61e8dbf75ec43bdb17aea56eb"
+  },
+  {
+    "case_index": 62,
+    "question_id": "final600_96930f522cb63b24",
+    "question": "What is the best way to close abdominal incisions following surgery?",
+    "question_sha256": "47fe94ce6a508b27d785a7c28fb5fe0fa5f9054765d1e714b92be6e50af315f8",
+    "source_family": "Cochrane",
+    "source_id": "CD005661",
+    "source_url": "https://www.cochrane.org/evidence/CD005661_what-best-way-close-abdominal-incisions-following-surgery",
+    "private_case_sha256": "ea14ffa78a62ac4c1b9c38d557a8fad2fdf6d0083d0f3615dadf7c7f5347fe4b"
+  },
+  {
+    "case_index": 63,
+    "question_id": "final600_99ce63ba27a1a40e",
+    "question": "Can brief interventions delivered in schools reduce substance use among adolescents?",
+    "question_sha256": "5de523e45abff3783f7f9433e0e80193c4d639fa44732987bf1a4f2db498edcc",
+    "source_family": "Cochrane",
+    "source_id": "CD008969",
+    "source_url": "https://www.cochrane.org/evidence/CD008969_can-brief-interventions-delivered-schools-reduce-substance-use-among-adolescents",
+    "private_case_sha256": "9180062d56dedcd9055487d16f8309f02bd6a98c5f08344e2355dcda43b561e3"
+  },
+  {
+    "case_index": 64,
+    "question_id": "final600_9a77ce27b4ccc9cc",
+    "question": "What are the benefits and risks of healthcare workers using antimicrobial mouthwashes or nasal sprays to protect themselves when they treat people with COVID-19?",
+    "question_sha256": "b281c9f0463ec53cb472e89bd4b3c11e3d8ef9a65f3702cf6d8cfdd22f389b7b",
+    "source_family": "Cochrane",
+    "source_id": "CD013626",
+    "source_url": "https://www.cochrane.org/evidence/CD013626_what-are-benefits-and-risks-healthcare-workers-using-antimicrobial-mouthwashes-or-nasal-sprays",
+    "private_case_sha256": "0e12d55f99c61759e14c7868be5c1f4e6084f4b9a5bd45da1c2556669b7f2a79"
+  },
+  {
+    "case_index": 65,
+    "question_id": "final600_9ec66879b53ce07b",
+    "question": "Do education programmes improve outcomes in people with both chronic kidney disease and diabetes?",
+    "question_sha256": "fc47f13fe8d86cc005ffbee979d9a3c0378d2eb0afd159ed79442cc4cb02865e",
+    "source_family": "Cochrane",
+    "source_id": "CD007374",
+    "source_url": "https://www.cochrane.org/evidence/CD007374_do-education-programmes-improve-outcomes-people-both-chronic-kidney-disease-and-diabetes",
+    "private_case_sha256": "b392fec7ad8d10fbde3e3b2521a92121dcf692eacf641e3f354c8d46c92cc21c"
+  },
+  {
+    "case_index": 66,
+    "question_id": "final600_a4f1bd1ce706f692",
+    "question": "Do programmes for quitting smoking (smoking cessation) work for people who are in hospital for treatment of mental illness?",
+    "question_sha256": "bf82e5f0da69eae7ed32d9b7d771cef677b6ee06825be9bfb760b4db3592dbdc",
+    "source_family": "Cochrane",
+    "source_id": "CD015934",
+    "source_url": "https://www.cochrane.org/evidence/CD015934_do-programmes-quitting-smoking-smoking-cessation-work-people-who-are-hospital-treatment-mental",
+    "private_case_sha256": "3419e2c6a43d1b329f315e37c0b3394e04e4e6cc407f8db080ec155cbaaec33f"
+  },
+  {
+    "case_index": 67,
+    "question_id": "final600_a6794a20d8f85321",
+    "question": "Regarding Cleaning, Disinfecting, and Sanitizing: Where are germs found? How can I avoid getting germs from surfaces and objects?",
+    "question_sha256": "70fa9d6996d2f59a768c3e680d6a86ed37d2c71f69dcb3ee188d4181d384db94",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_7607",
+    "source_url": "https://medlineplus.gov/cleaningdisinfectingandsanitizing.html",
+    "private_case_sha256": "b632f035fa1015e3c24fa8de9de1c434413113bf016f7304b2df2109592c3981"
+  },
+  {
+    "case_index": 68,
+    "question_id": "final600_a8565a452aa98af5",
+    "question": "What are the most accurate rapid point-of-care tests for the detection of Chlamydia?",
+    "question_sha256": "730d9d287235046853fd1b49951199b065b78d4d5524c7e531f5e16373c09f7e",
+    "source_family": "Cochrane",
+    "source_id": "CD011708",
+    "source_url": "https://www.cochrane.org/evidence/CD011708_what-are-most-accurate-rapid-point-care-tests-detection-chlamydia",
+    "private_case_sha256": "1117c2e222eb67421070bf6c0ec9112f6c9970e2fabffd0fffe7ef4f8669367b"
+  },
+  {
+    "case_index": 69,
+    "question_id": "final600_a8be97bb7a5854f9",
+    "question": "Which approaches help with recovery after a broken ankle in adults?",
+    "question_sha256": "3dfbd072e5510d6bf8fb6783797477aa5b726abce6203e20fd170b21a7af908c",
+    "source_family": "Cochrane",
+    "source_id": "CD005595",
+    "source_url": "https://www.cochrane.org/evidence/CD005595_which-approaches-help-recovery-after-broken-ankle-adults",
+    "private_case_sha256": "d40627fb76137a2499fd3de86f79375533cd522e24cecfdc5c0825a10764b641"
+  },
+  {
+    "case_index": 70,
+    "question_id": "final600_aed51ae40f523966",
+    "question": "Which amphotericin B formulation better preserves kidney function among people with fungal infection?",
+    "question_sha256": "1b5864c0dc36d0889f31e9aab79e7dffd5074cb251a7692a90ec2337ad853a6b",
+    "source_family": "Cochrane",
+    "source_id": "CD010481",
+    "source_url": "https://www.cochrane.org/evidence/CD010481_which-amphotericin-b-formulation-better-preserves-kidney-function-among-people-fungal-infection",
+    "private_case_sha256": "b4bb95ae8cadacf00e93493e430961a2530f45e83faddcc09c7a70f2695fd352"
+  },
+  {
+    "case_index": 71,
+    "question_id": "final600_b3a9e5f113fcec67",
+    "question": "Are combined aclidinium and long-acting beta2-agonist inhalers effective and safe for people with stable COPD?",
+    "question_sha256": "b04c5fbdd2abcd4434ccd9cdfc184fdf618e88fc6d472459d4981bfacf8ba16a",
+    "source_family": "Cochrane",
+    "source_id": "CD011594",
+    "source_url": "https://www.cochrane.org/evidence/CD011594_are-combined-aclidinium-and-long-acting-beta2-agonist-inhalers-effective-and-safe-people-stable-copd",
+    "private_case_sha256": "e4a967d12fd0ff4bdf2ed5139b98e0f8ac8171277b0fa804d945945fc5714ad6"
+  },
+  {
+    "case_index": 72,
+    "question_id": "final600_b5502aec0bed017b",
+    "question": "Do azole medicines taken as a cream or drops work for treating otomycosis (a fungal ear infection)?",
+    "question_sha256": "523b797b3eaa3e3d04ab3cf445c3f233fae9358e8ea5ffc62bdf773e22602c8e",
+    "source_family": "Cochrane",
+    "source_id": "CD009289",
+    "source_url": "https://www.cochrane.org/evidence/CD009289_do-azole-medicines-taken-cream-or-drops-work-treating-otomycosis-fungal-ear-infection",
+    "private_case_sha256": "36b236002d6fe571c98a874432f8d3660b47b76c66bf297e437592727f2ff038"
+  },
+  {
+    "case_index": 73,
+    "question_id": "final600_b60f0a8cb0ac4d03",
+    "question": "Do calcium supplements help people with overweight or obesity lose weight?",
+    "question_sha256": "27083b22b241423d1cf0bd314ee5c099f011f861d635a8c4ebe576761acd92af",
+    "source_family": "Cochrane",
+    "source_id": "CD012268",
+    "source_url": "https://www.cochrane.org/evidence/CD012268_do-calcium-supplements-help-people-overweight-or-obesity-lose-weight",
+    "private_case_sha256": "149696630d946286e4cc05e9d845ea4da9be46613b38948b032d4a2c673d5106"
+  },
+  {
+    "case_index": 74,
+    "question_id": "final600_bdfe4381daa8b711",
+    "question": "Do vaginal packing, tranexamic acid, interventional radiology or other interventions control vaginal bleeding in women with advanced cervical cancer?",
+    "question_sha256": "27befd028d8610fcc6c69f959b5882130c48c3942795e348390cc8556debe5ba",
+    "source_family": "Cochrane",
+    "source_id": "CD011000",
+    "source_url": "https://www.cochrane.org/evidence/CD011000_do-vaginal-packing-tranexamic-acid-interventional-radiology-or-other-interventions-control-vaginal",
+    "private_case_sha256": "cf204b81c614058a6e5c39a0f974daaaa055a7562bf348c29e8ac0715e923c9c"
+  },
+  {
+    "case_index": 75,
+    "question_id": "final600_bf692b639607c3c3",
+    "question": "Do people with type 1 diabetes mellitus benefit from using a different type of insulin as their basal insulin?",
+    "question_sha256": "f3a1168875577dea31008f043c779ee6a38b71eb6f6dc871bc364f8190aab198",
+    "source_family": "Cochrane",
+    "source_id": "CD013498",
+    "source_url": "https://www.cochrane.org/evidence/CD013498_do-people-type-1-diabetes-mellitus-benefit-using-different-type-insulin-their-basal-insulin",
+    "private_case_sha256": "b44cd859b97aa0d106a7fb63f211fc2e26c648f98be72eeb59e2f2e2f105b85c"
+  },
+  {
+    "case_index": 76,
+    "question_id": "final600_c8124935ea522fc3",
+    "question": "Do drugs that enhance the beating force of the heart prevent low cardiac output syndrome and death in children undergoing surgery for congenital heart disease?",
+    "question_sha256": "e860a3b66e0701bc6911fb1b2ed7b36231ac3f87f5ab1f9a49697404c02de54d",
+    "source_family": "Cochrane",
+    "source_id": "CD013707",
+    "source_url": "https://www.cochrane.org/evidence/CD013707_do-drugs-enhance-beating-force-heart-prevent-low-cardiac-output-syndrome-and-death-children",
+    "private_case_sha256": "de0f6f68e703854f11256a6cb9dd561227765dafe2aee357bf00ae5bafe72c60"
+  },
+  {
+    "case_index": 77,
+    "question_id": "final600_ca6fda12035213dc",
+    "question": "Does selecting targeted therapies based on genetic testing of an individual's cancer prolong their life or delay disease progression in people with advanced cancer?",
+    "question_sha256": "b449a6240de98045e1c32a325a8b9732e0c0614838aa5bc809475aaf62868088",
+    "source_family": "Cochrane",
+    "source_id": "CD014872",
+    "source_url": "https://www.cochrane.org/evidence/CD014872_does-selecting-targeted-therapies-based-genetic-testing-individuals-cancer-prolong-their-life-or",
+    "private_case_sha256": "f521fc12dda8dd5466649ce08710fcc861ca2bcb10a0be3aaea420e4d1e65a34"
+  },
+  {
+    "case_index": 78,
+    "question_id": "final600_cae2641b0c475ad4",
+    "question": "Does enhanced external counterpulsation reduce symptoms of chronic and refractory angina pectoris?",
+    "question_sha256": "8dda7f0299be05d4c1a8014f96b71e3af52e3ad663892d443549925d8ee2908f",
+    "source_family": "Cochrane",
+    "source_id": "CD007219",
+    "source_url": "https://www.cochrane.org/evidence/CD007219_does-enhanced-external-counterpulsation-reduce-symptoms-chronic-and-refractory-angina-pectoris",
+    "private_case_sha256": "f3e40ad031df4540455fa230994f00c45fcaa81669e300432bf81dac923eeac8"
+  },
+  {
+    "case_index": 79,
+    "question_id": "final600_cae5d56fb0019e76",
+    "question": "Does using medication to block the hormone oxytocin help women who are undergoing embryo transfer for fertility treatment increase their chance of having a baby?",
+    "question_sha256": "5687d197e0ae547f0ac2238999ee792dd7abc257eaff2a46e0d99561985e5803",
+    "source_family": "Cochrane",
+    "source_id": "CD012375",
+    "source_url": "https://www.cochrane.org/evidence/CD012375_does-using-medication-block-hormone-oxytocin-help-women-who-are-undergoing-embryo-transfer-fertility",
+    "private_case_sha256": "27ca13d83072d012ce5e6a2e3b8516a84ed3bcb638b9f162285422358bfffcac"
+  },
+  {
+    "case_index": 80,
+    "question_id": "final600_cd55e244af63eb94",
+    "question": "Regarding Homelessness and Health: What are the causes of homelessness? What is the link between homelessness and health?",
+    "question_sha256": "47f7335a9c308a09d078d17167d5cfbc65236f79ad82088249cd02dfff1f83d8",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_3536",
+    "source_url": "https://medlineplus.gov/homelessnessandhealth.html",
+    "private_case_sha256": "13767eb13d00e5ff28708ab3494acd320b1f9a4a295510c532ab185b0207d417"
+  },
+  {
+    "case_index": 81,
+    "question_id": "final600_cd69ec78650090d6",
+    "question": "What is the best first arch wire in a fixed orthodontic brace?",
+    "question_sha256": "a5ceb11614039ca534dc82758568e4980ba3733188b8db499355a9c3ba3549a4",
+    "source_family": "Cochrane",
+    "source_id": "CD007859",
+    "source_url": "https://www.cochrane.org/evidence/CD007859_what-best-first-arch-wire-fixed-orthodontic-brace",
+    "private_case_sha256": "e83d569c2b8854c4d154629300ad70c3b00a0e609c866d6d0c76777c67ee78e3"
+  },
+  {
+    "case_index": 82,
+    "question_id": "final600_cd8869433fee542f",
+    "question": "Regarding Carbohydrates: What are the different types of carbohydrates? Which foods have carbohydrates?",
+    "question_sha256": "bd52b6c312e9eb3fb262a92563ad1b97898f1af600a9563d0776400a63680f28",
+    "source_family": "MedlinePlus",
+    "source_id": "medlineplus_3670",
+    "source_url": "https://medlineplus.gov/carbohydrates.html",
+    "private_case_sha256": "11c363075584ea3ca65734ae91733a3ba084312729c77d1b0851f2bf01868c5e"
+  },
+  {
+    "case_index": 83,
+    "question_id": "final600_ce1fd28261136639",
+    "question": "Does individually-delivered counselling help people to stop smoking?",
+    "question_sha256": "93c06f6f6ed96819c6a96f9dbf77c4f221794a763e2229a54ea9ddee39c709cc",
+    "source_family": "Cochrane",
+    "source_id": "CD001292",
+    "source_url": "https://www.cochrane.org/evidence/CD001292_does-individually-delivered-counselling-help-people-stop-smoking",
+    "private_case_sha256": "17321ef5fd5f0f1855e2d50572cbdbd0e5f0e341bfc1a7682524fe39f9683886"
+  },
+  {
+    "case_index": 84,
+    "question_id": "final600_d0aa959a8a971774",
+    "question": "What are the risks and benefits of different positions for spinal taps in infants?",
+    "question_sha256": "8ba1e4fd6d2fa78b10cd7d796c96100d28238f7f17b8aab46fdd06192fc2ae11",
+    "source_family": "Cochrane",
+    "source_id": "CD015592",
+    "source_url": "https://www.cochrane.org/evidence/CD015592_what-are-risks-and-benefits-different-positions-spinal-taps-infants",
+    "private_case_sha256": "628509706b1ba406cacde3130edc781c998915ac204a9f017e4a327f8e82dea9"
+  },
+  {
+    "case_index": 85,
+    "question_id": "final600_d67c25b6459e0101",
+    "question": "What are the benefits and harms of liver support systems for adults with acute liver failure?",
+    "question_sha256": "0acb75ed8994acf6f0e431225121be632c1e02db15e5c327c8423a5a094e3463",
+    "source_family": "Cochrane",
+    "source_id": "CD015059",
+    "source_url": "https://www.cochrane.org/evidence/CD015059_what-are-benefits-and-harms-liver-support-systems-adults-acute-liver-failure",
+    "private_case_sha256": "9de5be1ca6f534e9ab71551fb51f637065407a04db8e15c9466d5b224bdf9f72"
+  },
+  {
+    "case_index": 86,
+    "question_id": "final600_d7c9b332ef937ea7",
+    "question": "Can dental professionals help people to stop smoking or using tobacco products?",
+    "question_sha256": "1eb384549fee3f1f484d2ce4058570dbe185f1d262569a06f8acc651cf38e4fd",
+    "source_family": "Cochrane",
+    "source_id": "CD005084",
+    "source_url": "https://www.cochrane.org/evidence/CD005084_can-dental-professionals-help-people-stop-smoking-or-using-tobacco-products",
+    "private_case_sha256": "a8a8529939afbd861aed0f383cd18356256f190d1c79048de84dfcb8e47dd201"
+  },
+  {
+    "case_index": 87,
+    "question_id": "final600_da03a3e860a57e2d",
+    "question": "Are interventions for fatigue effective among people with kidney failure requiring dialysis?",
+    "question_sha256": "22dc61b325a06b652f507ef29475132827d713766d557dac85ea5c8feb2629c7",
+    "source_family": "Cochrane",
+    "source_id": "CD013074",
+    "source_url": "https://www.cochrane.org/evidence/CD013074_are-interventions-fatigue-effective-among-people-kidney-failure-requiring-dialysis",
+    "private_case_sha256": "aa82b10e28b5ab4dd86a3eb6508dd92088241acee54bff4b6fde99a525c7b6d0"
+  },
+  {
+    "case_index": 88,
+    "question_id": "final600_df37a3e2c12a6530",
+    "question": "Do beds, mattresses and mattress toppers with air-filled surfaces that apply constant pressure to the skin prevent pressure ulcers?",
+    "question_sha256": "2115a8115543a9c3fbdfc73a7dfc1e8c1564c138e9807fb9446ef33031337e41",
+    "source_family": "Cochrane",
+    "source_id": "CD013622",
+    "source_url": "https://www.cochrane.org/evidence/CD013622_do-beds-mattresses-and-mattress-toppers-air-filled-surfaces-apply-constant-pressure-skin-prevent",
+    "private_case_sha256": "3ed79c97a25d00a9a835deeaed314e40a524bb4f648f2eb6b68b7d4a7ae81a6d"
+  },
+  {
+    "case_index": 89,
+    "question_id": "final600_e3e2be2fb2ed5aa3",
+    "question": "Does testing for cancer in people with unprovoked blood clots in the legs and lungs reduce cancer- and blood clot-related death and illness?",
+    "question_sha256": "04abc45b788f8b2f9fe2747abf4487f57ed44ff2b615c196623d48485ae0bcf2",
+    "source_family": "Cochrane",
+    "source_id": "CD010837",
+    "source_url": "https://www.cochrane.org/evidence/CD010837_does-testing-cancer-people-unprovoked-blood-clots-legs-and-lungs-reduce-cancer-and-blood-clot",
+    "private_case_sha256": "6d53e61969bce3a0ecf82d215501990463ab67b77f311e833441fce20f62be14"
+  },
+  {
+    "case_index": 90,
+    "question_id": "final600_e61185ecb1021f10",
+    "question": "Do strengthening exercises help in the treatment of people with patellar tendinopathy (jumper's knee)?",
+    "question_sha256": "5c5ef22633db80dbf3148b62c732bba02999eb23bffd616d3aeef4326927547e",
+    "source_family": "Cochrane",
+    "source_id": "CD013078",
+    "source_url": "https://www.cochrane.org/evidence/CD013078_do-strengthening-exercises-help-treatment-people-patellar-tendinopathy-jumpers-knee",
+    "private_case_sha256": "b932245363cacdcbe224ae92a6d99301f5914552380b2de75ed586272ef33a57"
+  },
+  {
+    "case_index": 91,
+    "question_id": "final600_e9e3f14ee214ee3c",
+    "question": "Can treatment with antibiotics clear the 'superbug' MRSA from the lungs of people with cystic fibrosis?",
+    "question_sha256": "5708f7c62f634a13ca82a928a0d5716ac79de8a8ac24f63d0ef5bbf024a5beaf",
+    "source_family": "Cochrane",
+    "source_id": "CD009650",
+    "source_url": "https://www.cochrane.org/evidence/CD009650_can-treatment-antibiotics-clear-superbug-mrsa-lungs-people-cystic-fibrosis",
+    "private_case_sha256": "675458531e97d7f12e17ca148f6ee2c40fa13de73c52a4668d33baeb8b5b9fe0"
+  },
+  {
+    "case_index": 92,
+    "question_id": "final600_ecefc732abdf69af",
+    "question": "How effective are strategies to help patients and their families secure emergency medical care when a health condition becomes life-threatening?",
+    "question_sha256": "9743351631cf569a5df6ff4f145f1d436ae13115eca04e7b5c87eb8d02d55034",
+    "source_family": "Cochrane",
+    "source_id": "CD012829",
+    "source_url": "https://www.cochrane.org/evidence/CD012829_how-effective-are-strategies-help-patients-and-their-families-secure-emergency-medical-care-when",
+    "private_case_sha256": "8e1beecb9b75ee0ef896b2b608174ae433d5312fd7b975a8c440f6f4a4b06f9f"
+  },
+  {
+    "case_index": 93,
+    "question_id": "final600_ed047febd8f68f31",
+    "question": "Can 'perfusion' machines improve the quality of livers donated for transplantation?",
+    "question_sha256": "3f0ffa9091455eb459075170a32f59f720618187d254e6e0ab5d06d2cec942bf",
+    "source_family": "Cochrane",
+    "source_id": "CD014685",
+    "source_url": "https://www.cochrane.org/evidence/CD014685_can-perfusion-machines-improve-quality-livers-donated-transplantation",
+    "private_case_sha256": "867ebfcc68a8b23b4e5e509e255e798a04a014d3beea38ce2e7c9ba9a1e0ef58"
+  },
+  {
+    "case_index": 94,
+    "question_id": "final600_ee0615e265d8a328",
+    "question": "How effective and safe are single-incision slings for women with urinary incontinence compared with other operations?",
+    "question_sha256": "10e013f7cad8f3375be9230b500076a7f0f630402205b5854954e8afd600edc3",
+    "source_family": "Cochrane",
+    "source_id": "CD008709",
+    "source_url": "https://www.cochrane.org/evidence/CD008709_how-effective-and-safe-are-single-incision-slings-women-urinary-incontinence-compared-other",
+    "private_case_sha256": "1a19eb219e22748e7ae19032ee083aea4d9cf9cc2cf145530f9d962a5d85a8fa"
+  },
+  {
+    "case_index": 95,
+    "question_id": "final600_f090c76b30492c93",
+    "question": "What factors influence parents’ views and practices around routine childhood vaccines?",
+    "question_sha256": "33d7fcece1d9a2433344be6c461133d45333bd61ec3b1c2be2c77e68b136dce4",
+    "source_family": "Cochrane",
+    "source_id": "CD013265",
+    "source_url": "https://www.cochrane.org/evidence/CD013265_what-factors-influence-parents-views-and-practices-around-routine-childhood-vaccines",
+    "private_case_sha256": "4667d9fe991fc2319c1855b348489f036fc52b436c196a31807a762849efa766"
+  },
+  {
+    "case_index": 96,
+    "question_id": "final600_f2ec271eb5f3c50f",
+    "question": "What are the risks and benefits of taking aspirin or other nonsteroidal anti-inflammatory medicines (NSAIDs) to prevent bowel cancer in the general population?",
+    "question_sha256": "108777ad232e223ec197ebf3a3e8439b8db3a91790ac594a840d86bd1e9843b8",
+    "source_family": "Cochrane",
+    "source_id": "CD015266",
+    "source_url": "https://www.cochrane.org/evidence/CD015266_what-are-risks-and-benefits-taking-aspirin-or-other-nonsteroidal-anti-inflammatory-medicines-nsaids",
+    "private_case_sha256": "43256a579065d92f996e2d06a2ccbc298d336dd6e88eb31b22ae69ee0b99f957"
+  },
+  {
+    "case_index": 97,
+    "question_id": "final600_f9f86885b0d832f1",
+    "question": "Do antifungal medicines for vaginal yeast infections (thrush) work better if taken by mouth (orally) or placed in the vagina (intravaginally)?",
+    "question_sha256": "630263058e73b5b0948cd19a055aca9880a46b38b948bd9cb1c4fd23ff5c1ed9",
+    "source_family": "Cochrane",
+    "source_id": "CD002845",
+    "source_url": "https://www.cochrane.org/evidence/CD002845_do-antifungal-medicines-vaginal-yeast-infections-thrush-work-better-if-taken-mouth-orally-or-placed",
+    "private_case_sha256": "50ee0623ddafdccac2afe7b9abeb391b2fdeea8b2e41b13226f3b8c63bb9c4c6"
+  },
+  {
+    "case_index": 98,
+    "question_id": "final600_fa853033ff6fb1f0",
+    "question": "How well do anti-inflammatory eye medications reduce symptoms and signs of eyelid inflammation?",
+    "question_sha256": "1c0484f983b9cdf3e352978e19875bc6cf75993f3606cf7e9499b2d0c8d9e1a6",
+    "source_family": "Cochrane",
+    "source_id": "CD013550",
+    "source_url": "https://www.cochrane.org/evidence/CD013550_how-well-do-anti-inflammatory-eye-medications-reduce-symptoms-and-signs-eyelid-inflammation",
+    "private_case_sha256": "e5d7f9eab59547817a26e7cd24efe2e8f21c372f09cdc270062107168b76b707"
+  },
+  {
+    "case_index": 99,
+    "question_id": "final600_fbec07c142e95dbd",
+    "question": "Do antipsychotic medicines reduce agitated behaviour and psychotic symptoms in people with Alzheimer's disease and vascular dementia?",
+    "question_sha256": "6bce850bc04ea26e4dafc6d94bd2564c18ed780c6015f8f359ef85e4f8d83262",
+    "source_family": "Cochrane",
+    "source_id": "CD013304",
+    "source_url": "https://www.cochrane.org/evidence/CD013304_do-antipsychotic-medicines-reduce-agitated-behaviour-and-psychotic-symptoms-people-alzheimers",
+    "private_case_sha256": "8e5ae47c0ad4a9dd29ee8199217e27b220c9eadb851c1699331da0cd1fdd0709"
+  },
+  {
+    "case_index": 100,
+    "question_id": "final600_ff87b4b8e05dd7d5",
+    "question": "Are interventions that are implemented in alcohol server settings (e.g. bars and pubs) effective for preventing injuries?",
+    "question_sha256": "bd5b3e4c77201a720675ba4c57411c88a36df80e0b909490de125966f6f35155",
+    "source_family": "Cochrane",
+    "source_id": "CD005244",
+    "source_url": "https://www.cochrane.org/evidence/CD005244_are-interventions-are-implemented-alcohol-server-settings-eg-bars-and-pubs-effective-preventing",
+    "private_case_sha256": "48334ec6698b8461a576ed43c52c787365982f34cd7358c9bf8a77742e4841c0"
+  }
+]
