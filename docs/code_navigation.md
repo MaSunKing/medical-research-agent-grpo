@@ -41,11 +41,13 @@
 
 从实际行为开始阅读，可先看[v3完整案例与失败定位](../examples/version3_cases/README.md)。`examples/trajectory_demo`保留原有历史身份，不作为v3/GRPO的执行案例。
 
-## 兼容参考入口
+<a id="兼容参考入口"></a>
+
+## 历史组件入口
 
 下表定位此前公开的组件，不替代上方current默认入口；复现实验仍使用该实验自己的冻结源码。
 
-| 功能 | 已公开快照/参考源码 |
+| 功能 | 已公开组件快照 |
 |---|---|
 | 论文 Search | [pubmed_apis.py](../retrieval/dr_agent/mcp_backend/apis/pubmed_apis.py)、[dual_paper.py](../retrieval/dr_agent/mcp_backend/apis/dual_paper.py) |
 | 论文语义重排 | [paper_semantic_ranking.py](../retrieval/dr_agent/mcp_backend/apis/paper_semantic_ranking.py) |

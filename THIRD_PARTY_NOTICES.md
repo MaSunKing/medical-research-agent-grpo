@@ -1,11 +1,9 @@
-# 第三方代码与许可证声明
+# 代码来源与许可
 
-本项目采用 Apache-2.0，完整许可证见 LICENSE；许可证原文保持不变。
+本项目采用 [Apache-2.0](LICENSE)。
 
-retrieval/dr_agent 含有适配自 [rlresearch/dr-tulu](https://github.com/rlresearch/dr-tulu) 的 Agent/工具代码，既有版权与许可证声明保留。此公开版本的适配涉及医学检索、证据 provenance、模板过滤与 chunk-selection 契约。项目名称描述自身稠密奖励与本地部署方向，不取消复用代码的必要署名。
+- 部分检索与工具基础代码适配自 [rlresearch/dr-tulu](https://github.com/rlresearch/dr-tulu)，范围包括 `retrieval/dr_agent` 及相关冻结检索副本；保留原有署名与许可声明。
 
-`versions/legacy_retrieval/dr_agent` 是同一来源的历史冻结副本，适用上述声明；它不是新的独立第三方项目。新版源码与冻结副本分别记录发布身份，不混用实验结果。
+- HealthBench 评分器 `healthbench_eval.py` 来自 [openai/simple-evals](https://github.com/openai/simple-evals)，适用[随附 MIT 许可证](versions/process_final_sft/experiments/newbench_20261028/code/grader/LICENSE.simple-evals)。
 
-PyTorch、Transformers、PEFT、bitsandbytes、BeautifulSoup、lxml、sentence-transformers、FastMCP 等依赖单独分发，受各自许可证约束。Qwen、embedding 和 reranker 权重不包含在仓库中，需自行获取并遵守相关条款。外部 API 服务独立配置和授权。
-
-本轮新增公开源码中的 `versions/process_final_sft/experiments/newbench_20261028/code/grader/healthbench_eval.py` 来自 [openai/simple-evals](https://github.com/openai/simple-evals)，保留 MIT License，原文见[随附许可证](versions/process_final_sft/experiments/newbench_20261028/code/grader/LICENSE.simple-evals)。该协议代码不表示本项目使用官方裁判模型或获得官方认证。本仓库其余 Apache-2.0 声明不替代这份第三方许可。
+依赖、模型权重与外部服务遵循各自许可证或条款。
