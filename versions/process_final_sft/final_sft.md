@@ -1,10 +1,14 @@
-# 3. Final-SFT：训练、对照与决策
+# 3. 答案生成模块的监督微调对照（Final-SFT）
+
+<a id="3-final-sft训练对照与决策"></a>
 
 [概览](README.md) · [数据与实验设置](design.md) · [Process-SFT](process_sft.md) · **Final-SFT** · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
 
+**答案生成模块（Final）**接收原问题与Process实际交付的证据、State，综合生成答案并说明证据边界。**Base Final**指同一`Qwen/Qwen3-8B`禁用本项目adapter时的答案生成器；**Final-SFT**是单独训练该模块LoRA的监督微调实验。
+
 评测入口：**[Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md)** · [名词与指标解释](glossary.md)。
 
-**在dev100固定输入对照中，Final-SFT的三个checkpoint均未超过Base Final；当前固定Base Final，独立Final-SFT未接入本轮GRPO。** 这是相应题集和评分条件下的模块选型结论。
+**在dev100固定输入对照中，三个Final-SFT checkpoint均未超过基座答案生成器（Base Final）。当前由Base Final生成答案，Process-GRPO期间其参数不更新。** 这是相应题集和评分条件下的模块选型结论，不把参数固定理解成每题答案相同。
 
 | 训练边界 | 本页对象 |
 |---|---|
@@ -13,11 +17,11 @@
 | 更新对象 | 仅Final LoRA；loss只计算答案与EOS，不更新Process策略 |
 | 产物 | 1／1.5／2轮Final checkpoint及其与Base Final的dev100对照记录 |
 
-这条支线检验答案模块是否需要替换；Process-GRPO继续使用原972 Process初始化，不依赖本页的训练产物。
+“独立对照”表示单独训练和评测答案模块，角色可以共用同一基座，不要求另部署更大的模型。这条支线检验答案生成器是否需要替换；Process-GRPO继续使用原972 Process初始化，不依赖本页的训练产物。
 
 ## 训练与对照设置
 
-本实验回答“在相同Pre-final输入下，训练Final是否比原Base Final更好”。输入来自Process-SFT采集并冻结的实际Final请求，训练时不重新检索，不用Final输出倒改证据。gold采用用户指定gold_final600_v2，其他老师候选留作记录；gold的训练授权不等于独立人类临床认证。
+本实验回答“给定每题相同的实际答案请求，专门微调答案生成模块是否比Base Final更好”。输入来自Process-SFT采集并冻结的实际Final请求，训练时不重新检索，不用Final输出倒改证据。gold采用用户指定gold_final600_v2，其他老师候选留作记录；gold的训练授权不等于独立人类临床认证。
 
 | 项目 | 已执行设置 |
 |---|---|
@@ -67,7 +71,7 @@
 
 ## 当前选择与后续边界
 
-后续本轮GRPO统一使用冻结Base Final，更新对象仅Process LoRA；没有使用Final-SFT结果来宣称Final训练成功。若重启Final-SFT，应先处理已确认的数据/错误模式，再用小范围受控设置与独立验证比较，而不是预设多训两轮有效。该重训尚未启动。
+本轮GRPO仅更新Process LoRA，答案由Base Final生成且其参数不更新；本次Final-SFT未作为答案模块接入。若重启Final-SFT，应先处理已确认的数据/错误模式，再用小范围受控设置与独立验证比较，而不是预设多训两轮有效。该重训尚未启动。
 
 dev100用于开发和checkpoint诊断，不是独立最终测试；也不与Process开发对照题集混为同一题集。原始400条均有完整本地证据、答案与文字审核；以下仅公开逐题诊断摘要。
 
@@ -86,4 +90,4 @@ dev100用于开发和checkpoint诊断，不是独立最终测试；也不与Proc
 
 全部100题×四组的分数、优点和具体问题可从[逐题索引](records.md#final-comparison)进入；机器可读[400条评分](experiments/final_sft_dev100/scores_400.csv)及[汇总JSON](experiments/final_sft_dev100/summary.json)保留原值。缺失/失败答案没有补零，候选诊断分与有效答案分分列。
 
-**下一章：[冻结Base Final后的Process-GRPO](grpo.md)。**
+**沿参数主线阅读：[保持答案生成器参数不变的Process-GRPO](grpo.md)。**

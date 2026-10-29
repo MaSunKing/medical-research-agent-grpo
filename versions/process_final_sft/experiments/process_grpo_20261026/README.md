@@ -2,7 +2,9 @@
 
 [评测地图与指标定义](../../evaluation.md) · [50题逐题索引](../../records.md#process-development) · [运行配置核对](runtime.md) · [版本三概览](../../README.md) · [名词与指标解释](../../glossary.md)
 
-本报告比较同一50道HealthBench题上的Base、Process-SFT、GRPO13和GRPO25，共200条Process记录；四组Final均采用固定Base。该题集用于开发诊断、规则讨论和checkpoint比较，不作为独立未见测试。
+本报告比较同一50道HealthBench题上的Base、Process-SFT、GRPO13和GRPO25，共200条Process记录。**答案生成模块（Final）**统一使用基座答案生成器（Base Final）：同一Qwen3-8B禁用本项目adapter，根据原题和各组实际交付材料回答。答案模块参数不随Process更新，证据和答案仍可不同。
+
+该题集用于开发诊断、规则讨论和checkpoint比较，不作为独立未见测试。
 
 **Base/SFT与GRPO存在输出头、种子、JSON语法修正和资源配置差异。** 因此保留完整描述性对照，不把所有差值归因于GRPO权重。另一批题的四组同配置比较见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](../newbench_20261028/README.md)。
 

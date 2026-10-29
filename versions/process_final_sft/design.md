@@ -6,7 +6,7 @@
 
 ## 研究目标与模型角色
 
-目标是让8B模型围绕问题缺口自主选择搜索、打开来源并整理可追溯证据，再交给答案模块。工程合同保证数据和动作可核验；医学支持程度仍由模型判断，并在评测中检查。
+目标是让8B模型的检索与证据整理策略（Process）围绕问题缺口自主选择搜索、打开来源并整理可追溯证据，再交给答案生成模块（Final）。答案模块读取原问题与实际交付材料，综合回答、引用来源并说明证据不足之处。工程合同保证数据和动作可核验；医学支持程度仍由模型判断，并在评测中检查。
 
 基座为`Qwen/Qwen3-8B`，通过bitsandbytes以4-bit NF4双重量化加载，BF16计算。Base指同一基座禁用本项目adapter，不是另一份名为Qwen3-8B-Base的模型或未量化对照。
 
@@ -14,11 +14,13 @@
 |---|---|---|
 | Base Process | 原题与当步上下文，生成需求、决策、State | 禁用项目adapter |
 | Process-SFT / GRPO | 同一Process协议，策略不同 | 分别加载原972或GRPO adapter |
-| Base Final | 原题、实际交付的证据和State，综合答案 | 禁用Process adapter，保持冻结 |
-| Final-SFT | 相同Final输入合同，学习gold答案 | 独立新建Final LoRA；本轮GRPO不采用 |
+| 基座答案生成器（Base Final） | 原题、实际交付的证据和State，综合答案 | 同一Qwen3-8B禁用Process adapter，答案模块参数不更新 |
+| 答案模块SFT（Final-SFT） | 相同答案输入合同，学习gold答案 | 另建答案生成LoRA；本轮GRPO不采用 |
 | 压缩兜底 | 预算压力下处理已给定材料 | 同基座禁用Process adapter，不自主检索 |
 
-LoRA不是多套独立基座。Process与Final按角色切换；Process-GRPO采集及跨基准四组验证使用冻结FP32 Process线性输出头，Final恢复原输出头。开发对照中Base/SFT与GRPO的数值路径差异另见[运行配置对照](experiments/process_grpo_20261026/runtime.md)。
+检索策略与答案生成可在同一基座上分别控制参数；“独立答案模块”不表示另部署一个更大的模型。Process-GRPO采集及跨基准四组验证使用冻结FP32 Process线性输出头，生成答案时恢复原输出头并禁用Process adapter。开发对照中Base/SFT与GRPO的数值路径差异另见[运行配置对照](experiments/process_grpo_20261026/runtime.md)。
+
+“答案模块参数固定”表示本轮不更新这些权重；它仍会根据各组交付的不同材料生成不同回答。“固定输入对照”则让各答案候选读取同一份请求快照，用于隔离答案模块本身的差异。
 
 ## 模型加载配置
 
@@ -38,7 +40,7 @@ Process训练采用NF4 QLoRA，量化基座冻结、LoRA参数保留FP32。部�
 | 题集 | 来源与规模 | 用途 |
 |---|---|---|
 | Process972 | 原始Teacher真实阶段轨迹，972题 | Process-SFT；10575个合法阶段目标 |
-| Final600 | 论文/健康科普问答来源题池，固定500 train＋100 dev | 冻结Pre-final、gold构建与Final-SFT |
+| Final600 | 论文/健康科普问答来源题池，固定500 train＋100 dev | 固定答案输入快照、gold构建与答案模块SFT |
 | GRPO100 | Final train500中的50道短题＋LiveQA历史Train-1的50道长题 | 每题4条，采集400条；99组用于本轮更新 |
 | Process开发对照题集（HealthBench50） | 原始HealthBench题池，25论文需求＋25网页/指南需求 | Base/SFT/GRPO开发对照，不参与本轮GRPO更新 |
 | 跨基准验证题集 | HealthBench50＋MedBrowseComp50，区别于开发对照的50题子集 | 四种Process策略同配置重新检索，各100条；不参与本轮GRPO更新 |
@@ -76,13 +78,13 @@ Process开发对照50题仍已用于开发、规则讨论和checkpoint选择，�
 
 ## 跨基准验证评测的实现身份
 
-HealthBench50与MedBrowseComp50的四组均重新运行，统一FP32 Process头、冻结Base Final、同预算与同检索。部署源代码按单独快照公开在[跨基准验证评测代码](experiments/newbench_20261028/code/README.md)，不以旧600题源码冒充本轮运行。工程缓存防止重复网络调用，动作预算限制空转；是否提出重复查询仍是策略行为。
+HealthBench50与MedBrowseComp50的四组均重新运行，统一FP32 Process头、同预算与同检索，答案模块共用参数不更新的基座答案生成器。部署源代码按单独快照公开在[跨基准验证评测代码](experiments/newbench_20261028/code/README.md)，不以旧600题源码冒充本轮运行。工程缓存防止重复网络调用，动作预算限制空转；是否提出重复查询仍是策略行为。
 
 <a id="实际交付与完整存档"></a>
 
 ## 实验身份与公开范围
 
-完整Pre-Final归档、实际Final请求与输入快照分别登记身份。交付覆盖只依据真正进入Final请求的材料；固定输入对照复用同一份请求快照，不用更大存档补分。[交接边界](engineering.md#handoff)
+PreFinal完整材料归档、实际答案请求与输入快照分别登记身份。交付覆盖只依据真正进入答案请求的材料；固定输入对照复用同一份请求快照，不用更大存档补分。[交接边界](engineering.md#handoff)
 
 程序结束、格式合格与哈希通过属于工程完整性；证据适用、State忠实与答案正确属于内容质量。完整批量数据、gold、权重与凭据留私有，公开源码与真实案例范围见[源码入口](current/README.md)及[案例说明](../../examples/version3_cases/README.md)。
 

@@ -4,6 +4,8 @@
 
 [评测方法与结果](../../evaluation.md) · [逐题索引](../../records.md#cross-benchmark) · [100道评测原题](questions_100.json) · [400条记录](records_400.json) · [复算代码](verify_results.py) · [名词与指标解释](../../glossary.md)
 
+四组分别更换Process检索策略；**答案生成模块（Final）**统一使用基座答案生成器（Base Final），即同一Qwen3-8B禁用本项目adapter。答案模块参数与生成配置相同，但各组重新检索、交付的材料可以不同，最终答案也可以不同；这里固定的是参数和配置，不是答案文本。
+
 ## 一眼看到的变化
 
 |跨基准验证指标|Base|Process-SFT|GRPO13|GRPO25|
@@ -71,7 +73,7 @@ GRPO13在HealthBench答案加权均分最高，但对SFT的逐题答案比较为
 
 ## 为什么保留GRPO路线
 
-本轮训练只更新Process，Final保持Base。跨基准四组同配置验证表明，改进不只体现为答案话术：完全重复搜索消失、实际交付覆盖提高，并且重大或Process硬失败题数少于SFT与Base。GRPO25因此作为当前Process交付/可靠性主候选；GRPO13保留为HealthBench答案指标的对照。继续研究GRPO有数据依据，尚不代表已执行下一轮训练或证明一个checkpoint在所有题型稳定最优。
+本轮训练只更新Process，答案生成模块继续使用Base Final且参数不更新。跨基准四组同配置验证表明，改进不只体现为答案话术：完全重复搜索消失、实际交付覆盖提高，并且重大或Process硬失败题数少于SFT与Base。GRPO25因此作为当前Process交付/可靠性主候选；GRPO13保留为HealthBench答案指标的对照。继续研究GRPO有数据依据，尚不代表已执行下一轮训练或证明一个checkpoint在所有题型稳定最优。
 
 ## 数据与边界核查
 

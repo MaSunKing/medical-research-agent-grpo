@@ -4,17 +4,19 @@
 
 本页说明三项评测分别比较什么，以及怎样阅读覆盖、质量、答案和失败指标。完整结果由各自报告承接；不同题集和评分尺度分开报告，不合成一个总准确率。
 
+Process负责检索与证据整理，**答案生成模块（Final）**负责结合原问题和实际交付材料撰写回答。这里的**基座答案生成器（Base Final）**使用同一Qwen3-8B并禁用本项目adapter；它在Process-GRPO中不更新参数，仍会随输入材料生成不同答案。
+
 ## 实验分组与历史边界
 
 | 评测 | 固定什么 | 比较什么 | 完整记录与报告 |
 |---|---|---|---|
-| **[Process开发对照评测 · HealthBench50](experiments/process_grpo_20261026/README.md)** | 同一题集、固定Base Final；Base/SFT与GRPO有运行配置差异 | 开发阶段的证据交付、State、失败与checkpoint表现 | 50题、200条 |
-| **[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)** | 相同冻结runtime、预算、检索与Base Final | 四种Process策略各自重新获取证据、交付材料并生成答案 | 100题、400条 |
-| **[Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md)** | 每题同一份固定Final输入快照 | Base Final与Final-SFT 1/1.5/2轮如何使用相同材料回答 | 100题、400条 |
+| **[Process开发对照评测 · HealthBench50](experiments/process_grpo_20261026/README.md)** | 同一题集、基座答案生成器；Base/SFT与GRPO的过程运行配置有差异 | 开发阶段的证据交付、State、失败与checkpoint表现 | 50题、200条 |
+| **[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)** | 相同runtime、预算、检索与答案生成配置 | 四种Process策略各自重新获取证据、交付材料并生成答案 | 100题、400条 |
+| **[Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md)** | 每题同一份实际答案请求快照 | Base Final与Final-SFT 1/1.5/2轮如何使用相同材料回答 | 100题、400条 |
 
 两个HealthBench50是不同的50题子集，Q编号只在各自评测内有效。Process开发对照已用于诊断与checkpoint比较，不作为独立未见测试；dev100也是开发验证。跨基准题在该轮生成前选定，现已用于分析，后续不能继续声称从未接触。
 
-**同配置与固定输入是两种控制方式：** 同配置的Process仍会选择不同动作、读到不同证据；固定输入的Final候选使用同一份请求，不重新检索。当前Process交付/可靠性候选与答案模块选型，应分别查看对应评测的结果和限制。
+**参数不更新与输入固定是两种约束：** 四组Process评测使用相同的答案模块参数，但各组可能交付不同证据，因此答案也可能不同；dev100则让不同答案模块使用每题同一份实际请求，不重新检索。当前Process交付/可靠性候选与答案模块选型，应分别查看对应评测的结果和限制。
 
 ## 表格字段速查
 

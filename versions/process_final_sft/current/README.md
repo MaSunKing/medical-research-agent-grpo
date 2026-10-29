@@ -16,7 +16,7 @@
 |---|---|
 | 完整节点流程与条件路由 | [runtime/src/trainable_agent/engine.py](runtime/src/trainable_agent/engine.py) |
 | 单题Process轨迹采集 | [run_one.py](run_one.py) |
-| 保存实际Final请求的固定输入快照 | [freeze_final_input.py](freeze_final_input.py) |
+| 保存答案生成模块（Final）实际请求的固定输入快照 | [freeze_final_input.py](freeze_final_input.py) |
 | 模型服务与角色参数控制 | [serve_policy.py](serve_policy.py) |
 | 批量采集与续跑队列 | [collect.py](collect.py) |
 | 准备题集、配置与工作目录 | [prepare.py](prepare.py) |
@@ -40,7 +40,7 @@
 | [original972_training](original972_training) | 新建Process LoRA训练原始972阶段样本；包括effective-batch token loss、GPU验收与7项CPU/toy测试 |
 | [process_grpo_update](process_grpo_update/README.md) | 从原972 Process adapter继续更新；轨迹奖励、截帽重要性校正、PPO式裁剪、确定性更新及断点恢复 |
 
-Final-SFT是独立答案模块对照，不是上述两项之间的训练步骤。其数据、参数与结论见[Final-SFT章节](../final_sft.md)。
+Final-SFT是对答案生成模块单独开展的监督微调对照，不是上述两项之间的训练步骤。当前Process-GRPO使用同一Qwen3-8B禁用项目adapter来生成答案，该答案模块参数不更新；这不要求另部署一套基座。其数据、参数与结论见[答案模块SFT对照](../final_sft.md)。
 
 <a id="跨基准验证评测对应的源码"></a>
 

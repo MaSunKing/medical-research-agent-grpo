@@ -1,6 +1,6 @@
 # 版本三｜Process-SFT到Process-GRPO的实验地图
 
-Process围绕问题缺口获取、判断并交付证据，Final根据实际输入综合答案。当前以Process-SFT→Process-GRPO为参数更新主线，Final-SFT用于独立模块对照；系统运行机制见[完整架构](engineering.md)，本页定位训练、对照与评测资料。
+检索与证据整理策略（Process）围绕问题缺口获取、判断并交付材料；答案生成模块（Final）根据原问题和实际可见材料综合回答。当前训练主线为Process-SFT→Process-GRPO，另有答案模块监督微调（Final-SFT）的单独对照实验；本页定位训练、对照与评测资料。
 
 [项目首页](../../README.md) · [真实案例](../../examples/version3_cases/README.md) · [名词与指标解释](glossary.md) · [当前源码](current/README.md)
 
@@ -9,28 +9,28 @@ Process围绕问题缺口获取、判断并交付证据，Final根据实际输�
 ```mermaid
 flowchart TD
     A["Qwen3-8B量化基座"] --> B["Process-SFT：972题阶段监督"]
-    B --> G["Process-GRPO：固定Base Final，更新Process LoRA"]
+    B --> G["Process-GRPO：更新检索策略，答案模块参数不变"]
     G --> E["GRPO13／GRPO25：四组系统评测"]
-    A --> F["独立Final LoRA：固定输入与gold训练"]
+    A --> F["答案模块SFT（Final-SFT）：相同输入与gold训练"]
     B -. "仅提供采集输入" .-> F
-    F --> V["Final模块对照：Base与1／1.5／2轮"]
-    V -. "答案模块选型；不向GRPO传Final-SFT权重" .-> E
+    F --> V["答案模块对照：基座与1／1.5／2轮"]
+    V -. "选择答案生成器" .-> E
 ```
 
 | 工作 | 输入／初始化 | 更新对象 | 已完成产物 |
 |---|---|---|---|
 | [Process-SFT](process_sft.md) | 基座＋Teacher阶段样本 | Process LoRA | 972题、10,575阶段样本、1,322次更新 |
 | [Process-GRPO](grpo.md) | 原972 Process adapter＋封存轨迹与奖励 | 继续更新Process LoRA | 100题×4条；99组可用、25批；保留GRPO13／25 |
-| [Final-SFT独立对照](final_sft.md) | 基座＋固定Final输入与指定gold | 独立Final LoRA | 500训练题；dev100比较Base及1／1.5／2轮 |
-| 系统评测 | 四种Process策略，Final固定Base | 不更新参数 | 开发对照与跨基准验证均有逐题记录 |
+| [答案模块SFT对照（Final-SFT）](final_sft.md) | 基座＋固定答案输入快照与指定gold | 单独训练答案模块LoRA | 500训练题；dev100比较基座及1／1.5／2轮 |
+| 系统评测 | 四种Process策略，使用同一基座答案生成器 | 不更新参数 | 开发对照与跨基准验证均有逐题记录 |
 
-Final-SFT影响答案模块选型，未作为GRPO初始化或训练产物接入。当前固定Base Final的依据来自dev100对照；Process的交付候选依据来自系统评测，两种选型分别报告。
+这里的“单独对照”指分别训练和评价答案模块，可以与Process共用同一Qwen3-8B基座。当前使用未启用项目微调参数的基座答案生成器（Base Final）；Process-GRPO只更新检索策略。**答案模块参数保持不变，不代表各组答案相同：它们接收的检索材料可以不同。** 两种模块的选型依据分别报告。
 
 ## 三项评测与当前选择
 
 - **[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)**：四组同配置重新检索，共400条。当前以GRPO25作为Process证据交付主候选，GRPO13保留为HealthBench答案指标对照；完整报告列出逐题胜负、重大错误、轨迹失败及不确定性。
 - **[Process开发对照评测 · HealthBench50](experiments/process_grpo_20261026/README.md)**：50题、四组200条，用于开发诊断和checkpoint比较。Base/SFT与GRPO的运行差异单列，不作为严格同runtime因果实验。
-- **[Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md)**：100题相同冻结输入，比较Base Final和三个Final-SFT checkpoint。三个checkpoint在本次对照中未超过Base，因此本轮GRPO保留Base Final。
+- **[Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md)**：每题给四种答案配置同一份实际输入，比较基座答案生成器与三个答案模块SFT checkpoint。三个checkpoint在本次对照中未超过基座，因此当前使用基座模型生成答案。
 
 [评测地图与指标定义](evaluation.md)解释各自固定什么、比较什么、怎样计分；[逐题索引](records.md)保留三项评测的全部原题、评分和具体问题。
 
@@ -43,7 +43,7 @@ Final-SFT影响答案模块选型，未作为GRPO初始化或训练产物接入�
 | 使用什么模型、题集、配置和数据隔离？ | [数据与实验设置](design.md) |
 | SFT怎样构造目标、mask与计算loss？ | [Process-SFT](process_sft.md) |
 | GRPO怎样把评分转成参数更新？ | [奖励、概率校正与训练算法](grpo.md) |
-| Final为什么保留Base？ | [Final-SFT独立对照](final_sft.md) |
+| 为什么用基座模型生成答案？ | [答案模块的监督微调对照](final_sft.md) |
 | 指标和失败分母怎样解释？ | [评测方法](evaluation.md) · [术语](glossary.md) |
 | 源码、测试及冻结实验在哪里？ | [当前源码入口](current/README.md) · [代码导航](../../docs/code_navigation.md) |
 

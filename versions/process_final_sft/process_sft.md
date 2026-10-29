@@ -4,13 +4,13 @@
 
 [名词与指标解释](glossary.md)
 
-Process-SFT是参数训练主线的起点，产物继续用于Process-GRPO；Final-SFT另作独立答案模块对照。
+Process-SFT是参数训练主线的起点，产物继续用于Process-GRPO。**答案生成模块（Final）**负责使用Process交付的材料回答；专门微调该模块的实验称为Final-SFT，单独进行固定输入对照。Process-SFT本身不训练答案生成模块。
 
 | 训练边界 | 本页对象 |
 |---|---|
 | 输入 | 972题Teacher真实轨迹拆成的10575条合法阶段样本 |
 | 初始化 | 冻结`Qwen/Qwen3-8B`基座，新建Process LoRA |
-| 更新对象 | 仅Process LoRA；监督Checklist、Decision、State的当前completion，Final不作为训练目标 |
+| 更新对象 | 仅Process LoRA；监督Checklist、Decision、State的当前completion，答案生成模块（Final）不作为训练目标 |
 | 产物 | 原972 Process checkpoint1322，作为后续Process-GRPO初始化 |
 
 ### 轨迹拆分
@@ -21,7 +21,7 @@ Process-SFT是参数训练主线的起点，产物继续用于Process-GRPO；Fin
 - Decision：监督具体Search query、Browse来源ID及阅读重点，不只监督动作类别。
 - State：监督有证据来源的状态更新与未解决缺口。
 - Stop：属于Decision的合法停止动作；正常工具预算耗尽时由程序结束，不伪造模型Stop目标。
-- Final：不作为Process target，不进入更早阶段历史。
+- 答案生成（Final）：不作为Process target，不进入更早阶段历史。
 
 输入、历史和工具Observation全部mask，仅当前合法completion计算CE。拒绝尝试保留反馈与因果记录，不自动作为合格正监督。原始训练使用当时真实可见输入；当前推理与导出共用阶段构建器，但不能宣称已与旧Teacher完整源码、预算和候选处理逐字一致。
 
@@ -79,4 +79,4 @@ Process-SFT是参数训练主线的起点，产物继续用于Process-GRPO；Fin
 
 SFT在历史50题中交付覆盖55.83%，Base48.42%，Process模型失败2/50对6/50，因此成为后续采集起点。综合质量R没有超过Base，不能把它概括为所有能力都更好；State误读与证据利用是后续GRPO关注的问题。
 
-**沿参数主线继续：[Process-GRPO](grpo.md)。** 答案模块的独立对照见[Final-SFT](final_sft.md)。
+**沿参数主线继续：[Process-GRPO](grpo.md)。** 答案生成模块的单独微调与对照见[Final-SFT](final_sft.md)。

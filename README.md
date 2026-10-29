@@ -2,11 +2,11 @@
 
 基于`Qwen/Qwen3-8B`的医学证据检索Agent：围绕问题缺口搜索论文和网页、读取来源并记录未解决项，再把可追溯的材料交给答案生成环节。用于研究和工程展示，不替代临床判断。
 
-**当前主要探索版本三：Base → Process-SFT → Process-GRPO。** Process负责拆需求、选工具和判断证据，Final负责根据实际交付材料回答。项目通过SFT和GRPO改进Process，已完成独立Final对照与逐题评测；模型加载和量化配置见[数据与实验设置](versions/process_final_sft/design.md)。
+**当前主要探索版本三：Base → Process-SFT → Process-GRPO。** 检索与证据整理策略（Process）负责拆需求、选工具和判断证据；答案生成模块（Final）接收原问题和实际交付材料，综合回答，并按可用证据给出引用和限制。项目已完成Process训练、答案模块的单独微调对照与逐题评测；模型配置见[数据与实验设置](versions/process_final_sft/design.md)。
 
 ## 主要结果与当前选择
 
-下表来自**跨基准验证评测 · HealthBench50＋MedBrowseComp50**：100题、四组共400条真实轨迹。四组只替换Process策略，采用相同运行配置，Final统一固定为Base；各组独立重新检索，得到的证据可以不同。
+下表来自**跨基准验证评测 · HealthBench50＋MedBrowseComp50**：100题、四组共400条真实轨迹。四组只替换Process检索策略，都由同一Qwen3-8B基座配置生成答案（Base Final），生成答案时不启用本项目训练得到的适配器。**固定的是答案模块参数；各组读到的材料不同，答案仍可能不同。**
 
 Base表示未启用本项目训练参数的对照；GRPO13／25分别是完成第13／25个更新批次后的Process checkpoint，数字不是训练轮数。
 
@@ -17,7 +17,7 @@ Base表示未启用本项目训练参数的对照；GRPO13／25分别是完成�
 | 完全重复Search额外动作 | 31 | 1 | **0** | **0** |
 | 重大或Process失败，去重题数 | 21 | 17 | **14** | **14** |
 | Process失败 / 100 | 6 | 2 | **1** | **1** |
-| Final失败 / 100 | **0** | **0** | 1 | 2 |
+| 答案生成失败 / 100 | **0** | **0** | 1 | 2 |
 
 当前以**GRPO25作为证据交付主候选**，GRPO13保留为HealthBench答案指标对照。GRPO25对SFT的交付覆盖为22胜、11负、67平，Process质量值R为41胜、38负、21平；收益集中在证据交付和部分可靠性指标，逐题比较并非全面占优。
 
@@ -25,8 +25,8 @@ Base表示未启用本项目训练参数的对照；GRPO13／25分别是完成�
 
 ## 真实案例：交付与失败都能追溯
 
-- **[Q45：浅表伤口护理](examples/version3_cases/Q45_grpo25/README.md)**：2次Search、4次Browse、4次State更新，实际交付覆盖100%。保留原始Final及0.2885的HealthBench答案分，展示“证据交付充分”与“答案仍有不足”的区别。
-- **[Q98：多跳试验检索](examples/version3_cases/Q98_grpo25/README.md)**：定位到目标试验，后续两次Browse决策均因绑定3项需求而被拒绝，Process终止且没有Final。案例保留原始错误、已找到的材料和诊断依据。
+- **[Q45：浅表伤口护理](examples/version3_cases/Q45_grpo25/README.md)**：2次Search、4次Browse、4次State更新，实际交付覆盖100%。保留模型生成的原始答案及0.2885的HealthBench答案分，展示“证据交付充分”与“答案仍有不足”的区别。
+- **[Q98：多跳试验检索](examples/version3_cases/Q98_grpo25/README.md)**：定位到目标试验，后续两次Browse决策均因绑定3项需求而被拒绝，Process终止，未进入答案生成阶段。案例保留原始错误、已找到的材料和诊断依据。
 
 两条均来自已有GRPO25真实记录，没有补搜或重新评分；完整英文原题、Checklist、动作、证据短摘录与State变化见[案例索引](examples/version3_cases/README.md)。
 
@@ -44,18 +44,18 @@ flowchart TD
     S --> D
     D -->|"模型选择Stop"| P["PreFinal：汇集状态、证据与历史"]
     D -. "程序判定预算结束" .-> P
-    P -->|"ContextBuilder构建实际请求"| F["Final：根据可见材料回答"]
+    P -->|"ContextBuilder构建实际请求"| F["答案生成（Final）：综合回答"]
 ```
 
 模型负责拆需求、选行动、判断支持程度和综合回答；程序负责工具执行、格式与ID校验、预算、上下文和记录。**Search只返回候选；Browse产生新增已读证据后才调用State。** 模型Stop与程序预算终止分别记录，工程完成不代表医学质量通过。
 
-PreFinal汇集完整包，ContextBuilder生成实际Final请求。完整问答使用该请求生成答案；Process-only采集另外保存固定输入快照后结束。参数冻结与输入快照固定是两种不同约束。[完整架构与执行机制](versions/process_final_sft/engineering.md)
+答案生成前的交接阶段（PreFinal）汇集完整材料包，ContextBuilder再按预算构建答案模块实际能看到的请求。完整问答继续生成答案；只采集检索过程时，可保存这份实际请求快照后结束。[完整架构与执行机制](versions/process_final_sft/engineering.md)
 
 <a id="从当前模型继续训练的完整路线"></a>
 
 ## 训练改了哪里
 
-**参数更新主线：Process-SFT → Process-GRPO。Final-SFT是独立答案模块对照。**
+**参数更新主线：Process-SFT → Process-GRPO。** 我们还单独测试过答案生成模块的监督微调（Final-SFT），用相同证据输入比较微调前后的答题表现。
 
 Process-GRPO更新边界为：
 
@@ -67,10 +67,10 @@ Process-GRPO更新边界为：
 | 工作 | 输入与初始化 | 更新对象与产物 |
 |---|---|---|
 | [Process-SFT](versions/process_final_sft/process_sft.md) | 量化基座＋972题Teacher阶段轨迹 | Process LoRA；10,575阶段样本、1,322次更新 |
-| [Process-GRPO](versions/process_final_sft/grpo.md) | 原972 Process LoRA＋100题×4轨迹及本地奖励 | 99个可用题组、25批更新；保留GRPO13／25，Final参数固定 |
-| [Final-SFT独立对照](versions/process_final_sft/final_sft.md) | 同基座＋冻结Final输入与指定gold；500训练／100开发题 | 独立Final LoRA；比较1／1.5／2轮与Base Final |
+| [Process-GRPO](versions/process_final_sft/grpo.md) | 原972 Process LoRA＋100题×4轨迹及本地奖励 | 99个可用题组、25批更新；保留GRPO13／25，答案模块参数不更新 |
+| [答案模块SFT对照（Final-SFT）](versions/process_final_sft/final_sft.md) | 同基座＋固定答案输入快照与指定gold；500训练／100开发题 | 单独训练答案模块LoRA；比较1／1.5／2轮与基座答案生成器 |
 
-在dev100固定输入对照的共同有效97题上，Base Final为77.06分，Final-SFT三个checkpoint为58.40／61.57／65.98分。因此当前问答和Process-GRPO保留Base Final；GRPO不加载Final-SFT checkpoint，Final-SFT训练不是其必经前置。[Final模块对照评测](versions/process_final_sft/experiments/final_sft_dev100/README.md)
+在dev100固定输入对照的共同有效97题上，基座答案生成器（Base Final）为77.06分，答案模块SFT三个checkpoint为58.40／61.57／65.98分。因此当前采用基座模型生成答案；Process-GRPO从原972 Process权重继续训练，答案模块参数不参与该更新。[Final模块对照评测](versions/process_final_sft/experiments/final_sft_dev100/README.md)
 
 GRPO在共同工程约束内学习相对更好的Process策略；同题优势、生成／训练概率校正、PPO式裁剪、轨迹归一化与恢复验收见[算法说明](versions/process_final_sft/grpo.md)。
 

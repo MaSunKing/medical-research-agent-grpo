@@ -4,7 +4,9 @@
 
 [名词与指标解释](glossary.md)
 
-**这条路线先用SFT建立可执行的检索行为，再用同题多条轨迹的相对质量，优化Process实际交付的证据与决策可靠性。** Final保持Base，更新目标集中在模型可以控制的需求拆解、检索选择和State判断。Base、Process-SFT、GRPO13与GRPO25的完整比较见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)。
+**这条路线先用SFT建立可执行的检索行为，再用同题多条轨迹的相对质量，优化Process实际交付的证据与决策可靠性。** 本轮只更新Process LoRA，目标集中在模型可以控制的需求拆解、检索选择和State判断。
+
+**答案生成模块（Final）**仍由基座答案生成器（Base Final）承担，即同一`Qwen/Qwen3-8B`不启用本项目adapter。它的参数在本轮GRPO中不更新；Process交付的材料可以变化，因此生成的答案也可以变化。Base、Process-SFT、GRPO13与GRPO25的完整比较见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)。
 
 | 训练边界 | 本轮对象 |
 |---|---|
@@ -13,7 +15,7 @@
 | 更新对象 | 仅Process LoRA；基座、输出头和Base Final参数固定 |
 | 产物 | 第13批与第25批Process checkpoint；分别重新检索评测 |
 
-参数主线是**Process-SFT → Process-GRPO**。Final-SFT是独立答案模块对照，其checkpoint不进入本轮GRPO更新；该对照影响的是固定答案生成器的选型。
+参数主线是**Process-SFT → Process-GRPO**。Final-SFT是答案生成模块的单独监督微调与固定输入对照，其checkpoint不进入本轮GRPO更新；该对照决定采用哪种答案生成器，不要求再部署一套独立基座。
 
 ## 为什么采用Base → SFT → GRPO这条路线
 
@@ -47,7 +49,7 @@ flowchart TD
 
 ## 1. 奖励评价什么
 
-**本轮Final权重为0；奖励评价Process真正交给Final的内容和过程可靠性。** Final答案与HealthBench/MedBrowseComp分数用于独立效果检查。
+**本轮奖励只评价Process交给答案生成模块的材料，以及过程可靠性；答案得分在奖励配比中的权重为0。** 答案仍正常生成，HealthBench/MedBrowseComp评分作为独立效果检查，不进入本轮Process更新奖励。
 
 | 分项 | 权重 | 评价对象 |
 |---|---:|---|
@@ -94,7 +96,7 @@ Checklist、Decision、State的实际采样输出均属于Process策略token。�
 | Checklist / Decision / State原始采样token | 参与Process策略目标 |
 | 原题、系统提示、已有状态、工具Observation | 作为条件输入，不计算这些输入token的目标loss |
 | 压缩输出、程序Pre-final | 不作为Process策略输出目标 |
-| Final答案 | 不更新；Base Final冻结 |
+| Final答案token | 不参与Process策略目标；答案生成器参数不更新 |
 
 因此Checklist可以得到学习信号。当前采用**一个轨迹优势共享给该轨迹全部Process阶段**，没有给某一步额外编造独立优势。逐步记录用于定位错误；终局奖励可以评价整条轨迹，但不能据此声称已识别某一步的因果贡献。输入不计目标loss也不表示模型看不到输入，输出概率仍以完整当步输入为条件。
 
