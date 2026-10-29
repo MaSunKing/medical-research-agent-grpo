@@ -1,10 +1,16 @@
-# 版本三当前实现：节点式Process与最新检索
+# 版本三源码入口：运行组件、训练器与实验快照
 
 [版本三说明](../README.md) · [首页](../../../README.md) · [源码身份清单](SOURCE_MANIFEST.json)
 
-本目录是版本三的当前生产源码入口：LangGraph节点、MCP桥接、上下文、重复Search缓存、候选可用性、正文保护、worker来源恢复及相关测试。各步骤的设计理由和适用限制见[逐步工程设计](../engineering.md)，奖励、概率校正与更新公式见[Process-GRPO](../grpo.md)。**不附私有训练题、完整轨迹、权重、凭据、私有配置或运行日志。**
+`current`是版本三维护源码的位置，不指定正在使用哪一个Process checkpoint。部署时仍需显式绑定Base、Process-SFT、GRPO13或GRPO25及对应配置；特定实验按各自冻结执行快照复核。
 
-## 目录
+本目录覆盖LangGraph节点、MCP桥接、上下文、重复Search缓存、候选可用性、正文保护、worker来源恢复及相关测试。完整运行说明见[系统架构与执行机制](../engineering.md)，训练方法见[Process-SFT](../process_sft.md)与[Process-GRPO](../grpo.md)。**不附私有训练题、完整轨迹、权重、凭据、私有配置或运行日志。**
+
+<a id="目录"></a>
+
+## 按用途选择入口
+
+### 运行组件与检索
 
 | 路径 | 内容 |
 |---|---|
@@ -12,9 +18,26 @@
 | [runtime/retrieval_snapshot_v2](runtime/retrieval_snapshot_v2) | Search、Browse、清洗、排序、PDF、证据坐标与来源恢复；99文件清单及共享模块绑定 |
 | [runtime/tests](runtime/tests) | 当前生产合同回归；不包含旧拒绝式训练数据构建器的全仓库验收承诺 |
 | [runtime/scripts](runtime/scripts) | 源码核验、运行环境预检和显式恢复工具 |
-| [original972_training](original972_training) | 原始972训练器、effective-batch token loss、GPU验收与7项CPU/toy测试 |
-| [process_grpo_update](process_grpo_update/README.md) | Process轨迹奖励、截帽重要性校正、PPO式裁剪、确定性更新及断点恢复源码 |
 | 本目录Python/Shell入口 | Process-only队列、Final输入冻结、配置准备、状态查看、SQLite一致性导出与Slurm入口 |
+
+### Process参数训练主线
+
+| 入口 | 初始化与职责 |
+|---|---|
+| [original972_training](original972_training) | 新建Process LoRA训练原始972阶段样本；包括effective-batch token loss、GPU验收与7项CPU/toy测试 |
+| [process_grpo_update](process_grpo_update/README.md) | 从原972 Process adapter继续更新；轨迹奖励、截帽重要性校正、PPO式裁剪、确定性更新及断点恢复 |
+
+Final-SFT是独立答案模块对照，不是上述两项之间的训练步骤。其数据、参数与结论见[Final-SFT章节](../final_sft.md)。
+
+<a id="跨基准验证评测对应的源码"></a>
+
+### 特定实验的冻结执行源码
+
+跨基准四组benchmark的执行源码、评测/Judge适配及合成测试独立保存在[评测快照](../experiments/newbench_20261028/code/README.md)，结果见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](../experiments/newbench_20261028/README.md)。复现使用对应源码清单、模型和运行配置；维护目录名不能替代实验身份。
+
+### 历史实现与全仓库导航
+
+根目录既有实现及版本一、二保留各自适用身份，不作为当前默认入口。需要定位它们时见[代码导航](../../../docs/code_navigation.md)；版本三的数据与运行身份见[数据与实验设置](../design.md)。
 
 ## 离线检查
 
@@ -45,7 +68,3 @@ collect/prepare/训练入口依赖私有QUESTIONS、SPLIT、模型身份、数�
 正文清洗保留弱标题规则，在排除模板噪声时保护临床短句、剂量、否定比较、中文条目和表格。worker启动及Search回执重放时恢复已经校验的来源映射，不增加Search、不改canonical ID；只能恢复回执实际保存的字段。reading_focus的检索投影每次独立按320个UTF-8字节处理，原题锚点为640字节，完整原题和证据正文另有预算。
 
 Teacher完整采集源码不在本目录补造；原训练保持真实messages身份。源码与合成测试不等于私有数据已附带或医学质量已获批准。运行模式、更新对象和输入边界见[完整设计](../engineering.md)。
-
-## 跨基准验证评测对应的源码
-
-当前实现见本目录；四组benchmark的执行源码、评测/Judge适配及合成测试独立保存在[评测源码](../experiments/newbench_20261028/code/README.md)，结果见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](../experiments/newbench_20261028/README.md)。实验复现使用对应源码清单、模型和运行配置，不以“current”目录名替代实验身份。

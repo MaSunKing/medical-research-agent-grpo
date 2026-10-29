@@ -1,6 +1,6 @@
 # 6. 逐题评分与问题索引
 
-[概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · **逐题记录** · [名词与指标解释](glossary.md)
+[概览](README.md) · [数据与实验设置](design.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · **逐题记录** · [名词与指标解释](glossary.md)
 
 
 所有已有分数和审核结论保持原样；这里补充主题、字段解释和稳定入口。三项评测的逐题页均包含实际原题。gold、完整批量答卷、逐字证据和回执留在私有归档；少量输出与短证据按[真实案例页](../../examples/version3_cases/README.md)所述范围公开。

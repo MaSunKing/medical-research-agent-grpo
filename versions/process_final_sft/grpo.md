@@ -1,10 +1,19 @@
 # 4. Process-GRPO：从证据交付奖励到策略更新
 
-[概览](README.md) · [系统与数据](design.md) · [逐步工程设计](engineering.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · **GRPO** · [评测](evaluation.md) · [逐题记录](records.md)
+[概览](README.md) · [数据与实验设置](design.md) · [系统架构与执行机制](engineering.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · **GRPO** · [评测](evaluation.md) · [逐题记录](records.md)
 
 [名词与指标解释](glossary.md)
 
 **这条路线先用SFT建立可执行的检索行为，再用同题多条轨迹的相对质量，优化Process实际交付的证据与决策可靠性。** Final保持Base，更新目标集中在模型可以控制的需求拆解、检索选择和State判断。Base、Process-SFT、GRPO13与GRPO25的完整比较见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)。
+
+| 训练边界 | 本轮对象 |
+|---|---|
+| 输入 | 封存的真实轨迹、原始采样token及概率、本地Process奖励；99个可用题组，每题4条 |
+| 初始化 | 原972 Process LoRA checkpoint1322 |
+| 更新对象 | 仅Process LoRA；基座、输出头和Base Final参数固定 |
+| 产物 | 第13批与第25批Process checkpoint；分别重新检索评测 |
+
+参数主线是**Process-SFT → Process-GRPO**。Final-SFT是独立答案模块对照，其checkpoint不进入本轮GRPO更新；该对照影响的是固定答案生成器的选型。
 
 ## 为什么采用Base → SFT → GRPO这条路线
 
@@ -100,6 +109,8 @@ Checklist、Decision、State的实际采样输出均属于Process策略token。�
 | `c_t` | 当前Process参数在同一训练路径下计算的logprob | 随LoRA更新变化 |
 
 `o`是本轮初始策略的概率参考，不是额外加载的KL参考模型。所有题组的`o`先准备完成，再进入正式更新；恢复时仍使用同一份已封存参考，不能拿恢复后的当前策略重算并替换它。
+
+<a id="计划目标函数与算法"></a>
 
 ## 5. 如何校正生成与训练路径的差异
 

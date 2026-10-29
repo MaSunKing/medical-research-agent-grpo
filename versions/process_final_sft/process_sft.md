@@ -1,8 +1,17 @@
 # 2. Process-SFT
 
-[概览](README.md) · [系统与数据](design.md) · **Process-SFT** · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
+[概览](README.md) · [数据与实验设置](design.md) · **Process-SFT** · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
 
 [名词与指标解释](glossary.md)
+
+Process-SFT是参数训练主线的起点，产物继续用于Process-GRPO；Final-SFT另作独立答案模块对照。
+
+| 训练边界 | 本页对象 |
+|---|---|
+| 输入 | 972题Teacher真实轨迹拆成的10575条合法阶段样本 |
+| 初始化 | 冻结`Qwen/Qwen3-8B`基座，新建Process LoRA |
+| 更新对象 | 仅Process LoRA；监督Checklist、Decision、State的当前completion，Final不作为训练目标 |
+| 产物 | 原972 Process checkpoint1322，作为后续Process-GRPO初始化 |
 
 ### 轨迹拆分
 
@@ -70,4 +79,4 @@
 
 SFT在历史50题中交付覆盖55.83%，Base48.42%，Process模型失败2/50对6/50，因此成为后续采集起点。综合质量R没有超过Base，不能把它概括为所有能力都更好；State误读与证据利用是后续GRPO关注的问题。
 
-**下一章：[Final-SFT：固定输入的答案训练与Base对照](final_sft.md)。**
+**沿参数主线继续：[Process-GRPO](grpo.md)。** 答案模块的独立对照见[Final-SFT](final_sft.md)。

@@ -1,6 +1,6 @@
 # 当前检索设计
 
-[工程架构](architecture.md) · [逐步工程设计](../versions/process_final_sft/engineering.md) · [首页](../README.md)
+[工程架构](architecture.md) · [系统架构与执行机制](../versions/process_final_sft/engineering.md) · [首页](../README.md)
 
 ## Search发现来源，Browse建立证据
 

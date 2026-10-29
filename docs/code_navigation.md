@@ -1,6 +1,18 @@
-# 当前设计与公开源码导航
+# 按用途定位当前源码与实验实现
 
-当前节点式实现及最新检索已在[版本三current目录](../versions/process_final_sft/current/README.md)独立公开，附原始/发布文件SHA。保留此前组件和训练入口，不替换版本一、二、不修改旧规模gate。当前目录为源码公开包，不是附带题目/权重/凭据的服务器部署包；UTF-8/LF规范化、共享manifest重绑和prepare显式路径适配均有记录。
+当前节点式实现及最新检索已在[版本三current目录](../versions/process_final_sft/current/README.md)独立公开，附原始/发布文件SHA。保留此前组件和训练入口，不替换版本一、二、不修改旧规模gate。current目录为源码公开包，不是附带题目/权重/凭据的服务器部署包；UTF-8/LF规范化、共享manifest重绑和prepare显式路径适配均有记录。
+
+## 先选择用途
+
+**默认从[版本三当前源码入口](../versions/process_final_sft/current/README.md)进入。** `current`表示维护位置，不表示所有脚本自动加载GRPO25；运行时仍需显式绑定选定的Process权重和配置。
+
+| 用途 | 入口与身份 |
+|---|---|
+| 当前运行组件 | [runtime](../versions/process_final_sft/current/runtime)：节点、上下文与检索；部署需绑定完整身份 |
+| 原972 Process-SFT训练器 | [original972_training](../versions/process_final_sft/current/original972_training) |
+| Process-GRPO更新器 | [process_grpo_update](../versions/process_final_sft/current/process_grpo_update/README.md) |
+| 跨基准验证的冻结执行实现 | [实验源码](../versions/process_final_sft/experiments/newbench_20261028/code/README.md)：用于对应结果的复现，不由current路径替代 |
+| 历史组件 | 根目录agent／training／retrieval及版本一、二：保留各自实现身份 |
 
 ## 当前运行的模块边界
 
@@ -22,11 +34,13 @@
 
 原始972训练代码单独公开于[original972_training](../versions/process_final_sft/current/original972_training)，按10,575行、1,322更新和effective-batch target-token mean核对；不能以本页下方的既有训练文件身份替代。
 
-当前Process更新实现见[Process-GRPO源码](../versions/process_final_sft/current/process_grpo_update/README.md)，包括轨迹等权目标、概率校正、确定性和断点校验；根目录training保留其既有实现身份。[逐步设计](../versions/process_final_sft/engineering.md)解释各模块为何存在以及限制，[算法说明](../versions/process_final_sft/grpo.md)将奖励连接到实际参数更新。
+当前Process更新实现见[Process-GRPO源码](../versions/process_final_sft/current/process_grpo_update/README.md)，包括轨迹等权目标、概率校正、确定性和断点校验；根目录training保留其既有实现身份。[完整架构](../versions/process_final_sft/engineering.md)解释各模块为何存在以及限制，[算法说明](../versions/process_final_sft/grpo.md)将奖励连接到实际参数更新。
 
 从实际行为开始阅读，可先看[v3完整案例与失败定位](../examples/version3_cases/README.md)。`examples/trajectory_demo`保留原有历史身份，不作为v3/GRPO的执行案例。
 
-## 已公开组件与参考入口
+## 兼容参考入口
+
+下表定位此前公开的组件，不替代上方current默认入口；复现实验仍使用该实验自己的冻结源码。
 
 | 功能 | 已公开快照/参考源码 |
 |---|---|

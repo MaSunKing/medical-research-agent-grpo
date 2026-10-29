@@ -1,39 +1,57 @@
-# 工程设计：围绕证据缺口的有界检索流程
+# 系统架构与执行机制
 
-[版本三概览](README.md) · [系统与题集](design.md) · [当前源码](current/README.md) · [检索机制](../../docs/retrieval.md)
+<a id="工程设计围绕证据缺口的有界检索流程"></a>
 
-[名词与指标解释](glossary.md)
+[版本三概览](README.md) · [数据与实验设置](design.md) · [当前源码](current/README.md) · [检索机制](../../docs/retrieval.md) · [名词与指标解释](glossary.md)
 
-系统采用一个Process策略循环：模型拆解需求、选择动作和判断支持程度，程序负责执行工具、限制预算、保持来源身份并保存可核验记录。这样的分工让小模型把生成集中在当步决策上，让检索、证据整理和答案综合各有明确输入与输出。
+**Process围绕原题的证据缺口检索并判断支持程度，程序管理执行和记录，Final根据实际交付材料回答。** 本页集中说明完整架构；模型训练目标和实验结果分别见[Process-SFT](process_sft.md)、[Process-GRPO](grpo.md)与[评测入口](evaluation.md)。
 
-这里说明当前实现的运行机制与适用限制。具体实验的运行身份由各实验页及其源码清单登记；下列设计说明不改写逐题记录。
+本页按“单题运行流程／共享执行机制／训练和评测接入”组织。工具内部处理、贯穿运行的预算与缓存、恢复机制并非额外的串行模型阶段。具体实验的源码和运行身份由各自清单登记，架构说明不改写逐题记录。
 
-## 一条问题的完整路径
+- [单题运行流程](#runtime-flow)：节点、角色、检索循环和实际Final交付。
+- [共享执行机制](#shared-mechanisms)：缓存、正文处理、身份、预算、上下文与恢复。
+- [训练和评测接入](#training-evaluation-interface)：运行模式、固定输入快照和验证入口。
+
+<a id="一条问题的完整路径"></a>
+<a id="runtime-flow"></a>
+
+## 一、单题运行流程
+
+图中Checklist、Decision、Execute、State、PreFinal、Final是运行节点；Search／Browse是Execute调用的工具，Stop是Decision动作。虚线表示程序预算控制路径，不是模型额外生成的动作。
 
 ```mermaid
 flowchart TD
-    Q[原始问题] --> C[Checklist：拆分可核验需求]
-    C --> D[Decision：围绕缺口选一个动作]
-    D -->|Search| S[查询缓存或真实搜索]
-    S --> P[候选预览与可用性反馈]
-    P --> D
-    D -->|Browse| B[指定来源与本次阅读重点]
-    B --> T[正文解析、清洗与片段选择]
-    T --> E{是否取得新的可引用证据}
-    E -->|是| U[State：更新支持、缺口与冲突]
-    U --> D
-    E -->|否| N[保留原因与原有State]
-    N --> D
-    D -->|Stop或预算结束| F[Pre-final：保存完整状态和证据]
-    F --> M[构建并冻结实际Final输入]
-    M --> A[Final：按可见材料综合回答]
+    Q["原始问题"] --> C["Checklist：拆分需求"]
+    C --> D["Decision：选择行动"]
+    D -->|"Search / Browse"| X["Execute：执行工具"]
+    X -->|"候选或没有新增证据"| D
+    X -->|"新增已读证据"| S["State：更新支持与缺口"]
+    S --> D
+    D -->|"模型Stop"| P["PreFinal：汇集完整状态与证据"]
+    D -.->|"程序预算终止"| P
+    P -->|"ContextBuilder构建实际请求"| F["Final：根据可见材料回答"]
 ```
 
-LangGraph管理节点和路由；ReAct描述“决策—工具—观察—再决策”的循环；MCP是工具执行边界。每次模型请求由程序显式构建上下文，不依赖服务端隐式聊天记忆。
+Search返回候选后回到Decision；Browse只有取得新增可引用证据才触发State。图示完整问答，Process-only采集另行保存固定Final输入快照后结束，不要求在线问答先导出文件。
 
-## 1. Checklist：把原问题变成可核验需求
+| 节点／角色 | 当前输入与输出 | 责任边界 |
+|---|---|---|
+| Checklist | 原题→可核验需求与共享限定 | 模型拆解，程序分配并校验R ID |
+| Decision | 原题、全部Checklist／最新State、当前目标、候选、精简历史、反馈、预算、累计E索引及最近有效Browse正文→一个动作 | 模型选Search／Browse／Stop，程序校验结构、绑定与可用性 |
+| Execute | 结构化工具动作→候选、证据或明确失败反馈 | 程序调用真实工具、登记来源、证据及成本，不生成医学结论 |
+| State | 累计已打开证据、当前State、Checklist、新E ID、历史与反馈→变化项 | 模型判断支持与缺口，程序检查字段及已读E绑定 |
+| PreFinal | 当前状态、全部原始证据、来源、历史、未解决项与终止原因→完整包 | 程序汇集供审计；它本身不是Final答案，也不是模型训练目标 |
+| Final | 原题与实际交付的证据／State→综合答案 | 模型回答，程序核验格式与引用ID，医学支持程度另行审核 |
 
-Checklist接收原始问题，提出需要分别核实的内容。程序分配稳定的`R1`、`R2`等需求ID，保留主体、比较对象、时间或其他共享限定。通常拆成少量需求，结构合同最多允许8项，避免把一个问题无限分解成细碎子任务。
+同一次运行选择一个Base／Process-SFT／GRPO checkpoint作为Process策略；四组系统评测分别运行这些策略，Final统一固定为Base。Process与Final是可独立控制参数的职责，可在同一基座上切换adapter；不要求为每个角色部署独立基座。
+
+LangGraph管理节点和路由，ReAct描述“决策—工具—观察—再决策”的循环，MCP提供工具执行边界。它们服务于一个Process策略。每次模型请求由ContextBuilder显式提供输入，不依赖服务端隐式聊天记忆。
+
+<a id="1-checklist把原问题变成可核验需求"></a>
+
+### Checklist：把原问题变成可核验需求
+
+Checklist接收原始问题，提出需要分别核实的内容。程序分配稳定的`R1`、`R2`等需求ID，保留主体、比较对象、时间或其他共享限定。通常2–5项，简单问题允许1项；复杂问题确有独立需求时可6–8项，结构合同最多允许8项，避免把一个问题无限分解成细碎子任务。
 
 需求ID用于绑定后续Search、Browse和State，使每一步可以回答“这次操作准备填补哪个缺口”。原题仍保留在后续请求中，Checklist不会替代原题。
 
@@ -41,7 +59,9 @@ Checklist接收原始问题，提出需要分别核实的内容。程序分配�
 
 源码：[节点](current/runtime/src/trainable_agent/engine.py) · [结构合同](current/runtime/src/trainable_agent/contracts.py) · [阶段提示](current/runtime/src/trainable_agent/prompts.py)
 
-## 2. Decision：一次选择一个可执行动作
+<a id="2-decision一次选择一个可执行动作"></a>
+
+### Decision：一次选择一个可执行动作
 
 Decision读取原题、Checklist、最新State、候选、证据索引、最近有效Browse正文、历史反馈与剩余预算，输出一个`Search`、`Browse`或`Stop`。Search和Browse各绑定1–2个需求，便于检查本次意图与后续支持关系。
 
@@ -51,27 +71,21 @@ Decision读取原题、Checklist、最新State、候选、证据索引、最近�
 
 源码：[Decision与Execute](current/runtime/src/trainable_agent/engine.py) · [动作验证及反馈](current/runtime/src/trainable_agent/contracts.py)
 
-## 3. Search：发现来源，管理新旧候选
+<a id="3-search发现来源管理新旧候选"></a>
+
+### Search：发现来源与维护候选窗口
 
 论文路径查询PubMed和Semantic Scholar，网页路径使用Serper。Search提供标题、摘要或snippet及来源元数据，主要用于发现和选源。相关性排序同时考虑原问题和本次query，采用原题0.6、query 0.4的组合，兼顾整体任务和当步缺口。
 
-新查询优先展示最新候选，再由历史候选按原题相关性补位，可见集合最多8项。这样既给新方向保留位置，也允许重新使用此前发现的相关来源。组装后按阅读可用性分组：未读优先，部分已读后置，明确当前条件不可用的来源按作用域隐藏；来源历史及稳定别名保留。
+首次搜索沿后端返回顺序填充可见窗口；后续新查询最多先放4个最新候选，再由历史候选按原题相关性补位，可见集合最多8项。历史不足时用更多最新候选补齐；组装窗口不再做第三次全池语义重排。这样既给新方向保留位置，也允许重新使用此前发现的相关来源。组装后按阅读可用性分组：未读优先，部分已读后置，明确当前条件不可用的来源按作用域隐藏；来源历史及稳定别名保留。
 
 **适用限制：** 搜索预览只是相关性线索，不自动登记为已打开证据。搜索没有结果，也不能据此推断某项研究或医学关联不存在。语义排序模型不可用时记录实际降级，不能把降级描述为已完成语义重排。
 
 源码：[工具桥接](current/runtime/src/trainable_agent/tools.py) · [候选更新](current/runtime/src/trainable_agent/engine.py) · [论文发现与融合](current/runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/dual_paper.py)
 
-## 4. 重复Search：复用回执，保留动作成本
+<a id="5-browse与reading_focus围绕本次缺口读取来源"></a>
 
-同题、同工具身份、同channel和规范化后完全相同的query，复用本题已完成的正常或空回执。缓存返回只重显对应Search的候选，不混入其他query，也不联网补满数量；回执明确标注`cache_hit`与`network_executed`。
-
-重复动作仍计入正常工具预算。缓存因此同时承担两件事：减少重复外部请求，并保留策略原样重复的可观察成本。相似但不完全相同的query只提供提醒，为有意义的缺口细化保留空间。
-
-**适用限制：** 工程缓存控制网络请求，不能保证模型不再提出重复动作。失败或执行结果未知的请求不会被当成正常缓存；恢复依据不足时需要明确处理，不能悄悄重发为一次“新成功”。
-
-源码：[查询缓存](current/runtime/src/trainable_agent/search_cache.py) · [执行与预算](current/runtime/src/trainable_agent/engine.py)
-
-## 5. Browse与reading_focus：围绕本次缺口读取来源
+### Browse与reading_focus：围绕本次缺口读取来源
 
 Browse指定当前可选来源和本次`reading_focus`。它描述“这次希望从该来源找到什么”，用于文档内片段检索与排序。例如同一篇研究可以先读主要疗效，再读安全性；改变阅读重点并不意味着已经发现新证据，实际返回文本才决定是否新增E。
 
@@ -90,7 +104,60 @@ Browse指定当前可选来源和本次`reading_focus`。它描述“这次希�
 
 源码：[Browse合同](current/runtime/src/trainable_agent/contracts.py) · [查询锚点与字节预算](current/runtime/retrieval_snapshot_v2/backend/agent/dr_agent/anchored_query.py)
 
-## 6. 正文解析与清洗：减少模板噪声，保护有内容的短段落
+<a id="8-state逐项记录支持缺口与冲突"></a>
+
+### State：逐项记录支持、缺口与冲突
+
+取得新证据后调用State节点，模型结合已打开证据更新相关需求的`missing`、`partial`或`direct`、`evidence_ids`、`gap`与`conflict`。返回delta只写变化项，原记录仍保留，便于定位哪条证据改变了哪项判断。
+
+程序检查R/E ID、证据是否已打开及字段约束，避免未读搜索预览直接成为支持依据。空读或失败会把原因反馈给Decision，并保留当前State，不因“调用过Browse”就强行增加一次支持更新。
+
+**适用限制：** State是模型的工作判断，`direct`不是医学认证，也不保证涵盖原题全部细节。程序可以发现不存在的ID，核心事实反转、适用人群错误和支持强度过度判断仍需内容评价。
+
+源码：[State更新](current/runtime/src/trainable_agent/engine.py) · [Delta校验](current/runtime/src/trainable_agent/contracts.py) · [State上下文](current/runtime/src/trainable_agent/context_processing/pipeline.py)
+
+<a id="11-pre-final与final区分完整存档和实际交付"></a>
+<a id="handoff"></a>
+
+### PreFinal、实际请求与Final：分清交付边界
+
+这三个动作共享材料，但职责不同：
+
+1. **PreFinal汇集完整包。** 程序保存原题、Checklist、State、已打开证据、来源映射、未解决项、停止原因与历史，用于审计。
+2. **ContextBuilder构建实际Final请求。** 按该次明确配置和预算形成模型真正可见的`messages`及输入身份；完整包不等于请求全文。
+3. **按运行模式消费请求。** 完整问答把实际请求交给Final生成答案；数据采集入口可另存`FINAL_REQUEST.json`、`MESSAGES.json`等固定输入快照，供后续复用和对照，不要求每次在线问答先导出这些文件。
+
+Final根据可见材料综合回答，保留未解决边界并使用证据引用。当前四组Process评测采用冻结Base Final角色，Process策略与答案模块的职责明确。
+
+**适用限制：** 只存在于完整存档、没有进入实际Final请求的原文不能按已经交付处理。程序检查答案格式和引用ID存在性，引用是否支持具体结论、内容是否贴合原题仍需单独评价；没有可引用证据时不能编造E ID。
+
+源码：[Pre-final与Final节点](current/runtime/src/trainable_agent/engine.py) · [Final输入投影](current/runtime/src/trainable_agent/context_processing/final_pack.py) · [请求快照与采集入口](current/README.md)
+
+### 停止与收尾的两种来源
+
+模型可因证据充分、边际收益下降或没有可读来源而提出Stop；程序也可因预算结束而进入收尾。两种原因分别记录，程序预算终止不应标成模型主动判断“已经充分”。结构或工程硬失败另外保留失败状态，不包装为正常停止。具体预算与候选可用性见[预算和终止机制](#9-stop失败与预算为探索设置可解释终点)。
+
+<a id="shared-mechanisms"></a>
+
+## 二、共享执行机制
+
+以下机制贯穿节点和工具循环：它们控制执行成本、保持因果输入和来源连续性，不构成另一条需要全部串行经过的模型流程。缓存、可用性、预算与ID校验为各组提供共同执行边界，工程保护不只向GRPO开放。
+
+<a id="4-重复search复用回执保留动作成本"></a>
+
+### 重复Search：复用回执，保留动作成本
+
+同题、同工具身份、同channel和规范化后完全相同的query，复用本题已完成的正常或空回执。缓存返回只重显对应Search的候选，不混入其他query，也不联网补满数量；回执明确标注`cache_hit`与`network_executed`。
+
+重复动作仍计入正常工具预算。缓存因此同时承担两件事：减少重复外部请求，并保留策略原样重复的可观察成本。相似但不完全相同的query只提供提醒，为有意义的缺口细化保留空间。
+
+**适用限制：** 工程缓存控制网络请求，不能保证模型不再提出重复动作。失败或执行结果未知的请求不会被当成正常缓存；恢复依据不足时需要明确处理，不能悄悄重发为一次“新成功”。
+
+源码：[查询缓存](current/runtime/src/trainable_agent/search_cache.py) · [执行与预算](current/runtime/src/trainable_agent/engine.py)
+
+<a id="6-正文解析与清洗减少模板噪声保护有内容的短段落"></a>
+
+### 正文解析与清洗：减少模板噪声，保护有内容的短段落
 
 可用HTML、XML、摘要、全文或PDF进入对应解析路线，再进行确定性清洗。导航、版权、技术支持UI、订阅控制等页面内容会占用上下文，却通常不回答医学问题，因此清洗同时检查标题用途和文本形态，保留原因及原文位置。
 
@@ -102,7 +169,9 @@ Browse指定当前可选来源和本次`reading_focus`。它描述“这次希�
 
 源码：[Browse清洗与正文保护](current/runtime/src/trainable_agent/context_processing/browser.py) · [HTML正文解析](current/runtime/src/trainable_agent/context_processing/html_body.py)
 
-## 7. 片段选择、去重与E ID：把读到的原文变成可追溯证据
+<a id="7-片段选择去重与e-id把读到的原文变成可追溯证据"></a>
+
+### 片段选择、去重与E ID：把读到的原文变成可追溯证据
 
 清洗后的内容进入混合召回与片段排序。关键词召回保留实体和精确词项，向量召回补充表达相近的内容，再由语义重排选择当前重点相关的片段。一次Browse最多返回3个片段，保护可用表头、整行及脚注等结构。
 
@@ -112,17 +181,11 @@ Browse指定当前可选来源和本次`reading_focus`。它描述“这次希�
 
 源码：[正文处理](current/runtime/src/trainable_agent/context_processing/browser.py) · [确定性上下文](current/runtime/src/trainable_agent/deterministic_context.py) · [证据登记](current/runtime/src/trainable_agent/engine.py)
 
-## 8. State：逐项记录支持、缺口与冲突
+来源字母稳定映射到`PMID:`、`S2:`或`WEB:` source_id，显示顺序变化不重新分配字母；`E1`等表示已打开证据；`chunk_id`与原文区间／哈希定位片段。三类身份不可互换。同篇仍可有未读窗口，不能因“同一篇”就拦截；重复原文也不能冒充新增证据。
 
-取得新证据后调用State节点，模型结合已打开证据更新相关需求的`missing`、`partial`或`direct`、`evidence_ids`、`gap`与`conflict`。返回delta只写变化项，原记录仍保留，便于定位哪条证据改变了哪项判断。
+<a id="9-stop失败与预算为探索设置可解释终点"></a>
 
-程序检查R/E ID、证据是否已打开及字段约束，避免未读搜索预览直接成为支持依据。空读或失败会把原因反馈给Decision，并保留当前State，不因“调用过Browse”就强行增加一次支持更新。
-
-**适用限制：** State是模型的工作判断，`direct`不是医学认证，也不保证涵盖原题全部细节。程序可以发现不存在的ID，核心事实反转、适用人群错误和支持强度过度判断仍需内容评价。
-
-源码：[State更新](current/runtime/src/trainable_agent/engine.py) · [Delta校验](current/runtime/src/trainable_agent/contracts.py) · [State上下文](current/runtime/src/trainable_agent/context_processing/pipeline.py)
-
-## 9. Stop、失败与预算：为探索设置可解释终点
+### Stop、失败与预算：为探索设置可解释终点
 
 模型可以因为证据充分、边际收益下降或没有可读来源而提出Stop。程序同时执行正常动作、环境失败豁免、实际动作和可恢复决策拒绝等独立预算，防止重复操作与错误恢复无限延长。
 
@@ -142,7 +205,9 @@ Browse指定当前可选来源和本次`reading_focus`。它描述“这次希�
 
 源码：[终止与计量](current/runtime/src/trainable_agent/engine.py) · [可用性作用域](current/runtime/src/trainable_agent/contracts.py) · [请求预算](current/runtime/src/trainable_agent/context_processing/pipeline.py) · [执行期限与回执](current/runtime/src/trainable_agent/retrieval_deadlines.py)
 
-## 10. 上下文投影：保留任务骨架，让证据按预算进入请求
+<a id="10-上下文投影保留任务骨架让证据按预算进入请求"></a>
+
+### 上下文投影：保留任务骨架，让证据按预算进入请求
 
 ContextBuilder为每个阶段重新构建显式输入。原题、Checklist、State、历史和来源映射承担任务连续性；候选和证据按阶段职责展示，Decision不需要每轮重读全部原文，State与Final则使用各自的已读证据视图。
 
@@ -152,17 +217,15 @@ ContextBuilder为每个阶段重新构建显式输入。原题、Checklist、Sta
 
 源码：[上下文管线](current/runtime/src/trainable_agent/context_processing/pipeline.py) · [抽取合同](current/runtime/src/trainable_agent/context_processing/extraction.py) · [压缩兜底](current/runtime/src/trainable_agent/context_processing/fallback.py)
 
-## 11. Pre-final与Final：区分完整存档和实际交付
+最近有效Browse正文在后续Search或空读后可能继续保留，但标注原轮次，不伪装为新结果。更早正文在Decision中主要作为索引，State与Final使用各自累计已读证据视图。软目标未达但完整请求仍处于硬线内时可按预算策略带审计继续；无法安全容纳时明确失败或留置。
 
-Pre-final由程序汇集原题、Checklist、State、已打开证据、来源映射、未解决项、停止原因与历史。完整存档支持审计；同版Final构建器进一步形成实际`MESSAGES`并记录预算与身份，明确答案模块真正看到了哪些材料。
+### 格式校验与保守修复
 
-Final根据可见材料综合回答，保留未解决边界并使用证据引用。Process-only模式可在Pre-final结束，完整问答模式继续Final。当前主线采用独立的冻结Base Final角色，Process策略与答案模块的职责明确。
+Checklist／Decision／State的确定性JSON修复只处理明确语法，不猜ID、缺失语义或医学结论；原始response、token／logprob及修复事件保留。标准SFT导出不把程序修复目标冒充模型原生合法输出。可恢复动作不可用错误可返回Decision，拒绝额度耗尽可降级；其他schema、State、上下文和工程失败分别登记，降级不计为正常完成。
 
-**适用限制：** 只存在于完整存档、没有进入实际Final请求的原文不能按已经交付处理。程序检查答案格式和引用ID存在性，引用是否支持具体结论、内容是否贴合原题仍需单独评价；没有可引用证据时不能编造E ID。
+<a id="12-worker与来源回执保持中断前后的引用连续"></a>
 
-源码：[Pre-final与Final节点](current/runtime/src/trainable_agent/engine.py) · [Final输入投影](current/runtime/src/trainable_agent/context_processing/final_pack.py) · [实际输入冻结入口](current/README.md)
-
-## 12. worker与来源回执：保持中断前后的引用连续
+### worker与来源回执：保持中断前后的引用连续
 
 Search发现来源后，Browse通过`source_id`引用它，减少后续请求重复传递整份来源信息。worker内分别维护WEB与论文映射，保留canonical ID以及后端需要的可用元数据；来源显示次序变化不重新命名已有身份。
 
@@ -176,7 +239,37 @@ worker启动时从自身output的`worker_operations`读取已完成Search回执�
 
 源码：[worker执行边界](current/runtime/retrieval_snapshot_v2/worker.py) · [来源恢复](current/runtime/retrieval_snapshot_v2/source_registry.py) · [论文Registry](current/runtime/retrieval_snapshot_v2/backend/agent/dr_agent/mcp_backend/apis/dual_paper.py) · [本地操作回执](current/runtime/src/trainable_agent/retrieval_deadlines.py)
 
-## 验证这些边界
+### 策略持久化与工具恢复的分工
+
+SQLite Store保存策略状态、checkpoint和调用记录；worker操作回执保存工具执行身份与结果哈希。前者说明策略到了哪一步，后者说明工具实际返回过哪些来源，两者相互核对。worker来源映射恢复不等于整条策略运行自动恢复成功，也不推定未知操作已完成。
+
+原始回执、失败尝试与来源原文独立留档；当前可选集的变化不会抹去历史。完整模块入口见[当前源码](current/README.md)及[代码导航](../../docs/code_navigation.md)。
+
+<a id="training-evaluation-interface"></a>
+
+## 三、训练和评测接入
+
+### 运行模式与更新对象
+
+| 场景 | 同一题的运行与输出 | 如何使用材料 |
+|---|---|---|
+| 单次完整问答 | 一条Process轨迹后接Final | 直接输出答案，不要求先采4条，也不依赖在线Judge |
+| Process-only输入采集 | Process完成后构建并保存固定Final输入快照 | 不生成Final答案，可供老师基于同一可见输入制作候选 |
+| 本轮GRPO训练数据采集 | 同一初始策略采4条rollout，同时保存冻结Base Final输出 | 四条共用内容点，本地审核Process实际交付与过程；Final不更新 |
+| Process-GRPO离线更新 | 使用已封存轨迹和奖励，不重新调用检索工具 | 仅更新Process LoRA，loss只使用Process策略token；工具返回、程序输出与Final不计入策略目标 |
+| 四组benchmark比较 | Base、SFT、GRPO13、GRPO25各重新运行一条 | 固定Base Final，比较过程、失败、证据交付与答案；评测期间不更新参数 |
+
+训练中每题4条用于同题相对学习；四组评测则是四种策略各跑一次，两者不是同一种“100题×4”。GRPO13／25表示更新批次的checkpoint，算法和恢复验收见[Process-GRPO](grpo.md)。Final-SFT使用独立Final LoRA，对照结果不作为Process-GRPO初始化权重，见[Final模块对照](final_sft.md)。
+
+### 参数冻结与固定输入快照
+
+**参数冻结**表示某个角色的参数在该实验中不更新。**固定输入快照**表示保存并固定某次实际Final请求，后续模型或老师使用同一份输入；它不只是保存一个可随意重新装配的文件名。
+
+完整PreFinal包用于审计，实际`MESSAGES`才是Final生成、金标与固定输入对照的可见材料。老师候选和gold需由这些材料支持，不能额外联网补事实后仍沿用原输入身份，也不能换packing后直接沿用旧金标。无证据、乱码、State错误及其他可疑记录可留置，结构通过不自动放行训练。
+
+Process评分核验真实交付输入及过程，不用Final答案或Judge分倒推证据覆盖；答案指标另行报告。评分定义、三个评测的控制变量与逐题分母见[评测方法](evaluation.md)和[逐题记录](records.md)，此处只保留材料接口。
+
+### 验证这些边界
 
 正文保护测试覆盖临床短句、剂量、否定比较、中文条目、表格、保留的模板过滤和原文位置。来源恢复测试覆盖真实子进程退出与重启、完成回执及paired缓存、canonical ID、WEB metadata、论文provenance、损坏材料与路径边界。
 

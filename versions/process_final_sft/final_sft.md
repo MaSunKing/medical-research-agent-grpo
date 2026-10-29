@@ -1,8 +1,19 @@
 # 3. Final-SFT：训练、对照与决策
 
-[概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · **Final-SFT** · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
+[概览](README.md) · [数据与实验设置](design.md) · [Process-SFT](process_sft.md) · **Final-SFT** · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
 
 评测入口：**[Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md)** · [名词与指标解释](glossary.md)。
+
+**在dev100固定输入对照中，Final-SFT的三个checkpoint均未超过Base Final；当前固定Base Final，独立Final-SFT未接入本轮GRPO。** 这是相应题集和评分条件下的模块选型结论。
+
+| 训练边界 | 本页对象 |
+|---|---|
+| 输入 | 500训练题的固定Final请求与指定gold；另100题用于固定输入对照 |
+| 初始化 | 同一量化基座上新建独立Final LoRA，不从Process adapter继续训练 |
+| 更新对象 | 仅Final LoRA；loss只计算答案与EOS，不更新Process策略 |
+| 产物 | 1／1.5／2轮Final checkpoint及其与Base Final的dev100对照记录 |
+
+这条支线检验答案模块是否需要替换；Process-GRPO继续使用原972 Process初始化，不依赖本页的训练产物。
 
 ## 训练与对照设置
 
