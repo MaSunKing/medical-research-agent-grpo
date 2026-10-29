@@ -1,12 +1,12 @@
-# 新100题的构造、运行与来源
+# 跨基准验证评测 · HealthBench50＋MedBrowseComp50：设置与题目来源
 
-[结果](README.md) · [源码](code/README.md)
+[跨基准验证评测 · HealthBench50＋MedBrowseComp50](README.md) · [名词与指标解释](../../glossary.md) · [源码](code/README.md)
 
 |项目|冻结设置|
 |---|---|
 |HealthBench|从固定官方5000题源文件中按固定哈希取50道可独立回答的单用户英文题，保留原题及医生rubric；自定义子集|
 |MedBrowseComp|从固定605题文件选50题，五类任务各10题、每个NCT仅一次；不是官方MedBrowseComp_50切分|
-|已知池排重|原972、600题、GRPO100和旧评测池；ID、规范化文本和词面近似筛查；不证明无预训练/语义污染|
+|已知池排重|原972、600题、GRPO100和Process开发对照题池；ID、规范化文本和词面近似筛查；不证明无预训练/语义污染|
 |四组|Base关闭adapter；SFT为原972 checkpoint1322；GRPO为第13/25批；四组都重新运行|
 |底座|Qwen/Qwen3-8B；4-bit NF4 double quant，BF16计算；同一冻结FP32 Process输出头|
 |Final/压缩|关闭Process adapter，恢复原输出头，四组同配置；Final不训练|
@@ -17,7 +17,7 @@
 |资源|8逻辑CPU、检索4线程，1GPU；评测不做训练概率重放、backward或optimizer|
 |裁判|qwen3.7-max替代Judge；不向Agent传rubric/reference/source_row；Judge隐藏arm|
 
-新增题目在本轮生成前选定，不按生成成功与否筛题。400条中387条正常完成、10条Process失败、3条Final失败，缺失/中断/工程失败为0；完成的387条均有答案评分。此次结果现已用于分析，今后不能再称未接触测试。下一轮采集或训练未在此启动。
+本评测题目在本轮生成前选定，不按生成成功与否筛题。400条中387条正常完成、10条Process失败、3条Final失败，缺失/中断/工程失败为0；完成的387条均有答案评分。此次结果现已用于分析，今后不能再称未接触测试。下一轮采集或训练未在此启动。
 
 来源：[HealthBench官方代码](https://github.com/openai/simple-evals/blob/main/healthbench_eval.py)、[MedBrowseComp数据卡](https://huggingface.co/datasets/AIM-Harvard/MedBrowseComp)、[作者处理脚本](https://github.com/shan23chen/MedBrowseComp/blob/main/process_NCT_predictions.py)。固定源文件、runtime和私有归档SHA在summary/SOURCE_MANIFEST中保留。对原题的字母、日期截止及整体批准限定不作有利于某组的改写。
 

@@ -1,6 +1,6 @@
 # 版本三：两条真实轨迹，逐步查看Agent如何工作
 
-[项目首页](../../README.md) · [系统设计](../../versions/process_final_sft/engineering.md) · [全部100题四组记录](../../versions/process_final_sft/records.md)
+[项目首页](../../README.md) · [系统设计](../../versions/process_final_sft/engineering.md) · [跨基准验证评测 · HealthBench50＋MedBrowseComp50](../../versions/process_final_sft/experiments/newbench_20261028/README.md) · [名词与指标解释](../../versions/process_final_sft/glossary.md)
 
 这里从已有四组评测中摘录两条GRPO25轨迹：一条展示完整证据交付，一条展示失败定位。它们用于解释系统行为，没有重新生成、补搜或重新评分；定性案例不替代100题的全部胜负和失败统计。
 

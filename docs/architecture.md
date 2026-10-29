@@ -89,7 +89,7 @@ Base提供未加载项目adapter的策略对照；Process-SFT通过真实阶段�
 
 缓存、候选可用性、工具预算、上下文预算和证据ID校验为各组提供一致执行边界。它们防止重复网络请求和无界执行；GRPO学习的是在这些共同约束内如何选动作、使用证据和更新State，工程保护不只向GRPO开放。
 
-本批新100题中，完全重复Search额外动作由Base的31、SFT的1降至两个GRPO的0；重大或Process失败去重题数为21、17、14、14。GRPO25的实际交付覆盖在两个题集均最高，因此作为Process交付/可靠性主候选；GRPO13保留为HealthBench答案指标对照。该改进方向支持Base→SFT→GRPO路线，具体checkpoint仍按相应指标选择，逐题胜负和全部失败见[同配置四组结果](../versions/process_final_sft/experiments/newbench_20261028/README.md)。
+本批跨基准验证100题中，完全重复Search额外动作由Base的31、SFT的1降至两个GRPO的0；重大或Process失败去重题数为21、17、14、14。GRPO25的实际交付覆盖在两个题集均最高，因此作为Process交付/可靠性主候选；GRPO13保留为HealthBench答案指标对照。该改进方向支持Base→SFT→GRPO路线，具体checkpoint仍按相应指标选择，逐题胜负和全部失败见[同配置四组结果](../versions/process_final_sft/experiments/newbench_20261028/README.md)。
 
 ## 持久化与恢复的边界
 

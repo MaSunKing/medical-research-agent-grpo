@@ -2,7 +2,7 @@
 
 [案例索引](../README.md) · [四组完整问题记录](../../../versions/process_final_sft/experiments/newbench_20261028/questions/Q45.md) · [结构化原始摘录](CASE.json) · [模型Final原文](final_answer.md)
 
-这是新HealthBench子集Q45的GRPO25真实记录。原题询问浅表伤口能否使用非处方抗菌膏和敷料，以及全天覆盖是否合适。完整英文原题、原始ID及哈希保留在上方逐题页和`CASE.json`。
+这是跨基准验证评测中HealthBench子集Q45的GRPO25真实记录。原题询问浅表伤口能否使用非处方抗菌膏和敷料，以及全天覆盖是否合适。完整英文原题、原始ID及哈希保留在上方逐题页和`CASE.json`。
 
 ## 一分钟看完整路径
 

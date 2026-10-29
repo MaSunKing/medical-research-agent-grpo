@@ -1,10 +1,10 @@
 # 5. 评测方法与结果
 
-[概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · **评测** · [逐题记录](records.md)
+[概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · **评测** · [逐题记录](records.md) · [名词与指标解释](glossary.md)
 
-## 当前优先看新增100题
+## 跨基准验证评测 · HealthBench50＋MedBrowseComp50
 
-本页优先展示新100题×四组400条：HealthBench50与MedBrowseComp50，Base/SFT/GRPO13/25全部在相同冻结runtime重新运行。**GRPO保持零完全重复Search，重大或Process失败从Base21、SFT17降到两组GRPO各14；GRPO25的交付覆盖更高。** 这是支持继续研究Process-GRPO的直接证据，不宣称各指标全面胜出。
+本评测包含100题×四组400条：HealthBench50与MedBrowseComp50，Base/SFT/GRPO13/25全部在相同冻结runtime重新运行。**GRPO保持零完全重复Search，重大或Process失败从Base21、SFT17降到两组GRPO各14；GRPO25的交付覆盖更高。** 这是支持继续研究Process-GRPO的直接证据，不宣称各指标全面胜出。
 
 |观察|Base|SFT|GRPO13|GRPO25|
 |---|---:|---:|---:|---:|
@@ -19,17 +19,17 @@ GRPO25对SFT的内容覆盖22胜11负67平、Process R为41胜38负21平；GRPO1
 
 HealthBench答案加权均分×100为4.74/14.24/17.76/15.23，GRPO13最高；MedBrowseComp正确/有效为9/49、12/49、12/49、10/48。均值只作补充，不能替代逐题胜负。Qwen替代Judge，失败未评分；一条benchmark页污染与题面/判据歧义均已记录并作敏感性检查。
 
-**当前优先以GRPO25作为Process交付/可靠性候选，GRPO13保留为答案指标对照。** 两组新增结果与下面旧50题历史对照不混合求均值，不用旧题更有利的结果替代新题结果。
+**当前优先以GRPO25作为Process交付/可靠性候选，GRPO13保留为答案指标对照。** 跨基准验证结果与下方Process开发对照结果不混合求均值，不以开发对照结果替代跨基准验证结果。
 
 ## 实验分组与历史边界
 
 | 实验 | 固定什么 | 比较什么 | 完整记录 |
 |---|---|---|---|
-| 新100题 | 相同冻结runtime、预算与Base Final | 四组重新获取/交付证据与生成答案 | 100题、400条 |
-| Final dev100 | 每题同一份Pre-final | Base Final与SFT 1/1.5/2轮如何用证据回答 | 100题、400条 |
-| Process旧50题 | 同一题集、统一冻结Base Final | Base、SFT、GRPO13、GRPO25如何获取并交付证据 | 50题、200条 |
+| [跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md) | 相同冻结runtime、预算与Base Final | 四组重新获取/交付证据与生成答案 | 100题、400条 |
+| [Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md) | 每题同一份Pre-final | Base Final与SFT 1/1.5/2轮如何用证据回答 | 100题、400条 |
+| [Process开发对照评测 · HealthBench50](experiments/process_grpo_20261026/README.md) | 同一题集、统一冻结Base Final | Base、SFT、GRPO13、GRPO25如何获取并交付证据 | 50题、200条 |
 
-Final结果见[Final-SFT章节](final_sft.md#base与三个checkpoint的结果)。这里先看新增评测，再保留评分说明与旧50题的历史对照。旧50题经历开发使用，历史Base/SFT与新GRPO不是严格同runtime因果实验。
+Final结果见[Final-SFT章节](final_sft.md#base与三个checkpoint的结果)。本页先展示跨基准验证，再保留Process开发对照结果。开发对照题集已用于诊断和checkpoint比较；其中Base/SFT与GRPO的运行配置存在差异，因此不作为严格同runtime的因果实验。
 
 ## 表格字段速查
 
@@ -74,17 +74,18 @@ Process评分不读取新Final答案或Judge分来决定P1；HB分单独报告�
 
 ## 审核方式与边界
 
-CP、评分及理由逐题保留。旧50题State可观察分母分别43、45、50、50，其均值不代表逐次State正确率。新增100题单独审阅：没有State输出时只说明未观测到虚假支持，不能把未发生的更新解释为State能力通过；失败仍按R0保留。审核分工、二次盲读和校准边界见[新题报告](experiments/newbench_20261028/README.md#数据与边界核查)。主审源核验和多审阅者交叉复核仍属于同类AI审阅；没有独立临床金标准或重复裁判实验。
+CP、评分及理由逐题保留。Process开发对照50题State可观察分母分别43、45、50、50，其均值不代表逐次State正确率。跨基准验证100题单独审阅：没有State输出时只说明未观测到虚假支持，不能把未发生的更新解释为State能力通过；失败仍按R0保留。审核分工、二次盲读和校准边界见[跨基准验证报告](experiments/newbench_20261028/README.md#数据与边界核查)。主审源核验和多审阅者交叉复核仍属于同类AI审阅；没有独立临床金标准或重复裁判实验。
 
-## 旧50题示例：为什么覆盖0也可能有答案分
+## 开发对照案例：为什么覆盖0也可能有答案分
 
 Q01询问难治性慢性丛集性头痛。GRPO25的实际交付只有作者/按钮片段和其他头痛人群研究，不能回答本题的人群疗效、适用剂量/疗程或共识，三个CP均0，因此交付覆盖0%。这不是重大错误导致覆盖被统一清零。
 
 它仍可能获得Checklist、决策等分项，原始P=40；存在对象替换重大，R=0.40×0.49=0.196。HB单独评价最终答案满足的rubric，所以可得到0.3571；该值不能反推检索证据适用。[查看Q01完整诊断](experiments/process_grpo_20261026/questions/Q01.md)
 
 <a id="process四组结果"></a>
+<a id="process-development-results"></a>
 
-## 旧50题Process四组结果
+## Process开发对照评测 · HealthBench50
 
 | 指标 | Base | Process-SFT | GRPO13 | GRPO25 |
 |---|---:|---:|---:|---:|
@@ -136,9 +137,9 @@ Q01询问难治性慢性丛集性头痛。GRPO25的实际交付只有作者/按�
 
 GRPO13相对历史SFT交付覆盖高13.92个百分点，GRPO25高6.00个百分点，且两组本次没有完全相同Search重复。更充分的适用证据有利于回答，但不等于Final必然利用正确。综合R几乎持平，State错误尚未得到明确改善。
 
-仅依据这批旧50题时，曾优先保留GRPO13为内容效果候选、GRPO25作为完成率对照；这是历史开发判断。当前模型选择以本页前部新增100题同配置结果为准。不因旧题25覆盖下降就断定训练越多越差。旧50题历史与新运行的输出头、种子及JSON修正存在差异，不能将全部历史差值归因于GRPO权重。
+仅依据Process开发对照评测时，曾优先保留GRPO13为内容效果候选、GRPO25作为完成率对照；这是开发阶段判断。当前模型选择以本页前部跨基准验证结果为准。开发对照中GRPO25的覆盖低于GRPO13，不能单凭这一点断定训练越多越差；Base/SFT与GRPO的输出头、种子及JSON修正存在差异，不能将全部差值归因于GRPO权重。
 
-旧50题与本轮100道GRPO训练题的ID及规范化文本均不重叠，但已被用于开发诊断、规则讨论和checkpoint选择，因此不是独立未见测试。新增100题四组同配置验证已完成；它与本节旧50题分开报告，见本页前部。
+Process开发对照50题与本轮100道GRPO训练题的ID及规范化文本均不重叠，但已被用于开发诊断、规则讨论和checkpoint选择，因此不是独立未见测试。跨基准验证评测已完成；它与本节Process开发对照50题分开报告，见本页前部。
 
 
 ## 完整记录与可复算文件

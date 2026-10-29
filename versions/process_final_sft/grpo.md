@@ -2,7 +2,9 @@
 
 [概览](README.md) · [系统与数据](design.md) · [逐步工程设计](engineering.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · **GRPO** · [评测](evaluation.md) · [逐题记录](records.md)
 
-**这条路线先用SFT建立可执行的检索行为，再用同题多条轨迹的相对质量，优化Process实际交付的证据与决策可靠性。** Final保持Base，更新目标集中在模型可以控制的需求拆解、检索选择和State判断。Base、Process-SFT、GRPO13与GRPO25的完整比较见[新100题检验](experiments/newbench_20261028/README.md)。
+[名词与指标解释](glossary.md)
+
+**这条路线先用SFT建立可执行的检索行为，再用同题多条轨迹的相对质量，优化Process实际交付的证据与决策可靠性。** Final保持Base，更新目标集中在模型可以控制的需求拆解、检索选择和State判断。Base、Process-SFT、GRPO13与GRPO25的完整比较见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)。
 
 ## 为什么采用Base → SFT → GRPO这条路线
 
@@ -181,7 +183,7 @@ GRPO13表示完成前13个更新批次，即固定顺序中的前52个可用题�
 
 ## 后续设计：先固定结论边界，再决定新一轮
 
-1. 新100题四组同配置检验已完成：GRPO保持零完全重复Search，GRPO25作为Process交付/可靠性主候选，GRPO13保留为HealthBench答案指标对照。逐题胜负及失败并非全部优于SFT，见[新增检验](experiments/newbench_20261028/README.md)。下一轮采集/训练未启动。
+1. 跨基准验证评测已完成：GRPO保持零完全重复Search，GRPO25作为Process交付/可靠性主候选，GRPO13保留为HealthBench答案指标对照。逐题胜负及失败并非全部优于SFT，见[跨基准验证结果](experiments/newbench_20261028/README.md)。下一轮采集/训练未启动。
 2. 优先定位State的实体/单位/方向误读、证据错绑、否认已交付核心信息，以及Checklist重大偏题。已有40/30/20/10规则先冻结，不因希望某个模型胜出而事后调权重。
 3. 若开展下一轮更新，从明确选定的新策略重新采集同题组内轨迹，本地审核再提交服务器；训练题与独立验证题隔离，不无限重复首批400条当新策略数据。
 4. 先保留单个终局Process奖励、整轨迹优势这一简单方案。逐步记录错误用于诊断；逐步奖励、不同权重、KL或优势归一化如要比较，另立单变量实验，不写成已实现。

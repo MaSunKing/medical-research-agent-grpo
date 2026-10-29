@@ -7,7 +7,7 @@
 - [早期实验与checkpoint计划](early_experiment_plan.md)
 - [早期四组消融计划](evaluation_initial_plan.md)
 - [早期GRPO候选算法](grpo_initial_plan.md)
-- [旧50题选题与早期答案报告](../latest50_evaluation.md)
+- [Process开发对照评测：选题与初始答案报告](../latest50_evaluation.md)
 - [早期100条Process评分](../process_review_v2/README.md)
 
 历史分数保留其原定义。最新200条Process统一评价实际交付给Final的输入，不能把旧发现覆盖与新交付覆盖合并比较。

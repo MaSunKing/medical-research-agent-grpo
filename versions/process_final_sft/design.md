@@ -2,6 +2,8 @@
 
 [概览](README.md) · **系统与数据** · [逐步工程设计](engineering.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
 
+[名词与指标解释](glossary.md)
+
 ## 研究目标与模型角色
 
 目标是让8B模型围绕问题缺口自主选择搜索、打开来源并整理可追溯证据，再交给答案模块。工程合同保证数据和动作可核验；医学支持程度仍由模型判断，并在评测中检查。
@@ -16,7 +18,7 @@
 | Final-SFT | 相同Final输入合同，学习gold答案 | 独立新建Final LoRA；本轮GRPO不采用 |
 | 压缩兜底 | 预算压力下处理已给定材料 | 同基座禁用Process adapter，不自主检索 |
 
-LoRA不是多套独立基座。Process与Final按角色切换；新Process使用冻结FP32线性输出头，Final恢复原输出头。旧/新数值路径的差异另见[运行配置对照](experiments/process_grpo_20261026/runtime.md)。
+LoRA不是多套独立基座。Process与Final按角色切换；Process-GRPO采集及跨基准四组验证使用冻结FP32 Process线性输出头，Final恢复原输出头。开发对照中Base/SFT与GRPO的数值路径差异另见[运行配置对照](experiments/process_grpo_20261026/runtime.md)。
 
 ## 单题如何运行
 
@@ -92,11 +94,12 @@ Search返回标题、摘要或snippet及候选元信息，不能直接记为已�
 | Process972 | 原始Teacher真实阶段轨迹，972题 | Process-SFT；10575个合法阶段目标 |
 | Final600 | 论文/健康科普问答来源题池，固定500 train＋100 dev | 冻结Pre-final、gold构建与Final-SFT |
 | GRPO100 | Final train500中的50道短题＋LiveQA历史Train-1的50道长题 | 每题4条，采集400条；99组用于本轮更新 |
-| HealthBench50 | 原始HealthBench题池，25论文需求＋25网页/指南需求 | Base/SFT/GRPO开发对照，不参与本轮GRPO更新 |
+| Process开发对照题集（HealthBench50） | 原始HealthBench题池，25论文需求＋25网页/指南需求 | Base/SFT/GRPO开发对照，不参与本轮GRPO更新 |
+| 跨基准验证题集 | HealthBench50＋MedBrowseComp50，区别于开发对照的50题子集 | 四种Process策略同配置重新检索，各100条；不参与本轮GRPO更新 |
 
 Final600的来源标签、原始问题和split保存在私有身份清单；gold采用指定版本，其他老师候选只留作记录。不能把Gold标记解释成独立临床认证。
 
-### 旧50题怎样构造
+### Process开发对照题集怎样构造
 
 从HealthBench原始5000题筛选可独立回答的单轮英文医学检索问题，保留原题和rubric。对原972、已有题库及已知使用记录检查ID和规范化文本；英文数字词集合的Jaccard近似筛查阈值对已知池0.70、候选之间0.50。固定候选种子2026101850，再人工复核检索适配性，冻结25道论文需求和25道网页/指南需求题。
 
@@ -104,9 +107,9 @@ Final600的来源标签、原始问题和split保存在私有身份清单；gold
 
 ### 数据隔离的结论与边界
 
-Final500与dev100题目ID不交叉；GRPO100不使用dev100或HealthBench题。GRPO100与旧50题ID、规范化文本交集均为0，因此没有直接用旧50题进行本轮GRPO更新。
+Final500与dev100题目ID不交叉；GRPO100不使用dev100或HealthBench题。GRPO100与Process开发对照50题ID、规范化文本交集均为0，因此没有直接用Process开发对照50题进行本轮GRPO更新。
 
-旧50题仍已用于开发、规则讨论和checkpoint选择，不能称为独立未见测试。ID/文本排重不证明语义完全无关，也不能排除基座预训练污染。新增100题四组同配置检验已完成，见[新题设置](experiments/newbench_20261028/setup.md)；下一轮训练未启动。
+Process开发对照50题仍已用于开发、规则讨论和checkpoint选择，不能称为独立未见测试。ID/文本排重不证明语义完全无关，也不能排除基座预训练污染。跨基准验证评测已完成，见[跨基准验证设置](experiments/newbench_20261028/setup.md)；下一轮训练未启动。
 
 ## 实际交付与完整存档
 
@@ -114,6 +117,6 @@ Final500与dev100题目ID不交叉；GRPO100不使用dev100或HealthBench题。G
 
 程序结束、格式合格、SQLite和哈希通过属于工程完整性；证据适用、State忠实、答案正确属于内容质量，分别记录。完整源码及发布身份见[源码入口](current/README.md)。
 
-## 新增评测的实现身份
+## 跨基准验证评测的实现身份
 
-HealthBench50与MedBrowseComp50的四组均重新运行，统一FP32 Process头、冻结Base Final、同预算与同检索。部署源代码按单独快照公开在[新题评测代码](experiments/newbench_20261028/code/README.md)，不以旧600题源码冒充本轮运行。工程缓存防止重复网络调用，动作预算限制空转；是否提出重复查询仍是策略行为。
+HealthBench50与MedBrowseComp50的四组均重新运行，统一FP32 Process头、冻结Base Final、同预算与同检索。部署源代码按单独快照公开在[跨基准验证评测代码](experiments/newbench_20261028/code/README.md)，不以旧600题源码冒充本轮运行。工程缓存防止重复网络调用，动作预算限制空转；是否提出重复查询仍是策略行为。

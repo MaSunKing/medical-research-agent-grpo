@@ -2,6 +2,8 @@
 
 [概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · **Final-SFT** · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
 
+评测入口：**[Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md)** · [名词与指标解释](glossary.md)。
+
 ## 训练与对照设置
 
 本实验回答“在相同Pre-final输入下，训练Final是否比原Base Final更好”。输入来自Process-SFT采集并冻结的实际Final请求，训练时不重新检索，不用Final输出倒改证据。gold采用用户指定gold_final600_v2，其他老师候选留作记录；gold的训练授权不等于独立人类临床认证。
@@ -56,7 +58,7 @@
 
 后续本轮GRPO统一使用冻结Base Final，更新对象仅Process LoRA；没有使用Final-SFT结果来宣称Final训练成功。若重启Final-SFT，应先处理已确认的数据/错误模式，再用小范围受控设置与独立验证比较，而不是预设多训两轮有效。该重训尚未启动。
 
-dev100用于开发和checkpoint诊断，不是独立最终测试；也不与旧HealthBench50混为同一题集。原始400条均有完整本地证据、答案与文字审核；以下仅公开逐题诊断摘要。
+dev100用于开发和checkpoint诊断，不是独立最终测试；也不与Process开发对照题集混为同一题集。原始400条均有完整本地证据、答案与文字审核；以下仅公开逐题诊断摘要。
 
 
 ## Final-only loss
@@ -71,6 +73,6 @@ dev100用于开发和checkpoint诊断，不是独立最终测试；也不与旧H
 
 ## 逐题材料
 
-全部100题×四组的分数、优点和具体问题可从[逐题索引](records.md#final固定输入100题)进入；机器可读[400条评分](experiments/final_sft_dev100/scores_400.csv)及[汇总JSON](experiments/final_sft_dev100/summary.json)保留原值。缺失/失败答案没有补零，候选诊断分与有效答案分分列。
+全部100题×四组的分数、优点和具体问题可从[逐题索引](records.md#final-comparison)进入；机器可读[400条评分](experiments/final_sft_dev100/scores_400.csv)及[汇总JSON](experiments/final_sft_dev100/summary.json)保留原值。缺失/失败答案没有补零，候选诊断分与有效答案分分列。
 
 **下一章：[冻结Base Final后的Process-GRPO](grpo.md)。**

@@ -1,6 +1,6 @@
-# 评分与胜负口径
+# 跨基准验证评测：评分与胜负口径
 
-[汇总](README.md) · [400条](records_400.json)
+[跨基准验证评测 · HealthBench50＋MedBrowseComp50](README.md) · [名词与指标解释](../../glossary.md) · [400条](records_400.json)
 
 沿用既定Process评分：P1实际交付40、P2 State30、P3 Checklist20、P4决策10；不把Final答案分混入Process。CP按原问题与来源先冻结，同题四组共用，每点0/1/2。信息只在完整存档而未进入真正Final输入，不能补P1。输入本身足以支持记忆/润色任务时允许USER_INPUT；不得强迫额外检索。
 

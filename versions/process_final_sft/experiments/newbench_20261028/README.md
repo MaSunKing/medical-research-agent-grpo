@@ -1,12 +1,12 @@
-# 新100题四组评测｜GRPO的改进与边界
+# 跨基准验证评测 · HealthBench50＋MedBrowseComp50
 
 **同一工程框架下，GRPO保持0次完全重复Search，并减少严重Process问题；GRPO25交付更多适用证据，GRPO13在HealthBench答案加权分上最高。** 这些优势分别由行为、内容和答案指标支持，不能合并为“所有指标都优于SFT”。
 
-[版本三评测](../../evaluation.md) · [逐题索引](../../records.md#新增100题400条) · [100道评测原题](questions_100.json) · [400条记录](records_400.json) · [复算代码](verify_results.py)
+[评测方法与结果](../../evaluation.md) · [逐题索引](../../records.md#cross-benchmark) · [100道评测原题](questions_100.json) · [400条记录](records_400.json) · [复算代码](verify_results.py) · [名词与指标解释](../../glossary.md)
 
 ## 一眼看到的变化
 
-|同配置新题指标|Base|Process-SFT|GRPO13|GRPO25|
+|跨基准验证指标|Base|Process-SFT|GRPO13|GRPO25|
 |---|---:|---:|---:|---:|
 |完全相同Search额外动作 / 全部Search|31 / 171|1 / 300|0 / 291|0 / 294|
 |重大或Process失败，去重 / 100|21|17|14|14|
@@ -71,11 +71,11 @@ GRPO13在HealthBench答案加权均分最高，但对SFT的逐题答案比较为
 
 ## 为什么保留GRPO路线
 
-本轮训练只更新Process，Final保持Base。新的四组同配置检验表明，改进不只体现为答案话术：完全重复搜索消失、实际交付覆盖提高，并且重大或Process硬失败题数少于SFT与Base。GRPO25因此作为当前Process交付/可靠性主候选；GRPO13保留为HealthBench答案指标的对照。继续研究GRPO有数据依据，尚不代表已执行下一轮训练或证明一个checkpoint在所有题型稳定最优。
+本轮训练只更新Process，Final保持Base。跨基准四组同配置验证表明，改进不只体现为答案话术：完全重复搜索消失、实际交付覆盖提高，并且重大或Process硬失败题数少于SFT与Base。GRPO25因此作为当前Process交付/可靠性主候选；GRPO13保留为HealthBench答案指标的对照。继续研究GRPO有数据依据，尚不代表已执行下一轮训练或证明一个checkpoint在所有题型稳定最优。
 
 ## 数据与边界核查
 
-- 两个benchmark各50道新题，四组全部重新检索，共400条；没有拿旧Base/SFT轨迹充作新对照。选题、排重与运行约束见[实验设置](setup.md)。
+- 两个benchmark各50题，四组全部重新检索，共400条；四组均使用本轮重新生成的轨迹，未复用开发对照轨迹。选题、排重与运行约束见[实验设置](setup.md)。
 - 本地P1只看实际Final输入，P2/P3/P4看State、拆解与决策。没有因链路长自动扣分；信息收益保留，实质错误单独处理。
 - 368条由三子代理隐藏模型身份、Final答案和Judge分初审；根补32条时接触过汇总/部分映射，再由身份盲读者逐条第二读。主审统一复核重大和重点高分，不宣称全程双盲或独立医生评审。
 - 原稿与最终裁决均保留私有溯源。10条过强标签/漏更新由重大降普通，3条恢复期护理的内容覆盖统一调整为部分支持，2条证据理由澄清。不是为了让某组获胜而改权重。
@@ -91,106 +91,106 @@ GRPO13在HealthBench答案加权均分最高，但对SFT的逐题答案比较为
 
 |题号|题集|四组评分与具体问题|
 |---|---|---|
-|新Q01|HealthBench|[查看四组完整审核摘要](questions/Q01.md)|
-|新Q02|HealthBench|[查看四组完整审核摘要](questions/Q02.md)|
-|新Q03|HealthBench|[查看四组完整审核摘要](questions/Q03.md)|
-|新Q04|HealthBench|[查看四组完整审核摘要](questions/Q04.md)|
-|新Q05|HealthBench|[查看四组完整审核摘要](questions/Q05.md)|
-|新Q06|HealthBench|[查看四组完整审核摘要](questions/Q06.md)|
-|新Q07|HealthBench|[查看四组完整审核摘要](questions/Q07.md)|
-|新Q08|HealthBench|[查看四组完整审核摘要](questions/Q08.md)|
-|新Q09|HealthBench|[查看四组完整审核摘要](questions/Q09.md)|
-|新Q10|HealthBench|[查看四组完整审核摘要](questions/Q10.md)|
-|新Q11|HealthBench|[查看四组完整审核摘要](questions/Q11.md)|
-|新Q12|HealthBench|[查看四组完整审核摘要](questions/Q12.md)|
-|新Q13|HealthBench|[查看四组完整审核摘要](questions/Q13.md)|
-|新Q14|HealthBench|[查看四组完整审核摘要](questions/Q14.md)|
-|新Q15|HealthBench|[查看四组完整审核摘要](questions/Q15.md)|
-|新Q16|HealthBench|[查看四组完整审核摘要](questions/Q16.md)|
-|新Q17|HealthBench|[查看四组完整审核摘要](questions/Q17.md)|
-|新Q18|HealthBench|[查看四组完整审核摘要](questions/Q18.md)|
-|新Q19|HealthBench|[查看四组完整审核摘要](questions/Q19.md)|
-|新Q20|HealthBench|[查看四组完整审核摘要](questions/Q20.md)|
-|新Q21|HealthBench|[查看四组完整审核摘要](questions/Q21.md)|
-|新Q22|HealthBench|[查看四组完整审核摘要](questions/Q22.md)|
-|新Q23|HealthBench|[查看四组完整审核摘要](questions/Q23.md)|
-|新Q24|HealthBench|[查看四组完整审核摘要](questions/Q24.md)|
-|新Q25|HealthBench|[查看四组完整审核摘要](questions/Q25.md)|
-|新Q26|HealthBench|[查看四组完整审核摘要](questions/Q26.md)|
-|新Q27|HealthBench|[查看四组完整审核摘要](questions/Q27.md)|
-|新Q28|HealthBench|[查看四组完整审核摘要](questions/Q28.md)|
-|新Q29|HealthBench|[查看四组完整审核摘要](questions/Q29.md)|
-|新Q30|HealthBench|[查看四组完整审核摘要](questions/Q30.md)|
-|新Q31|HealthBench|[查看四组完整审核摘要](questions/Q31.md)|
-|新Q32|HealthBench|[查看四组完整审核摘要](questions/Q32.md)|
-|新Q33|HealthBench|[查看四组完整审核摘要](questions/Q33.md)|
-|新Q34|HealthBench|[查看四组完整审核摘要](questions/Q34.md)|
-|新Q35|HealthBench|[查看四组完整审核摘要](questions/Q35.md)|
-|新Q36|HealthBench|[查看四组完整审核摘要](questions/Q36.md)|
-|新Q37|HealthBench|[查看四组完整审核摘要](questions/Q37.md)|
-|新Q38|HealthBench|[查看四组完整审核摘要](questions/Q38.md)|
-|新Q39|HealthBench|[查看四组完整审核摘要](questions/Q39.md)|
-|新Q40|HealthBench|[查看四组完整审核摘要](questions/Q40.md)|
-|新Q41|HealthBench|[查看四组完整审核摘要](questions/Q41.md)|
-|新Q42|HealthBench|[查看四组完整审核摘要](questions/Q42.md)|
-|新Q43|HealthBench|[查看四组完整审核摘要](questions/Q43.md)|
-|新Q44|HealthBench|[查看四组完整审核摘要](questions/Q44.md)|
-|新Q45|HealthBench|[查看四组完整审核摘要](questions/Q45.md)|
-|新Q46|HealthBench|[查看四组完整审核摘要](questions/Q46.md)|
-|新Q47|HealthBench|[查看四组完整审核摘要](questions/Q47.md)|
-|新Q48|HealthBench|[查看四组完整审核摘要](questions/Q48.md)|
-|新Q49|HealthBench|[查看四组完整审核摘要](questions/Q49.md)|
-|新Q50|HealthBench|[查看四组完整审核摘要](questions/Q50.md)|
-|新Q51|MedBrowseComp|[查看四组完整审核摘要](questions/Q51.md)|
-|新Q52|MedBrowseComp|[查看四组完整审核摘要](questions/Q52.md)|
-|新Q53|MedBrowseComp|[查看四组完整审核摘要](questions/Q53.md)|
-|新Q54|MedBrowseComp|[查看四组完整审核摘要](questions/Q54.md)|
-|新Q55|MedBrowseComp|[查看四组完整审核摘要](questions/Q55.md)|
-|新Q56|MedBrowseComp|[查看四组完整审核摘要](questions/Q56.md)|
-|新Q57|MedBrowseComp|[查看四组完整审核摘要](questions/Q57.md)|
-|新Q58|MedBrowseComp|[查看四组完整审核摘要](questions/Q58.md)|
-|新Q59|MedBrowseComp|[查看四组完整审核摘要](questions/Q59.md)|
-|新Q60|MedBrowseComp|[查看四组完整审核摘要](questions/Q60.md)|
-|新Q61|MedBrowseComp|[查看四组完整审核摘要](questions/Q61.md)|
-|新Q62|MedBrowseComp|[查看四组完整审核摘要](questions/Q62.md)|
-|新Q63|MedBrowseComp|[查看四组完整审核摘要](questions/Q63.md)|
-|新Q64|MedBrowseComp|[查看四组完整审核摘要](questions/Q64.md)|
-|新Q65|MedBrowseComp|[查看四组完整审核摘要](questions/Q65.md)|
-|新Q66|MedBrowseComp|[查看四组完整审核摘要](questions/Q66.md)|
-|新Q67|MedBrowseComp|[查看四组完整审核摘要](questions/Q67.md)|
-|新Q68|MedBrowseComp|[查看四组完整审核摘要](questions/Q68.md)|
-|新Q69|MedBrowseComp|[查看四组完整审核摘要](questions/Q69.md)|
-|新Q70|MedBrowseComp|[查看四组完整审核摘要](questions/Q70.md)|
-|新Q71|MedBrowseComp|[查看四组完整审核摘要](questions/Q71.md)|
-|新Q72|MedBrowseComp|[查看四组完整审核摘要](questions/Q72.md)|
-|新Q73|MedBrowseComp|[查看四组完整审核摘要](questions/Q73.md)|
-|新Q74|MedBrowseComp|[查看四组完整审核摘要](questions/Q74.md)|
-|新Q75|MedBrowseComp|[查看四组完整审核摘要](questions/Q75.md)|
-|新Q76|MedBrowseComp|[查看四组完整审核摘要](questions/Q76.md)|
-|新Q77|MedBrowseComp|[查看四组完整审核摘要](questions/Q77.md)|
-|新Q78|MedBrowseComp|[查看四组完整审核摘要](questions/Q78.md)|
-|新Q79|MedBrowseComp|[查看四组完整审核摘要](questions/Q79.md)|
-|新Q80|MedBrowseComp|[查看四组完整审核摘要](questions/Q80.md)|
-|新Q81|MedBrowseComp|[查看四组完整审核摘要](questions/Q81.md)|
-|新Q82|MedBrowseComp|[查看四组完整审核摘要](questions/Q82.md)|
-|新Q83|MedBrowseComp|[查看四组完整审核摘要](questions/Q83.md)|
-|新Q84|MedBrowseComp|[查看四组完整审核摘要](questions/Q84.md)|
-|新Q85|MedBrowseComp|[查看四组完整审核摘要](questions/Q85.md)|
-|新Q86|MedBrowseComp|[查看四组完整审核摘要](questions/Q86.md)|
-|新Q87|MedBrowseComp|[查看四组完整审核摘要](questions/Q87.md)|
-|新Q88|MedBrowseComp|[查看四组完整审核摘要](questions/Q88.md)|
-|新Q89|MedBrowseComp|[查看四组完整审核摘要](questions/Q89.md)|
-|新Q90|MedBrowseComp|[查看四组完整审核摘要](questions/Q90.md)|
-|新Q91|MedBrowseComp|[查看四组完整审核摘要](questions/Q91.md)|
-|新Q92|MedBrowseComp|[查看四组完整审核摘要](questions/Q92.md)|
-|新Q93|MedBrowseComp|[查看四组完整审核摘要](questions/Q93.md)|
-|新Q94|MedBrowseComp|[查看四组完整审核摘要](questions/Q94.md)|
-|新Q95|MedBrowseComp|[查看四组完整审核摘要](questions/Q95.md)|
-|新Q96|MedBrowseComp|[查看四组完整审核摘要](questions/Q96.md)|
-|新Q97|MedBrowseComp|[查看四组完整审核摘要](questions/Q97.md)|
-|新Q98|MedBrowseComp|[查看四组完整审核摘要](questions/Q98.md)|
-|新Q99|MedBrowseComp|[查看四组完整审核摘要](questions/Q99.md)|
-|新Q100|MedBrowseComp|[查看四组完整审核摘要](questions/Q100.md)|
+|Q01|HealthBench|[查看四组完整审核摘要](questions/Q01.md)|
+|Q02|HealthBench|[查看四组完整审核摘要](questions/Q02.md)|
+|Q03|HealthBench|[查看四组完整审核摘要](questions/Q03.md)|
+|Q04|HealthBench|[查看四组完整审核摘要](questions/Q04.md)|
+|Q05|HealthBench|[查看四组完整审核摘要](questions/Q05.md)|
+|Q06|HealthBench|[查看四组完整审核摘要](questions/Q06.md)|
+|Q07|HealthBench|[查看四组完整审核摘要](questions/Q07.md)|
+|Q08|HealthBench|[查看四组完整审核摘要](questions/Q08.md)|
+|Q09|HealthBench|[查看四组完整审核摘要](questions/Q09.md)|
+|Q10|HealthBench|[查看四组完整审核摘要](questions/Q10.md)|
+|Q11|HealthBench|[查看四组完整审核摘要](questions/Q11.md)|
+|Q12|HealthBench|[查看四组完整审核摘要](questions/Q12.md)|
+|Q13|HealthBench|[查看四组完整审核摘要](questions/Q13.md)|
+|Q14|HealthBench|[查看四组完整审核摘要](questions/Q14.md)|
+|Q15|HealthBench|[查看四组完整审核摘要](questions/Q15.md)|
+|Q16|HealthBench|[查看四组完整审核摘要](questions/Q16.md)|
+|Q17|HealthBench|[查看四组完整审核摘要](questions/Q17.md)|
+|Q18|HealthBench|[查看四组完整审核摘要](questions/Q18.md)|
+|Q19|HealthBench|[查看四组完整审核摘要](questions/Q19.md)|
+|Q20|HealthBench|[查看四组完整审核摘要](questions/Q20.md)|
+|Q21|HealthBench|[查看四组完整审核摘要](questions/Q21.md)|
+|Q22|HealthBench|[查看四组完整审核摘要](questions/Q22.md)|
+|Q23|HealthBench|[查看四组完整审核摘要](questions/Q23.md)|
+|Q24|HealthBench|[查看四组完整审核摘要](questions/Q24.md)|
+|Q25|HealthBench|[查看四组完整审核摘要](questions/Q25.md)|
+|Q26|HealthBench|[查看四组完整审核摘要](questions/Q26.md)|
+|Q27|HealthBench|[查看四组完整审核摘要](questions/Q27.md)|
+|Q28|HealthBench|[查看四组完整审核摘要](questions/Q28.md)|
+|Q29|HealthBench|[查看四组完整审核摘要](questions/Q29.md)|
+|Q30|HealthBench|[查看四组完整审核摘要](questions/Q30.md)|
+|Q31|HealthBench|[查看四组完整审核摘要](questions/Q31.md)|
+|Q32|HealthBench|[查看四组完整审核摘要](questions/Q32.md)|
+|Q33|HealthBench|[查看四组完整审核摘要](questions/Q33.md)|
+|Q34|HealthBench|[查看四组完整审核摘要](questions/Q34.md)|
+|Q35|HealthBench|[查看四组完整审核摘要](questions/Q35.md)|
+|Q36|HealthBench|[查看四组完整审核摘要](questions/Q36.md)|
+|Q37|HealthBench|[查看四组完整审核摘要](questions/Q37.md)|
+|Q38|HealthBench|[查看四组完整审核摘要](questions/Q38.md)|
+|Q39|HealthBench|[查看四组完整审核摘要](questions/Q39.md)|
+|Q40|HealthBench|[查看四组完整审核摘要](questions/Q40.md)|
+|Q41|HealthBench|[查看四组完整审核摘要](questions/Q41.md)|
+|Q42|HealthBench|[查看四组完整审核摘要](questions/Q42.md)|
+|Q43|HealthBench|[查看四组完整审核摘要](questions/Q43.md)|
+|Q44|HealthBench|[查看四组完整审核摘要](questions/Q44.md)|
+|Q45|HealthBench|[查看四组完整审核摘要](questions/Q45.md)|
+|Q46|HealthBench|[查看四组完整审核摘要](questions/Q46.md)|
+|Q47|HealthBench|[查看四组完整审核摘要](questions/Q47.md)|
+|Q48|HealthBench|[查看四组完整审核摘要](questions/Q48.md)|
+|Q49|HealthBench|[查看四组完整审核摘要](questions/Q49.md)|
+|Q50|HealthBench|[查看四组完整审核摘要](questions/Q50.md)|
+|Q51|MedBrowseComp|[查看四组完整审核摘要](questions/Q51.md)|
+|Q52|MedBrowseComp|[查看四组完整审核摘要](questions/Q52.md)|
+|Q53|MedBrowseComp|[查看四组完整审核摘要](questions/Q53.md)|
+|Q54|MedBrowseComp|[查看四组完整审核摘要](questions/Q54.md)|
+|Q55|MedBrowseComp|[查看四组完整审核摘要](questions/Q55.md)|
+|Q56|MedBrowseComp|[查看四组完整审核摘要](questions/Q56.md)|
+|Q57|MedBrowseComp|[查看四组完整审核摘要](questions/Q57.md)|
+|Q58|MedBrowseComp|[查看四组完整审核摘要](questions/Q58.md)|
+|Q59|MedBrowseComp|[查看四组完整审核摘要](questions/Q59.md)|
+|Q60|MedBrowseComp|[查看四组完整审核摘要](questions/Q60.md)|
+|Q61|MedBrowseComp|[查看四组完整审核摘要](questions/Q61.md)|
+|Q62|MedBrowseComp|[查看四组完整审核摘要](questions/Q62.md)|
+|Q63|MedBrowseComp|[查看四组完整审核摘要](questions/Q63.md)|
+|Q64|MedBrowseComp|[查看四组完整审核摘要](questions/Q64.md)|
+|Q65|MedBrowseComp|[查看四组完整审核摘要](questions/Q65.md)|
+|Q66|MedBrowseComp|[查看四组完整审核摘要](questions/Q66.md)|
+|Q67|MedBrowseComp|[查看四组完整审核摘要](questions/Q67.md)|
+|Q68|MedBrowseComp|[查看四组完整审核摘要](questions/Q68.md)|
+|Q69|MedBrowseComp|[查看四组完整审核摘要](questions/Q69.md)|
+|Q70|MedBrowseComp|[查看四组完整审核摘要](questions/Q70.md)|
+|Q71|MedBrowseComp|[查看四组完整审核摘要](questions/Q71.md)|
+|Q72|MedBrowseComp|[查看四组完整审核摘要](questions/Q72.md)|
+|Q73|MedBrowseComp|[查看四组完整审核摘要](questions/Q73.md)|
+|Q74|MedBrowseComp|[查看四组完整审核摘要](questions/Q74.md)|
+|Q75|MedBrowseComp|[查看四组完整审核摘要](questions/Q75.md)|
+|Q76|MedBrowseComp|[查看四组完整审核摘要](questions/Q76.md)|
+|Q77|MedBrowseComp|[查看四组完整审核摘要](questions/Q77.md)|
+|Q78|MedBrowseComp|[查看四组完整审核摘要](questions/Q78.md)|
+|Q79|MedBrowseComp|[查看四组完整审核摘要](questions/Q79.md)|
+|Q80|MedBrowseComp|[查看四组完整审核摘要](questions/Q80.md)|
+|Q81|MedBrowseComp|[查看四组完整审核摘要](questions/Q81.md)|
+|Q82|MedBrowseComp|[查看四组完整审核摘要](questions/Q82.md)|
+|Q83|MedBrowseComp|[查看四组完整审核摘要](questions/Q83.md)|
+|Q84|MedBrowseComp|[查看四组完整审核摘要](questions/Q84.md)|
+|Q85|MedBrowseComp|[查看四组完整审核摘要](questions/Q85.md)|
+|Q86|MedBrowseComp|[查看四组完整审核摘要](questions/Q86.md)|
+|Q87|MedBrowseComp|[查看四组完整审核摘要](questions/Q87.md)|
+|Q88|MedBrowseComp|[查看四组完整审核摘要](questions/Q88.md)|
+|Q89|MedBrowseComp|[查看四组完整审核摘要](questions/Q89.md)|
+|Q90|MedBrowseComp|[查看四组完整审核摘要](questions/Q90.md)|
+|Q91|MedBrowseComp|[查看四组完整审核摘要](questions/Q91.md)|
+|Q92|MedBrowseComp|[查看四组完整审核摘要](questions/Q92.md)|
+|Q93|MedBrowseComp|[查看四组完整审核摘要](questions/Q93.md)|
+|Q94|MedBrowseComp|[查看四组完整审核摘要](questions/Q94.md)|
+|Q95|MedBrowseComp|[查看四组完整审核摘要](questions/Q95.md)|
+|Q96|MedBrowseComp|[查看四组完整审核摘要](questions/Q96.md)|
+|Q97|MedBrowseComp|[查看四组完整审核摘要](questions/Q97.md)|
+|Q98|MedBrowseComp|[查看四组完整审核摘要](questions/Q98.md)|
+|Q99|MedBrowseComp|[查看四组完整审核摘要](questions/Q99.md)|
+|Q100|MedBrowseComp|[查看四组完整审核摘要](questions/Q100.md)|
 
 </details>
 

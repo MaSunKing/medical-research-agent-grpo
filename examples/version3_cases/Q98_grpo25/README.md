@@ -2,7 +2,7 @@
 
 [案例索引](../README.md) · [四组完整问题记录](../../../versions/process_final_sft/experiments/newbench_20261028/questions/Q98.md) · [原始阶段摘录及错误](CASE.json)
 
-这是新MedBrowseComp子集Q98的GRPO25真实失败记录。问题要求串联指定试验、G开头成分、截至2024年12月的整体FDA批准、公司上市及当日开盘价；原题的范围、日期和`NOT LISTED`条件均保留，完整英文见逐题页及`CASE.json`。
+这是跨基准验证评测中MedBrowseComp子集Q98的GRPO25真实失败记录。问题要求串联指定试验、G开头成分、截至2024年12月的整体FDA批准、公司上市及当日开盘价；原题的范围、日期和`NOT LISTED`条件均保留，完整英文见逐题页及`CASE.json`。
 
 ## 实际发生的过程
 

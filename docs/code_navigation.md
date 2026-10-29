@@ -42,3 +42,5 @@
 | 历史共享 LoRA / dense reward / replay | [历史单 LoRA](../versions/single_lora/README.md)、[training/](../training/)、[judge/](../judge/) |
 
 带版本号的文件常是依赖关系，不是多个可随意选择的算法。v13依赖v11的local_scores，不启用v11全池重排。公开清单SOURCE_EXPORT_CURRENT.json核验的是已发布快照，不证明当前冻结包与其相同。运行必须以各自源码/配置/模型哈希、messages和回执为准。版本一、二及后续计划原样保留。
+
+评测用途与表格名词见[名词与指标解释](../versions/process_final_sft/glossary.md)；[逐题索引](../versions/process_final_sft/records.md)按Process开发对照、跨基准验证、Final模块对照分区，题号只在各自评测内有效。

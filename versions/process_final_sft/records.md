@@ -1,122 +1,128 @@
 # 6. 逐题评分与问题索引
 
-[概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · **逐题记录**
+[概览](README.md) · [系统与数据](design.md) · [Process-SFT](process_sft.md) · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · **逐题记录** · [名词与指标解释](glossary.md)
 
 
-所有已有分数和审核结论保持原样；这里补充主题、字段解释和稳定入口。新增100题、旧50题Process及dev100 Final页面均已包含实际评测原题。gold、模型答案、E原句和回执留在私有归档。
+所有已有分数和审核结论保持原样；这里补充主题、字段解释和稳定入口。三项评测的逐题页均包含实际原题。gold、完整批量答卷、逐字证据和回执留在私有归档；少量输出与短证据按[真实案例页](../../examples/version3_cases/README.md)所述范围公开。
 
-## 新增100题400条
+<a id="新增100题400条"></a>
+<a id="cross-benchmark"></a>
 
-[完整结果与评分规则](experiments/newbench_20261028/README.md) · [400条机器可读记录](experiments/newbench_20261028/records_400.json) · [400行分数](experiments/newbench_20261028/scores_400.csv)
+## 跨基准验证评测 · HealthBench50＋MedBrowseComp50
 
-新Q01–50来自HealthBench，新Q51–100来自MedBrowseComp。每题四组均列出分项、内容点、具体错误、失败及恢复，含全部400条。与下面旧50题编号分开。
+[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md) · [400条机器可读记录](experiments/newbench_20261028/records_400.json) · [400行分数](experiments/newbench_20261028/scores_400.csv)
+
+Q01–50来自HealthBench，Q51–100来自MedBrowseComp。每题四组均列出分项、内容点、具体错误、失败及恢复，含全部400条。题号仅在本评测内有效；开发对照的Q01–Q50属于另一题集，不能按同号配对。
 
 |题号|benchmark|逐题四组记录|
 |---|---|---|
-|新Q01|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q01.md)|
-|新Q02|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q02.md)|
-|新Q03|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q03.md)|
-|新Q04|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q04.md)|
-|新Q05|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q05.md)|
-|新Q06|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q06.md)|
-|新Q07|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q07.md)|
-|新Q08|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q08.md)|
-|新Q09|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q09.md)|
-|新Q10|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q10.md)|
-|新Q11|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q11.md)|
-|新Q12|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q12.md)|
-|新Q13|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q13.md)|
-|新Q14|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q14.md)|
-|新Q15|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q15.md)|
-|新Q16|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q16.md)|
-|新Q17|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q17.md)|
-|新Q18|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q18.md)|
-|新Q19|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q19.md)|
-|新Q20|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q20.md)|
-|新Q21|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q21.md)|
-|新Q22|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q22.md)|
-|新Q23|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q23.md)|
-|新Q24|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q24.md)|
-|新Q25|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q25.md)|
-|新Q26|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q26.md)|
-|新Q27|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q27.md)|
-|新Q28|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q28.md)|
-|新Q29|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q29.md)|
-|新Q30|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q30.md)|
-|新Q31|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q31.md)|
-|新Q32|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q32.md)|
-|新Q33|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q33.md)|
-|新Q34|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q34.md)|
-|新Q35|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q35.md)|
-|新Q36|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q36.md)|
-|新Q37|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q37.md)|
-|新Q38|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q38.md)|
-|新Q39|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q39.md)|
-|新Q40|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q40.md)|
-|新Q41|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q41.md)|
-|新Q42|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q42.md)|
-|新Q43|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q43.md)|
-|新Q44|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q44.md)|
-|新Q45|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q45.md)|
-|新Q46|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q46.md)|
-|新Q47|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q47.md)|
-|新Q48|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q48.md)|
-|新Q49|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q49.md)|
-|新Q50|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q50.md)|
-|新Q51|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q51.md)|
-|新Q52|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q52.md)|
-|新Q53|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q53.md)|
-|新Q54|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q54.md)|
-|新Q55|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q55.md)|
-|新Q56|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q56.md)|
-|新Q57|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q57.md)|
-|新Q58|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q58.md)|
-|新Q59|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q59.md)|
-|新Q60|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q60.md)|
-|新Q61|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q61.md)|
-|新Q62|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q62.md)|
-|新Q63|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q63.md)|
-|新Q64|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q64.md)|
-|新Q65|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q65.md)|
-|新Q66|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q66.md)|
-|新Q67|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q67.md)|
-|新Q68|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q68.md)|
-|新Q69|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q69.md)|
-|新Q70|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q70.md)|
-|新Q71|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q71.md)|
-|新Q72|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q72.md)|
-|新Q73|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q73.md)|
-|新Q74|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q74.md)|
-|新Q75|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q75.md)|
-|新Q76|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q76.md)|
-|新Q77|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q77.md)|
-|新Q78|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q78.md)|
-|新Q79|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q79.md)|
-|新Q80|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q80.md)|
-|新Q81|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q81.md)|
-|新Q82|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q82.md)|
-|新Q83|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q83.md)|
-|新Q84|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q84.md)|
-|新Q85|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q85.md)|
-|新Q86|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q86.md)|
-|新Q87|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q87.md)|
-|新Q88|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q88.md)|
-|新Q89|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q89.md)|
-|新Q90|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q90.md)|
-|新Q91|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q91.md)|
-|新Q92|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q92.md)|
-|新Q93|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q93.md)|
-|新Q94|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q94.md)|
-|新Q95|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q95.md)|
-|新Q96|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q96.md)|
-|新Q97|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q97.md)|
-|新Q98|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q98.md)|
-|新Q99|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q99.md)|
-|新Q100|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q100.md)|
+|Q01|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q01.md)|
+|Q02|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q02.md)|
+|Q03|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q03.md)|
+|Q04|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q04.md)|
+|Q05|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q05.md)|
+|Q06|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q06.md)|
+|Q07|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q07.md)|
+|Q08|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q08.md)|
+|Q09|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q09.md)|
+|Q10|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q10.md)|
+|Q11|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q11.md)|
+|Q12|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q12.md)|
+|Q13|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q13.md)|
+|Q14|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q14.md)|
+|Q15|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q15.md)|
+|Q16|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q16.md)|
+|Q17|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q17.md)|
+|Q18|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q18.md)|
+|Q19|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q19.md)|
+|Q20|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q20.md)|
+|Q21|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q21.md)|
+|Q22|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q22.md)|
+|Q23|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q23.md)|
+|Q24|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q24.md)|
+|Q25|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q25.md)|
+|Q26|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q26.md)|
+|Q27|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q27.md)|
+|Q28|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q28.md)|
+|Q29|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q29.md)|
+|Q30|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q30.md)|
+|Q31|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q31.md)|
+|Q32|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q32.md)|
+|Q33|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q33.md)|
+|Q34|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q34.md)|
+|Q35|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q35.md)|
+|Q36|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q36.md)|
+|Q37|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q37.md)|
+|Q38|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q38.md)|
+|Q39|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q39.md)|
+|Q40|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q40.md)|
+|Q41|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q41.md)|
+|Q42|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q42.md)|
+|Q43|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q43.md)|
+|Q44|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q44.md)|
+|Q45|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q45.md)|
+|Q46|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q46.md)|
+|Q47|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q47.md)|
+|Q48|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q48.md)|
+|Q49|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q49.md)|
+|Q50|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q50.md)|
+|Q51|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q51.md)|
+|Q52|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q52.md)|
+|Q53|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q53.md)|
+|Q54|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q54.md)|
+|Q55|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q55.md)|
+|Q56|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q56.md)|
+|Q57|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q57.md)|
+|Q58|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q58.md)|
+|Q59|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q59.md)|
+|Q60|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q60.md)|
+|Q61|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q61.md)|
+|Q62|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q62.md)|
+|Q63|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q63.md)|
+|Q64|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q64.md)|
+|Q65|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q65.md)|
+|Q66|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q66.md)|
+|Q67|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q67.md)|
+|Q68|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q68.md)|
+|Q69|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q69.md)|
+|Q70|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q70.md)|
+|Q71|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q71.md)|
+|Q72|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q72.md)|
+|Q73|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q73.md)|
+|Q74|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q74.md)|
+|Q75|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q75.md)|
+|Q76|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q76.md)|
+|Q77|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q77.md)|
+|Q78|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q78.md)|
+|Q79|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q79.md)|
+|Q80|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q80.md)|
+|Q81|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q81.md)|
+|Q82|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q82.md)|
+|Q83|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q83.md)|
+|Q84|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q84.md)|
+|Q85|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q85.md)|
+|Q86|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q86.md)|
+|Q87|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q87.md)|
+|Q88|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q88.md)|
+|Q89|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q89.md)|
+|Q90|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q90.md)|
+|Q91|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q91.md)|
+|Q92|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q92.md)|
+|Q93|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q93.md)|
+|Q94|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q94.md)|
+|Q95|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q95.md)|
+|Q96|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q96.md)|
+|Q97|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q97.md)|
+|Q98|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q98.md)|
+|Q99|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q99.md)|
+|Q100|MedBrowseComp|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q100.md)|
 
 <a id="process四组50题"></a>
 
-## 旧50题Process四组
+<a id="旧50题process四组"></a>
+<a id="process-development"></a>
+
+## Process开发对照评测 · HealthBench50
 
 每题包含同一组内容点、四组覆盖/P/R/HB、State/Checklist/决策理由及具体错误。失败也列出。**先看[字段速查](evaluation.md#表格字段速查)**，不要把质量R与答案HB直接比较。
 
@@ -175,7 +181,10 @@
 
 [下载200条Process评分](experiments/process_grpo_20261026/scores_200.csv) · [汇总与配对区间](experiments/process_grpo_20261026/summary.json)
 
-## Final固定输入100题
+<a id="final固定输入100题"></a>
+<a id="final-comparison"></a>
+
+## Final模块对照评测 · dev100
 
 每题包含Base与SFT 1/1.5/2轮的四组分数、优点及具体问题。此处为项目四维评分，不是HealthBench。
 
@@ -286,6 +295,6 @@
 
 ## 审核与复算
 
-Process新增100条隐藏checkpoint、Final答案和Judge分进行分段审阅；主审非完全盲，89条交叉复核，174个E锚点核验。旧100条使用已有同规则审核。Final原300条SFT隐藏标签，Base100后补，不是四组同步完全盲评。
+Process开发对照评测中的100条GRPO轨迹隐藏checkpoint、Final答案和Judge分进行分段审阅；主审非完全盲，89条交叉复核，174个E锚点核验。同评测的Base/SFT共100条沿用已有同规则审核。Final模块对照的300条SFT答案隐藏标签，Base100条后补，不是四组同步完全盲评。跨基准验证的审核方式见[对应报告](experiments/newbench_20261028/README.md#数据与边界核查)。
 
 来源/数学一致性检查不等于独立临床认证。可运行[复算脚本](experiments/process_grpo_20261026/verify_results.py)，核对600条公开分数及发布文件哈希。

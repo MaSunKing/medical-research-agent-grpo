@@ -46,6 +46,6 @@ collect/prepare/训练入口依赖私有QUESTIONS、SPLIT、模型身份、数�
 
 Teacher完整采集源码不在本目录补造；原训练保持真实messages身份。源码与合成测试不等于私有数据已附带或医学质量已获批准。运行模式、更新对象和输入边界见[完整设计](../engineering.md)。
 
-## 新100题评测对应的源码
+## 跨基准验证评测对应的源码
 
-当前实现见本目录；四组benchmark的执行源码、评测/Judge适配及合成测试独立保存在[评测源码](../experiments/newbench_20261028/code/README.md)，结果见[新增100题](../experiments/newbench_20261028/README.md)。实验复现使用对应源码清单、模型和运行配置，不以“current”目录名替代实验身份。
+当前实现见本目录；四组benchmark的执行源码、评测/Judge适配及合成测试独立保存在[评测源码](../experiments/newbench_20261028/code/README.md)，结果见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](../experiments/newbench_20261028/README.md)。实验复现使用对应源码清单、模型和运行配置，不以“current”目录名替代实验身份。

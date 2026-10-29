@@ -1,6 +1,6 @@
-> 历史评分口径存档。最新实际交付口径的四组200条结果及逐题问题见[当前评测](experiments/process_grpo_20261026/README.md)；旧发现覆盖与新交付覆盖不直接混算。
+> 历史评分口径存档。最新实际交付口径的四组200条结果及逐题问题见[开发对照四组结果](experiments/process_grpo_20261026/README.md)；旧发现覆盖与新交付覆盖不直接混算。
 
-# 已完成评测：原始972 Process-SFT · Latest50
+# Process开发对照评测 · HealthBench50：Base／SFT初始报告
 
 [返回版本三](README.md) · **[全部100条Process评测](process_review_v2/README.md)** · [返回首页](../../README.md)
 

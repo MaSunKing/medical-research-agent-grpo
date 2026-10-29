@@ -10,7 +10,7 @@
 
 已完成972题、10,575阶段样本的Process-SFT；独立Final-SFT的dev100固定输入对照；100题×4轨迹、99个可用题组、25批Process-GRPO更新；以及HealthBench50＋MedBrowseComp50、四组共400条新轨迹的同配置评测。
 
-| 新100题同配置指标 | Base | Process-SFT | GRPO13 | GRPO25 |
+| 跨基准验证评测指标 | Base | Process-SFT | GRPO13 | GRPO25 |
 |---|---:|---:|---:|---:|
 | HealthBench实际证据交付覆盖 | 63.08% | 78.00% | 76.08% | **81.92%** |
 | MedBrowseComp实际证据交付覆盖 | 4.50% | 10.00% | 7.17% | **13.17%** |
@@ -19,7 +19,15 @@
 | Process失败 / 100 | 6 | 2 | **1** | **1** |
 | Final失败 / 100 | **0** | **0** | 1 | 2 |
 
-当前以GRPO25作为证据交付主候选，GRPO13保留为HealthBench答案指标对照。GRPO25对SFT的交付覆盖为22胜、11负、67平；完整胜负、答案Judge分、失败及统计边界见[四组评测](versions/process_final_sft/experiments/newbench_20261028/README.md)。交付覆盖衡量可用证据，不是医学答案准确率；重复动作可能命中缓存，不等于重复API请求。Final-SFT未超过Base的对照结果见[dev100实验](versions/process_final_sft/final_sft.md)。
+当前以GRPO25作为证据交付主候选，GRPO13保留为HealthBench答案指标对照。GRPO25对SFT的交付覆盖为22胜、11负、67平；完整胜负、答案Judge分、失败及统计边界见[跨基准验证评测 · HealthBench50＋MedBrowseComp50](versions/process_final_sft/experiments/newbench_20261028/README.md)。交付覆盖衡量可用证据，不是医学答案准确率；重复动作可能命中缓存，不等于重复API请求。Final-SFT未超过Base的对照结果见[Final模块对照评测 · dev100](versions/process_final_sft/experiments/final_sft_dev100/README.md)。
+
+评测按用途分为三项：
+
+- [Process开发对照评测 · HealthBench50](versions/process_final_sft/experiments/process_grpo_20261026/README.md)：开发诊断与checkpoint比较。
+- [跨基准验证评测 · HealthBench50＋MedBrowseComp50](versions/process_final_sft/experiments/newbench_20261028/README.md)：另一批题上四组同配置验证。
+- [Final模块对照评测 · dev100](versions/process_final_sft/experiments/final_sft_dev100/README.md)：相同证据输入下比较答案模块。
+
+首次阅读可先看[名词与指标解释](versions/process_final_sft/glossary.md)，包含Process/Final、GRPO13/25、交付覆盖、P/R/HB及失败分母。
 
 ## 两分钟验证入口
 
@@ -141,16 +149,16 @@ flowchart TB
     Review --> Hold[不合格留置，不强行进入训练]
     Review --> Gold[合格Final金标及可追溯输入]
     Gold --> FSFT[独立Final-SFT：已比较1 / 1.5 / 2轮]
-    FSFT --> Compare[固定输入dev100：Base Final暂优]
+    FSFT --> Compare[Final模块对照评测：Base Final暂优]
     Compare --> RL[固定Base Final：已完成一轮Process-GRPO]
-    RL --> Development[旧50题开发对照：13 / 25批checkpoint]
-    Development --> Independent[已完成：新100题四组同配置检验]
+    RL --> Development[Process开发对照评测：13 / 25批checkpoint]
+    Development --> Independent[已完成：跨基准验证评测]
 ```
 
 1. **冻结输入**：600题预划500 train / 100 dev，用原972 Process采集并保留失败与质量问题；实际Final输入与完整存档分开核验。
 2. **制作金标并验证Final**：老师读取相同证据生成候选，使用指定gold训练独立Final LoRA；dev100对照中三个checkpoint均未超过Base Final，因此没有直接追加训练。
 3. **固定Base Final更新Process**：另100道训练题各采4条轨迹，本地审核实际交付与过程，99个可用题组完成25批离线GRPO更新。
-4. **分别评测内容与答案**：13/25批各重新运行旧50题，报告交付覆盖、State错误、完成率和HealthBench分。旧题用于开发；新增HealthBench50与MedBrowseComp50四组400条已全部评测，逐题记录完整。
+4. **分别评测内容与答案**：13/25批各重新运行Process开发对照50题，报告交付覆盖、State错误、完成率和HealthBench分。该50题用于开发；跨基准验证评测的HealthBench50与MedBrowseComp50四组400条也已全部评测，逐题记录完整。
 
 这里展示已经执行的依赖与当前验证边界；完整参数、分数和后续设计见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO算法与后续设计](versions/process_final_sft/grpo.md)。
 
@@ -259,9 +267,9 @@ W_0\ \text{frozen},\quad A,B\ \text{trainable}.
 
 如何聚合这些CE项，以及阶段权重、GRPO优势与策略目标，分别见[单LoRA公式](versions/single_lora/README.md#sft与grpo公式)、[双LoRA计划公式](versions/dual_lora/README.md#计划算法与公式)、[Process与Final边界](versions/process_final_sft/README.md)、[本轮Process-GRPO公式](versions/process_final_sft/grpo.md)。
 
-原始972题、10575阶段样本产生Process checkpoint1322；600题固定500 train/100 dev用于独立Final训练与对照。此后完成100题×4条Process-GRPO轨迹、99组25批更新，并完成旧50题的新GRPO13/25评测。旧题200条Process、新100题400条Process、dev100共400条Final均有逐题记录；无证据、State误读和失败保留，不以完成运行代替质量通过。
+原始972题、10575阶段样本产生Process checkpoint1322；600题固定500 train/100 dev用于独立Final训练与对照。此后完成100题×4条Process-GRPO轨迹、99组25批更新，并完成GRPO13/25的Process开发对照评测。开发对照200条Process、跨基准验证100题400条Process、dev100共400条Final均有逐题记录；无证据、State误读和失败保留，不以完成运行代替质量通过。
 
-新增检验与旧题开发对照分开标注，不将尚未执行的消融或新一轮训练写成结果。见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO后续设计](versions/process_final_sft/grpo.md)。
+跨基准验证与Process开发对照分开标注，不将尚未执行的消融或新一轮训练写成结果。见[版本三](versions/process_final_sft/README.md)、[评测边界](versions/process_final_sft/evaluation.md)和[GRPO后续设计](versions/process_final_sft/grpo.md)。
 
 </details>
 

@@ -2,6 +2,8 @@
 
 [概览](README.md) · [系统与数据](design.md) · **Process-SFT** · [Final-SFT](final_sft.md) · [GRPO](grpo.md) · [评测](evaluation.md) · [逐题记录](records.md)
 
+[名词与指标解释](glossary.md)
+
 ### 轨迹拆分
 
 一条轨迹按当前阶段拆分为：原题 + Compact History + 当前Checklist/State + 候选或已读证据 → 当前阶段completion。
@@ -57,9 +59,9 @@
 
 每个microbatch先计算当前target的CE总和，再除以该effective batch全部有效target-token数并累积梯度；最后不足8条按实际token数归一。不是各样本先取均值后等权，也不是按整个epoch的token量固定缩放。输入、工具、错误尝试和程序Pre-Final全部mask。模型可从历史中学习Search→Browse→State→再决策，但正确语法与历史可见不保证学到稳定策略。
 
-### Process开发评测方法
+### Process开发对照评测方法
 
-在同题、matched seed、相同检索与工具预算下比较Base与Process-SFT，检查实际证据覆盖、State事实与绑定、缺口更新和停止行为。更新次数与链路长度单列，不作为质量扣分；不以Final写作差异代替Process质量。已完成结果见[统一评测结果](evaluation.md#process四组结果)，逐题记录见[记录索引](records.md)。
+在同题、matched seed、相同检索与工具预算下比较Base与Process-SFT，检查实际证据覆盖、State事实与绑定、缺口更新和停止行为。更新次数与链路长度单列，不作为质量扣分；不以Final写作差异代替Process质量。已完成结果见[统一评测结果](evaluation.md#process-development-results)，逐题记录见[记录索引](records.md)。
 
 
 ## 从SFT到后续训练
