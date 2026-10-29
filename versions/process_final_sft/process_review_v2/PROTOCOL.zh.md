@@ -1,4 +1,8 @@
-# Process评测规则
+# Process开发对照评测 · HealthBench50：初始审核规则
+
+[初始审核汇总](README.md) · [四组交付评分规则](../evaluation.md#process怎么评分) · [名词与指标解释](../glossary.md)
+
+本页保留Base／SFT初始审核的评分口径；后续四组结果采用实际交付口径，两者不直接混算。规则正文与已有评分保持原样。
 
 范围：原始972 checkpoint1322与Base的同一50题，全部100条最新attempt。原始记录只读；不运行模型、API、训练或补采。单次离线Codex审核，不是独立临床专家认证，也不是官方HealthBench评分。
 

@@ -2,7 +2,7 @@
 
 # Process开发对照评测 · HealthBench50：Base／SFT初始报告
 
-[返回版本三](README.md) · **[全部100条Process评测](process_review_v2/README.md)** · [返回首页](../../README.md)
+[返回版本三](README.md) · **[Base／SFT初始审核（100条）](process_review_v2/README.md)** · [返回首页](../../README.md)
 
 ## 1. 范围与模型身份
 
@@ -44,7 +44,7 @@ HealthBench原始5000题：e99dd3c6372c10d6fcc5e385c5fae69d0dd40392dae56836ef949
 
 ## 2. Process：有效证据与State分开评
 
-完整报告见 **[全部100条Process评测](process_review_v2/README.md)**，包括全部100条逐条评分与问题文字，不只选成功配对。以下保留汇总，答案分在第3节独立报告。
+完整报告见 **[Base／SFT初始审核（100条）](process_review_v2/README.md)**，包括全部100条逐条评分与问题文字，不只选成功配对。以下保留汇总，答案分在第3节独立报告。
 
 有效证据覆盖按原问题共同需求逐项评0/1/2分，归一化后对全部50题取均值，失败轨迹也保留。State按事实、证据绑定、更新三项各0/1/2分；没有实际已接受State输出的不补零。正常预算耗尽、长链路、单次重复和返回证据条数不直接等于质量扣分或加分。不计算混合总分。
 

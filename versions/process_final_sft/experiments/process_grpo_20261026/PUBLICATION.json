@@ -173,7 +173,7 @@
     "versions/process_final_sft/README.md": "98fc198ffd746a1ad689e1d59312bb7e2d34738d1a9d5a91ddb1d85b84f6711f",
     "versions/process_final_sft/grpo.md": "8538e94e48d872a67794c4236db247b97738a974536c2481349f1380eb24a566",
     "versions/process_final_sft/evaluation.md": "ce44a823604171f618c6013921f5dd9eafbad61c2542183325818d14bcb1d2e6",
-    "versions/process_final_sft/latest50_evaluation.md": "09dd6b9349f055f2b6c203f411d9f3502e36891c1d95d335abb5634d62298744",
+    "versions/process_final_sft/latest50_evaluation.md": "db9ab57fc58f9dbc624278e2351ba60bedb2dbc37b2fd0c86e0cdef7f2a18c37",
     "versions/process_final_sft/process_review_v2/README.md": "cd4a27cabdd43475598efa905c19bf3aabe30e20f09629f8847b7961f3272358",
     "README.md": "4d235a9d796f33ce52570a4e6a593b8fb8b78c695bc35ff182bb3509eebaedcd",
     "versions/process_final_sft/experiments/process_grpo_20261026/verify_results.py": "e39499671f0cbea2a69c6967a8b9b7fe55be4e9062df76aa1825e33ef7aa2c1d",
@@ -187,7 +187,7 @@
     "versions/process_final_sft/records.md": "059b05a4197c28ff351a57b9d4ec7fa50812c4fd91de381fb20edfc7740be49a",
     "versions/process_final_sft/current/README.md": "25db7744592569bc9974804ede68ecbe0c92eed8074e0c492bc2b0ae284f8802",
     "tools/test_math_formatting.py": "b5c3557caf6552862b1df697d983b707d8ab33119c61bb3c7e546bce219d60a4",
-    "versions/process_final_sft/process_review_v2/DETAILS.zh.md": "85b9e126a98e072bc6107f02b7dd58069454d38cd0bac81e2dce9c5f5ef3d60e",
+    "versions/process_final_sft/process_review_v2/DETAILS.zh.md": "245fc30cb888bddb5eea73fce5a1d04b658627b9eb5e4a9df98daf14b8f281ca",
     "versions/process_final_sft/experiments/process_grpo_20261026/questions_50.json": "f8485c94f9573012fc54cc58f96b229e9f0de2ff46edfb983b91ceeebd6e8912",
     "versions/process_final_sft/experiments/final_sft_dev100/questions_100.json": "8041075f66b9302aa9053a6dbfa58ba2dcb1a8f89b088fbc47fc9e42e0ea094e",
     "versions/process_final_sft/glossary.md": "3e6d661da0a05a87080011f028f35185830dd9898e3bac273be0428f0a57dead"
