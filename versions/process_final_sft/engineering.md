@@ -71,9 +71,13 @@ Decision读取原题、Checklist、最新State、候选、证据索引、最近�
 
 源码：[Decision与Execute](current/runtime/src/trainable_agent/engine.py) · [动作验证及反馈](current/runtime/src/trainable_agent/contracts.py)
 
+### Execute：执行工具并登记结果
+
+Execute接收已通过动作校验的Search或Browse请求，调用检索工具并登记候选、证据、成本和反馈；它不额外生成医学判断。下列Search与Browse是Execute内部的两条工具路径，不是与其并列的模型节点。
+
 <a id="3-search发现来源管理新旧候选"></a>
 
-### Search：发现来源与维护候选窗口
+#### Search：发现来源与维护候选窗口
 
 论文路径查询PubMed和Semantic Scholar，网页路径使用Serper。Search提供标题、摘要或snippet及来源元数据，主要用于发现和选源。相关性排序同时考虑原问题和本次query，采用原题0.6、query 0.4的组合，兼顾整体任务和当步缺口。
 
@@ -85,7 +89,7 @@ Decision读取原题、Checklist、最新State、候选、证据索引、最近�
 
 <a id="5-browse与reading_focus围绕本次缺口读取来源"></a>
 
-### Browse与reading_focus：围绕本次缺口读取来源
+#### Browse与reading_focus：围绕本次缺口读取来源
 
 Browse指定当前可选来源和本次`reading_focus`。它描述“这次希望从该来源找到什么”，用于文档内片段检索与排序。例如同一篇研究可以先读主要疗效，再读安全性；改变阅读重点并不意味着已经发现新证据，实际返回文本才决定是否新增E。
 

@@ -1,12 +1,14 @@
 # 医学研究智能体 · Medical Research Agent
 
-围绕医学问题中的证据缺口，自主搜索论文和网页、读取来源并记录未解决项，再把可追溯的材料交给答案生成环节。项目已经完成阶段SFT、独立Final对照、Process-GRPO与逐题评测闭环，用于研究和工程展示，不替代临床判断。
+基于`Qwen/Qwen3-8B`的医学证据检索Agent：围绕问题缺口搜索论文和网页、读取来源并记录未解决项，再把可追溯的材料交给答案生成环节。用于研究和工程展示，不替代临床判断。
 
-**当前主要探索版本三：Base → Process-SFT → Process-GRPO。** Process负责需求拆解、检索选择与证据判断；Final负责根据实际交付材料回答。两者是可分别控制参数的角色，可以共用同一基座。基座为`Qwen/Qwen3-8B`，采用bitsandbytes 4-bit NF4双重量化、BF16计算；Base表示不启用项目LoRA。[术语说明](versions/process_final_sft/glossary.md)
+**当前主要探索版本三：Base → Process-SFT → Process-GRPO。** Process负责拆需求、选工具和判断证据，Final负责根据实际交付材料回答。项目通过SFT和GRPO改进Process，已完成独立Final对照与逐题评测；模型加载和量化配置见[数据与实验设置](versions/process_final_sft/design.md)。
 
 ## 主要结果与当前选择
 
 下表来自**跨基准验证评测 · HealthBench50＋MedBrowseComp50**：100题、四组共400条真实轨迹。四组只替换Process策略，采用相同运行配置，Final统一固定为Base；各组独立重新检索，得到的证据可以不同。
+
+Base表示未启用本项目训练参数的对照；GRPO13／25分别是完成第13／25个更新批次后的Process checkpoint，数字不是训练轮数。
 
 | 跨基准验证评测指标 | Base | Process-SFT | GRPO13 | GRPO25 |
 |---|---:|---:|---:|---:|

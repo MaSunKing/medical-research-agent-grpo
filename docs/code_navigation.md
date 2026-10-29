@@ -18,7 +18,7 @@
 
 下表中src、tests、scripts及retrieval_snapshot_v2位于[公开runtime](../versions/process_final_sft/current/runtime)；批量采集/导出入口位于其上层current目录。
 
-| 冻结包模块 | 职责 |
+| 公开模块／入口 | 职责 |
 |---|---|
 | src/trainable_agent/engine.py | LangGraph节点、工具执行、State传递、停止与Pre-Final |
 | contracts.py / prompts.py | 动作schema、R/E/来源校验与英文阶段Prompt |
@@ -30,7 +30,10 @@
 | storage.py / recovery.py / training.py | SQLite回执、显式恢复、真实当步输入与合法target导出 |
 | retrieval_snapshot_v2/backend/agent/dr_agent/ | PubMed/S2/Serper、正文解析、排序、清洗与片段证据 |
 | retrieval_snapshot_v2/source_registry.py / worker.py | 从已完成Search回执恢复来源映射，保持Browse引用连续；不额外搜索 |
-| packaging/prefinal600/ | 600题500/100划分校验、Process-only队列、真实Final输入冻结、一致性导出 |
+| [prepare.py](../versions/process_final_sft/current/prepare.py) / [collect.py](../versions/process_final_sft/current/collect.py) | 配置与题集准备、Process-only批量采集 |
+| [run_one.py](../versions/process_final_sft/current/run_one.py) / [freeze_final_input.py](../versions/process_final_sft/current/freeze_final_input.py) | 单题Process轨迹采集、实际Final输入快照 |
+| [export_results.py](../versions/process_final_sft/current/export_results.py) | 结果与SQLite一致性导出 |
+| [serve_policy.py](../versions/process_final_sft/current/serve_policy.py) | 模型服务与角色参数控制 |
 
 原始972训练代码单独公开于[original972_training](../versions/process_final_sft/current/original972_training)，按10,575行、1,322更新和effective-batch target-token mean核对；不能以本页下方的既有训练文件身份替代。
 

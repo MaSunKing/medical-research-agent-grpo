@@ -8,6 +8,20 @@
 
 <a id="目录"></a>
 
+## 先从哪个文件读
+
+理解Agent怎样运行，先读`engine.py`；理解采集流程，先读`run_one.py`，再看批量入口。Engine位于runtime子目录，采集、服务和导出脚本直接位于current目录。
+
+| 想看什么 | 直接打开 |
+|---|---|
+| 完整节点流程与条件路由 | [runtime/src/trainable_agent/engine.py](runtime/src/trainable_agent/engine.py) |
+| 单题Process轨迹采集 | [run_one.py](run_one.py) |
+| 保存实际Final请求的固定输入快照 | [freeze_final_input.py](freeze_final_input.py) |
+| 模型服务与角色参数控制 | [serve_policy.py](serve_policy.py) |
+| 批量采集与续跑队列 | [collect.py](collect.py) |
+| 准备题集、配置与工作目录 | [prepare.py](prepare.py) |
+| 一致性检查与结果导出 | [export_results.py](export_results.py) |
+
 ## 按用途选择入口
 
 ### 运行组件与检索
@@ -18,7 +32,6 @@
 | [runtime/retrieval_snapshot_v2](runtime/retrieval_snapshot_v2) | Search、Browse、清洗、排序、PDF、证据坐标与来源恢复；99文件清单及共享模块绑定 |
 | [runtime/tests](runtime/tests) | 当前生产合同回归；不包含旧拒绝式训练数据构建器的全仓库验收承诺 |
 | [runtime/scripts](runtime/scripts) | 源码核验、运行环境预检和显式恢复工具 |
-| 本目录Python/Shell入口 | Process-only队列、Final输入冻结、配置准备、状态查看、SQLite一致性导出与Slurm入口 |
 
 ### Process参数训练主线
 
@@ -59,12 +72,23 @@ python -B test_training.py
 
 ## 部署数据仍须自行提供
 
-collect/prepare/训练入口依赖私有QUESTIONS、SPLIT、模型身份、数据/部署manifest和自有模型路径，本目录故意不附这些文件。公开源码不是可直接运行的完整600题服务器包；不能用缺失或自造数据伪装成功，也不能混合发布源码和旧私有FILES清单后绕过校验。需显式重新构建并核验部署包。
+实际采集和训练需要自行准备：
 
-部署路径适配：prepare.py要求显式传入--process-adapter，仍校验checkpoint1322及对应身份；原972训练run_phase.sh要求显式设置PROCESS972_BASE/PYTHON。源码统一UTF-8/LF，检索共享manifest绑定公开字节；逐文件原始/公开SHA及适配说明见SOURCE_MANIFEST。当前源码身份与实验执行身份分别保存，部署应绑定自己的完整模型、数据、配置和源码清单。
+- 题目与划分文件`QUESTIONS`、`SPLIT`，以及与它们对应的数据身份；
+- 自有基座、adapter路径和模型身份，以及实际使用的检索凭据；
+- 与所选源码一致的运行配置、数据／部署manifest及工作目录。
 
-当前合同：Search原题/query为60:40；重复Search读本题缓存并计正常动作；未读优先、部分已读后置，失败/耗尽按作用域隐藏；6+5工具预算；软12,288/硬15,000；模型抽取最后兜底。Final输入冻结为独立步骤，Process-only不生成Final/Judge；原972训练与600题采集不共享新训练目标或权重更新。
+这些私有材料未随源码附带，因此本目录不是可直接运行的完整600题服务器包。部署时需显式构建并核验自己的包，不能将发布源码与旧私有FILES清单混合使用或绕过身份校验。
 
-正文清洗保留弱标题规则，在排除模板噪声时保护临床短句、剂量、否定比较、中文条目和表格。worker启动及Search回执重放时恢复已经校验的来源映射，不增加Search、不改canonical ID；只能恢复回执实际保存的字段。reading_focus的检索投影每次独立按320个UTF-8字节处理，原题锚点为640字节，完整原题和证据正文另有预算。
+**采集入口的特定绑定：** 本目录`prepare.py`要求显式传入`--process-adapter`，并校验原972 checkpoint1322及对应身份；这是该Process-only采集入口的约束，不表示所有GRPO运行入口都固定加载checkpoint1322。原972训练的`run_phase.sh`仍要求显式设置`PROCESS972_BASE/PYTHON`。
 
-Teacher完整采集源码不在本目录补造；原训练保持真实messages身份。源码与合成测试不等于私有数据已附带或医学质量已获批准。运行模式、更新对象和输入边界见[完整设计](../engineering.md)。
+## 配置、身份与机制分别在哪里
+
+| 需要核对什么 | 说明位置 |
+|---|---|
+| 模型、量化、题集、工具与上下文预算 | [数据与实验设置](../design.md)；具体实验以自身冻结配置为准 |
+| 缓存、正文清洗、reading_focus、来源恢复和交接模式 | [系统架构与执行机制](../engineering.md) |
+| 文件SHA、UTF-8/LF规范化、路径适配及共享manifest绑定 | [源码身份清单](SOURCE_MANIFEST.json)；部署需同时绑定完整模型、数据、配置和源码清单 |
+| GRPO更新包所需的轨迹、奖励、权重与恢复材料 | [更新器部署输入与适用范围](process_grpo_update/README.md#部署输入与适用范围) |
+
+维护源码身份与实验执行身份分别保留；Teacher完整采集源码不在这里补造，原训练保持真实messages身份。源码与合成测试用于工程审阅，不表示已附私有数据或完成医学质量认证。
