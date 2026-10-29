@@ -1,7 +1,7 @@
 {
   "date": "2026-10-28",
   "files": {
-    "README.md": "2fa429d00a9e4e5679ee7b96ccd6ed2263c350985e39e969f169c5b284175354",
+    "README.md": "51fb88faf24117da691c611f0684d0de5f2d2d909d675ca40d6f04982e10ef80",
     "THIRD_PARTY_NOTICES.md": "741b56a4bb6d88d40c8c7a97798e7be55f8f89f74d3ec8d86ac18aece62eb127",
     "versions/process_final_sft/README.md": "2f8fb9d5120aeb5985d7475859447b43544c84b1c2a71a5f101948c550cbb5e4",
     "versions/process_final_sft/current/README.md": "7549ea1f3a65d36117d7bbf33c78c32c6dcd0e455cedc29085688bd51c597716",
@@ -280,7 +280,7 @@
     "versions/process_final_sft/experiments/newbench_20261028/summary.json": "5c890671ff313e257c153db79e22c340c8848686a705a666c6f3ffd2cac608e1",
     "versions/process_final_sft/experiments/newbench_20261028/test_public_results.py": "42ce9962d5e79bde93acbe63a2ad43789dc2af68c091edbbb9afc157ca6601f5",
     "versions/process_final_sft/experiments/newbench_20261028/verify_results.py": "50fdb679b051b0776f3b2b096e5b214eb8e78b7437a2aba7bf48e73dc1be7c04",
-    "versions/process_final_sft/experiments/process_grpo_20261026/PUBLICATION.json": "8d2f05bca56393f8da9375a15669bef289c841cf683defa35e6516f8c67283bc",
+    "versions/process_final_sft/experiments/process_grpo_20261026/PUBLICATION.json": "f647801853462dda5238384cd09b7bc880e1dadf4156d7aabbdfbc7e78d1a589",
     "versions/process_final_sft/grpo.md": "a6e58dc29edf028c34bdad47b1bc070793d185a78d0cea5363b184fe469fc817",
     "versions/process_final_sft/records.md": "45c3d6abaa194d397503dbc0c840106c3d7a83e41cc8310feea72dfce156f920",
     "versions/process_final_sft/experiments/newbench_20261028/questions_100.json": "8a9b41f0699d93ac6a65d87501253f061bc9f4a82cb2a0aada5e6f50731e1bb1",

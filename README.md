@@ -96,6 +96,6 @@ python -B versions/process_final_sft/experiments/newbench_20261028/verify_result
 
 **公开复现分三层：** 基础检查不依赖私有数据；合成CPU测试需安装对应依赖；真实GPU训练与实验复现还需自有模型、轨迹、奖励及身份文件。批量原始答卷、gold、权重和凭据保留私有；真实案例按其页面说明公开有限原始摘录。
 
-当前主线为**[版本三](versions/process_final_sft/README.md)**；历史探索保留为[版本一：单LoRA](versions/single_lora/README.md)与[版本二：双LoRA](versions/dual_lora/README.md)，对应[冻结历史检索](versions/legacy_retrieval/README.md)。各实验保持自己的执行身份，不混用配置和统计结论。
+当前主线为[版本三](versions/process_final_sft/README.md)；历史探索保留为[版本一：单LoRA](versions/single_lora/README.md)与[版本二：双LoRA](versions/dual_lora/README.md)，对应[冻结历史检索](versions/legacy_retrieval/README.md)。各实验保持自己的执行身份，不混用配置和统计结论。
 
 Apache-2.0；必要署名见[第三方声明](THIRD_PARTY_NOTICES.md)。模型与外部服务另受各自条款约束。
