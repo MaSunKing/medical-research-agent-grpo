@@ -2,6 +2,7 @@
 import csv
 import itertools
 import json
+import re
 from pathlib import Path
 
 HERE=Path(__file__).resolve().parent
@@ -24,6 +25,11 @@ def verify():
         assert r['question_id']==q['question_id']==st['question_id']
         assert r['question_sha256']==q['question_sha256']==st['question_sha256']
         assert st['required_core_content'] and st['source_urls']
+        assert st['prefinal_required_content']
+        if r['benchmark']=='medbrowsecomp':
+            trial=re.search(r'NCT\d+',q['question']).group()
+            assert trial in ' '.join(st['required_core_content'])
+            assert st['output_note']
         assert r['core_accuracy'] in (0,1) and r['accuracy_reason'].strip()
         assert r['prefinal_information_complete'] in (0,1)
         assert bool(r['prefinal_information_complete'])==all(p['support_score']==2 for p in r['prefinal_point_support'])
@@ -55,10 +61,16 @@ def verify():
             assert pair=={'a_wins':sum(am[i]>bm[i] for i in am),'b_wins':sum(am[i]<bm[i] for i in am),'ties':sum(am[i]==bm[i] for i in am)}
     for i in range(1,101):
         page=(HERE/'questions'/f'Q{i:02}.md').read_text(encoding='utf8')
-        assert page.count('## 核心答案与必要信息')==1
+        assert page.count('## 本题怎样算答对')==1
+        assert page.count('## 四组结果')==1
+        assert page.index('## 本题怎样算答对')<page.index('## 四组结果')
+        assert page.count('<details>')==page.count('</details>')==6
+        assert '<summary>展开Process分项与原生Judge分（辅助诊断）</summary>' in page
+        for t in criteria[i]['required_core_content']:assert t in page
         for r in (r for r in rows if r['index']==i):
-            assert f'|{NAME[r["arm"]]}|{r["accuracy_result"]}（{r["core_accuracy"]}）|{r["prefinal_information_complete"]}|' in page
-            assert r['accuracy_reason'].replace('|','\\|').replace('\n',' ') in page
+            info='齐全' if r['prefinal_information_complete'] else '未齐'
+            assert f'|{NAME[r["arm"]]}|{r["accuracy_result"]}|{info}|' in page
+            assert r['accuracy_reason'] in page
     assert summary['tool_budget']=={'normal_charged_calls':6,'environment_failure_exemptions_max':5,'actual_calls_max':11,'search_and_browse_share_budget':True}
     mb=[r for r in rows if r['benchmark']=='medbrowsecomp']
     assert sum(r['prefinal_information_complete'] for r in mb)==10

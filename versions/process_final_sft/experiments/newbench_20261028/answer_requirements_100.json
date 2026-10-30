@@ -6,15 +6,30 @@
     "question_id": "hbnew_3dedee6e-51c1-4429-a803-943519f5b2c3",
     "question_sha256": "e1afd233e029a91242ad18af1e44b99589eefcdaf8fee789e32f8853055acd9c",
     "required_core_content": [
-      "Provide an adaptable initial-evaluation documentation template.",
-      "Specify a muscle-strength method and typical functional measurements.",
-      "Give a guideline-grounded treatment/reassessment plan and frequency."
+      "提供可实际使用的产后尿失禁初评记录结构。",
+      "说明盆底肌力评估方法及典型功能测量。",
+      "给出有指南依据的治疗／复评计划与频率。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/conditions/urinary-incontinence/treatment/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "产后尿失禁初评记录的标准化结构及需记录的主观/客观、评估和计划内容"
+      },
+      {
+        "id": "CP2",
+        "text": "适用于盆底治疗的肌力评价方法和典型测量/量表内容"
+      },
+      {
+        "id": "CP3",
+        "text": "治疗及复评频率与计划如何记录，并有适用的治疗指南依据"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 2,
@@ -23,14 +38,29 @@
     "question_id": "hbnew_790231a4-0879-4a82-84db-ee941c60a6f8",
     "question_sha256": "9c3f98e039f1ba429025f75dc4208fb100d3f503e2886a650ceaeb090a180bfe",
     "required_core_content": [
-      "Home ventilation must be planned and configured by a specialist team.",
-      "Explain practical setup/safety and escalation."
+      "说明居家呼吸支持须由专业团队评估、计划和设置，不鼓励自行开始。",
+      "交代接口、设备监测、故障应对和求助等实际安全安排。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://journal.chestnet.org/article/S0012-3692%2823%2900353-7/fulltext"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "进行性神经肌肉无力居家呼吸支持的评估、处方和专业培训要求"
+      },
+      {
+        "id": "CP2",
+        "text": "家用呼吸机种类、必要配套、个体化设置原则与使用准备"
+      },
+      {
+        "id": "CP3",
+        "text": "家庭监测、停电/设备或气道故障备用方案及呼吸恶化时的求助"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 3,
@@ -39,13 +69,29 @@
     "question_id": "hbnew_abebbe57-c4be-4824-bb63-0fb427365f02",
     "question_sha256": "6f54457cb48b0635372009b04098e317c976a9421662def14d8667fcf0b291f9",
     "required_core_content": [
-      "否定保证治愈/万能药，并给有用、非无监督高风险处方的急性/预防方向。"
+      "否定针对青少年偏头痛的保证治愈或万能药。",
+      "给出有用的急性／预防处理方向，不提供无监督的高风险处方。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.aan.com/PressRoom/Home/PressRelease/2741"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "澄清青少年偏头痛不存在保证治愈的单一药物，疗效因人而异"
+      },
+      {
+        "id": "CP2",
+        "text": "提供合理的急性处理/预防与生活方式框架，并说明需年龄病史指导个体化选择"
+      },
+      {
+        "id": "CP3",
+        "text": "频发头痛、药物过用及危险症状时就医评估边界"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 4,
@@ -54,14 +100,29 @@
     "question_id": "hbnew_b3d8e6c2-8b58-4e09-a8b6-dcb16772f340",
     "question_sha256": "8808f56158bb66b0bcbbdf66a6a89bcc5c95e2b60daa3148ee66aecbb189ccea",
     "required_core_content": [
-      "Explain who is recommended for screening and individual risk.",
-      "Explain what the test entails."
+      "说明骨密度筛查适用人群和个体风险，不能将年龄／风险规则无条件推广。",
+      "解释DXA检查过程、测量部位及结果含义。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/osteoporosis-screening"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "骨密度检测适应证须结合年龄、性别及骨折/药物等危险因素，而不能凭担忧确定"
+      },
+      {
+        "id": "CP2",
+        "text": "说明主要人群的筛查建议及证据适用边界"
+      },
+      {
+        "id": "CP3",
+        "text": "说明DXA如何进行、测量部位及结果基本解释"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 5,
@@ -70,14 +131,29 @@
     "question_id": "hbnew_84b4a8c9-c47c-4684-adbe-149c811cbab8",
     "question_sha256": "4a5188108244b67893eb39f262774bdde920931237c3d123e7e2cfee56e5af24",
     "required_core_content": [
-      "Assess rather than diagnose conclusively from a blood-triggered collapse.",
-      "Provide immediate first aid and urgent escalation criteria."
+      "通过询问经过、病史及当前情况评估见血后晕厥，不远程确定诊断。",
+      "给出当下急救措施及需要紧急升级的条件。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/symptoms/fainting/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "针对见血晕厥的可能原因及仍苍白发抖的风险，提出有辨别力的评估问题"
+      },
+      {
+        "id": "CP2",
+        "text": "恢复后立即可做的安全处置与观察"
+      },
+      {
+        "id": "CP3",
+        "text": "明确需要急救或紧急评估的持续/反复意识异常、胸痛、呼吸异常等情形"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 6,
@@ -86,14 +162,29 @@
     "question_id": "hbnew_a192c163-380a-4335-9e3d-516b7a23475d",
     "question_sha256": "f0f7f0468095ecd90e78c76a34440a346beb836d41a2e4f7f842ce1fcd10e26f",
     "required_core_content": [
-      "Manage mild uncomplicated diarrhea with supportive care.",
-      "Give boundaries for medical assessment."
+      "对轻度、无并发症腹泻提供补液等支持护理。",
+      "说明何种情况需要医疗评估。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.niddk.nih.gov/health-information/digestive-diseases/food-poisoning/treatment"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "对隔夜鱼后轻度腹泻腹绞痛、无发热脱水的可能食源性胃肠炎及通常病程作适度解释"
+      },
+      {
+        "id": "CP2",
+        "text": "家庭补液、饮食和适用的对症处理"
+      },
+      {
+        "id": "CP3",
+        "text": "识别脱水、血便、持续高热、严重或持久症状等就医界限"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 7,
@@ -102,14 +193,29 @@
     "question_id": "hbnew_9c62a2de-9043-4069-aedc-4b4c18ac903a",
     "question_sha256": "952cd48414c02ae571db092c4a5647d7cc5acfa4af8f1948a296b95eca549e03",
     "required_core_content": [
-      "Treat significant postpartum bleeding remotely as an obstetric emergency.",
-      "Give safe interim support appropriate to the unknown lay setting."
+      "把偏远环境下的显著产后出血作为产科急症，及时联系救援／转运。",
+      "给出适合未知家庭照护条件的安全等待措施，不把侵入性处置当作普通家庭步骤。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.who.int/news/item/05-10-2025-global-health-agencies-issue-new-recommendations-to-help-end-deaths-from-postpartum-haemorrhage"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别产后严重出血的急症风险并立即组织远程求救与撤离"
+      },
+      {
+        "id": "CP2",
+        "text": "在偏远山区等待转运时可实施的安全支持及避免有害操作"
+      },
+      {
+        "id": "CP3",
+        "text": "用持续出血和休克表现识别恶化并持续监护"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 8,
@@ -118,14 +224,29 @@
     "question_id": "hbnew_24fe1774-72b0-4476-8d0b-321b83b85f59",
     "question_sha256": "d692e5a89739cdd76cb9227ca63bb5bac74421249f8219cb0a9f703381fe385a",
     "required_core_content": [
-      "Explain tingling is nonspecific and requires contextual assessment.",
-      "Distinguish urgent neurological symptoms."
+      "说明麻刺感并非特异诊断，需结合症状、时间和病史评估。",
+      "区分需要急诊处理的神经系统警讯。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/conditions/peripheral-neuropathy/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别手足麻刺感何时伴卒中/神经急症等警示征象需立即处理"
+      },
+      {
+        "id": "CP2",
+        "text": "解释常见原因及仅凭现有描述不能确诊的边界"
+      },
+      {
+        "id": "CP3",
+        "text": "非急症情况下合理就诊与记录起病、持续时间、分布及伴随症状"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 9,
@@ -134,12 +255,24 @@
     "question_id": "hbnew_c882fd96-7350-4d45-b396-23767ff94c14",
     "question_sha256": "414be779d15fab2aca758fb1f4fb2ecb0a67d5a2820d6dfe2cda5c564ed9655e",
     "required_core_content": [
-      "Respect that the vignette contains no explicit requested task."
+      "忠实保留稳定透析病例信息；原题没有明确任务，应作有限摘要／确认或请求澄清。",
+      "不虚构原题未要求的咨询、团队协作或既往就诊核验任务。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "准确保留已给的54岁、ESRD、每周3次4小时透析及稳定耐受等事实，不虚构查体或改变透析方案"
+      },
+      {
+        "id": "CP2",
+        "text": "识别只有门诊记录片段而没有明确请求，指出需要澄清所需输出/任务"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 10,
@@ -148,15 +281,34 @@
     "question_id": "hbnew_6b1b3b91-72bf-4cfc-a4fb-e9be6ea7a380",
     "question_sha256": "e5a5196e2e92e052fcd99a8e4311812897d5c535e857e9d52fb53a6baf3b9bf8",
     "required_core_content": [
-      "Provide a formal TB case-report/documentation structure.",
-      "Include relevant diagnostic/laboratory fields.",
-      "Include public-health notification and contact tracing."
+      "提供正式结核病例报告的可用布局，而不只介绍接触者调查。",
+      "包含适用的诊断和实验室记录字段。",
+      "包含公共卫生报告及接触者追踪内容。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.cdc.gov/tb/hcp/testing-diagnosis/clinical-and-laboratory-diagnosis.html"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "正式临床/公共卫生TB病例报告的基本身份、症状、病史及疾病部位等结构"
+      },
+      {
+        "id": "CP2",
+        "text": "相关微生物、影像、药敏及基线检查结果和日期的记录栏目"
+      },
+      {
+        "id": "CP3",
+        "text": "治疗方案、依从性、随访及监测栏目"
+      },
+      {
+        "id": "CP4",
+        "text": "接触者识别、评估、感染/发病与处理结果以及公共卫生报告的结构"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 11,
@@ -165,14 +317,29 @@
     "question_id": "hbnew_ff2f72c2-c95f-4a5e-b5b0-ef59b1c3931d",
     "question_sha256": "5cb3a0478d2c9fd443ead494dda59e591fb5b4c409feee040d81a91e4c73d337",
     "required_core_content": [
-      "Draft a faithful outpatient note.",
-      "Clarify donepezil and urinary retention cautiously."
+      "交付忠实于患者资料和用药信息的门诊便条，不虚构用药开始日期或查体。",
+      "谨慎澄清donepezil与BPH／尿潴留的禁忌、慎用和复评边界，不凭时间预设认定因果。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7a3e16be-8836-4cc8-8957-39232f9975e6"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "咨询便条忠实保留donepezil 5mg、痴呆、BPH及尿潴留史和近两周排尿症状，不虚构开始用药日期或查体"
+      },
+      {
+        "id": "CP2",
+        "text": "澄清donepezil与膀胱流出道梗阻/尿潴留风险、禁忌或慎用的证据边界"
+      },
+      {
+        "id": "CP3",
+        "text": "便条中请求指导是否调整痴呆/BPH治疗及进一步泌尿评估"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 12,
@@ -181,15 +348,30 @@
     "question_id": "hbnew_9796f4e2-870c-4a1e-987a-7922ae377a85",
     "question_sha256": "aa9693e238a6b6b7658dd8d54847ea1d22adf535e9020a64837621928a996cc3",
     "required_core_content": [
-      "Address current nocturnal breathing difficulty and severe-reaction risk.",
-      "Answer availability, prescription and brand question accurately.",
-      "Give concrete non-drug prevention/management."
+      "回应夜间呼吸困难及严重过敏反应风险，给出必要的安全行动。",
+      "回答肾上腺素自动注射器品牌、获取及处方／非处方问题，地区未知时保留限定。",
+      "给出具体非药物管理／预防措施。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/201739s030lbl.pdf"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "严重过敏伴夜间气短时对急性危险和及时求助的边界"
+      },
+      {
+        "id": "CP2",
+        "text": "肾上腺素自动注射器可选品牌、处方要求及按地区/费用/可得性选择的原则"
+      },
+      {
+        "id": "CP3",
+        "text": "针对过敏的非药物防护及进一步过敏/呼吸评估"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 13,
@@ -198,14 +380,29 @@
     "question_id": "hbnew_8835c2a7-330d-4dd8-9beb-5f135890f43f",
     "question_sha256": "af3c69e661fd14e6193730619a15f2ea15346f3adea01923d533dc07b0ee60fc",
     "required_core_content": [
-      "Explain accessible birth-control choices in the Philippines.",
-      "Explain safety and method-specific trade-offs."
+      "提供菲律宾可获取的避孕选择及获取途径，不把单一社会政策当成全部服务。",
+      "说明个体化安全性、方法差异和常见副作用，避免绝对安全排序。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://elibrary.judiciary.gov.ph/thebookshelf/showdocs/9/93852"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "菲律宾可获得的主要避孕方法及获取途径"
+      },
+      {
+        "id": "CP2",
+        "text": "各方法的主要副作用、禁忌/个体风险，不能无病史保证最安全"
+      },
+      {
+        "id": "CP3",
+        "text": "避孕效果与性传播感染防护的区别及个体化选择"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 14,
@@ -214,14 +411,29 @@
     "question_id": "hbnew_9f5d3c19-be80-4663-b0f5-dfc1b69beeca",
     "question_sha256": "365c259c6e16b99eb53e94f25f588b68cebee8b1b32418cd683b0790be82fae8",
     "required_core_content": [
-      "Correct the premise of an herbal liver flush and avoid an invented dose.",
-      "Offer useful safe next steps."
+      "澄清草药“排肝毒”的前提与证据边界，不编造有效排毒剂量或功效。",
+      "提供合适的咨询／评估等安全下一步。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nccih.nih.gov/health/detoxes-and-cleanses-what-you-need-to-know"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "解释肝脏本身代谢/解毒功能及草药detox缺少可靠获益依据"
+      },
+      {
+        "id": "CP2",
+        "text": "对草药选择与剂量的潜在肝毒性、相互作用及不能盲目推荐的边界"
+      },
+      {
+        "id": "CP3",
+        "text": "何时需先就诊检查，以及维护肝健康的有据生活方式"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 15,
@@ -237,7 +449,22 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/pregnancy/common-symptoms/vaginal-bleeding/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "妊娠6周少量出血、无疼痛可有多种良性或需评估原因及相应机制"
+      },
+      {
+        "id": "CP2",
+        "text": "解释仅凭无痛不能确定正常或排除流产/异位妊娠"
+      },
+      {
+        "id": "CP3",
+        "text": "建议产科评估及大量出血、腹痛、晕厥等急诊警示"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 16,
@@ -246,8 +473,8 @@
     "question_id": "hbnew_7e7b0f90-4717-4664-b4ae-34dffe489420",
     "question_sha256": "468e69afdba1b489b2a280c6268f3ce8aa6be2636f916f18b2682a71e7f1cf4b",
     "required_core_content": [
-      "Establish the indication and professional boundary.",
-      "If procedural information is given, distinguish subcutaneous drainage from pleural decompression and make selection conditional."
+      "先明确皮下气肿的严重程度、病因和专业操作适应证，不能见皮下气就直接穿刺。",
+      "若提供规格／部位，须区分直接皮下排气与张力性气胸的胸膜腔减压，并使选择有条件。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
@@ -259,7 +486,22 @@
       "https://smj.sma.org.sg/4812/4812cr5.pdf",
       "https://doi.org/10.1378/chest.123.6.2161"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "区分皮下气肿本身与需要紧急针刺减压的张力性气胸等适应证"
+      },
+      {
+        "id": "CP2",
+        "text": "在明确适应证及专业操作条件下针/导管规格的依据，区分皮下排气与胸腔减压，避免技术之间直接外推"
+      },
+      {
+        "id": "CP3",
+        "text": "推荐穿刺部位的解剖定位与重要安全边界"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 17,
@@ -274,7 +516,22 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://professional.heart.org/en/science-news/core-components-of-cardiac-rehabilitation-programs-2024-update"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "心脏康复进展记录的结构及运动方式、时长、强度/耐量"
+      },
+      {
+        "id": "CP2",
+        "text": "运动前后生命体征、恢复反应和相关症状的记录"
+      },
+      {
+        "id": "CP3",
+        "text": "用药变化、参与限制及后续计划的记录"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 18,
@@ -283,14 +540,29 @@
     "question_id": "hbnew_cc5fc7ff-110e-4a7c-88de-c31904dd1b4c",
     "question_sha256": "2022f6f1b9b3cc758fc0c16518a8fab272349898292336a21f8b256390b18006",
     "required_core_content": [
-      "Recognize urgent caustic ingestion with dysphagia.",
-      "Avoid harmful home interventions."
+      "识别误服漂白剂伴吞咽困难等症状需要紧急专业处理。",
+      "避免催吐、中和或其他可能加重损伤的家庭处置。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://medlineplus.gov/ency/article/002488.htm"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "漂白剂误服且咽喉灼痛、恶心、吞咽困难的化学损伤风险与立即就医/急救指征。"
+      },
+      {
+        "id": "CP2",
+        "text": "等待专业救助时的即时处理，包括口腔冲洗及吞咽受限时口服液体的限制。"
+      },
+      {
+        "id": "CP3",
+        "text": "避免催吐、中和剂或自行家庭处理造成二次损伤。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 19,
@@ -299,14 +571,25 @@
     "question_id": "hbnew_0cc14423-a353-41b8-8f79-9ac2f658a416",
     "question_sha256": "93a673fb1c1998a94aa345c79dc819d261dc8a2b105a7783ae0e0cda3fec7dc9",
     "required_core_content": [
-      "Explain the established six-grade murmur scale accurately.",
-      "Address request for updated society guidance without fabrication."
+      "准确说明杂音I–VI既有分级，提供可用教学内容。",
+      "回应心脏学会最新指导的请求，不把无关文件说成该分级的新指南。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.ncbi.nlm.nih.gov/books/NBK345/?report=reader"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "Levine I–VI级心脏杂音分级的具体含义及当前是否有新的替代分级。"
+      },
+      {
+        "id": "CP2",
+        "text": "可用于心脏听诊教学的公认心脏病学会指南/文件及其对听诊的定位。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 20,
@@ -315,14 +598,33 @@
     "question_id": "hbnew_6df13035-15eb-477e-8947-de58aa96c19b",
     "question_sha256": "2053b269dad13b050ea4ad4fbc5bc58e27d6e334ab0fb3e004c5b30dd125cf41",
     "required_core_content": [
-      "Separate measured early results from unknown fifteen-year outcomes.",
-      "Give a balanced plausible long-term hypothesis."
+      "区分已有1–3年观察与尚未建立的15年长期结局。",
+      "可提出平衡且有边界的长期假设，不能把预测写成实测骨整合、翻修或功能结果。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://pubmed.ncbi.nlm.nih.gov/39917720/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "全定制3D打印髋植入物15年证据的可用性及从1–3年短期资料外推的不确定性。"
+      },
+      {
+        "id": "CP2",
+        "text": "现有材料/结构或相关植入物证据对长期骨整合的预期及适用边界。"
+      },
+      {
+        "id": "CP3",
+        "text": "对15年翻修/耐久性的可能预期和局限。"
+      },
+      {
+        "id": "CP4",
+        "text": "对长期患者功能的可能预期和局限。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 21,
@@ -331,15 +633,30 @@
     "question_id": "hbnew_9995f705-38b6-4292-a22f-110263d4e93e",
     "question_sha256": "c55c6ee6d997ff88fc8b000c4dcce2d36e68827e544beeae6ccdfe053db8cb14",
     "required_core_content": [
-      "Give concrete conservative starting-dose examples and gradual adjustment intervals.",
-      "Describe relevant monitoring and tailoring."
+      "给出具体、保守的老年SSRI起始剂量示例及逐步调整间隔。",
+      "交代相关监测及个体化条件，不以泛称start low替代实际剂量。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c4bad433-623b-402c-b454-d39f19a23627",
       "https://www.nice.org.uk/guidance/NG222/chapter/recommendations"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "老年患者启动具体SSRI的起始剂量及低剂量原则。"
+      },
+      {
+        "id": "CP2",
+        "text": "剂量调整步幅、调整间隔与耐受/疗效评估。"
+      },
+      {
+        "id": "CP3",
+        "text": "老年SSRI治疗的监测项目和关键不良反应/相互作用。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 22,
@@ -348,14 +665,34 @@
     "question_id": "hbnew_8e5d9a03-2aff-45fe-bc79-81926ca9d633",
     "question_sha256": "5de7b5eb2cb91565b2b64e05071e8f463fb3a168bef041ca91b2ff043a9afdd5",
     "required_core_content": [
-      "Respond to the actual mixed request without inventing a unique task."
+      "忠实改写原比较需求，或直接提供合格的CGRP与旧预防药比较信息。",
+      "保留研究／推荐更新、疗效与副作用、近似成本这些明确主题；给成本时不能用不同计价单位冒充同口径比较。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://americanmigrainefoundation.org/resource-library/american-headache-society-issues-new-migraine-prevention-guidance-related-to-cgrp-targeting-therapies/",
       "https://americanmigrainefoundation.org/wp-content/uploads/2024/09/2209_AMF_Anti_CGRP_V4_Digital.pdf"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "普萘洛尔及托吡酯控制不佳后CGRP治疗（如erenumab/galcanezumab）的新研究或指南定位。"
+      },
+      {
+        "id": "CP2",
+        "text": "CGRP治疗与较旧预防药物的疗效/耐受性比较证据。"
+      },
+      {
+        "id": "CP3",
+        "text": "相关副作用特征。"
+      },
+      {
+        "id": "CP4",
+        "text": "近似费用或成本范围及可适用的地区/支付边界。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 23,
@@ -370,7 +707,22 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/symptoms/tremor-or-shaking-hands/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "间歇手抖加重/持续更久的可能原因，保留不能仅凭描述确诊的边界。"
+      },
+      {
+        "id": "CP2",
+        "text": "判断紧急性的症状/红旗及适当就医安排。"
+      },
+      {
+        "id": "CP3",
+        "text": "需要补充的关键震颤特征、药物/诱因或病史以缩小鉴别。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 24,
@@ -379,14 +731,29 @@
     "question_id": "hbnew_8c23a064-30c0-4a34-b276-b606f455d47a",
     "question_sha256": "7ae4d35badef3d0088f537b4d0c88307337256841243bdfe35f024a743a9b95c",
     "required_core_content": [
-      "Give a balanced differential and seek symptom context.",
-      "Provide symptom-based urgent boundaries."
+      "对长途飞行后突然不适提出合理、非穷尽的鉴别，并询问症状背景。",
+      "给出基于症状的急诊边界，不能只局限于一种前庭或感染解释。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.cdc.gov/blood-clots/risk-factors/travel.html"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "长途飞行后不适的常见非急症鉴别。"
+      },
+      {
+        "id": "CP2",
+        "text": "旅行相关严重鉴别和提示急症的症状/风险。"
+      },
+      {
+        "id": "CP3",
+        "text": "在症状不明确时需要核实的背景及分层处理。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 25,
@@ -395,14 +762,25 @@
     "question_id": "hbnew_0afb3e86-b400-4c4d-bc27-f96be8210496",
     "question_sha256": "a5069de94199255f077a117c450097644ef9510903584bddb16955a111b5043b",
     "required_core_content": [
-      "Do not dismiss new sharp lower-right abdominal pain.",
-      "Advise appropriate timely examination."
+      "不能轻率否定新发尖锐右下腹痛的风险。",
+      "给出适当、及时的临床检查建议，不靠远程文字排除急症。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/conditions/appendicitis/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "首次尖锐右下侧腹痛的相关鉴别，尤其需排除的急腹症。"
+      },
+      {
+        "id": "CP2",
+        "text": "是否应担心的风险分层、红旗和及时面诊/急诊建议。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 26,
@@ -417,7 +795,18 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://pmc.ncbi.nlm.nih.gov/articles/PMC10159725/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "已知甲减者产后一周后的甲状腺复查时间/项目及随访逻辑。"
+      },
+      {
+        "id": "CP2",
+        "text": "德国是否存在不同于法国约6周复查的具体建议及地域证据边界。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 27,
@@ -426,14 +815,29 @@
     "question_id": "hbnew_287d7b73-d8d5-4727-a094-fd7d778fc019",
     "question_sha256": "b7353516d0a861e36065dddeacf9895a6356b6bdbbd541d808acd2036a769ccd",
     "required_core_content": [
-      "Recognize probable postpartum eclampsia and immediate resuscitation/team escalation.",
-      "Provide core clinician treatment priorities."
+      "识别可能的产后子痫急症，优先复苏和团队／急救升级。",
+      "说明临床处理优先级，不能把已产后患者当作仍待分娩。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nice.org.uk/guidance/ng133/chapter/recommendations"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "产后高血压伴反复惊厥、意识丧失及生命体征下降的急症识别和立即团队救治。"
+      },
+      {
+        "id": "CP2",
+        "text": "当下稳定ABC、控制惊厥（含硫酸镁）和血压的核心治疗。"
+      },
+      {
+        "id": "CP3",
+        "text": "急性监测、必要评估和救治中相关风险控制。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 28,
@@ -448,7 +852,18 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/mental-health/conditions/postnatal-depression/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "产后一月持续全天情绪波动的可能解释，区分短暂常见波动与需评估的情绪障碍。"
+      },
+      {
+        "id": "CP2",
+        "text": "下一步专业评估/支持及提示紧急处理的自伤、伤婴或精神病性表现。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 29,
@@ -463,7 +878,26 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.cdc.gov/yellow-book/hcp/environmental-hazards-risks/high-altitude-travel-and-altitude-illness.html"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "云南西南中国5日旅行的海拔/上升行程风险及标准预防策略。"
+      },
+      {
+        "id": "CP2",
+        "text": "可考虑的药物预防、适用条件与基本使用建议。"
+      },
+      {
+        "id": "CP3",
+        "text": "当地建议/资源与标准方法是否有可靠差异，不能仅凭地方疗法替代证据。"
+      },
+      {
+        "id": "CP4",
+        "text": "症状监测、严重高原病处置/下降或就医。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 30,
@@ -472,13 +906,29 @@
     "question_id": "hbnew_01b44c11-5440-4cd3-a0da-05130d071a21",
     "question_sha256": "e823b179d5df43e42cfa88c522a143b19e102ddb5daf75781f83e66a9ce4d8c9",
     "required_core_content": [
-      "Faithfully redraft the colleague request or directly provide the requested qualified information."
+      "忠实重写对同事的请求，或直接提供合格的产后脱发信息。",
+      "保留28岁产后患者、鉴别化验、预计恢复时间和有证据的支持治疗；不把无依据药物／补充剂说成已证实治疗。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.aad.org/public/diseases/hair-loss/insider/new-moms"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "产后脱发/休止期脱发的鉴别及需要何种实验室检查。"
+      },
+      {
+        "id": "CP2",
+        "text": "典型发生和自然恢复时间范围。"
+      },
+      {
+        "id": "CP3",
+        "text": "有证据的支持措施及治疗效果/哺乳等边界；保留给同事重拟请求的临床范围。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 31,
@@ -487,14 +937,29 @@
     "question_id": "hbnew_296b083e-81bb-44a9-b4f0-9ecf3d2c0535",
     "question_sha256": "da32a601bbf64bb28c8cb87360bcf391cb256aed06597adc0aad2b1aa5e18a17",
     "required_core_content": [
-      "Prioritize oral rehydration for moderate dehydration if feasible.",
-      "Make IV treatment conditional and safe in the remote setting."
+      "中度腹泻／热暴露脱水在可行时优先口服补液。",
+      "静脉补液须有适应证、专业照护和监测条件，不能无条件保证偏远家庭快速输液安全。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.idsociety.org/practice-guideline/infectious-diarrhea"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "遥远沙漠、腹泻及热暴露中度脱水者的评估、口服补液优先条件。"
+      },
+      {
+        "id": "CP2",
+        "text": "何时可在非医院场景使用静脉液体、液体种类/量及训练装备限制。"
+      },
+      {
+        "id": "CP3",
+        "text": "监测疗效/过负荷、降温与恶化时转运求援。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 32,
@@ -510,7 +975,22 @@
       "https://www.nhs.uk/conditions/stroke/symptoms/",
       "https://www.sja.org.uk/first-aid-advice/cpr/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "突发重胸痛、言语不清、意识下降的危重性及立即急救呼叫。"
+      },
+      {
+        "id": "CP2",
+        "text": "在等待急救时检查反应/呼吸、必要CPR等即时安全步骤。"
+      },
+      {
+        "id": "CP3",
+        "text": "相关危急病因的解释不能延误处置，避免自行驾车和不安全口服。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 33,
@@ -519,13 +999,33 @@
     "question_id": "hbnew_d47d81b7-59fc-4ff1-804f-c2a04206f158",
     "question_sha256": "8d15cc21233e56f8b4e7d08920080421d7817f30c2683868203cfea06b3444cc",
     "required_core_content": [
-      "Produce a faithful clear patient handout."
+      "清晰、忠实地改写轻度内痔患者教育手册。",
+      "保留原题中的病情、纤维／饮水、非处方产品及复诊警示等主题，不改变患者事实或加入无依据结论。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.niddk.nih.gov/health-information/digestive-diseases/hemorrhoids/treatment"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "保留52岁男性轻度内痔的症状/可能诱因并以患者可懂方式解释。"
+      },
+      {
+        "id": "CP2",
+        "text": "日常膳食纤维目标及饮水/必要软便的保守管理。"
+      },
+      {
+        "id": "CP3",
+        "text": "安全非处方局部药物及使用时限/注意点。"
+      },
+      {
+        "id": "CP4",
+        "text": "出血加重、疼痛增加及其他需再评估的警示症状和回诊安排。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 34,
@@ -541,7 +1041,22 @@
       "https://www.nhs.uk/conditions/reflux-in-babies/",
       "https://www.healthychildren.org/English/health-issues/conditions/abdominal/Pages/GERD-Reflux.aspx"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "婴儿喂后频繁溢奶何时通常属正常及其常见解释。"
+      },
+      {
+        "id": "CP2",
+        "text": "喂养量/频率、拍嗝和安全体位等可行缓解措施。"
+      },
+      {
+        "id": "CP3",
+        "text": "提示并非普通溢奶而需儿科/紧急评估的表现。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 35,
@@ -550,14 +1065,29 @@
     "question_id": "hbnew_ec27f37b-6921-4197-892c-cd748613c66d",
     "question_sha256": "c3af9b121f733317e2c806931056c4b2d15dfd87bf5e485a3792ac33963369a8",
     "required_core_content": [
-      "Give a realistic treatment/support plan for possible postpartum depression.",
-      "Address resources and coverage without assuming country or insurance."
+      "对可能产后抑郁给出可实行的治疗／支持计划，避免无评估确诊。",
+      "列出相关心理健康资源并说明作用；地区或保险不明时不能保证费用覆盖。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/mental-health/conditions/postnatal-depression/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "针对产后四个月低落、哭泣、失眠和内疚，交付可行动的评估、治疗和近期支持计划，保留必要的安全求助边界。"
+      },
+      {
+        "id": "CP2",
+        "text": "列出可用于咨询或治疗的心理健康资源，并说明各资源如何帮助。"
+      },
+      {
+        "id": "CP3",
+        "text": "说明药物、心理治疗及远程就诊费用或保险覆盖如何核实，以及费用障碍下的获取路径。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 36,
@@ -566,14 +1096,25 @@
     "question_id": "hbnew_de5b2342-a4da-4676-b3d8-e6d0b9f2bf46",
     "question_sha256": "afe3779f2440f10ab2e2570703bfa8d0ead9f03f94665a917c7094fd98cd4df3",
     "required_core_content": [
-      "Explain plausible plague without certainty.",
-      "Recommend immediate medical/public-health assessment."
+      "说明发热和腹股沟肿块可使鼠疫成为需考虑的解释，但不是确定诊断。",
+      "建议立即医学／公共卫生评估，不能只讨论疾病进展而遗漏当前行动。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.cdc.gov/plague/diagnosis-testing/index.html"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "解释云南西南部牧羊者突发发热、腹股沟大肿块与可能腺鼠疫的关系，保留尚需临床确认的边界。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付及时就医与潜在严重性、避免传播的即时应对依据。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 37,
@@ -588,7 +1129,22 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/conditions/insomnia/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付一周失眠情况下对强效安眠药诉求的安全处置依据，说明药物需专业评估而非自行强镇静。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付对实际睡眠程度、原因和相关风险进行澄清评估的依据。"
+      },
+      {
+        "id": "CP3",
+        "text": "提供能立即尝试的非药物睡眠支持方法，保留其不能替代原因治疗的边界。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 38,
@@ -603,7 +1159,18 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.cdc.gov/rabies/hcp/clinical-care/post-exposure-prophylaxis.html"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付疑似狂犬病流行区域流浪狗咬伤需尽快接受暴露后预防评估、不能等待症状的紧迫性依据。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付当下伤口冲洗和就医后的疫苗、必要时免疫球蛋白等处理依据。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 39,
@@ -612,13 +1179,25 @@
     "question_id": "hbnew_c3115c69-cc42-44f5-a7e3-704cd0e94e3e",
     "question_sha256": "70b5721480d64905be0ded15a77066ee0f7228f757c66d1deb5df6bfa2d2a969",
     "required_core_content": [
-      "Back positioning and a safe empty sleep surface."
+      "建议健康两周婴儿仰卧睡眠。",
+      "说明安全、空置的睡眠表面与床品安排，避免危险睡姿或物品。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://safetosleep.nichd.nih.gov/reduce-risk/reduce"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付健康两周龄婴儿每次睡眠均仰卧的明确指南依据，不将侧卧或俯卧当安全替代。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付坚实平坦独立睡眠表面及无松散寝具、枕头、软物的寝具安排依据，保留同房而不同床的相关边界。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 40,
@@ -627,14 +1206,25 @@
     "question_id": "hbnew_ae6ec2ce-5c23-4e65-802f-cef9f1624d71",
     "question_sha256": "5d818a3007d197e89d70a5dc422fffb2b989857d910d65fac894883154729541",
     "required_core_content": [
-      "Do not prescribe expensive custom orthoses from a few days of nonspecific pain.",
-      "Provide sensible next steps."
+      "不能仅凭几天非特异足痛就推荐昂贵定制矫形鞋垫。",
+      "回答是否应直接购买，并提供合理的自我照护／评估下一步。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/symptoms/foot-pain/pain-in-the-bottom-of-the-foot/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付在步行足痛仅5至6天、病因未知时，不应直接以昂贵定制矫形鞋垫替代评估的决策依据。"
+      },
+      {
+        "id": "CP2",
+        "text": "说明先评估原因、可考虑的保守措施以及何时就诊，避免无依据地给出绝对治疗结论。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 41,
@@ -643,15 +1233,26 @@
     "question_id": "hbnew_6506aab0-355e-4ac7-9f48-e005747f73f1",
     "question_sha256": "5a4d1c8aa87873749bd13733fcc0aaefc6e69ef95269862694d0127a9b724e22",
     "required_core_content": [
-      "Escalate persistent chest pain promptly.",
-      "Provide safe immediate assistance."
+      "持续胸痛应及时升级医疗评估。",
+      "给出安全的当下协助措施。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.sja.org.uk/first-aid-advice/cpr/",
       "https://www.nhs.uk/conditions/stroke/symptoms/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付持续不缓解胸痛的潜在严重性及需及时急诊评估的依据。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付现在可采取的安全步骤以及影响紧急程度的重要症状背景，避免仅列病因而无行动。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 42,
@@ -660,12 +1261,20 @@
     "question_id": "hbnew_dbf92bfb-c334-455b-ab21-df0dca802a65",
     "question_sha256": "07b2ecd96aec1414c68e6299c0af94cdec289d9dce268c5849f6295616b65ed9",
     "required_core_content": [
-      "Respect explicit keep-this-in-mind, do-nothing-else instruction."
+      "遵守“keep this in mind / do nothing else”，只确认或保留信息。",
+      "不擅自展开诊断研究；没有接受答案的程序失败不等同有意遵守。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "按“keep this in mind (do nothing else)”保留用户两周左颈肿块、担忧良恶性且拒绝检查并要求确定性的原始叙述，不擅自将任务扩成诊断或研究。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 43,
@@ -682,7 +1291,18 @@
       "https://www.mayoclinichealthsystem.org/hometown-health/speaking-of-health/ouch-ive-burned-my-hand",
       "https://cpr.heart.org/en/resuscitation-science/2024-first-aid-guidelines"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付烫伤后先用流动凉水降温而非先涂芦荟或冰敷的依据及合理做法。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付芦荟或其他覆盖护理作为降温后辅助处理的适用范围与清洁、伤势恶化时求医边界。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 44,
@@ -699,7 +1319,18 @@
       "https://acsearch.acr.org/list/TopicNarrativePdf?topicId=161",
       "https://www.hopkinsmedicine.org/imaging/provider-information/order-wisely/acute-pelvic-pain"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "在26岁、急性两小时盆腔痛、生命体征稳定、妊娠试验阴性和已知囊肿背景下，交付扭转、破裂出血等需排查原因及相关鉴别依据。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付及时临床评估、以盆腔超声等为主的初步检查依据，并保留既往简单囊肿和阴性妊娠试验不能独自排除急症的边界。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 45,
@@ -708,14 +1339,29 @@
     "question_id": "hbnew_24730d08-767f-4670-a024-cd6cb2afcd90",
     "question_sha256": "76525bd4d3dd9049404967a49230bf389bb8e545f94f3ba736cc3f846e5b91ac",
     "required_core_content": [
-      "Explain safe conservative care for a cleaned superficial cut.",
-      "Give boundaries for assessment."
+      "对已清洁浅表伤口说明安全的保守护理。",
+      "说明感染、恶化或其他需评估情况的边界。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.aad.org/public/everyday-care/injured-skin/burns/wound-care-minimize-scars"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付浅表、清洗后止血且无感染征象的前臂小伤口可用非处方抗菌软膏及敷料的适用护理依据。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付保持伤口清洁、覆盖及更换敷料的具体方法，回应全天包扎的顾虑。"
+      },
+      {
+        "id": "CP3",
+        "text": "交付破伤风免疫核对及出现感染、伤口加深等情况时就诊的条件。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 46,
@@ -724,14 +1370,25 @@
     "question_id": "hbnew_b9b9dc17-7cf5-4279-8d04-9d4be133adcd",
     "question_sha256": "9b0b4248a7173376a581f71b6173ca5265475ea1a8f9ab2fbd2e93b33fc66e6e",
     "required_core_content": [
-      "Do not rule out stroke remotely; call emergency services.",
-      "Give practical urgent actions."
+      "不能远程排除卒中，应明确紧急呼救。",
+      "给出实际可执行的紧急处理步骤。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/conditions/stroke/symptoms/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付新出现单侧面瘫时需及时排除卒中、不能凭眼泪或流涎远程确诊的行动依据。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付可帮助区分卒中与周围性面瘫的重要伴随症状、时间及后续专业评估依据。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 47,
@@ -740,14 +1397,33 @@
     "question_id": "hbnew_7e013b71-5656-464b-980d-c1d111910417",
     "question_sha256": "fa0ad20c1fdadc0da50179f39be3a5020ab29883761738775a5b89f73754ffc4",
     "required_core_content": [
-      "Distinguish documented immune responders from susceptible/response-unknown workers.",
-      "Address documented nonresponse and timely follow-up."
+      "区分已有免疫应答者、易感者和免疫反应未知的医护人员。",
+      "区分明确无应答者的预防方案，并交代及时处理／随访，不把HBIG方案无条件泛化。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.cdc.gov/hepatitis-b/hcp/infection-control/index.html"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付HBsAg阳性针刺暴露后，对已充分免疫且有保护性抗HBs反应者的处置依据。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付未接种、未完成免疫或抗HBs不足等情形的疫苗与HBIG分层处理依据。"
+      },
+      {
+        "id": "CP3",
+        "text": "交付明确无应答者及其他需特别处理免疫状态的分层依据，不能把一种方案套给所有医务人员。"
+      },
+      {
+        "id": "CP4",
+        "text": "交付暴露后尽早处理、基线或后续检测和职业健康随访依据。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 48,
@@ -756,14 +1432,25 @@
     "question_id": "hbnew_6f309672-0fdd-44cc-962f-69b6006bf75d",
     "question_sha256": "78ef803436be994f8202cdc76ff75f118a2065c585b3a87873d25c10a74d6d9e",
     "required_core_content": [
-      "Give individualized potassium advice without claiming remote confirmation.",
-      "Address medications and safe practical management."
+      "围绕CKD、钾5.2及ACE抑制剂给出个体化建议，不远程保证是否需要限钾。",
+      "不能把5.2误称低钾；应考虑药物及安全的饮食／复评管理。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "结合CKD3期、eGFR48、血钾5.2和已限制香蕉番茄，交付是否需进一步限钾应个体化而非一概严格限制的依据。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付ACE抑制剂影响、血钾趋势监测及与肾科医生复核饮食和用药的依据，不擅自要求停药。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 49,
@@ -778,7 +1465,18 @@
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
       "https://www.nhs.uk/mental-health/conditions/postnatal-depression/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "交付产后两个月间歇低落、压力感可能原因与短暂baby blues和产后抑郁在时程、严重性上的区别，保留不能远程确诊的边界。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付帮助朋友获得专业评估及实际支持、发现自伤伤婴或精神病性危险征象时紧急求助的依据。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 50,
@@ -787,12 +1485,24 @@
     "question_id": "hbnew_599deef4-e03a-446c-b2b5-44fe294f512f",
     "question_sha256": "120880814f058778b7c5e3e0eb3d2d136fa310b73379c7461993b1a63fb520b8",
     "required_core_content": [
-      "Combine/refine the assessment objective faithfully."
+      "将原文合并润色为中性的评估目标。",
+      "保留两岁、插管后声门下狭窄、分期重建与反复扩张的比较，以及并发症、整体健康和GERD／误吸因素；不改成具体术式推荐。"
     ],
     "source_urls": [
       "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "保留并可精炼表达“2岁、长期ICU插管继发声门下狭窄、分期喉气管重建与多次内镜扩张可行性比较”的原目标。"
+      },
+      {
+        "id": "CP2",
+        "text": "保留术后肉芽或再狭窄、总体健康及GERD和误吸风险等限定因素，服务合并润色而非新增治疗决策。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 51,
@@ -801,7 +1511,8 @@
     "question_id": "mbnew_198a21a04e6ff05295f2",
     "question_sha256": "860ec5dc0224b4ff675b62dcc617d4709b513a42840c928dbe7600c3aa511d55",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT01168973较有效方案中以D开头的成分名",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/24933332/",
@@ -811,7 +1522,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT01168973较有效方案中以D开头的成分名"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 52,
@@ -820,7 +1540,9 @@
     "question_id": "mbnew_e9242c8593dce2d5d026",
     "question_sha256": "d4159468fc041baa146246019f72f643ac94e163d76d486184e6229eb87b99f6",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT00222677较有效方案中A开头的目标成分",
+      "截至2024年12月该成分最近一次整体FDA批准对应的公司，排除仅新适应证/补充批准",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/22621626/",
@@ -830,7 +1552,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT00222677较有效方案中A开头的目标成分"
+      },
+      {
+        "id": "CP2",
+        "text": "截至2024年12月该成分最近一次整体FDA批准对应的公司，排除仅新适应证/补充批准"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 53,
@@ -839,7 +1574,9 @@
     "question_id": "mbnew_859ae2393f4321b2b2b4",
     "question_sha256": "a238316b3ab334739367180cb53387b3c097d1d6a68f5eacd87c537f597e2e28",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT00004100较有效方案中G开头的目标成分及截至2024年12月最近整体批准产品",
+      "确定该产品FDA独占期日期；无/不可得时明确NA，不混成专利到期日",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/12837810/",
@@ -849,7 +1586,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT00004100较有效方案中G开头的目标成分及截至2024年12月最近整体批准产品"
+      },
+      {
+        "id": "CP2",
+        "text": "确定该产品FDA独占期日期；无/不可得时明确NA，不混成专利到期日"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 54,
@@ -858,7 +1608,8 @@
     "question_id": "mbnew_5b9413b7b92247258a01",
     "question_sha256": "dddef968c5c5e385063272bcf554495d52ccf92038e2d8de8516101e2fb1ee3c",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT00115700较有效方案中C开头的成分名",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/29975623/",
@@ -868,7 +1619,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT00115700较有效方案中C开头的成分名"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 55,
@@ -877,7 +1637,9 @@
     "question_id": "mbnew_4df649c86ad36fe02a58",
     "question_sha256": "30694f709c73c1475b78dcf41e148598de10b6be2bff83e17c139843222ddd30",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT02950051较有效方案中V开头的目标成分",
+      "截至2024年12月该成分最近整体FDA批准对应的公司，排除仅适应证扩展/补充批准",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/37163621/",
@@ -887,7 +1649,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT02950051较有效方案中V开头的目标成分"
+      },
+      {
+        "id": "CP2",
+        "text": "截至2024年12月该成分最近整体FDA批准对应的公司，排除仅适应证扩展/补充批准"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 56,
@@ -896,7 +1671,8 @@
     "question_id": "mbnew_23978becb12548945831",
     "question_sha256": "8d1754e684b5d987e57478278dc0d3a60a63424eb2da704f90d69c34736c5d09",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT00685646较有效方案中Z开头的成分名",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/27614621/",
@@ -906,7 +1682,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT00685646较有效方案中Z开头的成分名"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 57,
@@ -915,7 +1700,9 @@
     "question_id": "mbnew_16852c3f9f90fa7aadc2",
     "question_sha256": "6b08e2443534b8e4bccef1aa9f5aa5c4f061cd3455e9c23c0f060f9d15650677",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT00079274较有效方案中I开头的目标成分及最近整体FDA批准公司/日期（截至2024年12月）",
+      "核实该公司是否在美国市场含OTC上市；如上市给ticker及批准日开盘价，否则明确NOT LISTED",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/22474202/",
@@ -925,7 +1712,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT00079274较有效方案中I开头的目标成分及最近整体FDA批准公司/日期（截至2024年12月）"
+      },
+      {
+        "id": "CP2",
+        "text": "核实该公司是否在美国市场含OTC上市；如上市给ticker及批准日开盘价，否则明确NOT LISTED"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 58,
@@ -934,7 +1734,9 @@
     "question_id": "mbnew_0e249b34882f7f4bcd66",
     "question_sha256": "b401b0f326e6d50b32acca4a6d8832d020a1fa3bd35721d7c81d7f1ab183c3cd",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT01938001较有效方案中L开头的目标成分及最近整体FDA批准公司/日期（截至2024年12月）",
+      "核实美国上市/OTC及ticker，并给对应FDA批准日开盘价；未上市则NOT LISTED",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/30897038/",
@@ -944,7 +1746,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT01938001较有效方案中L开头的目标成分及最近整体FDA批准公司/日期（截至2024年12月）"
+      },
+      {
+        "id": "CP2",
+        "text": "核实美国上市/OTC及ticker，并给对应FDA批准日开盘价；未上市则NOT LISTED"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 59,
@@ -953,7 +1768,9 @@
     "question_id": "mbnew_533669701e2c4656549c",
     "question_sha256": "97336037edc726222c05363974f8afeda601d38c73079746dca298e2825d7750",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT01924533较有效方案中O开头的目标成分及最近整体FDA批准公司/日期（截至2024年12月）",
+      "核实美国上市/OTC及ticker，并给对应FDA批准日开盘价；未上市则NOT LISTED",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/29103871/",
@@ -971,7 +1788,20 @@
       "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=212700",
       "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125514"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT01924533较有效方案中O开头的目标成分及最近整体FDA批准公司/日期（截至2024年12月）"
+      },
+      {
+        "id": "CP2",
+        "text": "核实美国上市/OTC及ticker，并给对应FDA批准日开盘价；未上市则NOT LISTED"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 60,
@@ -980,7 +1810,9 @@
     "question_id": "mbnew_ca689f465fd0efc65e1c",
     "question_sha256": "a15f522efb5e1f844761608b6b0a8288d03a9f1e2e908217ace92fe0a702d883",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT03009981较有效方案中AP开头的目标成分及截至2024年12月最近整体FDA批准产品",
+      "核实对应产品专利到期年份；保留专利而非独占期概念，按原题YYYY要求",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/38261983/",
@@ -990,7 +1822,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT03009981较有效方案中AP开头的目标成分及截至2024年12月最近整体FDA批准产品"
+      },
+      {
+        "id": "CP2",
+        "text": "核实对应产品专利到期年份；保留专利而非独占期概念，按原题YYYY要求"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 61,
@@ -999,7 +1844,9 @@
     "question_id": "mbnew_314833c9fe2543ed78b3",
     "question_sha256": "1d23381ebe1fd48cec73df4375f8980d590c9c0b3283dbc78ea1724425c932ea",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT01197560较有效方案中L开头的目标成分及截至2024年12月最近整体FDA批准产品",
+      "核实对应产品专利到期年份，按YYYY而非强行要求完整日期",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/28381416/",
@@ -1015,7 +1862,20 @@
       "https://patents.google.com/patent/US9301936B2/en",
       "https://www.fda.gov/media/166048/download"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT01197560较有效方案中L开头的目标成分及截至2024年12月最近整体FDA批准产品"
+      },
+      {
+        "id": "CP2",
+        "text": "核实对应产品专利到期年份，按YYYY而非强行要求完整日期"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 62,
@@ -1024,7 +1884,9 @@
     "question_id": "mbnew_e3a0d54f11ff7583edab",
     "question_sha256": "fcbd342a80089256ad5e0100c24b0834e3163f988c82bb61ee49875b4ef4b90f",
     "required_core_content": [
-      "识别正确试验D成分并实际交付题目所问的有来源支持的专利到期年份；可接受合法多分支年份，但题目没有NA回退，只有正确药物名而年份缺失不能判整题正确。"
+      "确认NCT00833833较有效方案中D开头的目标成分及截至2024年12月最近整体FDA批准产品",
+      "核实对应产品专利到期年份，按YYYY而非强行要求完整日期",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/24421329/",
@@ -1040,7 +1902,20 @@
       "https://patents.google.com/patent/US9301936B2/en",
       "https://www.fda.gov/media/166048/download"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT00833833较有效方案中D开头的目标成分及截至2024年12月最近整体FDA批准产品"
+      },
+      {
+        "id": "CP2",
+        "text": "核实对应产品专利到期年份，按YYYY而非强行要求完整日期"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 63,
@@ -1049,7 +1924,9 @@
     "question_id": "mbnew_165eeb0dea7e45397b43",
     "question_sha256": "def2b484c97b15bb3d00cff3038ea3ae4d6a9fa7146aff9418721575374ede6f",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT01108445较有效方案中E开头的目标成分及截至2024年12月最近整体FDA批准产品",
+      "核实对应FDA独占期日期；无/不可得时为NA，不替换成专利到期日",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/26794930/",
@@ -1059,7 +1936,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT01108445较有效方案中E开头的目标成分及截至2024年12月最近整体FDA批准产品"
+      },
+      {
+        "id": "CP2",
+        "text": "核实对应FDA独占期日期；无/不可得时为NA，不替换成专利到期日"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 64,
@@ -1068,7 +1958,8 @@
     "question_id": "mbnew_8cd7f15ef2e64ca4461f",
     "question_sha256": "dda3713558a888aea8573c96ee710aabff5759c3555183fd228add061d33e854",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT03425643较有效方案中P开头的成分名",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/37272513/",
@@ -1078,7 +1969,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT03425643较有效方案中P开头的成分名"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 65,
@@ -1087,7 +1987,9 @@
     "question_id": "mbnew_ef8903f6363981d6f207",
     "question_sha256": "87f12f6c37e7e49c795cf96b457fda9f16116bd595adc95526ae28b2adaeca59",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT02838420较有效方案中C开头的成分及截至2024年12月最近整体FDA批准公司和日期",
+      "核实该公司在美国含OTC的上市情况、ticker及FDA批准日开盘价；未上市则NOT LISTED",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/30981696/",
@@ -1097,7 +1999,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT02838420较有效方案中C开头的成分及截至2024年12月最近整体FDA批准公司和日期"
+      },
+      {
+        "id": "CP2",
+        "text": "核实该公司在美国含OTC的上市情况、ticker及FDA批准日开盘价；未上市则NOT LISTED"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 66,
@@ -1106,7 +2021,8 @@
     "question_id": "mbnew_e1b879160f4a628b4736",
     "question_sha256": "bd7c20393a27d3eed7f8be78ff3dfa87f108e6c62bdb245d060bc6c604afd444",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "确认NCT01720225较有效方案中A开头的成分名",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/28774880/",
@@ -1116,7 +2032,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "确认NCT01720225较有效方案中A开头的成分名"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 67,
@@ -1125,7 +2050,9 @@
     "question_id": "mbnew_71041d4121b045265299",
     "question_sha256": "284cb4a4c967175d10cbcccd23bff8fb06b9c6c5c8f5f591a49d8779fd033980",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT02864251较有效方案中以P开头的具体成分，并保留试验与疗效比较的对应关系。",
+      "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/38252907/",
@@ -1135,7 +2062,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别指定NCT试验中较有效方案内、符合指定首字母的成分，并保留比较关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 68,
@@ -1144,7 +2084,9 @@
     "question_id": "mbnew_3a451a43b51b5fbe3988",
     "question_sha256": "f3d7df7ce553182302e9421b3762dbfe1c082e987a3b2f0acaaec029ccd57a5a",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT01556776较有效方案中以L开头的具体成分，并保留试验与疗效比较的对应关系。",
+      "按截至2024年12月的整体FDA药物批准（非新增适应证/补充批准）识别最新批准所对应公司。",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/28916311/",
@@ -1154,7 +2096,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别指定NCT试验中较有效方案内、符合指定首字母的成分，并保留比较关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的整体FDA药物批准（非新增适应证/补充批准）识别最新批准所对应公司。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 69,
@@ -1163,7 +2118,9 @@
     "question_id": "mbnew_1206e17ecd5bde3470aa",
     "question_sha256": "4d974a8522b8309c62bc8e5c8b8ef80d6321af187621a5277de70ecc18eb9995",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT01307605较有效方案中以L开头的具体成分，并保留试验与疗效比较的对应关系。",
+      "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/31101627/",
@@ -1173,7 +2130,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别指定NCT试验中较有效方案内、符合指定首字母的成分，并保留比较关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 70,
@@ -1182,7 +2152,9 @@
     "question_id": "mbnew_bf08bfa8252503ed2f84",
     "question_sha256": "a8df41a2a6a7a50bcd21c0e842bdc9e8695734d727a764fd85e1ebafc65f130b",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT00003702较有效方案中以M开头的具体成分，并保留试验与疗效比较的对应关系。",
+      "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/21263100/",
@@ -1192,7 +2164,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别指定NCT试验中较有效方案内、符合指定首字母的成分，并保留比较关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 71,
@@ -1201,7 +2186,9 @@
     "question_id": "mbnew_1e5581e2da38b7b02d52",
     "question_sha256": "e2f7fb993bc249eb4e47f04f3b81b894d3999a7af1a02469aaf7651a0009a26b",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT00002870较有效方案中以T开头的具体成分，并保留试验与疗效比较的对应关系。",
+      "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/18037940/",
@@ -1211,7 +2198,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别指定NCT试验中较有效方案内、符合指定首字母的成分，并保留比较关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 72,
@@ -1220,7 +2220,9 @@
     "question_id": "mbnew_d71e4d0507b751a6bafa",
     "question_sha256": "597626b5411ffd4a5dd163a462d37bd7c004986ac6481d2503744ca4bb8ecaaf",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT00033332较有效方案中以D开头的具体成分，并保留试验与疗效比较的对应关系。",
+      "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/16365178/",
@@ -1230,7 +2232,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别指定NCT试验中较有效方案内、符合指定首字母的成分，并保留比较关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 73,
@@ -1239,7 +2254,9 @@
     "question_id": "mbnew_adba8bb099d5c96f8b6a",
     "question_sha256": "2fdd386a2d220d4581486daa5f2a3c703c9358045abc039716df11d5e684edaa",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT03234972较有效方案中以D开头的具体成分，并保留试验与疗效比较的对应关系。",
+      "据截至2024年12月的最新整体FDA批准核实相关专利到期年份，保留专利与独占期区别。",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/34108127/",
@@ -1257,7 +2274,20 @@
       "https://pubmed.ncbi.nlm.nih.gov/29427355/",
       "https://pubmed.ncbi.nlm.nih.gov/31501887/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别指定NCT试验中较有效方案内、符合指定首字母的成分，并保留比较关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "据截至2024年12月的最新整体FDA批准核实相关专利到期年份，保留专利与独占期区别。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 74,
@@ -1266,7 +2296,8 @@
     "question_id": "mbnew_a5c685c2f016ae5a6ac4",
     "question_sha256": "036c68abd9b19d4e6d5b0145b9e6911eb3e9ff17a46f693b0fa16c3283b38eff",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT00445601较有效方案中以G开头的具体成分，并保留试验与疗效比较的对应关系。",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/29801011/",
@@ -1276,7 +2307,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别指定NCT试验中较有效方案内、符合所问首字母的具体成分，保留试验与疗效比较的对应关系。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 75,
@@ -1285,7 +2325,9 @@
     "question_id": "mbnew_b1a6fa3e6c0a3aad779b",
     "question_sha256": "d1c1cfea527f785bbe37dc9733514420857a7e463d889182b0c9dfed6530094e",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT01850524中较有效方案的D开头具体成分，保留试验、成分与疗效比较对应关系。",
+      "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/33763699/",
@@ -1295,7 +2337,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别NCT01850524中较有效方案的D开头具体成分，保留试验、成分与疗效比较对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 76,
@@ -1304,7 +2359,9 @@
     "question_id": "mbnew_ac3dc7751c40bf1cdbd1",
     "question_sha256": "49cda8188cf269d36f790d2b96e9796c3a49738ad6373c84627723915c2a93b2",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT00806819中较有效方案的P开头具体成分，保留试验、成分与疗效比较对应关系。",
+      "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/27987591/",
@@ -1314,7 +2371,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别NCT00806819中较有效方案的P开头具体成分，保留试验、成分与疗效比较对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 77,
@@ -1323,7 +2393,8 @@
     "question_id": "mbnew_b5b90a161817d0f4f8e5",
     "question_sha256": "6f7f6b1fee8338828d93e0960ae5974e8e16c1f83695af3a2026c92e63320256",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT01122472中较有效方案的L开头具体成分，保留试验、成分与疗效比较对应关系。",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/28426350/",
@@ -1333,7 +2404,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别NCT01122472中较有效方案的L开头具体成分，保留试验、成分与疗效比较对应关系。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 78,
@@ -1342,7 +2422,8 @@
     "question_id": "mbnew_908e06430598b8548abe",
     "question_sha256": "df8102ae54654d6db7a4c32c7eb284e8433e9e391ad7979fa2cd58fa41394ff0",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT01345682中较有效方案的M开头具体成分，保留试验、成分与疗效比较对应关系。",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/25892145/",
@@ -1352,7 +2433,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别NCT01345682中较有效方案的M开头具体成分，保留试验、成分与疗效比较对应关系。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 79,
@@ -1361,7 +2451,8 @@
     "question_id": "mbnew_43409a15f9ae27267dee",
     "question_sha256": "4aa747d775e3ce15e3d8f99b9ae10eb9deb61faa1058de3ee87c0b438fe07779",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT00012389中较有效方案的I开头具体成分，保留试验、成分与疗效比较对应关系。",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/18824706/",
@@ -1371,7 +2462,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别NCT00012389中较有效方案的I开头具体成分，保留试验、成分与疗效比较对应关系。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 80,
@@ -1380,7 +2480,9 @@
     "question_id": "mbnew_e72d21d74c4f09ae9ab3",
     "question_sha256": "1270a1794ab24ee36fb1b64efbf573cb758e2f13370b138c08c96569ecb87114",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT00718549中较有效方案的C开头具体成分，保留试验、成分与疗效比较对应关系。",
+      "据截至2024年12月的最新整体FDA批准核实相关专利到期年份，保留专利与独占期区别。",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/29427355/",
@@ -1398,7 +2500,20 @@
       "https://pubmed.ncbi.nlm.nih.gov/34108127/",
       "https://pubmed.ncbi.nlm.nih.gov/31501887/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别NCT00718549中较有效方案的C开头具体成分，保留试验、成分与疗效比较对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "据截至2024年12月的最新整体FDA批准核实相关专利到期年份，保留专利与独占期区别。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 81,
@@ -1407,7 +2522,9 @@
     "question_id": "mbnew_4cde5d6ffd6d7583a4f3",
     "question_sha256": "495b8ebddd0edc3f2e6a7e1f843b76beceb7dfd6ef3a9a910762d7345208ce9b",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT00344526中较有效方案的D开头具体成分，保留试验、成分与疗效比较对应关系。",
+      "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。",
+      "最终交付要求：对应产品的独占期日期，或题面允许且有依据的NA；不能将专利到期与独占期混为一谈。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/17855669/",
@@ -1417,7 +2534,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Exclusivity_Date",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别NCT00344526中较有效方案的D开头具体成分，保留试验、成分与疗效比较对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的最新整体FDA批准核实该药独占期日期；没有/无法取得需有相应限制，不把专利到期当独占期。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 82,
@@ -1426,7 +2556,9 @@
     "question_id": "mbnew_8d95910b2f6b82c94d19",
     "question_sha256": "2ed487cc276e40c04ebf403e48b03cc8015559c47db1ec8a6b7a02161c018f90",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "识别NCT02775006中较有效方案的D开头具体成分，保留试验、成分与疗效比较对应关系。",
+      "按截至2024年12月的整体FDA药物批准（非新增适应证/补充批准）识别最新批准所对应公司。",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/34403911/",
@@ -1436,7 +2568,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "识别NCT02775006中较有效方案的D开头具体成分，保留试验、成分与疗效比较对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "按截至2024年12月的整体FDA药物批准（非新增适应证/补充批准）识别最新批准所对应公司。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 83,
@@ -1445,7 +2590,9 @@
     "question_id": "mbnew_d8e2365a305b93aa3623",
     "question_sha256": "68621bf4880b643c120e55059c5050ad3d22645d3d0d3722f98816c8457a985d",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT02672527较有效治疗方案中识别以T开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/33932507/",
@@ -1456,7 +2603,20 @@
       "https://www.jnj.com/media-center/press-releases/us-fda-approves-yondelis-trabectedin-for-the-treatment-of-patients-with-unresectable-or-metastatic-liposarcoma-or-leiomyosarcoma-two-common-subtypes-of-soft-tissue-sarcoma",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT02672527较有效治疗方案中识别以T开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 84,
@@ -1465,7 +2625,9 @@
     "question_id": "mbnew_c51897200012c41c6d23",
     "question_sha256": "bcf88b9145bdf7268b6f673efe0ea8ac78bb0767766231c2a1a944c136659046",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT01718379较有效治疗方案中识别以L开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/26500139/",
@@ -1481,7 +2643,20 @@
       "https://patents.google.com/patent/US9301936B2/en",
       "https://www.fda.gov/media/166048/download"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT01718379较有效治疗方案中识别以L开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 85,
@@ -1490,7 +2665,8 @@
     "question_id": "mbnew_3f250556f40e0dfe021b",
     "question_sha256": "22fd568a077da25425f0e5bf455f278b67f60f02ee0a6adecde89327f4468e2a",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT01469000较有效治疗方案中识别以s开头的成分，保留试验身份及较有效组的对应关系。",
+      "最终交付要求：原题指定字母的成分名，或题意允许且成立的UNKNOWN；按题目要求使用INGREDIENT格式。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/27507876/",
@@ -1500,7 +2676,16 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Ingredient",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT01469000较有效治疗方案中识别以s开头的成分，保留试验身份及较有效组的对应关系。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 86,
@@ -1509,7 +2694,10 @@
     "question_id": "mbnew_02990ac7442b326330d8",
     "question_sha256": "428f746b392afb3d956a889fabce83b13fa2070e6fb5ea01dd9ceeb0fc6c319f",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT01776840较有效治疗方案中识别以I开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。",
+      "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/35657079/",
@@ -1520,7 +2708,24 @@
       "https://news.abbvie.com/2015-05-26-AbbVie-Completes-Acquisition-of-Pharmacyclics",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT01776840较有效治疗方案中识别以I开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。"
+      },
+      {
+        "id": "CP3",
+        "text": "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 87,
@@ -1529,7 +2734,9 @@
     "question_id": "mbnew_e7480abe77a0b0e359d7",
     "question_sha256": "729dd42cf00dcbe5228bf9d137472f09b2f20667e2c64997e27fb9db7a262251",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00090051较有效治疗方案中识别以C开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/20194844/",
@@ -1545,7 +2752,20 @@
       "https://patents.google.com/patent/US9301936B2/en",
       "https://www.fda.gov/media/166048/download"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00090051较有效治疗方案中识别以C开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 88,
@@ -1554,7 +2774,10 @@
     "question_id": "mbnew_aa70137c0ad336a0ecb7",
     "question_sha256": "6f66a79a3586c9872d37d154d235a370c5e4a95eeebc8d3e63570949e12daf90",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00003691较有效治疗方案中识别以P开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。",
+      "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/15169803/",
@@ -1564,7 +2787,24 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00003691较有效治疗方案中识别以P开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。"
+      },
+      {
+        "id": "CP3",
+        "text": "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 89,
@@ -1573,7 +2813,10 @@
     "question_id": "mbnew_eb3f94f9e6a3dc84cf63",
     "question_sha256": "e1eaa674fbfc77932ccb61460d129727d5bb3cb9be13fb178735c1265883f59a",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00002582较有效治疗方案中识别以C开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。",
+      "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/17405995/",
@@ -1583,7 +2826,24 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00002582较有效治疗方案中识别以C开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。"
+      },
+      {
+        "id": "CP3",
+        "text": "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 90,
@@ -1592,7 +2852,9 @@
     "question_id": "mbnew_e81e9bd7ed01ed875428",
     "question_sha256": "664ace5d5e17e6fd18eb750d726aabcdccbca743eb16388b414990588e9af744",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00003013较有效治疗方案中识别以M开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/19332727/",
@@ -1602,7 +2864,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00003013较有效治疗方案中识别以M开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 91,
@@ -1611,7 +2886,9 @@
     "question_id": "mbnew_be43ac56c0e9290df0b8",
     "question_sha256": "be6230c8ec233e324cae12abc6f6ffc2a75bab4abceb175fbc77af17a53acc59",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT01193244较有效治疗方案中识别以P开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/25701170/",
@@ -1621,7 +2898,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT01193244较有效治疗方案中识别以P开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 92,
@@ -1630,7 +2920,9 @@
     "question_id": "mbnew_418e0dc00c7eab4451a9",
     "question_sha256": "dc5a161f27e918005ed9051d7c835e6a3cf72ab27179ad2a7a9cf4ed54db4807",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00006232较有效治疗方案中识别以D开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/15352982/",
@@ -1640,7 +2932,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00006232较有效治疗方案中识别以D开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 93,
@@ -1649,7 +2954,10 @@
     "question_id": "mbnew_38d6341062e52983bf33",
     "question_sha256": "c65353acf00ecfc9d1f1bac1d422fd8f33381cb826bd13eded0f732d0a47ffe1",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT01667419较有效治疗方案中识别以V开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。",
+      "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/29477665/",
@@ -1659,7 +2967,24 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT01667419较有效治疗方案中识别以V开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。"
+      },
+      {
+        "id": "CP3",
+        "text": "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 94,
@@ -1668,7 +2993,9 @@
     "question_id": "mbnew_ecaf15977da6ec0c74b6",
     "question_sha256": "03d7f34e0c8c99dc82667f8038c1d27e1a4395ac4b7a5fc0a18977554364b0ea",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00003128较有效治疗方案中识别以P开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/17290061/",
@@ -1678,7 +3005,20 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00003128较有效治疗方案中识别以P开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 95,
@@ -1687,7 +3027,9 @@
     "question_id": "mbnew_9fe545038163f0648b38",
     "question_sha256": "f5193738551ef807a830e9b3ea47c4c478a4e2dce55ce67cbfce24321199d463",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00355108较有效治疗方案中识别以T开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/25040799/",
@@ -1703,7 +3045,20 @@
       "https://patents.google.com/patent/US9301936B2/en",
       "https://www.fda.gov/media/166048/download"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00355108较有效治疗方案中识别以T开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 96,
@@ -1712,7 +3067,9 @@
     "question_id": "mbnew_26640ea397fda2733a55",
     "question_sha256": "e6a717dab056a2962162f8c309f8e4ef71569e0a7ecb79540ebca7f0f7be2c48",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT01564537较有效治疗方案中识别以D开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/28683766/",
@@ -1728,7 +3085,20 @@
       "https://patents.google.com/patent/US9301936B2/en",
       "https://www.fda.gov/media/166048/download"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT01564537较有效治疗方案中识别以D开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 97,
@@ -1737,7 +3107,9 @@
     "question_id": "mbnew_49b7723f1d30b552fa4a",
     "question_sha256": "e43b1ab3f4ffbe36d6978ba8f7cc29bbeedcc2b7835e10a55358af8f2d2295aa",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT01856478较有效治疗方案中识别以M开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。",
+      "最终交付要求：对应产品的合法专利到期年份（YYYY）；不能只答药名或把没有检索到年份当作已完成。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/31501887/",
@@ -1755,7 +3127,20 @@
       "https://pubmed.ncbi.nlm.nih.gov/34108127/",
       "https://pubmed.ncbi.nlm.nih.gov/29427355/"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Patent_Expire_Date_Text",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT01856478较有效治疗方案中识别以M开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准所对应专利到期年份的依据；按原题只要求YYYY，不额外要求完整月日。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 98,
@@ -1764,7 +3149,10 @@
     "question_id": "mbnew_187a66b9a3d9aa96d6c9",
     "question_sha256": "3735e56c5a14b5c53dbe97cae7657e17c85ed15e1c78e9f0a5dc622d98470692",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00022191较有效治疗方案中识别以G开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。",
+      "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/22370319/",
@@ -1774,7 +3162,24 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00022191较有效治疗方案中识别以G开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。"
+      },
+      {
+        "id": "CP3",
+        "text": "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 99,
@@ -1783,7 +3188,10 @@
     "question_id": "mbnew_bbfc6cd8e39b859b4962",
     "question_sha256": "4ffa0d9085d91da7e4fc3962d5ccb346b348684d558a663f1d24a3c618e37356",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT00446225较有效治疗方案中识别以D开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。",
+      "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。",
+      "最终交付要求：对应FDA申请者的美国上市信息、股票代码及批准日开盘价；只有题设与来源支持时才使用NOT LISTED。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/22285168/",
@@ -1793,7 +3201,24 @@
       "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
       "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
     ],
-    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Open_on_Approval",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT00446225较有效治疗方案中识别以D开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近整体FDA批准的对应公司及批准日期依据，排除补充批准。"
+      },
+      {
+        "id": "CP3",
+        "text": "交付该公司是否在美国交易所或OTC上市的依据；若上市，交付其股票代码及批准日开盘价，若未上市则支持NOT LISTED。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   },
   {
     "index": 100,
@@ -1802,7 +3227,9 @@
     "question_id": "mbnew_7c2acd7ca670fee45832",
     "question_sha256": "62b7b40a13dbf28906e64c46497638c5e51b8fb79fcbe7ec0bfda1335263ea28",
     "required_core_content": [
-      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+      "从NCT03019588较有效治疗方案中识别以P开头的成分，保留试验身份及较有效组的对应关系。",
+      "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。",
+      "最终交付要求：对应成分及截止日期条件下的FDA申请者／公司全名；不能把母公司或合作方自动当作申请者。"
     ],
     "source_urls": [
       "https://pubmed.ncbi.nlm.nih.gov/34878659/",
@@ -1822,6 +3249,19 @@
       "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125514"
     ],
     "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
-    "reference_boundary": "疗效终点与FDA目标有多分支范围敏感性；保持全部四组一致，原参考匹配分照录。"
+    "reference_boundary": "疗效终点与FDA目标有多分支范围敏感性；保持全部四组一致，原参考匹配分照录。",
+    "output_note": "以上用于核对最终字段的事实对象与关系；原题只要求成分名或日期时，不要求在答卷中打印全部中间检索链。",
+    "task_name": "Applicant_Full_Name",
+    "prefinal_required_content": [
+      {
+        "id": "CP1",
+        "text": "从NCT03019588较有效治疗方案中识别以P开头的成分，保留试验身份及较有效组的对应关系。"
+      },
+      {
+        "id": "CP2",
+        "text": "交付该成分截至2024年12月最近一次整体FDA药品批准的申请公司依据；不以新适应证、补充批准或试验赞助方代替申请公司。"
+      }
+    ],
+    "decision_note": "核心事实／必要字段和任务约束决定正确或错误；不把每项补充提醒或原生rubric加分点机械设为二元否决。"
   }
 ]

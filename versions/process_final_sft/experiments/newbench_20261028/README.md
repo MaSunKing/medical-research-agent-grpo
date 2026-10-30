@@ -4,6 +4,8 @@
 
 [评测方法与结果](../../evaluation.md) · [逐题索引](../../records.md#cross-benchmark) · [100道评测原题](questions_100.json) · [400条记录](records_400.json) · [复算代码](verify_results.py) · [名词与指标解释](../../glossary.md)
 
+**阅读入口：** [怎样区分三类结果](accuracy.md#score-guide) · [100题原题、标准与四组判定](../../records.md#cross-benchmark)。主表先看答案正确率与信息齐全率；Process分项、原生Judge及配对统计在下方折叠区，不混成一个“总准确率”。
+
 四组分别更换Process检索策略；**答案生成模块（Final）**统一使用基座答案生成器（Base Final），即同一Qwen3-8B禁用本项目adapter。答案模块参数与生成配置相同，但各组重新检索、交付的材料可以不同，最终答案也可以不同；这里固定的是参数和配置，不是答案文本。
 
 ## 核心答案准确率与必要信息
@@ -19,6 +21,11 @@
 核心答案按原题必须回答的结论／字段记0或1，失败保留为0，分母固定50；必要信息齐全只看实际Final输入。它们与下方原生rubric、参考匹配及Process分项的含义、分母不同。[评分标准、MB多跳要求与6次工具预算](accuracy.md) · [400条判断](accuracy_records_400.json) · [评分表CSV](accuracy_scores_400.csv) · [100份共同标准与来源](answer_requirements_100.json)。每题页均有四组具体判定和理由。
 
 MB要求精确试验绑定，并常需跨FDA、专利或公司资料核实；四组均采用6次正常工具动作预算，访问故障最多豁免5次，Search／Browse共享预算。低分应结合这种有界多跳任务解释，预算贡献仍需对照验证，试验错绑和Final误读等实际错误完整保留。
+
+<a id="diagnostic-scores"></a>
+
+<details>
+<summary>展开辅助诊断：Process质量、失败、原生Judge分与配对统计</summary>
 
 ## 一眼看到的变化
 
@@ -86,6 +93,8 @@ GRPO13在HealthBench答案加权均分最高，但对SFT的逐题答案比较为
 |GRPO25 vs GRPO13|20 / 22 / 8|29 / 6 / 15|17 / 20 / 11|2 / 3 / 42|
 
 [污染排除敏感性](contamination_sensitivity.json) · [参考答案与题面边界核查](reference_boundary_audit.json)；这些分析不改原分。
+
+</details>
 
 ## 为什么保留GRPO路线
 
