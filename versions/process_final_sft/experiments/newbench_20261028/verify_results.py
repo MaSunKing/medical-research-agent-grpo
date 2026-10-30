@@ -120,6 +120,8 @@ def verify():
         for r in (r for r in rows if r['index'] == i):
             assert r['notes'] in text
     print('PUBLIC_RESULTS=passed; 400 records, 100 pages, arithmetic, failure handling, all paired counts; API=0; MODEL=0; TRAINING=0')
+    from verify_accuracy import verify as verify_accuracy
+    verify_accuracy()
 
 
 if __name__ == '__main__':

@@ -28,7 +28,7 @@ flowchart TD
 
 ## 三项评测与当前选择
 
-- **[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)**：四组同配置重新检索，共400条。当前以GRPO25作为Process证据交付主候选，GRPO13保留为HealthBench答案指标对照；完整报告列出逐题胜负、重大错误、轨迹失败及不确定性。
+- **[跨基准验证评测 · HealthBench50＋MedBrowseComp50](experiments/newbench_20261028/README.md)**：四组同配置重新检索，共400条。HB核心答案正确率Base／SFT／GRPO13／GRPO25为52%／54%／60%／52%；HB必要信息齐全率为30%／44%／46%／50%。当前以GRPO25作为Process证据交付主候选，GRPO13保留为HB答案指标对照；[准确率标准与MB任务边界](experiments/newbench_20261028/accuracy.md)及每题四组理由均可核对。
 - **[Process开发对照评测 · HealthBench50](experiments/process_grpo_20261026/README.md)**：50题、四组200条，用于开发诊断和checkpoint比较。Base/SFT与GRPO的运行差异单列，不作为严格同runtime因果实验。
 - **[Final模块对照评测 · dev100](experiments/final_sft_dev100/README.md)**：每题给四种答案配置同一份实际输入，比较基座答案生成器与三个答案模块SFT checkpoint。三个checkpoint在本次对照中未超过基座，因此当前使用基座模型生成答案。
 

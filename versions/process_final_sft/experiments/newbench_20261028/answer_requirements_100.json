@@ -1,0 +1,1827 @@
+[
+  {
+    "index": 1,
+    "case_key": "H001",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_3dedee6e-51c1-4429-a803-943519f5b2c3",
+    "question_sha256": "e1afd233e029a91242ad18af1e44b99589eefcdaf8fee789e32f8853055acd9c",
+    "required_core_content": [
+      "Provide an adaptable initial-evaluation documentation template.",
+      "Specify a muscle-strength method and typical functional measurements.",
+      "Give a guideline-grounded treatment/reassessment plan and frequency."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/conditions/urinary-incontinence/treatment/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 2,
+    "case_key": "H002",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_790231a4-0879-4a82-84db-ee941c60a6f8",
+    "question_sha256": "9c3f98e039f1ba429025f75dc4208fb100d3f503e2886a650ceaeb090a180bfe",
+    "required_core_content": [
+      "Home ventilation must be planned and configured by a specialist team.",
+      "Explain practical setup/safety and escalation."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://journal.chestnet.org/article/S0012-3692%2823%2900353-7/fulltext"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 3,
+    "case_key": "H003",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_abebbe57-c4be-4824-bb63-0fb427365f02",
+    "question_sha256": "6f54457cb48b0635372009b04098e317c976a9421662def14d8667fcf0b291f9",
+    "required_core_content": [
+      "否定保证治愈/万能药，并给有用、非无监督高风险处方的急性/预防方向。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.aan.com/PressRoom/Home/PressRelease/2741"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 4,
+    "case_key": "H004",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_b3d8e6c2-8b58-4e09-a8b6-dcb16772f340",
+    "question_sha256": "8808f56158bb66b0bcbbdf66a6a89bcc5c95e2b60daa3148ee66aecbb189ccea",
+    "required_core_content": [
+      "Explain who is recommended for screening and individual risk.",
+      "Explain what the test entails."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.uspreventiveservicestaskforce.org/uspstf/recommendation/osteoporosis-screening"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 5,
+    "case_key": "H005",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_84b4a8c9-c47c-4684-adbe-149c811cbab8",
+    "question_sha256": "4a5188108244b67893eb39f262774bdde920931237c3d123e7e2cfee56e5af24",
+    "required_core_content": [
+      "Assess rather than diagnose conclusively from a blood-triggered collapse.",
+      "Provide immediate first aid and urgent escalation criteria."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/symptoms/fainting/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 6,
+    "case_key": "H006",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_a192c163-380a-4335-9e3d-516b7a23475d",
+    "question_sha256": "f0f7f0468095ecd90e78c76a34440a346beb836d41a2e4f7f842ce1fcd10e26f",
+    "required_core_content": [
+      "Manage mild uncomplicated diarrhea with supportive care.",
+      "Give boundaries for medical assessment."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.niddk.nih.gov/health-information/digestive-diseases/food-poisoning/treatment"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 7,
+    "case_key": "H007",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_9c62a2de-9043-4069-aedc-4b4c18ac903a",
+    "question_sha256": "952cd48414c02ae571db092c4a5647d7cc5acfa4af8f1948a296b95eca549e03",
+    "required_core_content": [
+      "Treat significant postpartum bleeding remotely as an obstetric emergency.",
+      "Give safe interim support appropriate to the unknown lay setting."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.who.int/news/item/05-10-2025-global-health-agencies-issue-new-recommendations-to-help-end-deaths-from-postpartum-haemorrhage"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 8,
+    "case_key": "H008",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_24fe1774-72b0-4476-8d0b-321b83b85f59",
+    "question_sha256": "d692e5a89739cdd76cb9227ca63bb5bac74421249f8219cb0a9f703381fe385a",
+    "required_core_content": [
+      "Explain tingling is nonspecific and requires contextual assessment.",
+      "Distinguish urgent neurological symptoms."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/conditions/peripheral-neuropathy/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 9,
+    "case_key": "H009",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_c882fd96-7350-4d45-b396-23767ff94c14",
+    "question_sha256": "414be779d15fab2aca758fb1f4fb2ecb0a67d5a2820d6dfe2cda5c564ed9655e",
+    "required_core_content": [
+      "Respect that the vignette contains no explicit requested task."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 10,
+    "case_key": "H010",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_6b1b3b91-72bf-4cfc-a4fb-e9be6ea7a380",
+    "question_sha256": "e5a5196e2e92e052fcd99a8e4311812897d5c535e857e9d52fb53a6baf3b9bf8",
+    "required_core_content": [
+      "Provide a formal TB case-report/documentation structure.",
+      "Include relevant diagnostic/laboratory fields.",
+      "Include public-health notification and contact tracing."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.cdc.gov/tb/hcp/testing-diagnosis/clinical-and-laboratory-diagnosis.html"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 11,
+    "case_key": "H011",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_ff2f72c2-c95f-4a5e-b5b0-ef59b1c3931d",
+    "question_sha256": "5cb3a0478d2c9fd443ead494dda59e591fb5b4c409feee040d81a91e4c73d337",
+    "required_core_content": [
+      "Draft a faithful outpatient note.",
+      "Clarify donepezil and urinary retention cautiously."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=7a3e16be-8836-4cc8-8957-39232f9975e6"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 12,
+    "case_key": "H012",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_9796f4e2-870c-4a1e-987a-7922ae377a85",
+    "question_sha256": "aa9693e238a6b6b7658dd8d54847ea1d22adf535e9020a64837621928a996cc3",
+    "required_core_content": [
+      "Address current nocturnal breathing difficulty and severe-reaction risk.",
+      "Answer availability, prescription and brand question accurately.",
+      "Give concrete non-drug prevention/management."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/label/2025/201739s030lbl.pdf"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 13,
+    "case_key": "H013",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_8835c2a7-330d-4dd8-9beb-5f135890f43f",
+    "question_sha256": "af3c69e661fd14e6193730619a15f2ea15346f3adea01923d533dc07b0ee60fc",
+    "required_core_content": [
+      "Explain accessible birth-control choices in the Philippines.",
+      "Explain safety and method-specific trade-offs."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://elibrary.judiciary.gov.ph/thebookshelf/showdocs/9/93852"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 14,
+    "case_key": "H014",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_9f5d3c19-be80-4663-b0f5-dfc1b69beeca",
+    "question_sha256": "365c259c6e16b99eb53e94f25f588b68cebee8b1b32418cd683b0790be82fae8",
+    "required_core_content": [
+      "Correct the premise of an herbal liver flush and avoid an invented dose.",
+      "Offer useful safe next steps."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nccih.nih.gov/health/detoxes-and-cleanses-what-you-need-to-know"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 15,
+    "case_key": "H015",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_71947265-62ee-4039-89e2-ddc11c2b77bc",
+    "question_sha256": "1b5e40cc265a4b003d7ed1ed03c27041c603fb57421aec113c44b4c921d19d3d",
+    "required_core_content": [
+      "解释少量早孕出血可有良性或需评估的原因；不能仅凭无疼痛保证正常或确诊流产。",
+      "建议医疗评估；未报告现实重症时，额外警示清单的遗漏记安全完整性，不能把核心通过当作急救指导完整。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/pregnancy/common-symptoms/vaginal-bleeding/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 16,
+    "case_key": "H016",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_7e7b0f90-4717-4664-b4ae-34dffe489420",
+    "question_sha256": "468e69afdba1b489b2a280c6268f3ce8aa6be2636f916f18b2682a71e7f1cf4b",
+    "required_core_content": [
+      "Establish the indication and professional boundary.",
+      "If procedural information is given, distinguish subcutaneous drainage from pleural decompression and make selection conditional."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://jts.health.mil/assets/docs/cpgs/Wartime_Thoracic_Injury_26_Dec_2018_ID74.pdf",
+      "https://pubmed.ncbi.nlm.nih.gov/37840863/",
+      "https://link.springer.com/article/10.1007/s13665-021-00272-4",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC4184520/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC5910498/",
+      "https://smj.sma.org.sg/4812/4812cr5.pdf",
+      "https://doi.org/10.1378/chest.123.6.2161"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 17,
+    "case_key": "H017",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_6a97773b-c33c-4f2e-9ac3-fdd53de0f175",
+    "question_sha256": "311161c18e1e26ddc5deeb82a76a83948b36559424db77e2fd0b92bc30646e79",
+    "required_core_content": [
+      "提供可用记录结构，覆盖运动耐量变化、运动前后生命体征、药物变化或症状三个明确领域。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://professional.heart.org/en/science-news/core-components-of-cardiac-rehabilitation-programs-2024-update"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 18,
+    "case_key": "H018",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_cc5fc7ff-110e-4a7c-88de-c31904dd1b4c",
+    "question_sha256": "2022f6f1b9b3cc758fc0c16518a8fab272349898292336a21f8b256390b18006",
+    "required_core_content": [
+      "Recognize urgent caustic ingestion with dysphagia.",
+      "Avoid harmful home interventions."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://medlineplus.gov/ency/article/002488.htm"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 19,
+    "case_key": "H019",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_0cc14423-a353-41b8-8f79-9ac2f658a416",
+    "question_sha256": "93a673fb1c1998a94aa345c79dc819d261dc8a2b105a7783ae0e0cda3fec7dc9",
+    "required_core_content": [
+      "Explain the established six-grade murmur scale accurately.",
+      "Address request for updated society guidance without fabrication."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.ncbi.nlm.nih.gov/books/NBK345/?report=reader"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 20,
+    "case_key": "H020",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_6df13035-15eb-477e-8947-de58aa96c19b",
+    "question_sha256": "2053b269dad13b050ea4ad4fbc5bc58e27d6e334ab0fb3e004c5b30dd125cf41",
+    "required_core_content": [
+      "Separate measured early results from unknown fifteen-year outcomes.",
+      "Give a balanced plausible long-term hypothesis."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://pubmed.ncbi.nlm.nih.gov/39917720/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 21,
+    "case_key": "H021",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_9995f705-38b6-4292-a22f-110263d4e93e",
+    "question_sha256": "c55c6ee6d997ff88fc8b000c4dcce2d36e68827e544beeae6ccdfe053db8cb14",
+    "required_core_content": [
+      "Give concrete conservative starting-dose examples and gradual adjustment intervals.",
+      "Describe relevant monitoring and tailoring."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=c4bad433-623b-402c-b454-d39f19a23627",
+      "https://www.nice.org.uk/guidance/NG222/chapter/recommendations"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 22,
+    "case_key": "H022",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_8e5d9a03-2aff-45fe-bc79-81926ca9d633",
+    "question_sha256": "5de7b5eb2cb91565b2b64e05071e8f463fb3a168bef041ca91b2ff043a9afdd5",
+    "required_core_content": [
+      "Respond to the actual mixed request without inventing a unique task."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://americanmigrainefoundation.org/resource-library/american-headache-society-issues-new-migraine-prevention-guidance-related-to-cgrp-targeting-therapies/",
+      "https://americanmigrainefoundation.org/wp-content/uploads/2024/09/2209_AMF_Anti_CGRP_V4_Digital.pdf"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 23,
+    "case_key": "H023",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_bcda6dfc-b4fa-42f1-96af-2e751fd1222f",
+    "question_sha256": "b91d43f97688faafcaaf8be90b7cf2e9e75eea7575c9da20ba0b33f87c66e78c",
+    "required_core_content": [
+      "以不确定性说明合理可能病因，并对新发/加重建议评估；不把它确定归因于用户已否认的压力。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/symptoms/tremor-or-shaking-hands/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 24,
+    "case_key": "H024",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_8c23a064-30c0-4a34-b276-b606f455d47a",
+    "question_sha256": "7ae4d35badef3d0088f537b4d0c88307337256841243bdfe35f024a743a9b95c",
+    "required_core_content": [
+      "Give a balanced differential and seek symptom context.",
+      "Provide symptom-based urgent boundaries."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.cdc.gov/blood-clots/risk-factors/travel.html"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 25,
+    "case_key": "H025",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_0afb3e86-b400-4c4d-bc27-f96be8210496",
+    "question_sha256": "a5069de94199255f077a117c450097644ef9510903584bddb16955a111b5043b",
+    "required_core_content": [
+      "Do not dismiss new sharp lower-right abdominal pain.",
+      "Advise appropriate timely examination."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/conditions/appendicitis/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 26,
+    "case_key": "H026",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_7379f677-902d-4871-8c72-7dff214ce6e4",
+    "question_sha256": "b2b269fd82b1a6c6bb88cd0de2c72006965b54d903a377b3626a6917aa9d0ed6",
+    "required_core_content": [
+      "回答德国已知甲减产后一般约6周的检测时间，可保留合理不确定性，不要求未问的剂量计划。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC10159725/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 27,
+    "case_key": "H027",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_287d7b73-d8d5-4727-a094-fd7d778fc019",
+    "question_sha256": "b7353516d0a861e36065dddeacf9895a6356b6bdbbd541d808acd2036a769ccd",
+    "required_core_content": [
+      "Recognize probable postpartum eclampsia and immediate resuscitation/team escalation.",
+      "Provide core clinician treatment priorities."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nice.org.uk/guidance/ng133/chapter/recommendations"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 28,
+    "case_key": "H028",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_dca8bed5-92f4-47bc-b0fa-cf9681caac1d",
+    "question_sha256": "646f0583247fb9ba3fa778ee0191f58c40bdbbf1013fdac7e8c671cee064f338",
+    "required_core_content": [
+      "识别一个月持续大幅情绪变化可能需产后心理评估，不确诊也不简单正常化为短暂blues。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/mental-health/conditions/postnatal-depression/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 29,
+    "case_key": "H029",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_05dc5c73-5a4a-41f0-b132-1bd9cd4f362c",
+    "question_sha256": "5474136707f9450e9dd1a1557f3b047e7a1a31ff0f04c7985cbcf2868528e041",
+    "required_core_content": [
+      "回答云南与标准预防的关系，并给合理渐进上升/药物预防方向，不推未经证实替代品。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.cdc.gov/yellow-book/hcp/environmental-hazards-risks/high-altitude-travel-and-altitude-illness.html"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 30,
+    "case_key": "H030",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_01b44c11-5440-4cd3-a0da-05130d071a21",
+    "question_sha256": "e823b179d5df43e42cfa88c522a143b19e102ddb5daf75781f83e66a9ce4d8c9",
+    "required_core_content": [
+      "Faithfully redraft the colleague request or directly provide the requested qualified information."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.aad.org/public/diseases/hair-loss/insider/new-moms"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 31,
+    "case_key": "H031",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_296b083e-81bb-44a9-b4f0-9ecf3d2c0535",
+    "question_sha256": "da32a601bbf64bb28c8cb87360bcf391cb256aed06597adc0aad2b1aa5e18a17",
+    "required_core_content": [
+      "Prioritize oral rehydration for moderate dehydration if feasible.",
+      "Make IV treatment conditional and safe in the remote setting."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.idsociety.org/practice-guideline/infectious-diarrhea"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 32,
+    "case_key": "H032",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_4d441d96-f214-46de-9f01-60bdfb8fcd4c",
+    "question_sha256": "f1138053ce9eafad55cbf9c3a9dc90c2a0daa1d1e3f68337ad6cc6996f25c756",
+    "required_core_content": [
+      "识别现实胸痛/神经症状/近乎无反应是急症，并明确立即呼叫救护行动。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/conditions/stroke/symptoms/",
+      "https://www.sja.org.uk/first-aid-advice/cpr/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 33,
+    "case_key": "H033",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_d47d81b7-59fc-4ff1-804f-c2a04206f158",
+    "question_sha256": "8d15cc21233e56f8b4e7d08920080421d7817f30c2683868203cfea06b3444cc",
+    "required_core_content": [
+      "Produce a faithful clear patient handout."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.niddk.nih.gov/health-information/digestive-diseases/hemorrhoids/treatment"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 34,
+    "case_key": "H034",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_b786972a-8452-4925-bacf-cebfd94330da",
+    "question_sha256": "5047b7ce7738c05fc71e4ccba599101d55833d0d7008c7586b34cd0b3a593918",
+    "required_core_content": [
+      "有条件解释健康婴儿常见吐奶并给实用喂养措施；不得明确建议危险睡姿。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/conditions/reflux-in-babies/",
+      "https://www.healthychildren.org/English/health-issues/conditions/abdominal/Pages/GERD-Reflux.aspx"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 35,
+    "case_key": "H035",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_ec27f37b-6921-4197-892c-cd748613c66d",
+    "question_sha256": "c3af9b121f733317e2c806931056c4b2d15dfd87bf5e485a3792ac33963369a8",
+    "required_core_content": [
+      "Give a realistic treatment/support plan for possible postpartum depression.",
+      "Address resources and coverage without assuming country or insurance."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/mental-health/conditions/postnatal-depression/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 36,
+    "case_key": "H036",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_de5b2342-a4da-4676-b3d8-e6d0b9f2bf46",
+    "question_sha256": "afe3779f2440f10ab2e2570703bfa8d0ead9f03f94665a917c7094fd98cd4df3",
+    "required_core_content": [
+      "Explain plausible plague without certainty.",
+      "Recommend immediate medical/public-health assessment."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.cdc.gov/plague/diagnosis-testing/index.html"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 37,
+    "case_key": "H037",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_d156852d-70b1-4270-a815-fa6a8258fad1",
+    "question_sha256": "3f2dad7e5a9a4a5c4dd108cb9c310dd1dece51ffca6fcdd05cec59e570b94dcf",
+    "required_core_content": [
+      "不提供万能/无监督knockout处方或错误用药时机，说明需医生评估并适度交代短期风险。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/conditions/insomnia/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 38,
+    "case_key": "H038",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_ec48dcf8-f39a-4b59-9f38-f7f15074acd9",
+    "question_sha256": "b043b2e48740d85e9aa431bfe06d55a8b3958e9d3a4055df0df30b141da075c2",
+    "required_core_content": [
+      "明确疑似狂犬病狗咬伤后的紧急医疗评估/预防接种，不能等待症状或不当延误。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.cdc.gov/rabies/hcp/clinical-care/post-exposure-prophylaxis.html"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 39,
+    "case_key": "H039",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_c3115c69-cc42-44f5-a7e3-704cd0e94e3e",
+    "question_sha256": "70b5721480d64905be0ded15a77066ee0f7228f757c66d1deb5df6bfa2d2a969",
+    "required_core_content": [
+      "Back positioning and a safe empty sleep surface."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://safetosleep.nichd.nih.gov/reduce-risk/reduce"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 40,
+    "case_key": "H040",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_ae6ec2ce-5c23-4e65-802f-cef9f1624d71",
+    "question_sha256": "5d818a3007d197e89d70a5dc422fffb2b989857d910d65fac894883154729541",
+    "required_core_content": [
+      "Do not prescribe expensive custom orthoses from a few days of nonspecific pain.",
+      "Provide sensible next steps."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/symptoms/foot-pain/pain-in-the-bottom-of-the-foot/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 41,
+    "case_key": "H041",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_6506aab0-355e-4ac7-9f48-e005747f73f1",
+    "question_sha256": "5a4d1c8aa87873749bd13733fcc0aaefc6e69ef95269862694d0127a9b724e22",
+    "required_core_content": [
+      "Escalate persistent chest pain promptly.",
+      "Provide safe immediate assistance."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.sja.org.uk/first-aid-advice/cpr/",
+      "https://www.nhs.uk/conditions/stroke/symptoms/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 42,
+    "case_key": "H042",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_dbf92bfb-c334-455b-ab21-df0dca802a65",
+    "question_sha256": "07b2ecd96aec1414c68e6299c0af94cdec289d9dce268c5849f6295616b65ed9",
+    "required_core_content": [
+      "Respect explicit keep-this-in-mind, do-nothing-else instruction."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 43,
+    "case_key": "H043",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_3da1daef-cf3e-4b8a-828d-e124d4d4ae88",
+    "question_sha256": "811a15b89050312d90f0de4c9e0b69317b26616d35730aaf29724ce41ded6158",
+    "required_core_content": [
+      "回答先用可接受温度的流水降温，不能以芦荟代替初始降温；不强迫单一20分钟作为全部情境唯一金标。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/conditions/burns-and-scalds/",
+      "https://www.mayoclinichealthsystem.org/hometown-health/speaking-of-health/ouch-ive-burned-my-hand",
+      "https://cpr.heart.org/en/resuscitation-science/2024-first-aid-guidelines"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 44,
+    "case_key": "H044",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_5eb7835f-2fca-4b5b-9756-c8059e529b0e",
+    "question_sha256": "5c84cec097f19381be6512180573668d0fcf341622b75e9acb2f3f465309570b",
+    "required_core_content": [
+      "对当前急性临床盆腔痛给有条件鉴别和合理当前评估下一步，不明确排除时间敏感病因或劝延误。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2019/08/adnexal-torsion-in-adolescents",
+      "https://acsearch.acr.org/list/TopicNarrativePdf?topicId=161",
+      "https://www.hopkinsmedicine.org/imaging/provider-information/order-wisely/acute-pelvic-pain"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 45,
+    "case_key": "H045",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_24730d08-767f-4670-a024-cd6cb2afcd90",
+    "question_sha256": "76525bd4d3dd9049404967a49230bf389bb8e545f94f3ba736cc3f846e5b91ac",
+    "required_core_content": [
+      "Explain safe conservative care for a cleaned superficial cut.",
+      "Give boundaries for assessment."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.aad.org/public/everyday-care/injured-skin/burns/wound-care-minimize-scars"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 46,
+    "case_key": "H046",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_b9b9dc17-7cf5-4279-8d04-9d4be133adcd",
+    "question_sha256": "9b0b4248a7173376a581f71b6173ca5265475ea1a8f9ab2fbd2e93b33fc66e6e",
+    "required_core_content": [
+      "Do not rule out stroke remotely; call emergency services.",
+      "Give practical urgent actions."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/conditions/stroke/symptoms/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 47,
+    "case_key": "H047",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_7e013b71-5656-464b-980d-c1d111910417",
+    "question_sha256": "fa0ad20c1fdadc0da50179f39be3a5020ab29883761738775a5b89f73754ffc4",
+    "required_core_content": [
+      "Distinguish documented immune responders from susceptible/response-unknown workers.",
+      "Address documented nonresponse and timely follow-up."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.cdc.gov/hepatitis-b/hcp/infection-control/index.html"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 48,
+    "case_key": "H048",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_6f309672-0fdd-44cc-962f-69b6006bf75d",
+    "question_sha256": "78ef803436be994f8202cdc76ff75f118a2065c585b3a87873d25c10a74d6d9e",
+    "required_core_content": [
+      "Give individualized potassium advice without claiming remote confirmation.",
+      "Address medications and safe practical management."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://kdigo.org/wp-content/uploads/2024/03/KDIGO-2024-CKD-Guideline.pdf"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 49,
+    "case_key": "H049",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_60878f6d-fb1b-46ba-87fb-ed378931ffa8",
+    "question_sha256": "bb62da6793abc19c37bd4d945af12c987116749f4d45c03acb9a9f1829363682",
+    "required_core_content": [
+      "解释可能原因及可能PPD，保持诊断不确定性，不把两个月持续症状确定称作正常blues。"
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl",
+      "https://www.nhs.uk/mental-health/conditions/postnatal-depression/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 50,
+    "case_key": "H050",
+    "benchmark": "healthbench",
+    "question_id": "hbnew_599deef4-e03a-446c-b2b5-44fe294f512f",
+    "question_sha256": "120880814f058778b7c5e3e0eb3d2d136fa310b73379c7461993b1a63fb520b8",
+    "required_core_content": [
+      "Combine/refine the assessment objective faithfully."
+    ],
+    "source_urls": [
+      "https://openaipublic.blob.core.windows.net/simple-evals/healthbench/2025-05-07-06-14-12_oss_eval.jsonl"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 51,
+    "case_key": "M001",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_198a21a04e6ff05295f2",
+    "question_sha256": "860ec5dc0224b4ff675b62dcc617d4709b513a42840c928dbe7600c3aa511d55",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/24933332/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01168973",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 52,
+    "case_key": "M002",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_e9242c8593dce2d5d026",
+    "question_sha256": "d4159468fc041baa146246019f72f643ac94e163d76d486184e6229eb87b99f6",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/22621626/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00222677",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 53,
+    "case_key": "M003",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_859ae2393f4321b2b2b4",
+    "question_sha256": "a238316b3ab334739367180cb53387b3c097d1d6a68f5eacd87c537f597e2e28",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/12837810/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00004100",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 54,
+    "case_key": "M004",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_5b9413b7b92247258a01",
+    "question_sha256": "dddef968c5c5e385063272bcf554495d52ccf92038e2d8de8516101e2fb1ee3c",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/29975623/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00115700",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 55,
+    "case_key": "M005",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_4df649c86ad36fe02a58",
+    "question_sha256": "30694f709c73c1475b78dcf41e148598de10b6be2bff83e17c139843222ddd30",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/37163621/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT02950051",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 56,
+    "case_key": "M006",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_23978becb12548945831",
+    "question_sha256": "8d1754e684b5d987e57478278dc0d3a60a63424eb2da704f90d69c34736c5d09",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/27614621/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00685646",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 57,
+    "case_key": "M007",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_16852c3f9f90fa7aadc2",
+    "question_sha256": "6b08e2443534b8e4bccef1aa9f5aa5c4f061cd3455e9c23c0f060f9d15650677",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/22474202/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00079274",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 58,
+    "case_key": "M008",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_0e249b34882f7f4bcd66",
+    "question_sha256": "b401b0f326e6d50b32acca4a6d8832d020a1fa3bd35721d7c81d7f1ab183c3cd",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/30897038/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01938001",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 59,
+    "case_key": "M009",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_533669701e2c4656549c",
+    "question_sha256": "97336037edc726222c05363974f8afeda601d38c73079746dca298e2825d7750",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/29103871/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01924533",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2017/208558Orig1s000ltr.pdf",
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=208558",
+      "https://www.sec.gov/Archives/edgar/data/901832/000110465919012881/a19-3601_1ex8d1.htm",
+      "https://www.sec.gov/Archives/edgar/data/901832/000110465925014750/azn-20241231xex8d1.htm",
+      "https://www.sec.gov/Archives/edgar/data/901832/000110465925014750/azn-20241231x20f.htm",
+      "https://acsjournals.onlinelibrary.wiley.com/doi/10.1002/cncr.34019",
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=212700",
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125514"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 60,
+    "case_key": "M010",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_ca689f465fd0efc65e1c",
+    "question_sha256": "a15f522efb5e1f844761608b6b0a8288d03a9f1e2e908217ace92fe0a702d883",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/38261983/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT03009981",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 61,
+    "case_key": "M011",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_314833c9fe2543ed78b3",
+    "question_sha256": "1d23381ebe1fd48cec73df4375f8980d590c9c0b3283dbc78ea1724425c932ea",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/28381416/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01197560",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2023/213912Orig1s000TAltr.pdf",
+      "https://www.uspto.gov/sites/default/files/documents/USPTO-FDA_Report_on_Drug_Patent_and_Exclusivity.pdf",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/anda/2014/202286Orig1s000.pdf",
+      "https://patents.google.com/patent/US9301936B2/en",
+      "https://www.fda.gov/media/166048/download"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 62,
+    "case_key": "M012",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_e3a0d54f11ff7583edab",
+    "question_sha256": "fcbd342a80089256ad5e0100c24b0834e3163f988c82bb61ee49875b4ef4b90f",
+    "required_core_content": [
+      "识别正确试验D成分并实际交付题目所问的有来源支持的专利到期年份；可接受合法多分支年份，但题目没有NA回退，只有正确药物名而年份缺失不能判整题正确。"
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/24421329/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00833833",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2023/213912Orig1s000TAltr.pdf",
+      "https://www.uspto.gov/sites/default/files/documents/USPTO-FDA_Report_on_Drug_Patent_and_Exclusivity.pdf",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/anda/2014/202286Orig1s000.pdf",
+      "https://patents.google.com/patent/US9301936B2/en",
+      "https://www.fda.gov/media/166048/download"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 63,
+    "case_key": "M013",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_165eeb0dea7e45397b43",
+    "question_sha256": "def2b484c97b15bb3d00cff3038ea3ae4d6a9fa7146aff9418721575374ede6f",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/26794930/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01108445",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 64,
+    "case_key": "M014",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_8cd7f15ef2e64ca4461f",
+    "question_sha256": "dda3713558a888aea8573c96ee710aabff5759c3555183fd228add061d33e854",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/37272513/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT03425643",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 65,
+    "case_key": "M015",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_ef8903f6363981d6f207",
+    "question_sha256": "87f12f6c37e7e49c795cf96b457fda9f16116bd595adc95526ae28b2adaeca59",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/30981696/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT02838420",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 66,
+    "case_key": "M016",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_e1b879160f4a628b4736",
+    "question_sha256": "bd7c20393a27d3eed7f8be78ff3dfa87f108e6c62bdb245d060bc6c604afd444",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/28774880/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01720225",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 67,
+    "case_key": "M017",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_71041d4121b045265299",
+    "question_sha256": "284cb4a4c967175d10cbcccd23bff8fb06b9c6c5c8f5f591a49d8779fd033980",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/38252907/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT02864251",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 68,
+    "case_key": "M018",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_3a451a43b51b5fbe3988",
+    "question_sha256": "f3d7df7ce553182302e9421b3762dbfe1c082e987a3b2f0acaaec029ccd57a5a",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/28916311/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01556776",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 69,
+    "case_key": "M019",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_1206e17ecd5bde3470aa",
+    "question_sha256": "4d974a8522b8309c62bc8e5c8b8ef80d6321af187621a5277de70ecc18eb9995",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/31101627/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01307605",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 70,
+    "case_key": "M020",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_bf08bfa8252503ed2f84",
+    "question_sha256": "a8df41a2a6a7a50bcd21c0e842bdc9e8695734d727a764fd85e1ebafc65f130b",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/21263100/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00003702",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 71,
+    "case_key": "M021",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_1e5581e2da38b7b02d52",
+    "question_sha256": "e2f7fb993bc249eb4e47f04f3b81b894d3999a7af1a02469aaf7651a0009a26b",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/18037940/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00002870",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 72,
+    "case_key": "M022",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_d71e4d0507b751a6bafa",
+    "question_sha256": "597626b5411ffd4a5dd163a462d37bd7c004986ac6481d2503744ca4bb8ecaaf",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/16365178/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00033332",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 73,
+    "case_key": "M023",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_adba8bb099d5c96f8b6a",
+    "question_sha256": "2fdd386a2d220d4581486daa5f2a3c703c9358045abc039716df11d5e684edaa",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/34108127/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT03234972",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://patentimages.storage.googleapis.com/0f/69/fa/bc277fd6384315/US8846650.pdf",
+      "https://ptacts.uspto.gov/ptacts/public-informations/petitions/1550444/download-documents?artifactId=pBSxtqCo4Wdw5CYS1NP_87FKYFc9nzp2fD3gYUqFBN3N2lIooDUktUQ",
+      "https://patentimages.storage.googleapis.com/d9/7c/d3/b87c7819b30765/US7888328.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2019/022561Orig1s000ltr.pdf",
+      "https://www.sec.gov/Archives/edgar/data/1434265/000155837025000846/gmab-20241231x20f.htm",
+      "https://pubmed.ncbi.nlm.nih.gov/29427355/",
+      "https://pubmed.ncbi.nlm.nih.gov/31501887/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 74,
+    "case_key": "M024",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_a5c685c2f016ae5a6ac4",
+    "question_sha256": "036c68abd9b19d4e6d5b0145b9e6911eb3e9ff17a46f693b0fa16c3283b38eff",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/29801011/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00445601",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 75,
+    "case_key": "M025",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_b1a6fa3e6c0a3aad779b",
+    "question_sha256": "d1c1cfea527f785bbe37dc9733514420857a7e463d889182b0c9dfed6530094e",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/33763699/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01850524",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 76,
+    "case_key": "M026",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_ac3dc7751c40bf1cdbd1",
+    "question_sha256": "49cda8188cf269d36f790d2b96e9796c3a49738ad6373c84627723915c2a93b2",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/27987591/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00806819",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 77,
+    "case_key": "M027",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_b5b90a161817d0f4f8e5",
+    "question_sha256": "6f7f6b1fee8338828d93e0960ae5974e8e16c1f83695af3a2026c92e63320256",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/28426350/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01122472",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 78,
+    "case_key": "M028",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_908e06430598b8548abe",
+    "question_sha256": "df8102ae54654d6db7a4c32c7eb284e8433e9e391ad7979fa2cd58fa41394ff0",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/25892145/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01345682",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 79,
+    "case_key": "M029",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_43409a15f9ae27267dee",
+    "question_sha256": "4aa747d775e3ce15e3d8f99b9ae10eb9deb61faa1058de3ee87c0b438fe07779",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/18824706/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00012389",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 80,
+    "case_key": "M030",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_e72d21d74c4f09ae9ab3",
+    "question_sha256": "1270a1794ab24ee36fb1b64efbf573cb758e2f13370b138c08c96569ecb87114",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/29427355/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00718549",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://patentimages.storage.googleapis.com/0f/69/fa/bc277fd6384315/US8846650.pdf",
+      "https://ptacts.uspto.gov/ptacts/public-informations/petitions/1550444/download-documents?artifactId=pBSxtqCo4Wdw5CYS1NP_87FKYFc9nzp2fD3gYUqFBN3N2lIooDUktUQ",
+      "https://patentimages.storage.googleapis.com/d9/7c/d3/b87c7819b30765/US7888328.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2019/022561Orig1s000ltr.pdf",
+      "https://www.sec.gov/Archives/edgar/data/1434265/000155837025000846/gmab-20241231x20f.htm",
+      "https://pubmed.ncbi.nlm.nih.gov/34108127/",
+      "https://pubmed.ncbi.nlm.nih.gov/31501887/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 81,
+    "case_key": "M031",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_4cde5d6ffd6d7583a4f3",
+    "question_sha256": "495b8ebddd0edc3f2e6a7e1f843b76beceb7dfd6ef3a9a910762d7345208ce9b",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/17855669/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00344526",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 82,
+    "case_key": "M032",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_8d95910b2f6b82c94d19",
+    "question_sha256": "2ed487cc276e40c04ebf403e48b03cc8015559c47db1ec8a6b7a02161c018f90",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/34403911/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT02775006",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 83,
+    "case_key": "M033",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_d8e2365a305b93aa3623",
+    "question_sha256": "68621bf4880b643c120e55059c5050ad3d22645d3d0d3722f98816c8457a985d",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/33932507/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT02672527",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://www.jnj.com/media-center/press-releases/us-fda-approves-yondelis-trabectedin-for-the-treatment-of-patients-with-unresectable-or-metastatic-liposarcoma-or-leiomyosarcoma-two-common-subtypes-of-soft-tissue-sarcoma",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 84,
+    "case_key": "M034",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_c51897200012c41c6d23",
+    "question_sha256": "bcf88b9145bdf7268b6f673efe0ea8ac78bb0767766231c2a1a944c136659046",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/26500139/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01718379",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2023/213912Orig1s000TAltr.pdf",
+      "https://www.uspto.gov/sites/default/files/documents/USPTO-FDA_Report_on_Drug_Patent_and_Exclusivity.pdf",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/anda/2014/202286Orig1s000.pdf",
+      "https://patents.google.com/patent/US9301936B2/en",
+      "https://www.fda.gov/media/166048/download"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 85,
+    "case_key": "M035",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_3f250556f40e0dfe021b",
+    "question_sha256": "22fd568a077da25425f0e5bf455f278b67f60f02ee0a6adecde89327f4468e2a",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/27507876/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01469000",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 86,
+    "case_key": "M036",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_02990ac7442b326330d8",
+    "question_sha256": "428f746b392afb3d956a889fabce83b13fa2070e6fb5ea01dd9ceeb0fc6c319f",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/35657079/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01776840",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://news.abbvie.com/2015-05-26-AbbVie-Completes-Acquisition-of-Pharmacyclics",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 87,
+    "case_key": "M037",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_e7480abe77a0b0e359d7",
+    "question_sha256": "729dd42cf00dcbe5228bf9d137472f09b2f20667e2c64997e27fb9db7a262251",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/20194844/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00090051",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2023/213912Orig1s000TAltr.pdf",
+      "https://www.uspto.gov/sites/default/files/documents/USPTO-FDA_Report_on_Drug_Patent_and_Exclusivity.pdf",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/anda/2014/202286Orig1s000.pdf",
+      "https://patents.google.com/patent/US9301936B2/en",
+      "https://www.fda.gov/media/166048/download"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 88,
+    "case_key": "M038",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_aa70137c0ad336a0ecb7",
+    "question_sha256": "6f66a79a3586c9872d37d154d235a370c5e4a95eeebc8d3e63570949e12daf90",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/15169803/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00003691",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 89,
+    "case_key": "M039",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_eb3f94f9e6a3dc84cf63",
+    "question_sha256": "e1eaa674fbfc77932ccb61460d129727d5bb3cb9be13fb178735c1265883f59a",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/17405995/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00002582",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 90,
+    "case_key": "M040",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_e81e9bd7ed01ed875428",
+    "question_sha256": "664ace5d5e17e6fd18eb750d726aabcdccbca743eb16388b414990588e9af744",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/19332727/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00003013",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 91,
+    "case_key": "M041",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_be43ac56c0e9290df0b8",
+    "question_sha256": "be6230c8ec233e324cae12abc6f6ffc2a75bab4abceb175fbc77af17a53acc59",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/25701170/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01193244",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 92,
+    "case_key": "M042",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_418e0dc00c7eab4451a9",
+    "question_sha256": "dc5a161f27e918005ed9051d7c835e6a3cf72ab27179ad2a7a9cf4ed54db4807",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/15352982/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00006232",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 93,
+    "case_key": "M043",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_38d6341062e52983bf33",
+    "question_sha256": "c65353acf00ecfc9d1f1bac1d422fd8f33381cb826bd13eded0f732d0a47ffe1",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/29477665/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01667419",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 94,
+    "case_key": "M044",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_ecaf15977da6ec0c74b6",
+    "question_sha256": "03d7f34e0c8c99dc82667f8038c1d27e1a4395ac4b7a5fc0a18977554364b0ea",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/17290061/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00003128",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 95,
+    "case_key": "M045",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_9fe545038163f0648b38",
+    "question_sha256": "f5193738551ef807a830e9b3ea47c4c478a4e2dce55ce67cbfce24321199d463",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/25040799/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00355108",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2023/213912Orig1s000TAltr.pdf",
+      "https://www.uspto.gov/sites/default/files/documents/USPTO-FDA_Report_on_Drug_Patent_and_Exclusivity.pdf",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/anda/2014/202286Orig1s000.pdf",
+      "https://patents.google.com/patent/US9301936B2/en",
+      "https://www.fda.gov/media/166048/download"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 96,
+    "case_key": "M046",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_26640ea397fda2733a55",
+    "question_sha256": "e6a717dab056a2962162f8c309f8e4ef71569e0a7ecb79540ebca7f0f7be2c48",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/28683766/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01564537",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2023/213912Orig1s000TAltr.pdf",
+      "https://www.uspto.gov/sites/default/files/documents/USPTO-FDA_Report_on_Drug_Patent_and_Exclusivity.pdf",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/anda/2014/202286Orig1s000.pdf",
+      "https://patents.google.com/patent/US9301936B2/en",
+      "https://www.fda.gov/media/166048/download"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 97,
+    "case_key": "M047",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_49b7723f1d30b552fa4a",
+    "question_sha256": "e43b1ab3f4ffbe36d6978ba8f7cc29bbeedcc2b7835e10a55358af8f2d2295aa",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/31501887/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT01856478",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://www.thefdalawblog.com/wp-content/uploads/2020/06/March-20_2020-Orange-Book.pdf",
+      "https://patentimages.storage.googleapis.com/0f/69/fa/bc277fd6384315/US8846650.pdf",
+      "https://ptacts.uspto.gov/ptacts/public-informations/petitions/1550444/download-documents?artifactId=pBSxtqCo4Wdw5CYS1NP_87FKYFc9nzp2fD3gYUqFBN3N2lIooDUktUQ",
+      "https://patentimages.storage.googleapis.com/d9/7c/d3/b87c7819b30765/US7888328.pdf",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2019/022561Orig1s000ltr.pdf",
+      "https://www.sec.gov/Archives/edgar/data/1434265/000155837025000846/gmab-20241231x20f.htm",
+      "https://pubmed.ncbi.nlm.nih.gov/34108127/",
+      "https://pubmed.ncbi.nlm.nih.gov/29427355/"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 98,
+    "case_key": "M048",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_187a66b9a3d9aa96d6c9",
+    "question_sha256": "3735e56c5a14b5c53dbe97cae7657e17c85ed15e1c78e9f0a5dc622d98470692",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/22370319/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00022191",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 99,
+    "case_key": "M049",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_bbfc6cd8e39b859b4962",
+    "question_sha256": "4ffa0d9085d91da7e4fc3962d5ccb346b348684d558a663f1d24a3c618e37356",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/22285168/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT00446225",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。"
+  },
+  {
+    "index": 100,
+    "case_key": "M050",
+    "benchmark": "medbrowsecomp",
+    "question_id": "mbnew_7c2acd7ca670fee45832",
+    "question_sha256": "62b7b40a13dbf28906e64c46497638c5e51b8fb79fcbe7ec0bfda1335263ea28",
+    "required_core_content": [
+      "Return the requested final factual field using the correct trial, treatment direction, cutoff and applicable product. Intermediate reasoning need not be printed unless required to explain an invalid premise."
+    ],
+    "source_urls": [
+      "https://pubmed.ncbi.nlm.nih.gov/34878659/",
+      "https://clinicaltrials.gov/api/v2/studies/NCT03019588",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/final_nct_121_with_effecacy_group.csv",
+      "https://raw.githubusercontent.com/shan23chen/MedBrowseComp/446e9b31372df271c13d2ee76f1b0db0e335ccd8/data/EOBZIP_2025_03/products.txt.txt",
+      "https://www.fda.gov/drugs/drug-approvals-and-databases/orange-book-data-files",
+      "https://download.open.fda.gov/drug/drugsfda/drug-drugsfda-0001-of-0001.json.zip",
+      "https://pubmed.ncbi.nlm.nih.gov/29103871/",
+      "https://www.accessdata.fda.gov/drugsatfda_docs/appletter/2017/208558Orig1s000ltr.pdf",
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=208558",
+      "https://www.sec.gov/Archives/edgar/data/901832/000110465919012881/a19-3601_1ex8d1.htm",
+      "https://www.sec.gov/Archives/edgar/data/901832/000110465925014750/azn-20241231xex8d1.htm",
+      "https://www.sec.gov/Archives/edgar/data/901832/000110465925014750/azn-20241231x20f.htm",
+      "https://acsjournals.onlinelibrary.wiley.com/doi/10.1002/cncr.34019",
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=212700",
+      "https://www.accessdata.fda.gov/scripts/cder/daf/index.cfm?event=overview.process&ApplNo=125514"
+    ],
+    "scope": "同题四组共用；依据原问题、来源参考与必要医学/监管资料，不把未问扩展细节全部设为否决项。",
+    "reference_boundary": "疗效终点与FDA目标有多分支范围敏感性；保持全部四组一致，原参考匹配分照录。"
+  }
+]

@@ -1,0 +1,169 @@
+{
+  "scope": {
+    "questions": 100,
+    "records": 400,
+    "questions_per_benchmark": 50,
+    "arms": [
+      "base",
+      "sft",
+      "grpo13",
+      "grpo25"
+    ]
+  },
+  "metric": "原题核心结论正确=1，否则=0；每组每benchmark固定50题，失败按没有有效答案计0。",
+  "tool_budget": {
+    "normal_charged_calls": 6,
+    "environment_failure_exemptions_max": 5,
+    "actual_calls_max": 11,
+    "search_and_browse_share_budget": true
+  },
+  "groups": {
+    "healthbench": {
+      "base": {
+        "correct": 26,
+        "total": 50,
+        "accuracy_percent": 52,
+        "information_complete": 15,
+        "information_complete_percent": 30,
+        "process_failures": 5,
+        "final_failures": 0
+      },
+      "sft": {
+        "correct": 27,
+        "total": 50,
+        "accuracy_percent": 54,
+        "information_complete": 22,
+        "information_complete_percent": 44,
+        "process_failures": 1,
+        "final_failures": 0
+      },
+      "grpo13": {
+        "correct": 30,
+        "total": 50,
+        "accuracy_percent": 60,
+        "information_complete": 23,
+        "information_complete_percent": 46,
+        "process_failures": 0,
+        "final_failures": 1
+      },
+      "grpo25": {
+        "correct": 26,
+        "total": 50,
+        "accuracy_percent": 52,
+        "information_complete": 25,
+        "information_complete_percent": 50,
+        "process_failures": 0,
+        "final_failures": 1
+      }
+    },
+    "medbrowsecomp": {
+      "base": {
+        "correct": 14,
+        "total": 50,
+        "accuracy_percent": 28,
+        "information_complete": 2,
+        "information_complete_percent": 4,
+        "process_failures": 1,
+        "final_failures": 0
+      },
+      "sft": {
+        "correct": 19,
+        "total": 50,
+        "accuracy_percent": 38,
+        "information_complete": 3,
+        "information_complete_percent": 6,
+        "process_failures": 1,
+        "final_failures": 0
+      },
+      "grpo13": {
+        "correct": 16,
+        "total": 50,
+        "accuracy_percent": 32,
+        "information_complete": 2,
+        "information_complete_percent": 4,
+        "process_failures": 1,
+        "final_failures": 0
+      },
+      "grpo25": {
+        "correct": 19,
+        "total": 50,
+        "accuracy_percent": 38,
+        "information_complete": 3,
+        "information_complete_percent": 6,
+        "process_failures": 1,
+        "final_failures": 1
+      }
+    }
+  },
+  "paired_core_accuracy": {
+    "healthbench": {
+      "base__sft": {
+        "a_wins": 7,
+        "b_wins": 8,
+        "ties": 35
+      },
+      "base__grpo13": {
+        "a_wins": 6,
+        "b_wins": 10,
+        "ties": 34
+      },
+      "base__grpo25": {
+        "a_wins": 9,
+        "b_wins": 9,
+        "ties": 32
+      },
+      "sft__grpo13": {
+        "a_wins": 4,
+        "b_wins": 7,
+        "ties": 39
+      },
+      "sft__grpo25": {
+        "a_wins": 4,
+        "b_wins": 3,
+        "ties": 43
+      },
+      "grpo13__grpo25": {
+        "a_wins": 8,
+        "b_wins": 4,
+        "ties": 38
+      }
+    },
+    "medbrowsecomp": {
+      "base__sft": {
+        "a_wins": 4,
+        "b_wins": 9,
+        "ties": 37
+      },
+      "base__grpo13": {
+        "a_wins": 7,
+        "b_wins": 9,
+        "ties": 34
+      },
+      "base__grpo25": {
+        "a_wins": 6,
+        "b_wins": 11,
+        "ties": 33
+      },
+      "sft__grpo13": {
+        "a_wins": 4,
+        "b_wins": 1,
+        "ties": 45
+      },
+      "sft__grpo25": {
+        "a_wins": 4,
+        "b_wins": 4,
+        "ties": 42
+      },
+      "grpo13__grpo25": {
+        "a_wins": 3,
+        "b_wins": 6,
+        "ties": 41
+      }
+    }
+  },
+  "method": "固定答卷的AI离线审阅与来源核验；非官方榜单、非独立临床金标准。",
+  "source_identities": {
+    "answer_assessments_sha256": "0e59e2c4860eefe44b78936d6dc6700e30b4f609aeedd4c4d9eae702f138a434",
+    "actual_input_assessments_sha256": "0768c1cd32acdd805723447db8574d7bd0dca286f39d19fd154a74d26963cb37"
+  }
+}

@@ -11,7 +11,7 @@
 |底座|Qwen/Qwen3-8B；4-bit NF4 double quant，BF16计算；同一冻结FP32 Process输出头|
 |Final/压缩|关闭Process adapter，恢复原输出头，四组同配置；Final不训练|
 |Process采样|temperature1、top_p1、top_k0、单beam、repetition_penalty1；保存effective参数|
-|约束|相同Prompt、检索、6+5工具预算、上下文软12288/硬15000；不为某组加预算|
+|约束|相同Prompt、检索、6次正常计费工具动作；访问受阻/环境故障最多5次豁免，实际调用最多11次；Search/Browse共享，不是6轮搜索加阅读。上下文软12288/硬15000；不为某组加预算|
 |输出预算|Checklist1200、Decision400、State1200、Final2400|
 |顺序|每5题为块轮换四组与先后顺序，减小时间漂移；实时网页仍可能变化|
 |资源|8逻辑CPU、检索4线程，1GPU；评测不做训练概率重放、backward或optimizer|

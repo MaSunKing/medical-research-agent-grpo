@@ -12,16 +12,17 @@ Base表示未启用本项目训练参数的对照；GRPO13／25分别是完成�
 
 | 跨基准验证评测指标 | Base | Process-SFT | GRPO13 | GRPO25 |
 |---|---:|---:|---:|---:|
-| HealthBench实际证据交付覆盖 | 63.08% | 78.00% | 76.08% | **81.92%** |
-| MedBrowseComp实际证据交付覆盖 | 4.50% | 10.00% | 7.17% | **13.17%** |
+| HealthBench核心答案正确率 / 50 | 52% | 54% | **60%** | 52% |
+| HealthBench必要信息齐全率 / 50 | 30% | 44% | 46% | **50%** |
+| MedBrowseComp核心答案正确率 / 50 | 28% | **38%** | 32% | **38%** |
 | 完全重复Search额外动作 | 31 | 1 | **0** | **0** |
 | 重大或Process失败，去重题数 | 21 | 17 | **14** | **14** |
 | Process失败 / 100 | 6 | 2 | **1** | **1** |
 | 答案生成失败 / 100 | **0** | **0** | 1 | 2 |
 
-当前以**GRPO25作为证据交付主候选**，GRPO13保留为HealthBench答案指标对照。GRPO25对SFT的交付覆盖为22胜、11负、67平，Process质量值R为41胜、38负、21平；收益集中在证据交付和部分可靠性指标，逐题比较并非全面占优。
+**Base→SFT→GRPO的改进在HB上同时体现为核心答题与信息交付：** GRPO13核心答案正确率60%，高于SFT的54%与Base的52%；GRPO25必要信息齐全率50%，高于SFT的44%与Base的30%。当前以GRPO25作为证据交付主候选，GRPO13保留为HB答案指标对照。MB上GRPO25与SFT同为38%；两个checkpoint各有侧重，不合并成一个模型的成绩。
 
-交付覆盖衡量适用材料覆盖多少原题内容点，不是医学答案准确率。完全重复Search可能命中缓存，也不等于重复API调用。全部答案Judge分、胜负、失败和统计边界见[跨基准验证完整报告](versions/process_final_sft/experiments/newbench_20261028/README.md)；[评测地图与指标](versions/process_final_sft/evaluation.md)解释三项评测的用途。
+核心答案准确率按原题核心结论／字段是否正确记0或1，失败保留，分母固定50题；必要信息齐全率看实际PreFinal是否足以支持全部必要内容，材料齐全不保证最终回答正确。MB涉及试验→药物→FDA等精确多跳，四组共同受6次正常工具动作预算约束，成绩结合任务要求与具体缺口阅读。[准确率标准、MB任务边界与逐题依据](versions/process_final_sft/experiments/newbench_20261028/accuracy.md)；原Judge分、覆盖、胜负和失败保留于[完整报告](versions/process_final_sft/experiments/newbench_20261028/README.md)。
 
 ## 真实案例：交付与失败都能追溯
 

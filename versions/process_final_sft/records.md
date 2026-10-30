@@ -14,6 +14,8 @@
 
 Q01–50来自HealthBench，Q51–100来自MedBrowseComp。每题四组均列出分项、内容点、具体错误、失败及恢复，含全部400条。题号仅在本评测内有效；开发对照的Q01–Q50属于另一题集，不能按同号配对。
 
+每题同时列出四组核心答案正确／错误、必要信息齐全判定及理由。[准确率标准与MB任务边界](experiments/newbench_20261028/accuracy.md) · [400条答案判断](experiments/newbench_20261028/accuracy_records_400.json) · [准确率CSV](experiments/newbench_20261028/accuracy_scores_400.csv)。
+
 |题号|benchmark|逐题四组记录|
 |---|---|---|
 |Q01|HealthBench|[评分、内容点与具体问题](experiments/newbench_20261028/questions/Q01.md)|
